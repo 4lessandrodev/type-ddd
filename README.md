@@ -83,6 +83,10 @@ DDD não é uma arquitetura. O DDD (Domain Driven Design) é uma modelagem de so
 
 ![imagem](./readme/arquitetura-hexagonal.jpg 'imagem')
 
+Arquitetura hexagonal
+
 ### Padrão de Pastas
+
+Baseado na arquitetura hexagonal, sugestão de organização de pastas
 
 ![imagem](./readme/padrao-pastas.png 'imagem')
