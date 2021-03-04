@@ -2,7 +2,7 @@
 
 ## Backend
 
-O backend da aplicação é inspirado nos princípios de [Domain Driven Design](https://khalilstemmler.com/articles/categories/domain-driven-design/).
+Arquivos padrões em typescript para iniciar um projeto usando DDD. Inspirado nos princípios de [Domain Driven Design](https://khalilstemmler.com/articles/categories/domain-driven-design/).
 
 ### Componentes do bloco de construção utilizados em cada subdomínio
 
@@ -80,6 +80,8 @@ O backend da aplicação é inspirado nos princípios de [Domain Driven Design](
 ### As Camadas
 
 DDD não é uma arquitetura. O DDD (Domain Driven Design) é uma modelagem de software cujo objetivo é facilitar a implementação de regras e processos complexos, onde visa a divisão de responsabilidades por camadas e é independente da tecnologia utilizada. Ou seja, o DDD é uma filosofia voltado para o domínio do negócio.
+
+![imagem](./readme/arquitetura-hexagonal.jpg 'imagem')
 
 ### Padrão de Pastas
 
