@@ -81,12 +81,16 @@ Arquivos padrões em typescript para iniciar um projeto usando DDD. Inspirado no
 
 DDD não é uma arquitetura. O DDD (Domain Driven Design) é uma modelagem de software cujo objetivo é facilitar a implementação de regras e processos complexos, onde visa a divisão de responsabilidades por camadas e é independente da tecnologia utilizada. Ou seja, o DDD é uma filosofia voltado para o domínio do negócio.
 
-![imagem](./readme/arquitetura-hexagonal.jpg 'imagem')
+### Para arquitetura
 
-Arquitetura hexagonal
+Deixo como sugestão a Arquitetura hexagonal
+
+[Saiba mais](https://br.sensedia.com/post/use-of-the-hexagonal-architecture-pattern)
+
+![imagem](./readme/arquitetura-hexagonal.jpg 'imagem')
 
 ### Padrão de Pastas
 
 Baseado na arquitetura hexagonal, sugestão de organização de pastas
 
-![imagem](./readme/padrao-pastas.png 'imagem')
+![imagem](./readme/organizacao-pastas.png 'imagem')
