@@ -4,7 +4,7 @@ export * from './identifier';
 export * from './result';
 export * from './unique-entity-id';
 export * from './events/domain-events';
-export * from './events/IDomainEvent';
+export * from './events/idomain-event';
 export * from './events/ihandle';
 export * from './value-object';
 export * from './base-domain-entity';
