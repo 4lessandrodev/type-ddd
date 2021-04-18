@@ -1,6 +1,6 @@
 import { Entity } from './entity';
 import { DomainEvents } from './events/domain-events';
-import { IDomainEvent } from './events/idomain-event';
+import { IDomainEvent } from './events/domain-event.interface';
 import { UniqueEntityID } from './unique-entity-id';
 
 export abstract class AggregateRoot<T> extends Entity<T> {
