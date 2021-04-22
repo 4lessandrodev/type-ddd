@@ -14,3 +14,5 @@ export * from './repo/base-repository.abstract';
 export * from './repo/filter.interface';
 export * from './repo/mapper.interface';
 export * from './core/domain-id';
+export * from './core/read-list';
+export * from './core/write-list';
