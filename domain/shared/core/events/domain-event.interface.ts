@@ -1,6 +1,8 @@
-import { UniqueEntityID } from '../unique-entity-id';
+import UniqueEntityID from '../unique-entity-id';
 
-export interface IDomainEvent {
+export default interface IDomainEvent {
      dateTimeOccurred: Date;
      getAggregateId(): UniqueEntityID;
 }
+
+export { IDomainEvent };

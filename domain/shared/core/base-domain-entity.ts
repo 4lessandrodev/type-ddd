@@ -1,4 +1,4 @@
-export abstract class BaseDomainEntity {
+export default abstract class BaseDomainEntity {
      constructor(
           public createdAt?: Date,
           public updatedAt?: Date,
@@ -11,3 +11,5 @@ export abstract class BaseDomainEntity {
           this.deletedAt = isDeleted ? deletedAt : undefined;
      }
 }
+
+export { BaseDomainEntity };

@@ -1,11 +1,11 @@
-import { UniqueEntityID } from './unique-entity-id';
-import { BaseDomainEntity } from './base-domain-entity';
+import UniqueEntityID from './unique-entity-id';
+import BaseDomainEntity from './base-domain-entity';
 
 const isEntity = (v: any): v is Entity<any> => {
      return v instanceof Entity;
 };
 
-export abstract class Entity<T extends BaseDomainEntity> {
+export default abstract class Entity<T extends BaseDomainEntity> {
      protected readonly _id: UniqueEntityID;
      protected readonly props: T;
 
@@ -42,3 +42,5 @@ export abstract class Entity<T extends BaseDomainEntity> {
           return this._id.equals(object._id);
      }
 }
+
+export { Entity };
