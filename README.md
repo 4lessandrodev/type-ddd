@@ -253,7 +253,7 @@ interface Props extends BaseDomainEntity {
 ```
 
 ```ts
-class Car extends Entity<CarProps> {
+class Car extends Entity<Props> {
      private constructor(props: Props, id?: UniqueEntityID) {
           super(props, id);
      }
