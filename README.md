@@ -1,6 +1,7 @@
 # Types-ddd
 
 Documentation is being written
+**Install** `npm i types-ddd` or `yarn add types-ddd`
 
 !["image"](./readme/ddd.jpg 'image')
 
@@ -283,18 +284,18 @@ class Car extends Entity<Props> {
 
 #### Todo:
 
-☐ Documentation
+-    ☐ Documentation
 
 #### Implement value objects
 
-☐ Email
-☐ Name
-☐ PersonAge
-☐ Date
-☐ Currency
-☐ Hour
-☐ Password
-☐ MobilePhone
-☐ PostalCode
-☐ RgbColor
-☐ Url
+-    ☐ Email
+-    ☐ Name
+-    ☐ PersonAge
+-    ☐ Date
+-    ☐ Currency
+-    ☐ Hour
+-    ☐ Password
+-    ☐ MobilePhone
+-    ☐ PostalCode
+-    ☐ RgbColor
+-    ☐ Url
