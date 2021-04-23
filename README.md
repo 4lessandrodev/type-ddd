@@ -232,7 +232,7 @@ class AgeValueObject extends ValueObject<Prop> {
                );
           }
 
-          return Result.ok<AgeValueObject>(new NameValueObject({ value: age }));
+          return Result.ok<AgeValueObject>(new AgeValueObject({ value: age }));
      }
 }
 ```
@@ -266,13 +266,13 @@ class Car extends Entity<Props> {
           return this.props.year;
      }
 
-     public static create(props: Props): Result<Car> {
+     public static create(props: Props, id?: UniqueEntityID): Result<Car> {
           // Your business validation logic
           // You should use rules before create entity instance
           if (props.year.value < 1960) {
                return Result.fail<Car>('The car is so wreck');
           }
-          return Result.ok<Car>(new Car(props));
+          return Result.ok<Car>(new Car(props, id));
      }
 }
 ```
