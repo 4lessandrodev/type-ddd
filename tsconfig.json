@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "declaration": true,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ES6",
+        "strict": true,
+        "lib": [
+            "es2019"
+        ],
+        "sourceMap": false,
+        "outDir": "./dist",
+        "esModuleInterop": true,
+    },
+    "exclude": [
+        "/**/*.spec.ts",
+        "/*.spec.ts",
+    ]
+}

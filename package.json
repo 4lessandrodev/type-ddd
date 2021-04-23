@@ -1,0 +1,48 @@
+{
+    "name": "types-ddd",
+    "version": "0.0.1",
+    "description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
+    "main": "dist/index.js",
+    "types": "dist/index.d.js",
+    "license": "ISC",
+    "author": "Alessandro Dev",
+    "engines": {
+        "node": ">=12"
+    },
+    "keywords": [
+        "Complexity",
+        "NodeJS",
+        "Business Logic",
+        "DDD",
+        "Domain Driving Design",
+        "Typescript",
+        "DDD-Utils",
+        "Base Entity",
+        "Base Aggregate",
+        "Base Value Object"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "test": "jest --silent"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/4lessandrodev/types-ddd.git"
+    },
+    "bugs": {
+        "url": "https://github.com/4lessandrodev/types-ddd/issues"
+    },
+    "homepage": "https://github.com/4lessandrodev/types-ddd#readme",
+    "dependencies": {
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@microsoft/tsdoc": "^0.13.2",
+        "@types/jest": "^26.0.22",
+        "@types/uuid": "^8.3.0",
+        "jest": "^26.6.3",
+        "ts-jest": "^26.5.5",
+        "ts-node": "^8.10.2",
+        "typescript": "^3.9.5"
+    }
+}
