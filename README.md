@@ -282,6 +282,8 @@ class Car extends Entity<Props> {
 
 #### Documentation is being written
 
+[Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/)
+
 #### Todo:
 
 -    ☐ Documentation
