@@ -17,6 +17,14 @@ describe('base-connection', () => {
      class Connection<Target> implements IBaseConnection<Target, typeORM> {
           constructor(private readonly conn: typeORM) {}
 
+          async update(target: Target): Promise<void> {
+               await this.conn.update(target);
+          }
+
+          async create(target: Target): Promise<void> {
+               await this.conn.create(target);
+          }
+
           async find(filter: Filter): Promise<Target[]> {
                return this.conn.findMany(filter);
           }
@@ -27,14 +35,7 @@ describe('base-connection', () => {
                const exist = await this.conn.findOne(filter);
                return !!exist;
           }
-          async save(target: Target): Promise<void> {
-               const exist = await this.conn.findOne(target);
-               if (exist) {
-                    await this.conn.update(target);
-               } else {
-                    await this.conn.create(target);
-               }
-          }
+
           orm(): typeORM {
                return this.conn;
           }
@@ -65,8 +66,13 @@ describe('base-connection', () => {
           expect(connection.orm).toBeDefined();
      });
 
-     it('save should define', () => {
+     it('create should define', () => {
           const connection = new Connection(ORM);
-          expect(connection.save).toBeDefined();
+          expect(connection.create).toBeDefined();
+     });
+
+     it('update should define', () => {
+          const connection = new Connection(ORM);
+          expect(connection.update).toBeDefined();
      });
 });
