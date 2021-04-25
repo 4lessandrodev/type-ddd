@@ -22,7 +22,7 @@ Documentation is being written
 -    [13. Folders structure](#13-folders-structure)
 -    [14. Avaliable resourses](#14-avaliable-resourses)
 
-> This package provide utils file and interfaces to assistant build a complex application with domain driving design
+> This package provide utils file and interfaces to assistant build a complex application with domain driving design and typescript
 
 ## 1. Ubiquitous language:
 
@@ -227,7 +227,7 @@ class AgeValueObject extends ValueObject<Prop> {
 
      public static create(age: number): Result<AgeValueObject> {
           // must have less than 130 years old
-          if (age.length > 130) {
+          if (age > 130) {
                return Result.fail<AgeValueObject>(
                     "There's no Person like Methuselah",
                );

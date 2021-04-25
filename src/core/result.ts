@@ -1,3 +1,9 @@
+/**
+ * @description
+ * Result as its name says, returns an instance capable of identifying
+ * whether the processing of a function was successful or failed.
+ * And most importantly, it does not throw errors
+ */
 export default class Result<T> {
      public isSuccess: boolean;
      public isFailure: boolean;
@@ -28,7 +34,15 @@ export default class Result<T> {
           Object.freeze(this);
      }
      /**
-      * If success returns an instance of provided class.
+      * @description If success returns an instance of provided class.
+      *
+      * @example
+      * const result = Result.ok<string>("simple string");
+      *
+      * console.log(result.getResult());
+      *
+      * > "simple string"
+      *
       */
      public getResult(): T {
           if (!this.isSuccess) {
@@ -49,6 +63,11 @@ export default class Result<T> {
       *
       * @param value as U
       * @returns instance of Result with value
+      *
+      * @example
+      * Result.ok<string>("simple string");
+      *
+      *
       */
      public static ok<U>(value?: U): Result<U> {
           return new Result<U>(true, null, value);
@@ -58,6 +77,9 @@ export default class Result<T> {
       *
       * @param error string
       * @returns instance of Result with error
+      *
+      * @example
+      * Result.fail<string>("your error message");
       */
      public static fail<U>(error: string): Result<U> {
           return new Result<U>(false, error);

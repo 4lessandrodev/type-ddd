@@ -14,6 +14,9 @@ export default class DomainId extends Entity<any> {
           super(null, id);
      }
 
+     /**
+      * @returns UniqueEntityID
+      */
      get id(): UniqueEntityID {
           return this._id;
      }
