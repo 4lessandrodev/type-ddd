@@ -13,7 +13,7 @@ describe('aggregate', () => {
      interface userProps {
           name: string;
      }
-     // Define User Aggreate
+     // Define User Aggregate
      //-----------------------------------------------------------
      class UserAggregate extends AggregateRoot<userProps> {
           private constructor(props: userProps, id?: UniqueEntityID) {

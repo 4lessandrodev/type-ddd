@@ -1,19 +1,7 @@
 import IBaseConnection from './base-connection.interface';
+import IBaseRepository from './base-repository.interface';
 import Filter from './filter.interface';
 import IMapper from './mapper.interface';
-
-/**
- * `DomainAggregate` as Aggregate Entity
- * @example UserAggregate from domain
- * @example ORM return method types `findOne` `finMany` ...
- *
- */
-interface IBaseRepository<DomainAggregate> {
-     find: (filter: Filter) => Promise<DomainAggregate[] | null>;
-     delete: (filter: Filter) => Promise<void>;
-     exists: (filter: Filter) => Promise<boolean>;
-     save: (target: DomainAggregate) => Promise<void>;
-}
 
 /**
  * `Schema` as Entity to persist on database and
@@ -37,7 +25,7 @@ export default abstract class BaseRepository<DomainAggregate, Entity, ORM>
       * ConnectionInterface<TargetPersistence, ORM>,
       *
       * @example
-      * MapperInterface<TargetPersistence, DomainAggreate >,
+      * MapperInterface<TargetPersistence, DomainAggregate >,
       */
      constructor(
           protected readonly connection: IBaseConnection<Entity, ORM>,
