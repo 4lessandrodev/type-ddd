@@ -46,15 +46,15 @@ export default interface IBaseRepository<DomainAggregate> {
       *
       *  const persistenceTarget = this.mapper.toPersistence(target);
       *
-      *  const { id } = target;
+      *  const { id } = persistenceTarget;
       *
-      *  exist = await this.connection.exists({ id });
+      *  exist = await this.exists({ id });
       *
-      *  // if target already exist update it else create it
+      *  // if target already exist update it else create new one
       *  if (exist) {
-      *       await this.connection.update(persistenceValue);
+      *       await this.connection.update(persistenceTarget);
       *  } else {
-      *       await this.connection.create(persistenceValue);
+      *       await this.connection.create(persistenceTarget);
       *  }
       * }
       *

@@ -20,7 +20,7 @@ Documentation is being written
 -    [11. Domain events](#11-domain-events)
 -    [12. Anti-corruption layer](#12-anti-corruption-layer)
 -    [13. Folders structure](#13-folders-structure)
--    [14. Avaliable resourses](#14-avaliable-resourses)
+-    [14. Available resources](#14-avaliable-resourses)
 
 > This package provide utils file and interfaces to assistant build a complex application with domain driving design and typescript
 
@@ -133,9 +133,9 @@ Divided by
 
 !["image"](./readme/arch.png 'image')
 
-## 14. Avaliable resourses
+## 14. Available resources
 
-Resourses on this dependency
+Resources on this dependency
 
 -    AggregateRoot
 -    BaseDomainEntity
@@ -147,6 +147,7 @@ Resourses on this dependency
 -    ValueObject
 -    WriteList
 -    IBaseConnection
+-    IBaseRepository
 -    BaseRepository
 -    IRepository
 -    Filter
