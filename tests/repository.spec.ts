@@ -19,6 +19,7 @@ describe('respository', () => {
           exists: jest.fn(),
           delete: jest.fn(),
           find: jest.fn(),
+          findOne: jest.fn(),
           update: jest.fn(),
           create: jest.fn(),
           orm: () => ORM,
@@ -79,7 +80,7 @@ describe('respository', () => {
      it('should not call delete method from connection if register does not exist', async () => {
           const instance = new mockRepo(Connection, Mapper);
 
-          //Mock find methos, it is used on delete method
+          //Mock find methods, it is used on delete method
           jest.spyOn(instance, 'exists').mockResolvedValueOnce(false);
 
           //
@@ -87,10 +88,16 @@ describe('respository', () => {
           expect(Connection.delete).not.toHaveBeenCalled();
      });
 
-     it('should call find method', () => {
+     it('should call find method', async () => {
           const instance = new mockRepo(Connection, Mapper);
-          instance.find({ id: 'valid_id' });
+          await instance.find({ id: 'valid_id' });
           expect(Connection.find).toHaveBeenCalled();
+     });
+
+     it('should call findOne method', async () => {
+          const instance = new mockRepo(Connection, Mapper);
+          await instance.findOne({ id: 'valid_id' });
+          expect(Connection.findOne).toHaveBeenCalled();
      });
 
      it('should call save method and update on connection', async () => {
@@ -126,7 +133,7 @@ describe('respository', () => {
      it('should call exists method', async () => {
           const instance = new mockRepo(Connection, Mapper);
           //
-          //Mock find methos
+          //Mock find methods
           jest.spyOn(Connection, 'exists').mockResolvedValueOnce(true);
           //
           await instance.exists({ email: 'valid_email@mail.com' });
@@ -136,7 +143,7 @@ describe('respository', () => {
      it('should call delete method from connection', async () => {
           const instance = new mockRepo(Connection, Mapper);
 
-          //Mock find methos, it is used on delete method
+          //Mock find methods, it is used on delete method
           jest.spyOn(instance, 'exists').mockResolvedValueOnce(true);
 
           await instance.delete({ id: 'valid_id' });

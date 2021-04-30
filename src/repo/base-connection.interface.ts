@@ -7,6 +7,7 @@ import Filter from './filter.interface';
  * @example TypeORM installed instance
  *
  * @method find:
+ * @method findOne:
  * @method delete:
  * @method exists:
  * @method update:
@@ -15,6 +16,7 @@ import Filter from './filter.interface';
  */
 export default interface IBaseConnection<Entity, ORM> {
      find: (filter: Filter) => Promise<Entity[] | null>;
+     findOne: (filter: Filter) => Promise<Entity | null>;
      delete: (filter: Filter) => Promise<void>;
      exists: (filter: Filter) => Promise<boolean>;
      update: (target: Entity) => Promise<void>;

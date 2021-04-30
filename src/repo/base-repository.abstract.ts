@@ -48,6 +48,19 @@ export default abstract class BaseRepository<DomainAggregate, Entity, ORM>
      /**
       *
       * @param filter
+      * @returns DomainAggregate as Array or null
+      */
+     async findOne(filter: Filter): Promise<DomainAggregate | null> {
+          const target = await this.connection.findOne(filter);
+          if (!target) {
+               return null;
+          }
+          return this.mapper.toDomain(target);
+     }
+     //
+     /**
+      *
+      * @param filter
       * @returns Promise Void
       */
      async delete(filter: Filter): Promise<void> {

@@ -15,6 +15,7 @@ import Filter from './filter.interface';
  *
  * @description Methods to implement
  * @method find
+ * @method findOne
  * @method delete
  * @method exists
  * @method save
@@ -22,9 +23,14 @@ import Filter from './filter.interface';
 export default interface IBaseRepository<DomainAggregate> {
      /**
       * @param filter as `{key: value}`
-      * @returns Promise with `DomainAggregate` or `null`
+      * @returns Promise with Array of `DomainAggregate` or `null`
       */
      find: (filter: Filter) => Promise<DomainAggregate[] | null>;
+     /**
+      * @param filter as `{key: value}`
+      * @returns Promise with `DomainAggregate` or `null`
+      */
+     findOne: (filter: Filter) => Promise<DomainAggregate | null>;
      /**
       * @param filter as `{key: value}`
       * @returns Promise `void`
