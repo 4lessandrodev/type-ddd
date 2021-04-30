@@ -28,9 +28,15 @@ describe('base-connection', () => {
           async find(filter: Filter): Promise<Target[]> {
                return this.conn.findMany(filter);
           }
+
+          async findOne(filter: Filter): Promise<Target> {
+               return this.conn.findOne(filter);
+          }
+
           async delete(filter: Filter): Promise<void> {
                return this.conn.delete(filter);
           }
+
           async exists(filter: Filter): Promise<boolean> {
                const exist = await this.conn.findOne(filter);
                return !!exist;
@@ -59,6 +65,11 @@ describe('base-connection', () => {
      it('find should define', () => {
           const connection = new Connection(ORM);
           expect(connection.find).toBeDefined();
+     });
+
+     it('find should define', () => {
+          const connection = new Connection(ORM);
+          expect(connection.findOne).toBeDefined();
      });
 
      it('orm should define', () => {
