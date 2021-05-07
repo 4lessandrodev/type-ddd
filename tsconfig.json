@@ -12,7 +12,7 @@
         "lib": [
             "es2019"
         ],
-        "sourceMap": false,
+        "sourceMap": true,
         "outDir": "./dist",
         "esModuleInterop": true,
     },
