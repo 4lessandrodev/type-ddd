@@ -16,6 +16,7 @@
         "outDir": "./dist",
         "esModuleInterop": true,
     },
+	"include": ["src/*", "src/**/*"],
     "exclude": [
         "/**/*.spec.ts",
         "/*.spec.ts",
