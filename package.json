@@ -1,13 +1,13 @@
 {
 	"name": "types-ddd",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.js",
 	"license": "ISC",
 	"author": "Alessandro Dev",
 	"engines": {
-		"node": ">=12"
+		"node": ">=14"
 	},
 	"keywords": [
 		"Complexity",
