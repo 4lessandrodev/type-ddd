@@ -25,22 +25,22 @@ export default interface IBaseRepository<DomainAggregate> {
       * @param filter as `{key: value}`
       * @returns Promise with Array of `DomainAggregate` or `null`
       */
-     find: (filter: Filter) => Promise<DomainAggregate[] | null>;
+     find: (filter: Filter<Partial<DomainAggregate>>) => Promise<DomainAggregate[] | null>;
      /**
       * @param filter as `{key: value}`
       * @returns Promise with `DomainAggregate` or `null`
       */
-     findOne: (filter: Filter) => Promise<DomainAggregate | null>;
+     findOne: (filter: Filter<Partial<DomainAggregate>>) => Promise<DomainAggregate | null>;
      /**
       * @param filter as `{key: value}`
       * @returns Promise `void`
       */
-     delete: (filter: Filter) => Promise<void>;
+     delete: (filter: Filter<Partial<DomainAggregate>>) => Promise<void>;
      /**
       * @param filter as `{key: value}`
       * @returns Promise `boolean`
       */
-     exists: (filter: Filter) => Promise<boolean>;
+     exists: (filter: Filter<Partial<DomainAggregate>>) => Promise<boolean>;
      /**
       * @param target as DomainAggregate
       * @returns Promise `void`
