@@ -7,7 +7,14 @@ All notable changes to this project will be documented in this file.
 
 - ValueObject Decorator
 
-### Fixed
+### 1.2.0 - 2021-08-08
+
+---
+
+### Added 
+
+- PasswordValueObject
+- passwordGenerator
 
 ### 1.1.0 - 2021-07-28
 
