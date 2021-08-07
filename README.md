@@ -300,7 +300,7 @@ class Car extends Entity<Props> {
 - ☐ Date
 - ☐ Currency
 - ☐ Hour
-- ☐ Password
+- ✔ Password
 - ☐ MobilePhone
 - ☐ PostalCode
 - ☐ RgbColor

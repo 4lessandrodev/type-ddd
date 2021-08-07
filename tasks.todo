@@ -5,7 +5,7 @@ Implement value objects
    ☐ Date
    ☐ Currency
    ☐ Hour
-   ☐ Password
+   ✔ Password @done(21-08-07 02:07)
    ☐ MobilePhone
    ☐ PostalCode
    ☐ RgbColor
