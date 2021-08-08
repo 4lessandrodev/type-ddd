@@ -3,11 +3,11 @@ import { genSaltSync, hashSync, compareSync } from 'bcrypt';
 import passwordGenerator, { ILength } from "./password-generator.util";
 const regexHash = /^\$2b\$10\$.{53}$/;
 
-export interface Prop {
+interface Prop {
 	value: string;
 }
 
-export class PasswordValueObject extends ValueObject<Prop>{
+class PasswordValueObject extends ValueObject<Prop>{
 	constructor(props: Prop){
 		super(props)
 	}
@@ -92,3 +92,6 @@ export class PasswordValueObject extends ValueObject<Prop>{
 		return Result.ok<PasswordValueObject>(new PasswordValueObject({value}));
 	}
 }
+
+export { PasswordValueObject };
+export default PasswordValueObject;

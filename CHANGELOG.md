@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 
 - PasswordValueObject
 - passwordGenerator
+- CurrencyValueObject
 
 ### 1.1.0 - 2021-07-28
 

@@ -19,3 +19,4 @@ export * from './core/read-list';
 export * from './core/write-list';
 export * from './utils/password.value-object';
 export * from './utils/password-generator.util';
+export * from './utils/currency.value-object';
