@@ -4,7 +4,6 @@ const regexHash = /^\w+-?\w+[0-9]?@\w+[0-9]?\.\w{1,5}(\.\w{2})?/;
 interface Prop {
 	value: string
 }
-
 export class EmailValueObject extends ValueObject<Prop>{
 	private constructor(props: Prop){
 		super(props)

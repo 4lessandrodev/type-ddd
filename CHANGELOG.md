@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - passwordGenerator
 - CurrencyValueObject
 - EmailValueObject
+- UserNameValueObject
 
 ### 1.1.0 - 2021-07-28
 

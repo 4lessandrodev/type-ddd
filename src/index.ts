@@ -20,3 +20,5 @@ export * from './core/write-list';
 export * from './utils/password.value-object';
 export * from './utils/password-generator.util';
 export * from './utils/currency.value-object';
+export * from './utils/email.value-object';
+export * from './utils/user-name.value-object';

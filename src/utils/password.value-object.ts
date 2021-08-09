@@ -26,7 +26,7 @@ class PasswordValueObject extends ValueObject<Prop>{
 	 * @returns true if match else false
 	 */
 	public compare(plainText: string): boolean {
-		if (PasswordValueObject.isEncrypted(this.props.value)) {
+		if (this.isEncrypted()) {
 			return	compareSync(plainText, this.props.value);
 		}
 		return plainText === this.props.value;
@@ -42,7 +42,7 @@ class PasswordValueObject extends ValueObject<Prop>{
 
 	/**
 	 * 
-	 * @returns true if instance value is encrypted else false
+	 * @returns true if provided value is encrypted else false
 	 */
 	public static isEncrypted(value: string): boolean {
 		return regexHash.test(value);

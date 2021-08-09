@@ -295,7 +295,7 @@ class Car extends Entity<Props> {
 #### Implement value objects
 
 - ✔ Email
-- ☐ Name
+- ✔ Name
 - ☐ BirthDay
 - ✔ Currency
 - ☐ Hour
