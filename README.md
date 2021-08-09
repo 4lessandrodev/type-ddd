@@ -294,14 +294,13 @@ class Car extends Entity<Props> {
 
 #### Implement value objects
 
-- ☐ Email
+- ✔ Email
 - ☐ Name
-- ☐ PersonAge
-- ☐ Date
-- ☐ Currency
+- ☐ BirthDay
+- ✔ Currency
 - ☐ Hour
 - ✔ Password
-- ☐ MobilePhone
+- ☐ PhoneNumber
 - ☐ PostalCode
 - ☐ RgbColor
 - ☐ Url

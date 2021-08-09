@@ -1,12 +1,11 @@
 Implement value objects 
-   ☐ Email
+   ✔ Email @done(21-08-08 20:56)
    ☐ Name
-   ☐ PersonAge
-   ☐ Date
-   ☐ Currency
+   ☐ Birthday
+   ✔ Currency @done(21-08-08 03:24)
    ☐ Hour
    ✔ Password @done(21-08-07 02:07)
-   ☐ MobilePhone
+   ☐ PhoneNumber
    ☐ PostalCode
    ☐ RgbColor
    ☐ Url
