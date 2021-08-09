@@ -6,8 +6,13 @@ All notable changes to this project will be documented in this file.
 ### Added 
 
 - ValueObject Decorator
+- HomePhoneValueObject
+- MobilePhoneValueObject
+- PostalCodeValueObject
+- RgbColorValueObject
+- UrlValueObject
 
-### 1.2.0 - 2021-08-08
+### 1.2.0 - 2021-08-09
 
 ---
 

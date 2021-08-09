@@ -299,7 +299,8 @@ class Car extends Entity<Props> {
 - ✔ BirthDay
 - ✔ Currency
 - ✔ Password
-- ☐ PhoneNumber
+- ☐ HomePhone
+- ☐ MobilePhone
 - ☐ PostalCode
 - ☐ RgbColor
 - ☐ Url
