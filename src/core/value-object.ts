@@ -4,7 +4,7 @@ interface ValueObjectProps {
 
 /**
  * @desc ValueObjects are objects that we determine their
- * equality through their structrual property.
+ * equality through their structural property.
  */
 
 export default abstract class ValueObject<T extends ValueObjectProps> {

@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.js",
@@ -34,9 +34,12 @@
 		"url": "https://github.com/4lessandrodev/types-ddd/issues"
 	},
 	"homepage": "https://alessandroadm.gitbook.io/types-ddd/",
-	"dependencies": {},
+	"dependencies": {
+		"bcrypt": "^5.0.1"
+	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.13.2",
+		"@types/bcrypt": "^5.0.0",
 		"@types/jest": "^26.0.24",
 		"jest": "^27.0.6",
 		"rimraf": "^3.0.2",
