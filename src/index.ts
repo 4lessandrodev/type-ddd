@@ -22,3 +22,4 @@ export * from './utils/password-generator.util';
 export * from './utils/currency.value-object';
 export * from './utils/email.value-object';
 export * from './utils/user-name.value-object';
+export * from './utils/birthday.value-object';
