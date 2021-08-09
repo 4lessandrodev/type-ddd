@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - CurrencyValueObject
 - EmailValueObject
 - UserNameValueObject
+- BirthdayValueObject
 
 ### 1.1.0 - 2021-07-28
 

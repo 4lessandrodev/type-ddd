@@ -296,11 +296,30 @@ class Car extends Entity<Props> {
 
 - ✔ Email
 - ✔ Name
-- ☐ BirthDay
+- ✔ BirthDay
 - ✔ Currency
-- ☐ Hour
 - ✔ Password
 - ☐ PhoneNumber
 - ☐ PostalCode
 - ☐ RgbColor
 - ☐ Url
+
+##### Just import and use it
+
+```ts
+
+import { PasswordValueObject } from 'types-ddd';
+
+const passOrError = PasswordValueObject.create('my-strong-pass');
+const isValid = passOrError.isSuccess;
+
+console.log(isValid);
+> true
+
+const pass = passOrError.getResult();
+pass.encrypt();
+
+console.log(pass.value);
+> "$2a$12$AdLoTarjC5wnc1tAUc3j1.RczGxxImH0mG6dZkS5zPaGrTi/EmPWG"
+
+```
