@@ -19,7 +19,6 @@ describe('generate-random-tracking-code.util', () => {
 			index++
 		}
 		const uniques = [...new Set(codes)];
-		console.table(uniques);
 		expect(uniques).toHaveLength(301);
 	})
 });

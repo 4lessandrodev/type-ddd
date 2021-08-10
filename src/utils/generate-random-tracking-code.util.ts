@@ -36,8 +36,8 @@ const generateRandomTracking = (): string => {
 		var value = order.slice(digit, digit + 1);
 		sum += parseInt(value);
 	}
-
-	return `${controller}-${randomLetter}${partOne}${sum}-${normalize}`;
+	const middle = `${randomLetter}${partOne}${sum}000`;
+	return `${controller}-${middle.slice(0,6)}-${normalize}`;
 }
 
 export { generateRandomTracking };

@@ -16,14 +16,23 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+### 1.3.1 - 2021-08-10
+
+---
+
+### Fixed
+
+- TrackingCodeValueObject
+
 ### 1.3.0 - 2021-08-10
 
 ---
+
 ### Changed
 
 - Result StatusCode
 
-### Added 
+### Added
 
 - Logger
 - HomePhoneValueObject
