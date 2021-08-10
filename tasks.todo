@@ -4,8 +4,16 @@ Implement value objects
    ✔ Birthday @done(21-08-09 00:11)
    ✔ Currency @done(21-08-08 03:24)
    ✔ Password @done(21-08-07 02:07)
-   ☐ HomePhone
-   ☐ MobilePhone
+   ✔ HomePhone @done(21-08-09 21:00)
+   ✔ MobilePhone @done(21-08-09 21:00)
+   ✔ TrackingCode
    ☐ PostalCode
    ☐ RgbColor
    ☐ Url
+   ☐ OrderStatus
+   ☐ ItemDimensions
+   ☐ ShippingWeight
+   ☐ EANCode
+   ☐ ISBNCode
+   ☐ UPCCode
+   
