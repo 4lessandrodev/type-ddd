@@ -302,8 +302,9 @@ class Car extends Entity<Props> {
 - ✔ HomePhone
 - ✔ MobilePhone
 - ✔ TrackingCode
+- ✔ RgbColor
+- ✔ hexColor
 - ☐ PostalCode
-- ☐ RgbColor
 - ☐ Url
 - ☐ OrderStatus
 - ☐ ItemDimensions

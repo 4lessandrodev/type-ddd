@@ -7,8 +7,8 @@ Implement value objects
    ✔ HomePhone @done(21-08-09 21:00)
    ✔ MobilePhone @done(21-08-09 21:00)
    ✔ TrackingCode
+   ✔ RgbColor @done(21-08-10 18:46)
    ☐ PostalCode
-   ☐ RgbColor
    ☐ Url
    ☐ OrderStatus
    ☐ ItemDimensions

@@ -7,7 +7,6 @@ All notable changes to this project will be documented in this file.
 
 - ValueObject Decorator
 - PostalCodeValueObject
-- RgbColorValueObject
 - UrlValueObject
 - OrderStatusValueObject
 - ItemDimensionsValueObject
@@ -15,6 +14,14 @@ All notable changes to this project will be documented in this file.
 - EANCodeValueObject
 - ISBNCodeValueObject
 - UPCCodeValueObject
+
+### 1.4.0 - 2021-08-10
+
+---
+### Added
+
+- RgbColorValueObject
+- HEXColorValueObject
 
 ### 1.3.1 - 2021-08-10
 
