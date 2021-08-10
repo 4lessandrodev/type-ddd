@@ -27,3 +27,5 @@ export * from './utils/logger.util';
 export * from './utils/home-phone.value-object';
 export * from './utils/mobile-phone.value-object';
 export * from './core/domain-id';
+export * from './utils/rgb-color.value-object';
+export * from './utils/hex-color.value-object';
