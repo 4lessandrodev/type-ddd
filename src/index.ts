@@ -23,3 +23,7 @@ export * from './utils/currency.value-object';
 export * from './utils/email.value-object';
 export * from './utils/user-name.value-object';
 export * from './utils/birthday.value-object';
+export * from './utils/logger.util';
+export * from './utils/home-phone.value-object';
+export * from './utils/mobile-phone.value-object';
+export * from './core/domain-id';

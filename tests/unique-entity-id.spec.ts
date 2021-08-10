@@ -4,11 +4,10 @@ describe('unique-entity-id', () => {
 
 	it('should create a new random unique entity id', () => {
 		const id = new UniqueEntityID();
-		console.log(id);
 		expect(id.toString().length).toBeGreaterThan(20);
 	});
 
-	it('should not repeat valus for entity id', () => {
+	it('should not repeat values for entity id', () => {
 		let index = 0;
 		const randomIds: UniqueEntityID[] = [];
 
