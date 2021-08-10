@@ -299,11 +299,18 @@ class Car extends Entity<Props> {
 - ✔ BirthDay
 - ✔ Currency
 - ✔ Password
-- ☐ HomePhone
-- ☐ MobilePhone
+- ✔ HomePhone
+- ✔ MobilePhone
+- ✔ TrackingCode
 - ☐ PostalCode
 - ☐ RgbColor
 - ☐ Url
+- ☐ OrderStatus
+- ☐ ItemDimensions
+- ☐ ShippingWeight
+- ☐ EANCode
+- ☐ ISBNCode
+- ☐ UPCCode
 
 ##### Just import and use it
 
