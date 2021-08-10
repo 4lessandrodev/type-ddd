@@ -35,7 +35,6 @@
 	},
 	"homepage": "https://alessandroadm.gitbook.io/types-ddd/",
 	"dependencies": {
-		"@types/pino": "^6.3.11",
 		"bcrypt": "^5.0.1",
 		"pino": "^6.13.0",
 		"pino-pretty": "^5.1.2"
@@ -44,6 +43,7 @@
 		"@microsoft/tsdoc": "^0.13.2",
 		"@types/bcrypt": "^5.0.0",
 		"@types/jest": "^26.0.24",
+		"@types/pino": "^6.3.11",
 		"jest": "^27.0.6",
 		"rimraf": "^3.0.2",
 		"ts-jest": "^27.0.3",
