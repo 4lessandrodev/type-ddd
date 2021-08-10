@@ -3,14 +3,34 @@
 All notable changes to this project will be documented in this file.
 ## Unreleased
 
-### Added 
+### Added
 
 - ValueObject Decorator
-- HomePhoneValueObject
-- MobilePhoneValueObject
 - PostalCodeValueObject
 - RgbColorValueObject
 - UrlValueObject
+- OrderStatusValueObject
+- ItemDimensionsValueObject
+- ShippingWeightValueObject
+- EANCodeValueObject
+- ISBNCodeValueObject
+- UPCCodeValueObject
+
+### 1.3.0 - 2021-08-10
+
+---
+### Changed
+
+- Result StatusCode
+
+### Added 
+
+- Logger
+- HomePhoneValueObject
+- MobilePhoneValueObject
+- DomainId
+- TrackingCodeValueObject
+
 
 ### 1.2.0 - 2021-08-09
 
@@ -29,7 +49,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-### Added 
+### Added
 
 - Dynamic types to Filter
 - Types validation to IBaseRepository

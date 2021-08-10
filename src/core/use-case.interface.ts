@@ -6,11 +6,11 @@
  * @returns Response
  */
 export default interface IUseCase<Request, Response> {
-     /**
-      * @param Dto: as request
-      * @returns Promise<Response>
-      */
-     execute: (request: Request) => Promise<Response>;
+	 /**
+	  * @param Dto: as request
+	  * @returns Promise<Response>
+	  */
+	 execute: (request: Request) => Promise<Response>;
 }
 
 export { IUseCase };
