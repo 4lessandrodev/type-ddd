@@ -21,11 +21,31 @@ export class BirthdayValueObject extends ValueObject<Prop>{
 	 * @description this method round the age
 	 * @returns age as number
 	 */
-	getAgeInYears(): number {
+	getAgeAsYearsOld(): number {
 		const now = new Date().getTime();
 		const difference = now - this.props.value.getTime();
 		const ageInYears = (difference / this.ONE_YEAR);
 		return Math.trunc(ageInYears);
+	}
+
+	/**
+	 * 
+	 * @param age as number
+	 * @returns true if instance value is greater than provided value else return false
+	 */
+	isAgeGreaterThan(age: number): boolean {
+		const yearOld = this.getAgeAsYearsOld();
+		return age < yearOld;
+	}
+
+	/**
+	 * 
+	 * @param age as number
+	 * @returns true if instance value is equal to provided value else return false
+	 */
+	isAgeEqualTo(age: number): boolean {
+		const yearOld = this.getAgeAsYearsOld();
+		return age === yearOld;
 	}
 
 	/**

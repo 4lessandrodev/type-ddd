@@ -32,7 +32,7 @@ describe('birthday.value-object', () => {
 		birth.setTime(1596939967044);
 
 		const valueObject = BirthdayValueObject.create(birth).getResult();
-		expect(valueObject.getAgeInYears()).toBeGreaterThanOrEqual(1);
+		expect(valueObject.getAgeAsYearsOld()).toBeGreaterThanOrEqual(1);
 	})
 
 	it('should return age', ()=>{
@@ -40,6 +40,24 @@ describe('birthday.value-object', () => {
 		birth.setTime(965787967044);
 
 		const valueObject = BirthdayValueObject.create(birth).getResult();
-		expect(valueObject.getAgeInYears()).toBeGreaterThanOrEqual(21);
+		expect(valueObject.getAgeAsYearsOld()).toBeGreaterThanOrEqual(21);
+	})
+
+	it('should check age value', ()=>{
+		const birth = new Date();
+		birth.setTime(965787967044); // 2000-01-01
+
+		const age = BirthdayValueObject.create(birth).getResult();
+		const userHasMoreThan16YearsOld = age.isAgeGreaterThan(16);
+		expect(userHasMoreThan16YearsOld).toBeTruthy();
+	})
+
+	it('should check age value', ()=>{
+		const birth = new Date();
+		birth.setTime(965787967044); // 2000-01-01
+
+		const age = BirthdayValueObject.create(birth).getResult();
+		const userHas16YearsOld = age.isAgeEqualTo(16); //>21
+		expect(userHas16YearsOld).toBeFalsy();
 	})
 });

@@ -313,13 +313,14 @@ class Car extends Entity<Props> {
 - ☐ ISBNCode
 - ☐ UPCCode
 
-##### Just import and use it
+
+#### Just import and use it
 
 ```ts
 
 import { PasswordValueObject } from 'types-ddd';
 
-const passOrError = PasswordValueObject.create('my-strong-pass');
+const passOrError = PasswordValueObject.create('my-strength-pass');
 const isValid = passOrError.isSuccess;
 
 console.log(isValid);
@@ -330,5 +331,42 @@ pass.encrypt();
 
 console.log(pass.value);
 > "$2a$12$AdLoTarjC5wnc1tAUc3j1.RczGxxImH0mG6dZkS5zPaGrTi/EmPWG"
+
+console.log(pass.isEncrypted());
+> true
+
+const passMatch = pass.compare('my-strength-pass');
+
+console.log(passMatch);
+> true
+
+console.log(PasswordValueObject.generateRandomPassword(12));
+> "WtS65$@!A6by"
+
+```
+
+#### Just import and use it
+Safe value object to calculate finance values
+
+```ts
+const myCurrency = CurrencyValueObject.create({ currency: 'BRL', value: 0.50 }).getResult();
+
+console.log(myCurrency.value);
+> 0.5
+
+myCurrency.add(0.50); // 1
+myCurrency.multiplyBy(50); // 50
+myCurrency.divideBy(2); // 25
+myCurrency.subtractBy(5); // 20
+myCurrency.add(80); // 100
+myCurrency.addPercent(2); // 102
+myCurrency.subtractBy(2); // 100
+myCurrency.subtractPercent(30); // 70
+
+console.log(myCurrency.value);
+> 70
+
+console.log(myCurrency.getCurrencyString());
+> "R$ 70.00"
 
 ```
