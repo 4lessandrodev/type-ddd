@@ -6,7 +6,6 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - ValueObject Decorator
-- PostalCodeValueObject
 - UrlValueObject
 - OrderStatusValueObject
 - ItemDimensionsValueObject
@@ -22,6 +21,7 @@ All notable changes to this project will be documented in this file.
 
 - RgbColorValueObject
 - HEXColorValueObject
+- PostalCodeValueObject
 
 ### 1.3.1 - 2021-08-10
 
