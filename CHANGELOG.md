@@ -6,7 +6,6 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - ValueObject Decorator
-- UrlValueObject
 - OrderStatusValueObject
 - ItemDimensionsValueObject
 - ShippingWeightValueObject
@@ -14,7 +13,7 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
-### 1.4.0 - 2021-08-10
+### 1.4.1 - 2021-08-11
 
 ---
 ### Added
@@ -22,6 +21,11 @@ All notable changes to this project will be documented in this file.
 - RgbColorValueObject
 - HEXColorValueObject
 - PostalCodeValueObject
+- UrlValueObject
+
+### Change
+
+- Result
 
 ### 1.3.1 - 2021-08-10
 

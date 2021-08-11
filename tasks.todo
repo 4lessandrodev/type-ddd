@@ -9,7 +9,7 @@ Implement value objects
    ✔ TrackingCode
    ✔ RgbColor @done(21-08-10 18:46)
    ✔ PostalCode @done(21-08-10 22:49)
-   ☐ Url
+   ✔ Url @done(21-08-11 02:34)
    ☐ OrderStatus
    ☐ ItemDimensions
    ☐ ShippingWeight
