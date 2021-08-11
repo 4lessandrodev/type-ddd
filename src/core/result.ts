@@ -24,15 +24,11 @@ type ErrorStatus = 300 | 301 | 302 | 303 | 304 | 305 | 306 | 400 | 401 | 402 | 4
 	  ) {
 		   if (isSuccess && error) {
 			   Logger.error('InvalidOperation: A result cannot be successful and contain an error');
-				throw new Error(
-					 'InvalidOperation: A result cannot be successful and contain an error',
-				);
+			   this.printError();
 			}
 			if (!isSuccess && !error) {
 				Logger.error( 'InvalidOperation: A failing result needs to contain an error message');
-				throw new Error(
-					'InvalidOperation: A failing result needs to contain an error message',
-				);
+				this.printError();
 			}
 			if (statusCode) {
 				this.statusCode = statusCode;
@@ -41,9 +37,10 @@ type ErrorStatus = 300 | 301 | 302 | 303 | 304 | 305 | 306 | 400 | 401 | 402 | 4
 			} else if (isSuccess && !statusCode) {
 				this.statusCode = 200;
 			} else {
+				this.statusCode = 400;
 				Logger.error('Could not define StatusCode for result');
 				Logger.warn(JSON.stringify(this));
-				throw new Error('Could not define StatusCode for result');
+				this.printError();
 			}
  
 			this.isSuccess = isSuccess;
@@ -53,6 +50,18 @@ type ErrorStatus = 300 | 301 | 302 | 303 | 304 | 305 | 306 | 400 | 401 | 402 | 4
  
 			Object.freeze(this);
 		}
+
+		private printError(): void {
+			let match;
+			const stack = new Error().stack ?? '';
+			try {
+				match = stack.match(/at Object\.\<anonymous\> \(.*/);
+			} catch {
+				match = stack.match(/  at\s.*  /);
+			}
+			Logger.error(match[0]);
+		}
+
 	  /**
 	   * @description If success returns an instance of provided class.
 	   *
@@ -68,9 +77,7 @@ type ErrorStatus = 300 | 301 | 302 | 303 | 304 | 305 | 306 | 400 | 401 | 402 | 4
 			if (!this.isSuccess) {
 				Logger.error('Can not get the value of an error result. Use errorValue instead.');
 				Logger.error(JSON.stringify(this));
-				throw new Error(
-					'Can not get the value of an error result. Use errorValue instead.',
-				);
+				this.printError();
 			}
 			return this._value;
 	  }

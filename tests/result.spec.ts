@@ -1,6 +1,5 @@
 import Result from '../src/core/result';
 import { IUseCase } from '../src/core/use-case.interface'
-import Logger from '../src/utils/logger.util';
 
 describe('result', () => {
 
@@ -88,12 +87,4 @@ describe('result', () => {
 		expect(result.statusCode).toBe(500);
 	});
 
-	it('should throw error if try get value from error result', async ()=>{
-		const fake = new useCase();
-		const result = await fake.execute();
-		expect(result.isFailure).toBe(true);
-		Logger.info('Next error on console is only to test handle error with Result.fail')
-		const error = ()=> result.getResult();
-		expect(error).toThrow();
-	})
 });
