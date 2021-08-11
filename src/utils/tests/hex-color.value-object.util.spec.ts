@@ -77,4 +77,10 @@ describe('hex-color.value-object', () => {
 		const valueObject = HEXColorValueObject.create('#000000').getResult();
 		expect(valueObject.getAsRGB()).toBe('rgb(0, 0, 0)');
 	})
+
+	it('should generate a random hex color', ()=>{
+		const valueObject = HEXColorValueObject.randomColor();
+		const isValid = HEXColorValueObject.isValidValue(valueObject.value);
+		expect(isValid).toBeTruthy();
+	})
 });
