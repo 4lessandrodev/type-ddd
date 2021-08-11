@@ -29,3 +29,5 @@ export * from './utils/mobile-phone.value-object';
 export * from './core/domain-id';
 export * from './utils/rgb-color.value-object';
 export * from './utils/hex-color.value-object';
+export * from './utils/color-generator.util';
+export * from './utils/color-converter.util';

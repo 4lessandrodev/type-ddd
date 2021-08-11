@@ -303,7 +303,7 @@ class Car extends Entity<Props> {
 - ✔ MobilePhone
 - ✔ TrackingCode
 - ✔ RgbColor
-- ✔ hexColor
+- ✔ HexColor
 - ✔ PostalCode
 - ✔ Url
 - ☐ OrderStatus

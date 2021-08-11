@@ -1,4 +1,6 @@
 import { Result, ValueObject } from "..";
+import colorConverter from "./color-converter.util";
+import colorGenerator from "./color-generator.util";
 const regexHash = /^rgb\((\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\,\s(\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\,\s(\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\)/;
 
 interface Prop {
@@ -26,22 +28,20 @@ class RGBColorValueObject extends ValueObject<Prop>{
 
 	/**
 	 * 
+	 * @returns RGBColorValueObject instance with random color value
+	 */
+	 public static randomColor(): RGBColorValueObject {
+		const rgbColor = colorGenerator.randomRGB();
+		return new RGBColorValueObject({ value: rgbColor });
+	}
+
+	/**
+	 * 
 	 * @returns hex color 
 	 * @example #ffffff
 	 */
 	getAsHex(): string {
-		const numbers = this.props.value.slice(4, this.props.value.length -1).split(",");
-		const rgb = numbers.map((n)=> n.trim());
-		
-		const r = parseInt(rgb[0]).toString(16).toLowerCase();
-		const g = parseInt(rgb[1]).toString(16).toLowerCase();
-		const b = parseInt(rgb[2]).toString(16).toLowerCase();
-
-		const red = r === '0' ? '00' : r;
-		const green = g === '0' ? '00' : g;
-		const blue = b === '0' ? '00' : b;
-
-		return `#${red}${green}${blue}`;
+		return colorConverter.RGBToHEX(this.props.value)
 	}
 
 	/**

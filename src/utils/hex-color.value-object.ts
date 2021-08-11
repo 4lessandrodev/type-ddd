@@ -1,4 +1,6 @@
 import { Result, ValueObject } from "..";
+import colorConverter from "./color-converter.util";
+import colorGenerator from "./color-generator.util";
 const regexHash = /^([#])([0-9|a-f]{2})([0-9|a-f]{1,2})([0-9|a-f]{1,2})/;
 
 interface Prop {
@@ -12,6 +14,15 @@ class HEXColorValueObject extends ValueObject<Prop>{
 
 	get value(): string {
 		return this.props.value.toLowerCase();
+	}
+
+	/**
+	 * 
+	 * @returns HEXColorValueObject instance with random color value
+	 */
+	public static randomColor(): HEXColorValueObject {
+		const hexColor = colorGenerator.randomHEX();
+		return new HEXColorValueObject({ value: hexColor });
 	}
 
 	/**
@@ -31,15 +42,7 @@ class HEXColorValueObject extends ValueObject<Prop>{
 	 * @example rgb(255, 255, 255)
 	 */
 	getAsRGB(): string {
-		const r = parseInt(this.props.value.slice(1, 3), 16);
-		const g = parseInt(this.props.value.slice(3, 5), 16);
-		const b = parseInt(this.props.value.slice(5, 7), 16);
-
-		const red: number = isNaN(r) ? 0 : r;
-		const green: number = isNaN(g) ? 0 : g;
-		const blue: number = isNaN(b) ? 0 : b;
-
-		return `rgb(${red}, ${green}, ${blue})`;
+		return colorConverter.HEXToRGB(this.props.value);
 	}
 
 	/**
