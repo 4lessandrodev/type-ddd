@@ -349,7 +349,13 @@ console.log(PasswordValueObject.generateRandomPassword(12));
 Safe value object to calculate finance values
 
 ```ts
-const myCurrency = CurrencyValueObject.create({ currency: 'BRL', value: 0.50 }).getResult();
+
+import { CurrencyValueObject } from 'types-ddd';
+
+const myCurrency = CurrencyValueObject.create({
+   currency: 'BRL', 
+   value: 0.50 
+}).getResult();
 
 console.log(myCurrency.value);
 > 0.5
