@@ -82,4 +82,10 @@ describe('rgb-color.value-object', () => {
 		const valueObject = RGBColorValueObject.create('rgb(0, 0, 0)');
 		expect(valueObject.getResult().getAsHex()).toBe('#000000');
 	})
+
+	it('should generate a random rgb color', ()=>{
+		const valueObject = RGBColorValueObject.randomColor();
+		const isValid = RGBColorValueObject.isValidValue(valueObject.value);
+		expect(isValid).toBeTruthy();
+	})
 });
