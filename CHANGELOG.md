@@ -13,6 +13,14 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+### 1.5.1 - 2021-08-11
+
+---
+
+### Changed
+
+- BirthdayValueObject
+
 ### 1.5.0 - 2021-08-11
 
 ---
