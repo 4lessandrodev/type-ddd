@@ -16,9 +16,14 @@ const isEntity = (v: any): v is Entity<any> => {
  abstract class Entity<T extends BaseDomainEntity> {
 	protected readonly _id: DomainId;
 	protected readonly props: T;
-	private readonly entityName: string | undefined;
+	private readonly entityName: string;
 	
-	constructor(props: T, entityName?: string) {
+	/**
+	 * 
+	 * @param props proprieties as T
+	 * @param entityName entity name as string
+	 */
+	constructor(props: T, entityName: string) {
 		this._id = props.ID;
 		this.props = props;
 		 this.entityName = entityName;
@@ -42,7 +47,7 @@ const isEntity = (v: any): v is Entity<any> => {
 		 * @returns hash code [ClassName]:[id]
 		 */
 		getHashCode(): UniqueEntityID {
-			const name = this.entityName ? `@${this.entityName}` : '@Entity';
+			const name = `@${this.entityName}`;
 			return new UniqueEntityID(`${name}:${this._id.toString()}`);
 	}
 	

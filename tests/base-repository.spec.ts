@@ -9,7 +9,7 @@ interface userProps extends BaseDomainEntity {
 
 class UserAggregate extends Entity<userProps> {
 	private constructor(props: userProps) {
-		super(props);
+		super(props, UserAggregate.name);
 	}
 	
 	get name(): string {
