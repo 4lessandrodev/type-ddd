@@ -70,7 +70,7 @@ describe('mapper', () => {
      // User Entity
      class UserEntity extends Entity<UserProps> {
           private constructor(props: UserProps) {
-               super(props);
+               super(props, UserEntity.name);
           }
 
           get age(): AgeValueObject {

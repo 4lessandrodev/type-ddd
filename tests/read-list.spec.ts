@@ -29,7 +29,7 @@ describe('read-list', () => {
 
      class User extends Entity<UserProps> {
           private constructor(props: UserProps) {
-               super(props);
+               super(props, User.name);
           }
 
           // On get method return a ReadList and it is readOnly
