@@ -160,6 +160,7 @@ Resources on this dependency
 - IDomainEvent
 - DomainEvents
 - IHandle
+- DomainId
 
 ---
 

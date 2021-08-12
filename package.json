@@ -23,7 +23,7 @@
 	],
 	"scripts": {
 		"prebuild": "rimraf ./dist",
-		"build": "tsc",
+		"build": "tsc -p tsconfig.lib.json",
 		"test": "jest --silent"
 	},
 	"repository": {
