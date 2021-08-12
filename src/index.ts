@@ -1,6 +1,5 @@
-export * from './core/aggregate-root';
-export * from './core/base-domain-entity';
 export * from './core/entity';
+export * from './core/base-domain-entity';
 export * from './core/events/domain-events';
 export * from './core/events/domain-event.interface';
 export * from './core/events/handle.interface';

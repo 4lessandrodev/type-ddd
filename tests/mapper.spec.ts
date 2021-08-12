@@ -1,10 +1,8 @@
-import BaseDomainEntity from '../src/core/base-domain-entity';
-import Entity from '../src/core/entity';
 import Result from '../src/core/result';
-import UniqueEntityID from '../src/core/unique-entity-id';
 import { IMapper } from '../src/repo/mapper.interface';
 import ValueObject from '../src/core/value-object';
 import DomainId from '../src/core/domain-id';
+import { BaseDomainEntity, Entity } from '../src';
 
 describe('mapper', () => {
      // Interface for name prop
@@ -63,7 +61,7 @@ describe('mapper', () => {
           }
      }
      //-------------------------------------------------------------------
-     // User Enity props
+     // User Entity props
      interface UserProps extends BaseDomainEntity {
           name: NameValueObject;
           age: AgeValueObject;
@@ -71,12 +69,8 @@ describe('mapper', () => {
      //-------------------------------------------------------------------
      // User Entity
      class UserEntity extends Entity<UserProps> {
-          private constructor(props: UserProps, id?: UniqueEntityID) {
-               super(props, id);
-          }
-
-          get id(): UniqueEntityID {
-               return this._id;
+          private constructor(props: UserProps) {
+               super(props);
           }
 
           get age(): AgeValueObject {
@@ -87,11 +81,8 @@ describe('mapper', () => {
                return this.props.name;
           }
 
-          public static create(
-               props: UserProps,
-               id?: UniqueEntityID,
-          ): Result<UserEntity> {
-               return Result.ok<UserEntity>(new UserEntity(props, id));
+          public static create(props: UserProps): Result<UserEntity> {
+               return Result.ok<UserEntity>(new UserEntity(props));
           }
      }
      //-------------------------------------------------------------------
@@ -106,12 +97,13 @@ describe('mapper', () => {
           deletedAt?: Date;
      }
      //-------------------------------------------------------------------
-     // User mapper has responsability to convert an object from domain to persistence
+     // User mapper has responsibility to convert an object from domain to persistence
      class UserMapper implements IMapper<UserEntity, UserSchema> {
           //
           toDomain(target: UserSchema): UserEntity {
                return UserEntity.create(
                     {
+						ID: DomainId.create('valid_uuid'),
                          age: AgeValueObject.create(target.age).getResult(),
                          name: NameValueObject.create(target.name).getResult(),
                          createdAt: target.createdAt,
@@ -119,7 +111,6 @@ describe('mapper', () => {
                          isDeleted: target.isDeleted,
                          updatedAt: target.updatedAt,
                     },
-                    DomainId.create(target.id).id,
                ).getResult();
           }
           //
@@ -161,14 +152,14 @@ describe('mapper', () => {
      it('should convert from domain to persistence', () => {
           const domain: UserEntity = UserEntity.create(
                {
+				   ID: DomainId.create('valid_uuid'),
                     age: AgeValueObject.create(21).getResult(),
                     createdAt: new Date(),
                     isDeleted: false,
                     name: NameValueObject.create('John Stuart').getResult(),
                     updatedAt: new Date(),
                     deletedAt: undefined,
-               },
-               DomainId.create('valid_uuid').id,
+               }
           ).getResult();
 
           const mapper = new UserMapper();

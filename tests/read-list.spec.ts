@@ -1,8 +1,6 @@
-import Entity from '../src/core/entity';
-import UniqueEntityID from '../src/core/unique-entity-id';
 import WriteList from '../src/core/write-list';
 import ReadList from '../src/core/read-list';
-import BaseDomainEntity from '../src/core/base-domain-entity';
+import { BaseDomainEntity, DomainId, Entity } from '../src';
 
 describe('read-list', () => {
      //
@@ -30,8 +28,8 @@ describe('read-list', () => {
      }
 
      class User extends Entity<UserProps> {
-          private constructor(props: UserProps, id?: UniqueEntityID) {
-               super(props, id);
+          private constructor(props: UserProps) {
+               super(props);
           }
 
           // On get method return a ReadList and it is readOnly
@@ -39,13 +37,14 @@ describe('read-list', () => {
                return this.props.grades;
           }
 
-          public static create(props: UserProps, id?: UniqueEntityID): User {
-               return new User(props, id);
+          public static create(props: UserProps): User {
+               return new User(props);
           }
      }
 
      it('should toThrow if try edit a read list', () => {
           const user = User.create({
+			   ID: DomainId.create(),
                grades: GradesList.create([7, 8, 6]),
                name: 'John',
           });

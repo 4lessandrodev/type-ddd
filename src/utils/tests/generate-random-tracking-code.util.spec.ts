@@ -14,11 +14,11 @@ describe('generate-random-tracking-code.util', () => {
 	it('should not repeat value on short time', ()=>{
 		const codes: string[] = [];
 		let index = 0;
-		while (index < 300) {
+		while (index < 100) {
 			codes.push(generateRandomTracking());
 			index++
 		}
 		const uniques = [...new Set(codes)];
-		expect(uniques).toHaveLength(300);
+		expect(uniques).toHaveLength(100);
 	})
 });

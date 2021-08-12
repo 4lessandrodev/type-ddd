@@ -1,7 +1,6 @@
-import Entity from '../src/core/entity';
 import { BaseDomainEntity } from '../src/core/base-domain-entity';
-import UniqueEntityID from '../src/core/unique-entity-id';
 import { Result } from '../src/core/result';
+import { DomainId, Entity } from '../src';
 
 describe('entity', () => {
      // Define Car interface props
@@ -13,8 +12,8 @@ describe('entity', () => {
      //---------------------------------------------------------------
      // Define Car Entity Class
      class Car extends Entity<CarProps> {
-          private constructor(props: CarProps, id?: UniqueEntityID) {
-               super(props, id);
+          private constructor(props: CarProps) {
+               super(props, Car.name);
           }
 
           get color(): string {
@@ -42,6 +41,7 @@ describe('entity', () => {
 
      it('should create a valid instance', () => {
           const car = Car.create({
+			   ID: DomainId.create(),
                color: 'BLUE',
                year: 2000,
           });
@@ -57,10 +57,20 @@ describe('entity', () => {
 
      it('should fail on try create so old car, business logic', () => {
           const car = Car.create({
+			   ID: DomainId.create(),
                color: 'BLUE',
                year: 1900,
           });
           expect(car.isFailure).toBe(true);
           expect(car.error).toBe('The car is so old');
      });
+
+	 it('should get hashCode', ()=>{
+		const car = Car.create({
+			ID: DomainId.create('143150b2-47b6-4d97-945b-289f821c7fb9'),
+			color: 'BLUE',
+			year: 2021,
+		}).getResult();
+		expect(car.getHashCode().toString()).toBe('@Car:143150b2-47b6-4d97-945b-289f821c7fb9');
+	 })
 });

@@ -1,37 +1,23 @@
-import BaseDomainEntity from '../src/core/base-domain-entity';
-import Entity from '../src/core/entity';
+import { BaseDomainEntity, DomainId, Entity } from '../src';
 import Result from '../src/core/result';
-import UniqueEntityID from '../src/core/unique-entity-id';
 import {IBaseRepository} from '../src/repo/base-repository.interface';
 import Filter from '../src/repo/filter.interface';
 
-
-interface baseId {
-	id?: UniqueEntityID
-}
-
-interface userProps extends BaseDomainEntity{
+interface userProps extends BaseDomainEntity {
 	name: string;
 }
 
 class UserAggregate extends Entity<userProps> {
-	private constructor(props: userProps, id?: UniqueEntityID) {
-		super(props, id);
-	}
-	
-	get id(): UniqueEntityID {
-		return this._id;
+	private constructor(props: userProps) {
+		super(props);
 	}
 	
 	get name(): string {
 		return this.props.name;
 	}
 	
-	public static create(
-		name: string,
-		id?: UniqueEntityID,
-	): Result<UserAggregate> {
-			return Result.ok<UserAggregate>(new UserAggregate({ name }, id));
+	public static create(name: string): Result<UserAggregate> {
+			return Result.ok<UserAggregate>(new UserAggregate({ ID: DomainId.create('valid_id'), name }));
 		}
 	}
 	
@@ -56,7 +42,7 @@ class UserBaseRepo implements IBaseRepository<UserAggregate>{
 	};
 
 	async delete (
-		filter: Filter<baseId> // base interface only id
+		filter: Filter<Partial<UserAggregate>> // base interface only id
 	): Promise<void>{
 		const index = db.findIndex((user)=> user.id.equals(filter?.id))
 		db.splice(index, 1);
@@ -95,10 +81,10 @@ describe('base-repository', () => {
 	})
 
 	it('should accept an interface',async ()=>{
-		const uniqueId =  new UniqueEntityID();
+		const uniqueId =  DomainId.create('valid_id');
 		const repo = new UserBaseRepo();
 		const spy = jest.spyOn(repo, 'delete');
-		await repo.delete({id:uniqueId});
+		await repo.delete({id: DomainId.create('valid_id')});
 		expect(spy).toHaveBeenCalledWith({id:uniqueId})
 	})
 });
