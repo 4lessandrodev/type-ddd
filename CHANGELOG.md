@@ -12,6 +12,14 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+### 2.0.2 - 2021-08-12
+
+---
+
+### Changed
+
+- Dynamic types to Filter on IBaseRepository
+
 ### 2.0.1 - 2021-08-12
 
 - Entity
