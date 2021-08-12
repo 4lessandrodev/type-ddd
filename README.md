@@ -166,7 +166,7 @@ Resources on this dependency
 #### Aggregate
 
 ```ts
-import AggregateRoot from "types-ddd";
+import { AggregateRoot } from "types-ddd";
 ```
 
 ```ts
@@ -212,7 +212,7 @@ class UserAggregate extends AggregateRoot<Props> {
 #### Value Object
 
 ```ts
-import ValueObject from "types-ddd";
+import { ValueObject } from "types-ddd";
 ```
 
 ```ts
@@ -247,7 +247,7 @@ class AgeValueObject extends ValueObject<Prop> {
 #### Entity
 
 ```ts
-import Entity from "types-ddd";
+import { Entity, BaseDomainEntity } from "types-ddd";
 ```
 
 ```ts
@@ -306,7 +306,7 @@ class Car extends Entity<Props> {
 - ✔ HexColor
 - ✔ PostalCode
 - ✔ Url
-- ☐ OrderStatus
+- ✔ OrderStatus
 - ☐ ItemDimensions
 - ☐ ShippingWeight
 - ☐ EANCode
