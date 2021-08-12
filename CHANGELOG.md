@@ -6,12 +6,30 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - ValueObject Decorator
-- OrderStatusValueObject
 - ItemDimensionsValueObject
 - ShippingWeightValueObject
 - EANCodeValueObject
 - ISBNCodeValueObject
 - UPCCodeValueObject
+
+### 2.0.0 - 2021-08-12
+
+---
+
+### Changed
+
+- DomainId
+- AggregateRoot
+- Entity
+- Filter
+
+### Added
+
+- OrderStatusValueObject
+
+### Fixed
+
+- AggregateRoot
 
 ### 1.5.1 - 2021-08-11
 

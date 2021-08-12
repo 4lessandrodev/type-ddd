@@ -1,5 +1,5 @@
 import Logger from '../../utils/logger.util';
-import AggregateRoot from '../aggregate-root';
+import AggregateRoot from '../entity';
 import UniqueEntityID from '../unique-entity-id';
 import IDomainEvent from './domain-event.interface';
 
@@ -17,7 +17,7 @@ export default class DomainEvents {
 	 public static markAggregateForDispatch(
 		  aggregate: AggregateRoot<any>,
 	 ): void {
-		  const aggregateFound = !!this.findMarkedAggregateByID(aggregate.id);
+		  const aggregateFound = !!this.findMarkedAggregateByID(aggregate.id.value);
 
 		  if (!aggregateFound) {
 			   this.markedAggregates.push(aggregate);
@@ -53,12 +53,10 @@ export default class DomainEvents {
 		  this.markedAggregates.splice(index, 1);
 	 }
 
-	 private static findMarkedAggregateByID(
-		  id: UniqueEntityID,
-	 ): AggregateRoot<any> | null {
+	 private static findMarkedAggregateByID(id: UniqueEntityID): AggregateRoot<any> | null {
 		  let found: any = null;
 		  for (const aggregate of this.markedAggregates) {
-			   if (aggregate.id.equals(id)) {
+			   if (aggregate.id.value.equals(id)) {
 					found = aggregate;
 			   }
 		  }

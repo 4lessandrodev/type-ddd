@@ -10,7 +10,7 @@ Implement value objects
    ✔ RgbColor @done(21-08-10 18:46)
    ✔ PostalCode @done(21-08-10 22:49)
    ✔ Url @done(21-08-11 02:34)
-   ☐ OrderStatus
+   ✔ OrderStatus @done(21-08-11 23:32)
    ☐ ItemDimensions
    ☐ ShippingWeight
    ☐ EANCode

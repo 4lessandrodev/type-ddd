@@ -166,11 +166,11 @@ Resources on this dependency
 #### Aggregate
 
 ```ts
-import AggregateRoot from "types-ddd";
+import { AggregateRoot, BaseDomainEntity } from "types-ddd";
 ```
 
 ```ts
-interface Props {
+interface Props extends BaseDomainEntity {
   name: NameValueObject;
   age: AgeValueObject;
 }
@@ -178,12 +178,8 @@ interface Props {
 
 ```ts
 class UserAggregate extends AggregateRoot<Props> {
-  private constructor(props: Props, id?: UniqueEntityID) {
-    super(props, id);
-  }
-
-  get id(): UniqueEntityID {
-    return this._id;
+  private constructor(props: Props) {
+    super(props, UserAggregate.name);
   }
 
   get name(): NameValueObject {
@@ -198,11 +194,8 @@ class UserAggregate extends AggregateRoot<Props> {
     this.addDomainEvent(domainEvent);
   }
 
-  public static create(
-    props: Props,
-    id?: UniqueEntityID
-  ): Result<UserAggregate> {
-    return Result.ok<UserAggregate>(new UserAggregate(props, id));
+  public static create(props: Props): Result<UserAggregate> {
+    return Result.ok<UserAggregate>(new UserAggregate(props));
   }
 }
 ```
@@ -212,7 +205,7 @@ class UserAggregate extends AggregateRoot<Props> {
 #### Value Object
 
 ```ts
-import ValueObject from "types-ddd";
+import { ValueObject } from "types-ddd";
 ```
 
 ```ts
@@ -247,7 +240,7 @@ class AgeValueObject extends ValueObject<Prop> {
 #### Entity
 
 ```ts
-import Entity from "types-ddd";
+import { Entity, BaseDomainEntity } from "types-ddd";
 ```
 
 ```ts
@@ -259,8 +252,8 @@ interface Props extends BaseDomainEntity {
 
 ```ts
 class Car extends Entity<Props> {
-  private constructor(props: Props, id?: UniqueEntityID) {
-    super(props, id);
+  private constructor(props: Props) {
+    super(props, Car.name);
   }
 
   get color(): ColorValueObject {
@@ -271,15 +264,30 @@ class Car extends Entity<Props> {
     return this.props.year;
   }
 
-  public static create(props: Props, id?: UniqueEntityID): Result<Car> {
+  public static create(props: Props): Result<Car> {
     // Your business validation logic
     // You should use rules before create entity instance
     if (props.year.value < 1960) {
       return Result.fail<Car>("The car is so wreck");
     }
-    return Result.ok<Car>(new Car(props, id));
+    return Result.ok<Car>(new Car(props));
   }
 }
+
+const myCarOrError = Car.create({
+	ID: DomainId.create(),
+	color: ColorValueObject.create('BLACK').getResult(),
+	year: YearValueObject.crete(2001).getResult()
+});
+
+console.log(myCarOrError.isSuccess);
+> true
+
+const myCar = myCarOrError.getResult();
+
+console.log(myCar.id.value);
+> "143150b2-47b6-4d97-945b-289f821c7fb9"
+
 ```
 
 ---
@@ -306,7 +314,7 @@ class Car extends Entity<Props> {
 - ✔ HexColor
 - ✔ PostalCode
 - ✔ Url
-- ☐ OrderStatus
+- ✔ OrderStatus
 - ☐ ItemDimensions
 - ☐ ShippingWeight
 - ☐ EANCode

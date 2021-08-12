@@ -4,7 +4,7 @@ import IRepository, {
 } from '../src/repo/base-repository.abstract';
 import IMapper from '../src/repo/mapper.interface';
 
-describe('respository', () => {
+describe('repository', () => {
      // Define an ORM type
      const ORM = {
           findOne: () => 1,
