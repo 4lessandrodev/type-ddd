@@ -3,6 +3,12 @@ import Result from '../../src/core/result';
 import {IBaseRepository} from '../../src/repo/base-repository.interface';
 import Filter from '../../src/repo/filter.interface';
 
+interface IFilterKeys {
+	name: string;
+	email: string;
+	id: string;
+}
+
 interface userProps extends BaseDomainEntity {
 	name: string;
 }
@@ -24,32 +30,33 @@ class UserAggregate extends Entity<userProps> {
 	const user: UserAggregate = UserAggregate.create("john stuart").getResult();
 	const db:UserAggregate[] = [user];
 
-class UserBaseRepo implements IBaseRepository<UserAggregate>{
+class UserBaseRepo implements IBaseRepository<UserAggregate, IFilterKeys>{
 	async find (
-		_filter: Filter<Partial<userProps>> // aggregate props
+		_filter: Filter<Partial<IFilterKeys>> // aggregate props
 	): Promise<UserAggregate[]>{
 		return [user]
 	};
 
 	async findOne (
-		filter: Filter<Partial<UserAggregate>> // partial aggregate keys
+		filter:  Filter<Partial<IFilterKeys>> // partial aggregate keys
 	): Promise<UserAggregate | null>{
-		const exists =  db.find((user)=> user.id.equals(filter?.id));
+		const exists =  db.find((user)=> user.id.value.toString() === filter?.id);
 		if (!exists) {
 			return null
 		}
 		return exists;
 	};
 
-	async delete (
-		filter: Filter<Partial<UserAggregate>> // base interface only id
+	async delete(
+		_filter:  Filter<Partial<IFilterKeys>>// base interface only id
 	): Promise<void>{
-		const index = db.findIndex((user)=> user.id.equals(filter?.id))
+		
+		const index = db.findIndex((user)=> user.id.equals())
 		db.splice(index, 1);
 	};
 
 	async exists (
-		filter: Filter<Partial<UserAggregate>>
+		filter:  Filter<Partial<IFilterKeys>>
 	): Promise<boolean>{
 		const exists = db.findIndex((user)=> user.name === filter?.name);
 		return exists !== -1;
@@ -81,10 +88,10 @@ describe('base-repository', () => {
 	})
 
 	it('should accept an interface',async ()=>{
-		const uniqueId =  DomainId.create('valid_id');
 		const repo = new UserBaseRepo();
 		const spy = jest.spyOn(repo, 'delete');
-		await repo.delete({id: DomainId.create('valid_id')});
-		expect(spy).toHaveBeenCalledWith({id:uniqueId})
+
+		await repo.delete({id: 'valid_id'});
+		expect(spy).toHaveBeenCalledWith({id: 'valid_id'})
 	})
 });
