@@ -240,7 +240,7 @@ class AgeValueObject extends ValueObject<Prop> {
 #### Entity
 
 ```ts
-import { Entity, BaseDomainEntity } from "types-ddd";
+import { Entity, BaseDomainEntity, DomainId } from "types-ddd";
 ```
 
 ```ts
