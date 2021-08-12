@@ -6,4 +6,7 @@ module.exports = {
      transform: {
           '.+\\.ts$': 'ts-jest',
      },
+	 moduleNameMapper: {
+		'@types-ddd': '<rootDir>/src/index',
+	 }
 };
