@@ -87,4 +87,14 @@ describe('result', () => {
 		expect(result.statusCode).toBe(500);
 	});
 
+	it('error message should be string when result is typed as void', () => {
+		const error = Result.fail<void>('Error defined');
+		const testeString = (value: string): string => value; 
+		testeString(error.getErrorMessage());
+		
+		expect(error.isFailure).toBe(true);
+		expect(error.isSuccess).toBe(false);
+		expect(error.getErrorMessage).toBeDefined()
+	});
+
 });
