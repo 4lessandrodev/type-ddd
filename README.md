@@ -167,7 +167,7 @@ Resources on this dependency
 #### Aggregate
 
 ```ts
-import { AggregateRoot, BaseDomainEntity } from "types-ddd";
+import { AggregateRoot, BaseDomainEntity, Result } from "types-ddd";
 ```
 
 ```ts
@@ -206,7 +206,7 @@ class UserAggregate extends AggregateRoot<Props> {
 #### Value Object
 
 ```ts
-import { ValueObject } from "types-ddd";
+import { ValueObject, Result } from "types-ddd";
 ```
 
 ```ts
@@ -241,7 +241,7 @@ class AgeValueObject extends ValueObject<Prop> {
 #### Entity
 
 ```ts
-import { Entity, BaseDomainEntity, DomainId } from "types-ddd";
+import { Entity, BaseDomainEntity, DomainId, Result } from "types-ddd";
 ```
 
 ```ts
