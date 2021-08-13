@@ -90,11 +90,11 @@ describe('result', () => {
 	it('error message should be string when result is typed as void', () => {
 		const error = Result.fail<void>('Error defined');
 		const testeString = (value: string): string => value; 
-		testeString(error.getErrorMessage());
+		testeString(error.errorValue());
 		
 		expect(error.isFailure).toBe(true);
 		expect(error.isSuccess).toBe(false);
-		expect(error.getErrorMessage).toBeDefined()
+		expect(error.errorValue).toBeDefined()
 	});
 
 });

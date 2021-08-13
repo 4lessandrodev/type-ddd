@@ -86,16 +86,8 @@ type ErrorStatus = 300 | 301 | 302 | 303 | 304 | 305 | 306 | 400 | 401 | 402 | 4
 	   * 
 	   * @returns error as T
 	   */
-	  public errorValue(): T {
-		   return this.error as T;
-	  }
-
-	   /**
-	   * 
-	   * @returns error message as string
-	   */
-	  public getErrorMessage(): string {
-		   return `${this.error}`;
+	  public errorValue(): string {
+		   return this.error as string;
 	  }
  
 		/**

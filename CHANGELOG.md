@@ -12,6 +12,22 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+### 2.0.4 - 2021-08-13
+
+---
+
+### Fixed
+
+- Result
+
+### 2.0.3 - 2021-08-13
+
+---
+
+### Fixed
+
+- Result
+
 ### 2.0.2 - 2021-08-12
 
 ---
