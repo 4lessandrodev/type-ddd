@@ -237,4 +237,33 @@ describe('currency.value-object', ()=>{
 		valueObject.subtractPercent(30); // 70
 		expect(valueObject.value).toBe(70);
 	})
+
+	it('should return total result on each calculation', ()=>{
+		let total = 0;
+		const valueObject = CurrencyValueObject.create({ currency: 'BRL', value: 0.50 }).getResult();
+
+		total = valueObject.add(0.50).getResult(); // 1
+		expect(total).toBe(1);
+
+		total = valueObject.multiplyBy(50).getResult(); // 50
+		expect(total).toBe(50);
+
+		total = valueObject.divideBy(2).getResult(); // 25
+		expect(total).toBe(25);
+
+		total = valueObject.subtractBy(5).getResult(); // 20
+		expect(total).toBe(20);
+
+		total = valueObject.add(80).getResult(); // 100
+		expect(total).toBe(100);
+
+		total = valueObject.addPercent(2).getResult(); // 102
+		expect(total).toBe(102);
+
+		total = valueObject.subtractBy(2).getResult(); // 100
+		expect(total).toBe(100);
+
+		total = valueObject.subtractPercent(30).getResult(); // 70
+		expect(total).toBe(70);
+	})
 })
