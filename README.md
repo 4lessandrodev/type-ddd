@@ -161,6 +161,7 @@ Resources on this dependency
 - DomainEvents
 - IHandle
 - DomainId
+- ChangesObserver
 
 ---
 
@@ -361,7 +362,9 @@ console.log(PasswordValueObject.generateRandomPassword(12));
 ```
 
 #### Just import and use it
-Safe value object to calculate finance values
+
+Safe value object to calculate finance values.
+Each operation return an instance of Result cause It validate safe number
 
 ```ts
 
@@ -389,5 +392,29 @@ console.log(myCurrency.value);
 
 console.log(myCurrency.getCurrencyString());
 > "R$ 70.00"
+
+```
+
+
+You may combine CurrencyValueObject to ChangesObserver
+
+```ts
+
+import { ChangesObserver } from 'types-ddd';
+
+const observer = ChangesObserver.init<string>();
+
+const isAllSuccess = observer
+	.add(Result.ok<string>('1'))
+	.add(Result.ok<string>('2'))
+	.add(Result.ok<string>('3'))
+	.add(Result.ok<string>('4'))
+	.add(Result.ok<string>('5'))
+	.add(Result.fail<string>('fail'))
+	.add(Result.ok<string>('7'))
+	.isAllResultsSuccess();
+
+console.log(isAllSuccess);
+> false
 
 ```
