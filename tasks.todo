@@ -16,4 +16,6 @@ Implement value objects
    ☐ EANCode
    ☐ ISBNCode
    ☐ UPCCode
+   ☐ CNPJ
+   ☐ CPF
    

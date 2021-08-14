@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
 - EANCodeValueObject
 - ISBNCodeValueObject
 - UPCCodeValueObject
+- CPFValueObject
+- CNPJValueObject
 
 
 ### 2.1.0 - 2021-08-14
