@@ -12,6 +12,19 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+
+### 2.1.0 - 2021-08-14
+
+---
+
+### Changed
+
+- CurrencyValueObject
+
+### Added
+
+- ChangesObserver
+
 ### 2.0.4 - 2021-08-13
 
 ---

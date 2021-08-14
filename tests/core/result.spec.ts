@@ -1,5 +1,6 @@
 import Result from '../../src/core/result';
 import { IUseCase } from '../../src/core/use-case.interface'
+import Logger from '../../src/utils/logger.util';
 
 describe('result', () => {
 
@@ -88,6 +89,7 @@ describe('result', () => {
 	});
 
 	it('error message should be string when result is typed as void', () => {
+		Logger.info('THE 13 ERRORS AND 01 WARN BELLOW ON TERMINAL IS ONLY SOME LOGGER TESTS. DO NOT WORRY!')
 		const error = Result.fail<void>('Error defined');
 		const testeString = (value: string): string => value; 
 		testeString(error.errorValue());
@@ -95,6 +97,35 @@ describe('result', () => {
 		expect(error.isFailure).toBe(true);
 		expect(error.isSuccess).toBe(false);
 		expect(error.errorValue).toBeDefined()
+	});
+
+	it('should throw if result isSuccess and isFailure on the same instance', () => {
+		jest.spyOn(Logger, 'error').mockClear();
+		const logError = jest.spyOn(Logger, 'error');
+		new Result(true, true, 400, true);
+		expect(logError).toHaveBeenCalled();
+	});
+
+	it('should throw if result not isSuccess and not isFailure on the same instance', () => {
+		jest.spyOn(Logger, 'error').mockClear();
+		const logError = jest.spyOn(Logger, 'error');
+		new Result(false, false, 400, false);
+		expect(logError).toHaveBeenCalled();
+	});
+
+	it('should throw if result has no status code defined', () => {
+		jest.spyOn(Logger, 'error').mockClear();
+		const logError = jest.spyOn(Logger, 'error');
+		new Result(false, false, undefined, false);
+		expect(logError).toHaveBeenCalled();
+	});
+
+	it('should throw if result has no status code defined', () => {
+		jest.spyOn(Logger, 'error').mockClear();
+		const logError = jest.spyOn(Logger, 'error');
+		const result = new Result(false, false, 400, false);
+		result.getResult();
+		expect(logError).toHaveBeenCalled();
 	});
 
 });
