@@ -188,7 +188,7 @@ class UserAggregate extends AggregateRoot<Props> {
   }
 
   get age(): AgeValueObject {
-    return this.props.name;
+    return this.props.age;
   }
 
   public addEvent(domainEvent: IDomainEvent) {
@@ -288,6 +288,12 @@ const myCar = myCarOrError.getResult();
 
 console.log(myCar.id.value);
 > "143150b2-47b6-4d97-945b-289f821c7fb9"
+
+console.log(myCar.color.value);
+> "BLACK"
+
+console.log(myCar.year.value);
+> 2001
 
 ```
 
