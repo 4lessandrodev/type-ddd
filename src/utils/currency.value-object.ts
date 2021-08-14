@@ -95,147 +95,147 @@ class CurrencyValueObject extends ValueObject<Prop>{
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description add instance value with provided value
 	 * @param value number to add
-	 * @returns Result void
+	 * @returns instance of Result type number with calculation result
 	 */
-	add(value: number): Result<void> {
+	add(value: number): Result<number> {
 		if (!CurrencyValueObject.isSafeValue(value)) {
-			return Result.fail<void>(
+			return Result.fail<number>(
 				`${value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
 			)
 		}
 		if (this.cents >= maxSafeValue){
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		const valueAsCent = convertValueToCent(value);
 		if ((this.cents + valueAsCent) >= maxSafeValue){
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		
 		this.cents = (this.cents + valueAsCent);
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok();
+		return Result.ok<number>(this.props.value);
 	}
 
 	/**
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description subtract instance value with provided value
 	 * @param value number to subtract
-	 * @returns Result void
+	 * @returns instance of Result type number with calculation result
 	 */
-	subtractBy(value: number): Result<void> {
+	subtractBy(value: number): Result<number> {
 		if (!CurrencyValueObject.isSafeValue(value)) {
-			return Result.fail<void>(
+			return Result.fail<number>(
 				`${value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
 			)
 		}
 		if (this.cents <= minSafeValue){
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		const valueAsCent = convertValueToCent(value);
 		if ((this.cents - valueAsCent) <= minSafeValue){
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		
 		this.cents = (this.cents - valueAsCent);
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok();
+		return Result.ok<number>(this.props.value);
 	}
 
 	/**
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description divide instance value with provided value
 	 * @param value number to divide
-	 * @returns Result void
+	 * @returns instance of Result type number with calculation result
 	 */
-	divideBy(value: number): Result<void> {
+	divideBy(value: number): Result<number> {
 		if (!CurrencyValueObject.isSafeValue(value)) {
-			return Result.fail<void>(
+			return Result.fail<number>(
 				`${value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
 			)
 		}
 		if (this.cents <= minSafeValue){
-			return Result.fail<void>('The result is so small for calculate');
+			return Result.fail<number>('The result is so small for calculate');
 		}
 		if ((this.cents / value) <= minSafeValue){
-			return Result.fail<void>('The result is so small for calculate');
+			return Result.fail<number>('The result is so small for calculate');
 		}
 		this.cents = (this.cents / value);
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok();
+		return Result.ok<number>(this.props.value);
 	}
 
 	/**
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description receives a value and multiply with instance value
 	 * @param value number to multiply
-	 * @returns Result void
+	 * @returns instance of Result type number with calculation result
 	 */
-	multiplyBy(value: number): Result<void> {
+	multiplyBy(value: number): Result<number> {
 		if (value < 0.1 && value > -0.1) {
-			return Result.fail<void>('Invalid value to calculate. Value must be greater than 0.1');
+			return Result.fail<number>('Invalid value to calculate. Value must be greater than 0.1');
 		}
 		if (!CurrencyValueObject.isSafeValue(value)) {
-			return Result.fail<void>(
+			return Result.fail<number>(
 				`${value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
 			)
 		}
 		if (this.cents >= maxSafeValue){
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		if (((this.cents * value) >= maxSafeValue)) {
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		this.cents = (this.cents * value);
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok();
+		return Result.ok<number>(this.props.value);
 	}
 
 	/**
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description receives a percentage value and add on instance value
 	 * @param percent number as percentage to add on instance value
-	 * @returns Result void
+	 * @returns instance of Result type number with calculation result
 	 */
-	addPercent(percent: number): Result<void> {
+	addPercent(percent: number): Result<number> {
 		if (!CurrencyValueObject.isSafeValue(percent)) {
-			return Result.fail<void>(
+			return Result.fail<number>(
 				`${percent} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
 			)
 		}
 		if (this.cents >= maxSafeValue){
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		const percentage = calculatePercent(this.cents, percent);
 		if ((percentage + this.cents) >= maxSafeValue) {
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		this.cents = (this.cents + percentage);
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok();
+		return Result.ok<number>(this.props.value);
 	}
 
 	/**
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description subtract a percentage from instance value
 	 * @param percent number as percentage
-	 * @returns Result void
+	 * @returns instance of Result type number with calculation result
 	 */
-	subtractPercent(percent: number): Result<void> {
+	subtractPercent(percent: number): Result<number> {
 		if (!CurrencyValueObject.isSafeValue(percent)) {
-			return Result.fail<void>(
+			return Result.fail<number>(
 				`${percent} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
 			)
 		}
 		if (this.cents <= minSafeValue){
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		const percentage = calculatePercent(this.cents, percent);
 		if ((this.cents - percentage) <= minSafeValue) {
-			return Result.fail<void>('The result is so large for calculate');
+			return Result.fail<number>('The result is so large for calculate');
 		}
 		this.cents = this.cents - percentage;
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok();
+		return Result.ok<number>(this.props.value);
 	}
 
 	/**
