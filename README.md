@@ -168,6 +168,41 @@ Resources on this lib (Core)
 
 ---
 
+### Value Object
+
+```ts
+import { ValueObject, Result } from "types-ddd";
+```
+
+```ts
+interface Prop {
+  value: number;
+}
+```
+
+```ts
+class AgeValueObject extends ValueObject<Prop> {
+  private constructor(prop: Prop) {
+    super(prop);
+  }
+
+  get value(): number {
+    return this.props.value;
+  }
+
+  public static create(age: number): Result<AgeValueObject> {
+    // must have less than 130 years old
+    if (age > 130) {
+      return Result.fail<AgeValueObject>("There's no Person like Methuselah");
+    }
+
+    return Result.ok<AgeValueObject>(new AgeValueObject({ value: age }));
+  }
+}
+```
+
+---
+
 ### Aggregate
 
 ```ts
@@ -207,42 +242,7 @@ class UserAggregate extends AggregateRoot<Props> {
 
 ---
 
-### Value Object
-
-```ts
-import { ValueObject, Result } from "types-ddd";
-```
-
-```ts
-interface Prop {
-  value: number;
-}
-```
-
-```ts
-class AgeValueObject extends ValueObject<Prop> {
-  private constructor(prop: Prop) {
-    super(prop);
-  }
-
-  get value(): number {
-    return this.props.value;
-  }
-
-  public static create(age: number): Result<AgeValueObject> {
-    // must have less than 130 years old
-    if (age > 130) {
-      return Result.fail<AgeValueObject>("There's no Person like Methuselah");
-    }
-
-    return Result.ok<AgeValueObject>(new AgeValueObject({ value: age }));
-  }
-}
-```
-
----
-
-#### Entity
+### Entity
 
 ```ts
 import { Entity, BaseDomainEntity, DomainId, Result } from "types-ddd";
@@ -334,7 +334,7 @@ console.log(myCar.year.value);
 - ☐ CNPJValueObject
 - ☐ CPFValueObject
 
-If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
+> If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
 
 ### Just import and use it
 
@@ -369,8 +369,8 @@ console.log(PasswordValueObject.generateRandomPassword(12));
 
 ### Just import and use it
 
-Safe value object to calculate finance values.
-Each operation return an instance of Result cause It validate safe number
+> Safe value object to calculate finance values.
+> Each operation return an instance of Result cause It validate safe number
 
 ```ts
 
@@ -402,8 +402,8 @@ console.log(myCurrency.getCurrencyString());
 ```
 
 
-You may combine CurrencyValueObject to ChangesObserver
-Observer check all received Results. If some "Result" is failure It returns false.
+> You may combine CurrencyValueObject to ChangesObserver
+> Observer check all received Results. If some "Result" is failure It returns false.
 
 ```ts
 
@@ -425,3 +425,10 @@ console.log(isAllSuccess);
 > false
 
 ```
+
+> Contribute to this project [PIX]
+
+<img src="https://alessandrodev.s3.amazonaws.com/pix.jpeg" width="250">
+
+> Or use link
+[Pix https://nubank.com.br/pagar/izlen/Tn0D9KyXRb](https://nubank.com.br/pagar/izlen/Tn0D9KyXRb)
