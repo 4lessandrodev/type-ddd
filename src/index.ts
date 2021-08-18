@@ -32,3 +32,5 @@ export * from './utils/color-generator.util';
 export * from './utils/color-converter.util';
 export * from './utils/order-status.value-object';
 export * from './core/changes-observer';
+export * from './utils/get-undefined-keys-as-array.util';
+export * from './utils/get-undefined-keys-as-object.util';
