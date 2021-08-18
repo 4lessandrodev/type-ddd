@@ -15,6 +15,16 @@ All notable changes to this project will be documented in this file.
 - CNPJValueObject
 
 
+### 2.2.0 - 2021-08-14
+
+---
+
+### Added
+
+
+- getUndefinedKeysAsArray
+- getUndefinedKeysAsObject
+
 ### 2.1.0 - 2021-08-14
 
 ---
