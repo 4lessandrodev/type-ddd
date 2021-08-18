@@ -14,8 +14,15 @@ All notable changes to this project will be documented in this file.
 - CPFValueObject
 - CNPJValueObject
 
+### 2.2.1 - 2021-08-17
 
-### 2.2.0 - 2021-08-14
+---
+
+### Fixed
+
+- index (exports)
+
+### 2.2.0 - 2021-08-17
 
 ---
 
