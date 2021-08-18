@@ -15,7 +15,7 @@ import IMapper from './mapper.interface';
  * @see IBaseRepository
  */
 export default abstract class BaseRepository<DomainAggregate, Entity, ORM>
-     implements IBaseRepository<DomainAggregate> {
+     implements IBaseRepository<DomainAggregate, Entity> {
      /**
       *
       * @param connection instance of ORM connection

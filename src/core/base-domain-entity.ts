@@ -10,8 +10,11 @@
  * All optional properties
  */
 
-export default abstract class BaseDomainEntity {
+import { DomainId } from "..";
+
+ abstract class BaseDomainEntity {
      constructor(
+		  public readonly ID: DomainId,
           public createdAt?: Date,
           public updatedAt?: Date,
           public isDeleted?: boolean,
@@ -21,6 +24,7 @@ export default abstract class BaseDomainEntity {
           this.updatedAt = updatedAt ?? new Date();
           this.isDeleted = isDeleted ?? false;
           this.deletedAt = isDeleted ? deletedAt : undefined;
+		  Object.freeze(this.ID)
      }
 }
 

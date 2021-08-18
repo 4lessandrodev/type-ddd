@@ -1,12 +1,15 @@
 # Types-ddd
 
 Documentation is being written
-**Install** `npm i types-ddd` or `yarn add types-ddd`
 
-### Test without install
+**Install:** `npm i types-ddd` or `yarn add types-ddd`
 
-Part of the source code are available on the playground
-[Click - Playground](https://www.typescriptlang.org/play?#code/PTAEFpK6dudAcQPagC6oDYEsB2BTUAVgHYAmCeK6qgWACgG818AnAMwEMBjQgNU6YArvgDyAIwBW+bmgAKrZAAcAzqADeDUNu0BtPABN8ADwBcoFWlZ4A5gF1znXAE8A3AwC+DBp3GXWPGig3JicKmoCwmJSMmgAPAAqoCYsuAYRgiIS0rIKyioAfBpaOqBKiiyy+AZliqrmCe6M9KXByLj+QrLIrAAU5fkNAJTFLa2l3O2WoOJh+Hn1oE7OoAC8o+Ob2gB0uwOqADQlWx5Nx5toABbYKtv7auuzKvN1Kk2tXs2tSkLiONzJACOQkEKl6ADdMtEcmgAPzmSJZGKyRIFIbmcTIZCYfBODZbUDYdigCFQ7KxNarda4ISYTCgAA+DNAkKi5NklPWQjS+HYeGqI00YwJpVY+DQQlYuFAXEwz3eBM+IqJJNZSJhd1enNA3KMfIIBkF5xFoDFEqlMtB+AVJ2NrTNkulvTtBIAUgBlUQAOW2-lsROcvSuN01+RGVPWHu9vqs-vYgbV0NiodUQxdOiGNu0n0+DBCYTUACV8CpafEEkUhd9fv9CSp3V1eOEMVicU4s2Ua9gATcAGKcbDCMUt7G43Adn5-bvJViKVgNRkWWO4GwT6yQligAD6iYaZ2F2kntcmHSsXQwfXT2huDe4TZUI7buCOB-GbDn8NASWZfpXi5pdIviKiafgkQGlEar6tCqvQ3o2JZqAAZIhM5zpBJqlFcigAO6gAQuEAKKzj0zpQRh2gAOQAJK4Ky2AGKIShsJwaDYO05gAIKmiWZbBE4uDIEE4iEKWd4IewtJLGkbS4GgA7Sni749BR4HkZmV6gEqBIwQAhHBYnhKAyGgDpSmsOh5HoJcOF4fghHEZeZHkdRtGCPRjHMax7GgFxXCDrY3GlpgQQENUagYDJcl4FJqE9KAAC2CGcDY+AqRprTqU52beFlVkhvp95rHWt73h2rTBrcfYDkOhDrHp9bweEZWYdctxmUV7VhF+zU6BV2w7lCRWJksaiNDlIrsmg2zsGK+AAF74EGrWZR842lEe04pWgxZBWgvTol++JbLpfUFQhFnkSeKijtsmDIDYS0hmZK2WVhyC4fhoBEXOpGWeMFEAMJ4gJQRbVZhDDcgxKKQ5gVltsoAAKrPLFrCIoQeCWLiBjbGluUZT12VfASDoWn1A1RB2uavhtAJmej+0LlWJPio6eVtbDXVja+1PVlOAKWCx07IAA1nEiMFKSUSfojB07WW4uVhppPSp98vBYrQasCIBx4bSmC64mL06Lz61dgLcmsQCfmYJrZnmL+NhyzxGsS0dmwq7ZuHq-EEu9LKzy689VNrTotNLkLAKTPF4j8r0Yq7Q+oA+3EywFLodjO7tqcuEruXsHFvRXUECe8VDcPBSoF0YTBpfBdsVWDpK+AjJ7ddoITmnK6zFo+9sov7SH9DU74-iBMEoSGQAQnMAAiyDxfJBGydgaArMzOjF9r3SOSK4fcGKLHVBxcLmLPR+qZs4dCEoBhHwYJ+fufLCX+M4c3LP+A4iwBifpio5OFfnzWsRhv7H1PqAZ++BX7V3GH1A+uIf4nyKgg++yDYSwi9pAo+g8NJ9RvnfJBQQuS3zQUEDBWCoG4NyqdFQn8wE1HWB-L+4pqigAoQHa0eDWrbFAawh+xC6z0P4ew0AfCiGgHMLqXk-IDBD2pvmQyVEjArz5GwVE7sZKdB3v0dcR8WRQmGJo8qPDhrrETEPY0+BgSglgr-cwyj8CqOwOoisB1-5PmMaUGC9FtQAXpEyQkjCqQ6h5PqAUXitie04Z3LSx1iS9B0nYwkp4nC8HLvAqYZ4d5DFgSKaJVpYnd3NNKei2wMAM3DCEvqFjjSm16sgd0y4Hp5NFD3aUTTrArkercI2ljXwVKhIzQ6G8PbtPZtsWpPNPA5UUWoRGuBsDAnwMvVia8qKz2SMYVI6RQCOOceox2-4hAxzYHnVoW9zwkXop+I5zIaSnPMpE7QIBQCXDCJcZRiNWL0hMDcNAahJBCGmO0cGZRQjOBsIoXUGli5vI+V8n5RUlCcFYM8Gie1Om2F6FA7YAlsL7SGLrAAjAABiGOUxpzTejEoAGwUpUP8RaABmEl9LO6liYn0XxmDfHmAAAYABJ1DvJUJ8gw3zBweHAEQMgxL2DgAACyktpfgcAAAOWl4gSAyuJQYEgJB1X4DIJwAw6qiD8uNkTBRWS6yrNXisdYEJHAuAOuCOsX0V5rxzs4IoqxzltJKSyFJgtcDpOJPateTRTg5VHlYceczPVrOcIkLZOy1Az2ePPReeBI2+s0QMSoP9uKmvaJgFYW56LmAWUskQeaNlrkErENhh8DBlpWPcPcodtCXJ0Z2r8usbnVsWcs+ts9Wm9R4ZWxhQTRF8qwTW0dXrnAbOoSKPq9xkWvH6a0MGqCiHDKgc87iQaN2vG2Pu8B7DMGfSoVaruxMdBgwIWQw9+jRnjE9me-I2wX0SIobenB976naDBswhhwyPFjmPV+nh9wG50JYcWjhhS6ndtAGDcR4C32bmZNI8JNQP32nGd+1QvCkPgJ3WbfmQIQRyl6MgZEEC82onca2aDRHvEJMYzCSkes6SMmZDxikIT8OyInWMoNMSNIgfGDBCq2phOyAk5+kj2suG5Vk9BBJ9U80MaY7k49xGpOoc0+h4zbNyZlOsXRsESmprTuAzM5ozA2BcF4Hs7NS9wROKCB+wh+AEjYESqIO8koxQGDPkfDsW0OI2ChfgGwR9lHDMXXW5dDbnNMFkm5nghAqIAAknAGBxHEDZC9vO+YDToZ4EolANj8AfbASgvIdGGeCZA9EOwGBuCitA3BLi9HwD52SDivO5pG2gA6eR4o3HwHEDr9ECjRtmZPNQ43cAEUm2oD95RsAbhEpbac7y0g4jRQAWU4EoF1jqNAxppnozcgsrYJVRSLY+8WxRJZYEnOLCXvv4ELFieIacM5FQzvuYB05nvTkXqwEWf2vtH17D0WevWWIDd+gSZK-2j6cU+4lo+QPBI+oKDA8wi3COwttTjpHLAUe6iKjpHSfV9QGEu-Dj7uOWBTxXbPXotPCcsAboaSH2kdOC4BwztIKmTEhjh+9h+BOAe3B+GKgXyuj73tWtMx9h5HuHcjmI9H-XLiI6Fys7bWOtiS7xz5TXLBicg9zuTlknWqc0J4XdGwG2tu+bRyoPrmPbcsEyhpEP+BeEVYm7524BdWAER4INobk2xvR825N8MBR0otRDD1wPGPBvDd80SjSTm9e1H2-omHAJve+8mwHoPg3w8O-wPj7ngPgek9d5T49cKKoAzW0VYs7AcSyG2FtPIGA15MVEOwHp2uJi2rbTmjPvnB8FmH7yMfU1J8VEEs4Wf8+I9h9yldG6eAC7W4whRXQG2vqTcgSbgb1QHB4z+gPtbsIL1ZO3hePFnAiUQCBIFEVIBQ7+lkK+lWskG+4Q3+va-+uAgB0CZeQ83wBuEcL2Yo8UyAPm5uUuig8UHOiujeheAAMv8tfuMBHu3nTp3iTmnD3u7n3raoYCYEVH1ArlznQXHoYDREYMYL0ALlnjnjoJwNsDZrYifsARmJ3JwW9twRbrcIHkyrBDyMYCSuXsaHtgdpgdOGzsQYoQDrzquhpFWkjCOulsmhsq7vgUTl3mnMcgJpxjoN-DKMgLqDdkVP4p3PHiSHChHqABkjwlwUrh3lXEZlxiSBHiLhITYvRvRIZi4RhAXIzusBHp3DriKFpoGmzKkWkFRmHObHoQCPnk3n7rJCoCjqwHYSwHYsOrWishluOhTswckVokEIEesKzoYIYWEXQSYfzokWLvEtEa3rLrnrcGUYXrUZbrHhrh3ovjbq3hem2AnlbksRcDwtgbgfgLMb2IQX0aQabhQZYAsXQZsQ+jrtocUTXtxDYP8mwFQRcoIJgLMNwCLOYCnr5mnqvhUVNmsEUJTjIdoMXjAWtl6MgQ7M0kwb4u0SdDwidiVmwCoJdkoNsKKqINhLgAsGwGvN8eCQWJCYlEkaIdoH1EiWdqiVdroGCWgLASoMSfgHYODnYEUp7iGJSSiWibSZNgyUyXYHcMCoNtwK8e8SLFoTTLcUdlHGsUVqdiie1m0dwpycVlSWiUVOoPdtcVKTRncSELiKwH0bMWCG6sqRybcKESaayYUfrlXk9jKcbgXqbgSWgL8dAVNq0XCdTqeMkHyRCVCUuF0jYB1JNj-qeH-j0AAYlCMZsPJoiWqdyVdhiWEFiTiXUHiYGHSfycgaSfjEvr6VyWijdmDt0QmQqRdjSdmQGYlGyWSe4awP4bakWUEcSEWREe0SKEWa6ZcVkYqGhsPLGn4PGhyImrMU7hoikE4rsixhWAWhgVuFATHpUe6cuWgKWaABDuhmBgYKlpYU0dYZsu0bBiGNOraRhuKGIunv8aaauWvrJGDseSRlOkufeQCueYWs2jUKagYPXr5r0K+f8Xef8Wad6Raf1IBdtkKerpBSXp3H+ZUdsArvsajs-oNhVJcX1HXteZNhxAYEYLubBbJJKVDrKYaTeUqWBeui+ThbHr6EoKoaSrrOTERQCrdE4jYFcCRetBgdhX8bhfhdUABbRaNp5iJZ6W7lRQSP3q1AyVvqPsmHvoJAfkfgvp3HCqxXJesCPjvhPuKFPipWIPPqxZcefjiA3LgFfvWbfvfv8aAADIfD-G-iCXArJV-uGdoogcgS5a0KAf6hAeRJpe5QgVGUgUAagQOQokPhtsommtOWoCxo4bthgSFdyvYhYY0WOippyk8f4oOqLgOcaDuXuZlc0TBs+aeV1oVbqbWPqY5YtEOkGQFPcicsJOZGfOnrFU+UGrep1buZ9GlgeQ6quokeXtTK5hwHlnsqceWNVj2uFr5lRCwPFEnAkGDsyK2u2l+Fua+HgKvNgIIEtfgCtQ0OtSWm2rgOWttXWa+PhEdSdddYuJtZdSsGtTdcRjgT5gYPdatWdc9VdW9R2DcARPFC1s4I+GOCts0HGgEKOUPgAOrWAsAzUaLBYMXHWx7TX-IaIfrcALWyQ-WnXvXeKLKsSHXLW-XE06B3UU1E0dg7FfWE3XWxkdGRncqk0HWYA-WgQZwqbwL41oA-VFR7Vk1c0U3XqblU1bH5Qc3k3HUPApL7Vy0rUS07XUUhg03y02kqm3AM3VBC3rBq2lCyYw0JoLwopig-UC4NC6ziDDAQ3tjbmXnA2g34lsYALSjdWWY8J42ziLUU3sUrhXDaikrnlgyipeh2RW3u2eJe1kw8Ka0rWB2cWXCgBFCh3VXoH2kYwqAAwC33WwTLX20zDsZ4hx1Oj1n81+0E0B18jBRPHOpfhZ4TLRwW34BW2rzHWGy5L1mtDJ3B06QhKkoRW67aEYE3CR3YQF2d3xTF1QZl3FJszPEEh9SJ28H119CN0JDN2ZKg2ort0U2F1d0sg935lbD92p2D3rDD25TcVhzj0qDFifX63LVH2z1N0O2e2L0WjL1bB9R63fW12DgsCb3ghGL+ot3m370d3LXd1phn2bAX0mRD0j06lZ26F60HELyT1v3F297tGr1R3i1lka1EPy3TTANPH1kQjN0s4+1QOW2H3giDrLWl630fkYGYOEF53V17Qz14Pmnq23C+1ig11a0kPCP51AMb2-2bA0OAkmS71t0wPH3ghsMih312kYPHW7FYPxRP27G7n8Mf2SUe5CPbAAMG0TKWPSMgOyPjDyMQN0Mhit3QOH0z3d0uWaOV66HYRhB4UEU0RK10iBjGPb2f3lVBr2Ny6VSy1i3kN112Nb0730N72MPy1v1wO92lBINX2gA30aPnl-KWBghhMx0cbf3Si0I8OiOC2v0z3eM-m4MmP4NmEJK0IGOM31OsMTGTohhcMLydNCUNPsltMkjOOVSMlkPxRv0jDGQTPbB+MqABP61xPlqzO9PkkJ3TOq7CmzOjO5QIn5S51SPHUbORF9OSO8M-XQWDYjMyaZ2lA-mXYuBv2U2gVmMEh+FFysHLWtmEgU2bMTJNP3Nmaj2vh63NPhOmPHr-06M+Z6M1P-mgtjM9IIaT3T09MXNbP9Pwv4B6M4Ogt-QqwHPKg6YdN4uANnMNNAtwvP1UtJ1q53OsPsloNtLP0vOhO03XUfPHrfNwoz3-Mz0dmV3bF4v7MPO65RWb7Fimoo1zlo04iJSVFY2WA43Ggi2c1M3-WvVG2bynMPU6vM3Ghr3mBGuA3Gg2Py1mvYxbUWsV6pW9A4CWCfiI2d3ytoiws+0GsK3OtwgXo+uq1S2uWkNT3EOgB+vf5r1BtyFiv0tWORsWOUtC0UJ6vS2xPBMJv-Lf6avK1qCpvBuyZgYqAg1g2Qal1f25QnkqDwE+tIMRj5PyI5QTXub5bIz4BAzPBxDFjLKWC6w7RKBTD4BzVbIyBCAsBfFii9tunJw2YlgAkQMzZzbdsliDsdDDtQ0MAz6EC9iUONnrAfq6DvYrDRR3J6yPIOBNV-gtWPLRr7gttTVUSZqA74CDsqCrw9ApobazEjts5fGJNsDmC7sb3N1Ltdvfut5nX+LLbGhs6iAED-t7tAd7ugeEHLsQcd5OGYAwevhYaIcb3IcgcKNgfzaU44etDFMAr4cgOEcgOocLzLvz24DkelAqCcA+ZfFySsBbQdWr6zH0ezZdtkebv0Cm1w2b7PvFhvsfusBfvp6zG6x5q6yiCFjnbZ67Wg1KuY1PtzBSfIDvsXhyd8et55zGiOsaSflVA1BGsngECyBsS4AOLPsAztB2etZxBKegAqdqcuWWfFpGuLxKBcoOJolcpxAYd0GKfLpk7GiCgm0qDOBhoyiGD+xIegDAd0fmAkfhfyeQcsktV0gjsXK2pcdbQK2cB+OryQO4BucOcUNpCpcgedwnSopldAuew+GSv5IkatfiiWlXZouBdcqUobaNMJdJdwcECNc0fpcodZdofge5eYcFfYcsG+mleXnpGVdBCZI1exB1eTeLQAfmTNfku9cAmdm5EWiddgvdenohFXbDcYAbZBjnfl6tDGhhCJelEUbTeAezcgfzcMdCfu5FcFnTCUdFQVcDg7f0N7f2ftASHGD-JgjHeXEwSUdAvQ9Ve7e1eI9YZ-cnddfG3oZfdJeUeo9pcZdsDTYLfzZMdg+by2qQ8SPhl4+4BI8o+E+XGezM6Ufnlk8CzseLQbczsRcW60-A+keg9rfTBcrvtYxhr4DowcEPdBdsCUpyAomPFK+vfcfiin4ihuGUcRPrDSYV6tCvIAACAK4AJgTEsgdvDkPp0w6gs6XIYSsius06RUYmBomkHB53LN2mJIiR2LWy-yUP231X7PnPJTvQbvviHglxHgyQcoGMCSjm4fLPSw0fuP+3iPFPCf24SfKf5mURQ2yPlgWPefcPsff6i08vOvvA6MKfafKMl3YhtfLjrnBfHPl6-Q2vivLfUIZfUrzbOWk1HmVEenBnn7OXxnHeUXyaynqn6nFH2y8VoAknr7+nMnRn8kCnSaDqq-and2E-IDrbeyznvfCPuAHny6p-v7hg1H-31PTyi7dPD-yaUH+sLHOgh3V-vOAB50diOX-PNFh3-7aA8OJIY7rRxp5gCpeC2UHh2Ap5AD4BH-IoNlwZ4dgG+nHc7uYDzQCdl2wnMzvVXwH68Z2RAxAYJ2l5LYOwPQGZgdG84icH20-ULuonF4A5l+DqEds93TwUCeOx-NeM3S4HRZjQGALXmimb5t4SQovXjof3GIKM80InV5DQHUHUBQAcgcdqAGcAeFGykwIwDMC-h3RcIGg8wdQByhWDmg1g2wTYPsF2DHBDg5wU4NcEuD3BbgzwR4O8FeDfBPg-wX4L8FAA)
+[Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/) or check example folder o source code [Github example](https://github.com/4lessandrodev/types-ddd/tree/main/example)
+
+### Test v1.0.0 on playground
+
+V1.0.0 are available on the playground
+[Click - Playground](https://www.typescriptlang.org/play?#code/PTAEFpK6dh1AggJQHIC5QBUASBJAyqAVgJoAKAovuACJ2gAyuAQqAGoVL64DyKoARgB0ABlGwJkyAFgAUCAhSlyyKADiAe1AAXLQBsAlgDsApqACsAdkUrbSuXOPaTAJwBmAQwDGZth70AriY8AEYAViZe2mQuGgAOAM6gAN5yoOnpANrGACYmAB4YCdouxgDmALoYHkYAngDccgC+DrIeIcUu3tqgXnoeCUl+gcHhkdoAPJigBc5GOUP+QaERUTHxCQB8KWkZoHGxzlEmOfuxiRiYjbK7GV4aRp0BURouABQHG5cAlDuyewDeg9iqAQgMTOsLqAarVQABeP6ApHpISoz6JAA0tyRTWu2MB2gAFgYEkJ0UkEWCEhDzglrgCWjd-ns4gEQoYvDMAI4BfwJN4ANyWo1W2gA-BhhssxlEpptvhgQhoNHoTDVEcjQAY3KBBcKVuN4XCEUYAno9KAAD6W0BCkYGqJGhEBeYmNzGE6-VLMzV7FwmbQBFxGUCePTU+maxm+7W6u3S0Vk2lO0AuvLu0w5L3433+wPB0N8kyR5HRzV5oMht45zUAKXwfCEnXK2tqbyJJKTG1+xoR9cbzaMZVbevtMu0XcS3xrGW+JfSjMZcj6AySSBMCTNk0w229ANZ7IMnJJ+GePkGiuVqpq8-2bI5WoSADEPAZAv7Lyq1UZbweH65YhcS4rVAQcyl-UohWcUAAH14xMS48R9dI-yPIFHhKZ5dHeGd0hPM8NwST9ryMLFkMBADXglLAQLAkDTXNMjfXg6jMCYvZs3IgFYzefCvHPJIADJBJmFxAM430ASJWIAHdQFMOSKDE15qy4ySMgAclwIw7QMHIeDiVwPG0AwHgwBBQH9Tc9B6LwaiMDQehCMxN34wi3DNaF5nQ7RXxDdVKJcDT2PU0A51w0Ay2RHiAEI+IE0BhNAGLAok0KdEJWT5JMRTlJwtTQq0nT-D0gyjJMszQAszw33KSyNy3bKTiSXQfL8rzRMA0AAFtCI8MoTGCiKAXCgqF1aX0O1JeLCPhR9TzcwZbyk4lpufV93zMBE4oSBaBOWvYpqEQK5pOgYsAOjIjrg4U5vg6EkiuCbNQdCc3H9EwAC8THbVbRoZZ6MlQzkBu0ddrO0N4FRovdNVio6ZsGNLQvuR4vyEPQNDKX7O1Sy6kWkjQ5IU0AlMA1T0sBDSAGF1QcnpQYysx7o0HUAry+qIaEUAAFVqU614pTMYxijVHIhCGsbAX+qNAaRCsC2u+DbyXcjgYFlwhah4DYeRBWQyOs7HpVuW70PTlimMtCNAAawmHnNlHIJqJ56Hwa3e3dwi-Xsrk92bM99sXCCDF5LNPRQ-gmWMlV-d7zQy2TM5Gq9EDwKihKco3YagOHY1PWA0rX3QH9yYHbeMNqVDvH8Vjll44t3yk6BbqQg9N4rK3IiS5zyYYU2TIKmziGJn7-OkTcV5dVRkFO5s0BWc5rvkfUni54nEkXzfIMTF+H31-xyLvcLgtS6EW2oZN2RVfaTpul6fpBlAZhwRoDRur8igjBM7RYV19IZ6YRePlX06svD+mMicBA4oMA0EgSFJE6sAhxByJAnI0DqJwOcAgwE6sSQ0BMKqZwORqJKi-DUHBcdzagDyEQqBMDQBYJMDgleBJVpCHAWqYh0C5qcLQTwsUYpi5MMvhFI6yDUHcJ6M6FB-CeiCOEZA0RUsEYJAIXQ04CJ8GEIDCcUACjK7FjEew2huj0HSMfOosx+iaE6KkaADAaY3QehyFfVWK4n64DyN-bUBhXBynHuhJ4wCPiQUgbaYUPxAkrU7PdBEyta6mxMDyPkvESEYC8SYHx7p-E7mhmQki0S9g8T0imBiFprRak0caVMroMyeiKQXfMIZDGHyikiWKaStQYRqD4ReR1AHB2Ad8VhuYT4tKLG04+zSqlCF0FrHsNSjoJPInXK6Gh8CZyHFDRp6QfabNKNs5Zwpo7jSZFJDQCydbTKLsckYbjWgeKSDzIwBgeQmC-j-WouAaAzHyHMBYRBvEmRyS4CYdEbSmlbq4L25FBlYRUnpaiEKw7QpcKMvYChCQDEJF4nmJkLQFBJNoJIYQAgggeEzfY-RahlFiGmCKgDQDYoSLinI+K3xzTiB4Fw1JtKQwOeUN4TChAORklDb4ocBAiG+HMjZWzsYCAAGyyoSByH6ABmKVKrD6bkMu8UpQjSkYAAAYABJkgsrZRyvQTRwDmAAEwCDcOAAALCIJVJhwAAA4lUhEsPagQORLCWG9SYB1HgcjevMCa05R9r6POBD0EknyDC-zmoKaodRoYCkfKTHxv9R51G2HCWFAIfa5pFr5IwfSdSpt-tcXErRb4lHvk8-NXyph-IBUkF+1I34f2MPW2oZaWSHHGHoiBOQHh6FhDBPSGAXlvKCMOn5EFHITtOFOmdsJySIVNvCkJe6sChyRYu157zV00AxVddh87NFVJsca4uS7L0Fu+TQZRk12Hki5bSK++JGZ8KkdrRh4T-6Ah9kdckHCIH2IUSTERca1npEZhIuRoGmG7PqjM6DtIhDofg0IxDSjkOm0ZtojRoGCnfmw1Bn9+HKPWIMZMxJ5y9iM1MSB6GWGbROPqacCD5bxkZU7DBrj9CANqwbtyXk4Y3gaHHNRYdcp8lXlo0J4pOoFPjiNGHc0VobSKdFHp-jLib3yxE60iKKHAQ8SmimYz4wLOQZE5hIxUtbPcW0ztYdOnRQjOw8JmZ1nPOm2C7cu9eljopPk05qIQh71kYTUyJwrhPA+CIAOz+Aosk9Ag5IkwmADC9R4PxIM-ociwMgbeUGCAyh0pMGUSBXjQOvpXe+tdzRWhpfcN4MwuBsA1ByKqCYPz345by6OjI1JAxxFPB0cBBg4gVUeKBgUGg9K3hyCSbl2gvCEjeCYXL38MnZaHSd7Q0N1jdRJCYCYG29KbEbY8x+SRztGAoJdpIEGDgGCgi5JuaFsXzFVLygAsh4OIWbYQImSE2tWYToKJzQh-FwNsoENf9M15w3d6uNZxyYJAyo+7FsHnNQeSEqEPhR5yNHNt8fY8gU+V4NBdvGQOxTTU-UCeQPMljprkDieOSLSOlhGBHuCcZUm6EAvCcs7THNGKMUjoZhyJD9HmPefOGYB+t4POmfOCEHpUaEVYoG8F84BX8wXMxNJPTrXhuNxknJYdi3hO40A1WabP7APQJA85DthIe2DuM8tx877XPkTu751VOXQuSei82OL20m2pcqPYZjMoH2vt5bZ8Hjnbv4-OFN1LGPRvp2Ds+99oQk8XAUG8Ido7l2zsTYu3lnsmxhqHRMez-bh3jsd8oRxKT+4keA6tpyLPOfLv55D4diK5eEJx+10TxP-cU+S+w0yqa1M3tzXXG4VUCXQbrF0L-QyPA3A4wSJ7vYTLK+Te-nv1cB+3TH4nKfw4jlaiX+v0v0vX0GedGYwSeKPdSDSTID7UmS7RhPvA7E4KoSWSmXfN7MUDhJNIZbCUVDwXqYfZEDSY0TYZA9KR-dvZ-NAjAjCLA14HAvAiKZLMff7cJWneqbqDQXLMPeXWIbqDXDHHIOfQvBgYlcAwEJffnVfYXUnMXfEHNNPbfGXXIAoOaI6B3dBYvZ3NXbSPIfIN4fXTvbvDIDwGLOTfkAA-A9IO-W9TsNQrgyBUkYPdVXiV0fIKVZLfEX3FggPUMXIPgx3cPXXH5UQ7iKrXmC9DrL5H5FPOw5wKQpPeicObDIhUMDQNMGHOacpQ+OvaeGXJfBeHUVQnlfgmIjcW3LTXUJfY3cWZJUwtJQLTTUKSeRXBEJfQ+L3X0LzP0KzVI+YUfeuahVgoPefXPb+Z8V4EotJc9ZdD5Tra9CXeQhogBXIjQlQ9hNXPw9Q1fQIz9E3KnOGbTAAoLHvTsIYwvEokYklfXDQqwpESovoNUevSPG4thTsf0dgzgjQp8HgjYwQ-vYQ4oK41fZ49peNDwmTVg7HYlVwYI+-fwPQMELwG2DAZvPLVvKvC4zvVPPSCwmYS7F-QYFAXA5fMCTfBYs3HzI6EHEbVwBISHOIIQFlHgGSIwSEVwX+FEig1cQk3qeoww9ISk4bMHWkqHTIQfTkgkokioCnCoKZDPTsKkoUuk0UvEt7bkkwCoF3VlN4Oyc0BEm2dw6TAY7w+4nlIbUHGk9bMkuU0kBUmkukuaeHPooGcE4068FwDYko-kOQ0pRY0Te3Io-wwnCkUASnNjDw8ff3SfGheAgfFvLLNvavDveYn06XDCXEvLfEhINUjOQ5MoU6S7Kg4JbAowIkvY6KbTAU80iHKHBkgYJklk84NktsMU7QTMtU3kqWAEJlW03lGHcnBESs6k6suIZUjM1UyUtovYbI7UmXHs-I5lQUmkso5EHsjkq7ScmOGzNjG+DoVtR0dtEouIncbtLJQFFTY837CMmCMgxM0YtEp-bQfskMmU8jAMKpNrcImYyI35X0+jTse9J01DN8m8i4r0+88gx8qU38tzO9EC77QCs4DdY4U4SNAQhMi4t4OC1E+M9Ey7b09Pb9f8rC0YzUw7Yi9ciKGfPLf09HEolnFwX4znKaZ4o6afdCy7BAHIPIHITC9ijvBCsBN00Cy0lM60xLcihwuIJwkQUOa6CSjGLJMoIkA0pgv3Ni3CvLTi7i3ijS07HCh8-ChQtM1A1-BEQ-D-IQL-RyH-P-G-Z4h-Pi8U4M8y8YSygMM-Gy4Ia-ci+y4EEAowMAvk0ASA6Ai40AamODRAtAEg0KEywYdAw9YsoknEgEQg0tGK9ScizMhKzAhFFwOg5hBgh5JkdtD7LxE8+YJIFTMeS85g6CRKxFdJMI6Yq9FzPVaE8pU9LMBCijHi6GdrL8tND9OjGC-8rbMMw0mnY0yKtJZFBVBItFHjBM8q6CmZRDZanikmAaq9Oo5LVWXrDLAbf47cabABCrPLXAZwbqbuTAcnG0bdIwWdLAUM8iYwNNAwfwS6kwa6y4O6+qSNHdZ6l88iBSL6n6oGkCB6p6264G4Td4k4MGm6v6qG2EGG28FNbqFbWoYib8F7JkFtLofc-fOAUoZwY6gJErKS766iogcmi8-ELwc67+RG362G4pV5EyT6q6pGtmjIUG7m1m28N4jghGgWoGsspY6gvK5w96rm76hIViQeFzAZJm7QRGuaN6zmvQdWhRF6wi6aDmj67W7mjWw2uW66-RIRPWzUI6fm+W6Uw+I6YW3LHIdWhEa2zc9jIw3cwm2yd+blf0RG-XS4UOEIH4HGm8V85NBICgTG9ktTchEMVayLTsRmsSC67mhSocIkFMEQHqt8llFAHKIOhOwpZOxWdhO266rOpSwkUAbYPOia1S8JEkamVWsG3iK68O0EdTdUcuqsIKlW9O5mzO90GyaEzNLATEgZf2nlEwIOtNb6yOEZIKgEGunOmKGpEQIqpusdOq4WLM4uq6zu767umjPum5AsGE5EW2o++W2vN8Zwd4SezAae9he4TGueheq65e6cTszUdeuuzehEbeqWFSvev3EkdceG124+xe7qM+3upOy+ge-+6w0kZ20W++sep+vQgUKJUtP0jAz+wO7mk+7qX+1evYQB5KLene73L2lCCMzBr49+Iu8VeB7urfX02+mSN2ohqu0kHB6EoKwUTElXd+2e0h+WwUU9K6yVehr3cM-etgkW1h7qNu4eyGThqe5Mgim29+9uk2gcwxrRxGh+8ekBdKMR+EbYCR1OqR+esh+B5enE8BoGZh76tRng6BkWninR1+vR7DJ2rxl2-hkJmB8x4Rqx0KGxwh+x0kD+gOpxmRlx20BRsBgSiMmSAYLShGs280NsAJ0ujTFB3UQe9hTWo2qJx+ie-Bqe2xohpJr+5xn+9Jv+ymNe1UbOoBuhzJ3ejIIlYofkYpiO5BqWP8taTR-0Ee768h9x9IVC8hrhq0mMCsyphIXxsJuB+R5c-k9hFhnx0Jk4eZ2U8k3UBJ43Q+vhnZ7634JKS5nJhIPJ12gp2deZvZgRu+6u1kLU+B4E8Lcot4S51uoxuZ-5z5oemZtWzO35w7f52UpR8iVCyHOochnmwy306cpleB+c+B2-I49BoQJZhFrchh-ETB5Z3RrE-Rm+g5459R6ZvLU5wFjIezDZ9hjuiFwl-Z14hlng9hlltBvZcZM5qWeGDZrZrB7qD5nlohzB2B++uFoVjogZkV+G1FopsWmGzFiKbFxQq6vF7myF+l+GlV2WBh9xffdcSNOm7YSm1UXqUY2m4lAJCDKp827uFG8WhmsF8G71tG-EQRjAANj29Vvxlm-66dR61Gl6hm3KkJQwYoaiEmxeu15W0x6F-hpN8UDhP1pIXW3mgmSu754MnN9AwRy258x201iN4x0ActoQBVnWq2otl4g22W42+2hERtj1rti2wt-O6O2OrG6jJBka3DVaBK-Nmh3sUARuy1nrb+dLfrIgPmEwWmakCYdcd5YoUOcGOIYEEwU6v5SIAIZwZE-0Xd7QDAHdoIYoTEm7O7bdjcQ9x4Y9vGuQC-MwJ8WplwB0-ETIDHWEYwf3XMha5yFwKoMDuqSFAINFRtJCA61dlgcEdcQ9hINNV4WoCYD7Eok9tXZE6JjAX9yxx9ng59vDjQv68pZ7fENXHgUwIjv9kjv98j9+SjhMkohI80Oj8iCTZjyx1jsjxpp9rdyXPjgEIZklQTp+4Tp+9j27Ld8+owSTvYBIDwXLZE3yFwUGWBLj640Tij8TtPPjncu+Im1-PtInEwDDrDlwHDqj1fUOYdUOHgJAcHLvV6zGx1mm1D6kdDjQTD7CRzgz1fWFeNqWkJCKT4I4YhKNwG1GUwKIUyIwDJaz6mB4ZL1bCYVz0AdzzznE2LzdBLmNnqKHfVDJOk-VXDsLp3Fz99ZPWQlIWzAYWoGtHw+YCuFj0AUjhTjAMT+7Jzp3Gj8OE9rsmXHT0GYMjwHJtNJprL8YVLh+rr6J54+GHlabz5n2TIslsZXDTbgMf0uIG-IQD+OIfVOVD7BZh6dr5OXIRjn6Yj3rtjgb4zobur8PHjvQcb+-Sbw7ixWb18HoGeowbL5bhj0wbrsjw+Db3TgMbbkTXbsLCZ0a47y73QD7dsAHxgvYfENrjriTaHuTl7sjt7jjkzp7IykEaTuaIH+b0H8Hh4Y6fIYlfkNb2H7TaTz5+nkHyRsHpb5nonjnvbvYVrhIO7v5Nn4n1weT1wa7d7iYFT37u4GXWnkxhxgXlL5n6T9ntjw+H2ZXaThCgni2TTn6KbgMfTqvEohXin+7CT6nnofVTD0WGtEwIWVYmwir1wOVMgGkqE937H+HiixhwEZI6TsZuaULCKBQAAARJXAAKEMiiCT7ylTJBGSEfWdDqRcVDnvTmjM0zEihUIB4lrs20xNzlfV+hDm75816Z6MBZ+l6z9KSaGBJmHDGFm0yS2r9Z5BBaLr4W619W2b+GbeCz4L-b7FbWd1G57ld5+H8b4I1kWcA+AD7d58CFg78IX5l9IBEX8Z8F6b+Ax+hd8D635OURbF+61S2Xb60y1wEC+C+w9q5t40Ia6+Tc48686k-+VPN7RodbOQXezqF3f7OcO0Q1b-p5xa5Lsn6h1IgBl0W7a8jAuXd9NAII65BZOsvUngpyM7280BXyUbrx1vCQ9l8MvICLgPl74ClO92YdN9zU4ZABOuoZ7n12oGENBuD2UzreF17YDKBbA9FDQOfbK9bwhGcgZbxvaQDf4inZ9hJ1vCn9tOAPDAMOhkGU8cgjA9IK8BlbQwCun7WQMh0f7Vd-Ew3cPJ-yGontMeCZRQSH2UHvpMSJgwnLeF0D+9eUF-cQUoMYSfcPcjTYdHoIUB2AAh0AUAGQHPagBagqRf9vcDyCghCEmMOSIEISHQBWgyQpkCkLSGpCMh6QrIZkJyHZC8huQgofkKKGFCShxQsoaUIqHlDyhQAA)
 
 !["image"](./readme/ddd.jpg "image")
 
@@ -140,7 +143,7 @@ Divided by
 
 ## 14. Available resources
 
-Resources on this dependency
+Resources on this lib (Core)
 
 - AggregateRoot
 - BaseDomainEntity
@@ -160,59 +163,15 @@ Resources on this dependency
 - IDomainEvent
 - DomainEvents
 - IHandle
+- DomainId
+- ChangesObserver
 
 ---
 
-#### Aggregate
+### Value Object
 
 ```ts
-import AggregateRoot from "types-ddd";
-```
-
-```ts
-interface Props {
-  name: NameValueObject;
-  age: AgeValueObject;
-}
-```
-
-```ts
-class UserAggregate extends AggregateRoot<Props> {
-  private constructor(props: Props, id?: UniqueEntityID) {
-    super(props, id);
-  }
-
-  get id(): UniqueEntityID {
-    return this._id;
-  }
-
-  get name(): NameValueObject {
-    return this.props.name;
-  }
-
-  get age(): AgeValueObject {
-    return this.props.name;
-  }
-
-  public addEvent(domainEvent: IDomainEvent) {
-    this.addDomainEvent(domainEvent);
-  }
-
-  public static create(
-    props: Props,
-    id?: UniqueEntityID
-  ): Result<UserAggregate> {
-    return Result.ok<UserAggregate>(new UserAggregate(props, id));
-  }
-}
-```
-
----
-
-#### Value Object
-
-```ts
-import ValueObject from "types-ddd";
+import { ValueObject, Result } from "types-ddd";
 ```
 
 ```ts
@@ -244,10 +203,49 @@ class AgeValueObject extends ValueObject<Prop> {
 
 ---
 
-#### Entity
+### Aggregate
 
 ```ts
-import Entity from "types-ddd";
+import { AggregateRoot, BaseDomainEntity, Result } from "types-ddd";
+```
+
+```ts
+interface Props extends BaseDomainEntity {
+  name: NameValueObject;
+  age: AgeValueObject;
+}
+```
+
+```ts
+class UserAggregate extends AggregateRoot<Props> {
+  private constructor(props: Props) {
+    super(props, UserAggregate.name);
+  }
+
+  get name(): NameValueObject {
+    return this.props.name;
+  }
+
+  get age(): AgeValueObject {
+    return this.props.age;
+  }
+
+  public addEvent(domainEvent: IDomainEvent) {
+    this.addDomainEvent(domainEvent);
+  }
+
+  public static create(props: Props): Result<UserAggregate> {
+    return Result.ok<UserAggregate>(new UserAggregate(props));
+  }
+}
+```
+
+---
+
+### Entity
+
+```ts
+import { Entity, BaseDomainEntity, DomainId, Result } from "types-ddd";
 ```
 
 ```ts
@@ -259,8 +257,8 @@ interface Props extends BaseDomainEntity {
 
 ```ts
 class Car extends Entity<Props> {
-  private constructor(props: Props, id?: UniqueEntityID) {
-    super(props, id);
+  private constructor(props: Props) {
+    super(props, Car.name);
   }
 
   get color(): ColorValueObject {
@@ -271,50 +269,74 @@ class Car extends Entity<Props> {
     return this.props.year;
   }
 
-  public static create(props: Props, id?: UniqueEntityID): Result<Car> {
+  public static create(props: Props): Result<Car> {
     // Your business validation logic
     // You should use rules before create entity instance
     if (props.year.value < 1960) {
       return Result.fail<Car>("The car is so wreck");
     }
-    return Result.ok<Car>(new Car(props, id));
+    return Result.ok<Car>(new Car(props));
   }
 }
+
+const myCarOrError = Car.create({
+	ID: DomainId.create(),
+	color: ColorValueObject.create('BLACK').getResult(),
+	year: YearValueObject.crete(2001).getResult()
+});
+
+console.log(myCarOrError.isSuccess);
+> true
+
+const myCar = myCarOrError.getResult();
+
+console.log(myCar.id.value);
+> "143150b2-47b6-4d97-945b-289f821c7fb9"
+
+console.log(myCar.color.value);
+> "BLACK"
+
+console.log(myCar.year.value);
+> 2001
+
 ```
 
 ---
 
-#### Documentation is being written
+### Documentation is being written
 
 [Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/)
 
-#### Todo:
+### Todo Utils:
 
 - ☐ Documentation
 
-#### Implement value objects
+#### Ready to use
 
-- ✔ Email
-- ✔ Name
-- ✔ BirthDay
-- ✔ Currency
-- ✔ Password
-- ✔ HomePhone
-- ✔ MobilePhone
-- ✔ TrackingCode
-- ✔ RgbColor
-- ✔ HexColor
-- ✔ PostalCode
-- ✔ Url
-- ☐ OrderStatus
-- ☐ ItemDimensions
-- ☐ ShippingWeight
-- ☐ EANCode
-- ☐ ISBNCode
-- ☐ UPCCode
+- ✔ EmailValueObject
+- ✔ UserNameValueObject
+- ✔ BirthdayValueObject
+- ✔ CurrencyValueObject
+- ✔ PasswordValueObject
+- ✔ HomePhoneValueObject
+- ✔ MobilePhoneValueObject
+- ✔ TrackingCodeValueObject
+- ✔ RGBColorValueObject
+- ✔ HEXColorValueObject
+- ✔ PostalCodeValueObject
+- ✔ UrlValueObject
+- ✔ OrderStatusValueObject
+- ☐ ItemDimensionsValueObject
+- ☐ ShippingWeightValueObject
+- ☐ EANCodeValueObject
+- ☐ ISBNCodeValueObject
+- ☐ UPCCodeValueObject
+- ☐ CNPJValueObject
+- ☐ CPFValueObject
 
+> If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
 
-#### Just import and use it
+### Just import and use it
 
 ```ts
 
@@ -345,8 +367,10 @@ console.log(PasswordValueObject.generateRandomPassword(12));
 
 ```
 
-#### Just import and use it
-Safe value object to calculate finance values
+### Just import and use it
+
+> Safe value object to calculate finance values.
+> Each operation return an instance of Result cause It validate safe number
 
 ```ts
 
@@ -376,3 +400,35 @@ console.log(myCurrency.getCurrencyString());
 > "R$ 70.00"
 
 ```
+
+
+> You may combine CurrencyValueObject to ChangesObserver
+> Observer check all received Results. If some "Result" is failure It returns false.
+
+```ts
+
+import { ChangesObserver } from 'types-ddd';
+
+const observer = ChangesObserver.init<string>();
+
+const isAllSuccess = observer
+	.add(Result.ok<string>('1'))
+	.add(Result.ok<string>('2'))
+	.add(Result.ok<string>('3'))
+	.add(Result.ok<string>('4'))
+	.add(Result.ok<string>('5'))
+	.add(Result.fail<string>('fail'))
+	.add(Result.ok<string>('7'))
+	.isAllResultsSuccess();
+
+console.log(isAllSuccess);
+> false
+
+```
+
+> Contribute to this project [PIX]
+
+<img src="https://alessandrodev.s3.amazonaws.com/pix.jpeg" width="250">
+
+> Or use link
+[Pix https://nubank.com.br/pagar/izlen/Tn0D9KyXRb](https://nubank.com.br/pagar/izlen/Tn0D9KyXRb)

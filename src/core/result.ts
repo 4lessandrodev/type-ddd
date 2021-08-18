@@ -38,7 +38,7 @@ type ErrorStatus = 300 | 301 | 302 | 303 | 304 | 305 | 306 | 400 | 401 | 402 | 4
 				this.statusCode = 200;
 			} else {
 				this.statusCode = 400;
-				Logger.error('Could not define StatusCode for result');
+				Logger.error('Could not define StatusCode for result. By default It was defined as 400');
 				Logger.warn(JSON.stringify(this));
 				this.printError();
 			}
@@ -82,8 +82,12 @@ type ErrorStatus = 300 | 301 | 302 | 303 | 304 | 305 | 306 | 400 | 401 | 402 | 4
 			return this._value;
 	  }
  
-	  public errorValue(): T {
-		   return this.error as T;
+	  /**
+	   * 
+	   * @returns error as T
+	   */
+	  public errorValue(): string {
+		   return this.error as string;
 	  }
  
 		/**

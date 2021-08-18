@@ -1,6 +1,5 @@
-export * from './core/aggregate-root';
-export * from './core/base-domain-entity';
 export * from './core/entity';
+export * from './core/base-domain-entity';
 export * from './core/events/domain-events';
 export * from './core/events/domain-event.interface';
 export * from './core/events/handle.interface';
@@ -31,3 +30,5 @@ export * from './utils/rgb-color.value-object';
 export * from './utils/hex-color.value-object';
 export * from './utils/color-generator.util';
 export * from './utils/color-converter.util';
+export * from './utils/order-status.value-object';
+export * from './core/changes-observer';

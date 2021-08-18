@@ -18,11 +18,13 @@
         ],
         "sourceMap": true,
         "outDir": "./dist",
-        "esModuleInterop": true,
-		"baseUrl": "./",
-		"paths": {
-			"@types-ddd":["src/index"]
-		}
+        "esModuleInterop": true
     },
-	"include": ["src/*", "src/**/*", "example"],
+	"include": ["src/*", "src/**/*"],
+    "exclude": [
+        "/**/*.spec.ts",
+        "/*.spec.ts",
+		"tests",
+		"*/tests"
+    ]
 }

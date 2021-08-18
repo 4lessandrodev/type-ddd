@@ -6,12 +6,73 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - ValueObject Decorator
-- OrderStatusValueObject
 - ItemDimensionsValueObject
 - ShippingWeightValueObject
 - EANCodeValueObject
 - ISBNCodeValueObject
 - UPCCodeValueObject
+- CPFValueObject
+- CNPJValueObject
+
+
+### 2.1.0 - 2021-08-14
+
+---
+
+### Changed
+
+- CurrencyValueObject
+
+### Added
+
+- ChangesObserver
+
+### 2.0.4 - 2021-08-13
+
+---
+
+### Fixed
+
+- Result
+
+### 2.0.3 - 2021-08-13
+
+---
+
+### Fixed
+
+- Result
+
+### 2.0.2 - 2021-08-12
+
+---
+
+### Changed
+
+- Dynamic types to Filter on IBaseRepository
+
+### 2.0.1 - 2021-08-12
+
+- Entity
+
+### 2.0.0 - 2021-08-12
+
+---
+
+### Changed
+
+- DomainId
+- AggregateRoot
+- Entity
+- Filter
+
+### Added
+
+- OrderStatusValueObject
+
+### Fixed
+
+- AggregateRoot
 
 ### 1.5.1 - 2021-08-11
 

@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "1.5.2",
+	"version": "2.1.0",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.js",
@@ -23,7 +23,7 @@
 	],
 	"scripts": {
 		"prebuild": "rimraf ./dist",
-		"build": "tsc",
+		"build": "tsc -p tsconfig.lib.json",
 		"test": "jest --silent"
 	},
 	"repository": {
