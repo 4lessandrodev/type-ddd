@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.js",
@@ -35,19 +35,20 @@
 	},
 	"homepage": "https://alessandroadm.gitbook.io/types-ddd/",
 	"dependencies": {
-		"bcrypt": "^5.0.1",
-		"pino": "^6.13.0",
-		"pino-pretty": "^5.1.2"
+		"bcrypt": "5.0.1",
+		"pino": "6.13.0",
+		"pino-pretty": "5.1.3"
 	},
 	"devDependencies": {
-		"@microsoft/tsdoc": "^0.13.2",
-		"@types/bcrypt": "^5.0.0",
-		"@types/jest": "^26.0.24",
-		"@types/pino": "^6.3.11",
-		"jest": "^27.0.6",
-		"rimraf": "^3.0.2",
-		"ts-jest": "^27.0.3",
-		"ts-node": "^10.1.0",
-		"typescript": "^4.3.5"
+		"@types/node": "16.6.1",
+		"@microsoft/tsdoc": "0.13.2",
+		"@types/bcrypt": "5.0.0",
+		"@types/jest": "27.0.1",
+		"@types/pino": "6.3.11",
+		"jest": "27.0.6",
+		"rimraf": "3.0.2",
+		"ts-jest": "27.0.5",
+		"ts-node": "10.2.0",
+		"typescript": "4.3.5"
 	}
 }
