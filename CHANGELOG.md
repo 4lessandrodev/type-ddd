@@ -14,6 +14,14 @@ All notable changes to this project will be documented in this file.
 - CPFValueObject
 - CNPJValueObject
 
+### 2.2.2 - 2021-08-19
+
+---
+
+### Fixed
+
+- colorGenerator
+
 ### 2.2.1 - 2021-08-17
 
 ---
