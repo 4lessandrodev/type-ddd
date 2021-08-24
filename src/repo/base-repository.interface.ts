@@ -2,9 +2,9 @@ import Filter from './filter.interface';
 
 /**
  * `DomainAggregate` as Aggregate Entity
- * `FilterKeys` as interface with keys type to filter on search
+ * `Model` as interface or database model to use keys on filter param
  * @example UserAggregate from domain
- * export class userRepository extends IBaseRepository<DomainAggregate, FilterKeys> {
+ * export class userRepository extends IBaseRepository<DomainAggregate, Model> {
  * 		// Methods ...
  * }
  *
@@ -24,7 +24,7 @@ import Filter from './filter.interface';
  * @method exists
  * @method save
  */
-export default interface IBaseRepository<DomainAggregate, FilterKeys> {
+export default interface IBaseRepository<DomainAggregate, Model> {
 	 /**
 	  * @param filter as `{key: value}`
 	  * @returns Promise with Array of `DomainAggregate` or `null`
@@ -35,23 +35,24 @@ export default interface IBaseRepository<DomainAggregate, FilterKeys> {
 	  * 
 	  * interface IKeys {
 	  * 	id: string
+	  * 	name: string
 	  * }
 	  * 
 	  * // your repository method
 	  * 
-	  * async find(filter: Filter<Partial<IKeys>>): Promise<DomainAggregate> {
+	  * async find(filter: Filter<Partial>): Promise<DomainAggregate> {
 	  * 	return this.conn.find(filter);
 	  * }
 	  * 
 	  * // calling your repo method
 	  * 
-	  * repo.find<IKeys>({ id: "my-id" }); // Ok
+	  * repo.find({ id: "my-id" }); // Ok
 	  * 
-	  * repo.find<IKeys>({ id: 10 }); // Fails... id must be string
+	  * repo.find({ id: 10 }); // Fails... id must be string
 	  * 
 	  * ...
 	  */
-	 find:(filter: Filter<Partial<FilterKeys>>) => Promise<DomainAggregate[] | null>;
+	 find:(filter: Filter<Partial<Model>>) => Promise<DomainAggregate[] | null>;
 
 	 /**
 	  * @param filter as `{key: value}`
@@ -63,21 +64,22 @@ export default interface IBaseRepository<DomainAggregate, FilterKeys> {
 	  * 
 	  * interface IKeys {
 	  * 	id: string
+	  * 	name: string
 	  * }
 	  * 
-	  * async findOne(filter: Filter<Partial<IKeys>>): Promise<DomainAggregate> {
+	  * async findOne(filter: Filter<Partial<Model>>): Promise<DomainAggregate> {
 	  * 	return this.conn.findOne(filter);
 	  * }
 	  * 
 	  * // calling your repo method
 	  * 
-	  * repo.findOne<IKeys>({ id: "my-id" }); // Ok
+	  * repo.findOne({ id: "my-id" }); // Ok
 	  * 
-	  * repo.findOne<IKeys>({ id: 10 }); // Fails... id must be string
+	  * repo.findOne({ id: 10 }); // Fails... id must be string
 	  * 
 	  * ...
 	  */
-	 findOne:(filter: Filter<Partial<FilterKeys>>) => Promise<DomainAggregate | null>;
+	 findOne:(filter: Filter<Partial<Model>>) => Promise<DomainAggregate | null>;
 
 	 /**
 	  * @param filter as `{key: value}`
@@ -89,9 +91,10 @@ export default interface IBaseRepository<DomainAggregate, FilterKeys> {
 	  * 
 	  * interface IKeys {
 	  * 	id: string
+	  * 	name: string
 	  * }
 	  * 
-	  * async delete(filter: Filter<Partial<IKeys>>):  Promise<void> {
+	  * async delete(filter: Filter<Partial<Model>>):  Promise<void> {
 	  * 	return this.conn.delete(filter);
 	  * }
 	  * 
@@ -101,7 +104,7 @@ export default interface IBaseRepository<DomainAggregate, FilterKeys> {
 	  * 
 	  * ...
 	  */
-	 delete:(filter: Filter<Partial<FilterKeys>>) => Promise<void>;
+	 delete:(filter: Filter<Partial<Model>>) => Promise<void>;
 
 	 /**
 	  * @param filter as `{key: value}`
@@ -111,11 +114,12 @@ export default interface IBaseRepository<DomainAggregate, FilterKeys> {
 	  * 
 	  * // Dynamic interface
 	  * 
-	  * interface IKeys {
+	  * interface Model {
 	  * 	id: string
+	  * 	name: string
 	  * }
 	  * 
-	  * async exists(filter: Filter<Partial<IKeys>>): Promise<DomainAggregate> {
+	  * async exists(filter: Filter<Partial>): Promise<DomainAggregate> {
 	  * 	return this.conn.exists(filter);
 	  * }
 	  * 
@@ -125,7 +129,7 @@ export default interface IBaseRepository<DomainAggregate, FilterKeys> {
 	  * 
 	  * ...
 	  */
-	 exists:(filter: Filter<Partial<FilterKeys>>) => Promise<boolean>;
+	 exists:(filter: Filter<Partial<Model>>) => Promise<boolean>;
 
 	 /**
 	  * @param target as DomainAggregate
