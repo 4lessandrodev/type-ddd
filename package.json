@@ -24,7 +24,7 @@
 	"scripts": {
 		"prebuild": "rimraf ./dist",
 		"build": "tsc -p tsconfig.lib.json",
-		"test": "jest --silent"
+		"test": "jest --silent --runInBand"
 	},
 	"repository": {
 		"type": "git",
