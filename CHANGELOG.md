@@ -14,6 +14,18 @@ All notable changes to this project will be documented in this file.
 - CPFValueObject
 - CNPJValueObject
 
+### 2.2.3 - 2021-08-24
+
+---
+
+### Added
+
+- SpecificationComposite
+
+### Changed
+
+- IBaseRepository - rename params and doc comments
+
 ### 2.2.2 - 2021-08-19
 
 ---
