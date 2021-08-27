@@ -1,4 +1,4 @@
-import { Result, ValueObject } from "..";
+import { Result, ValueObject } from '..';
 
 enum AvailableOrderStatus {
 	'PENDING',
@@ -14,7 +14,7 @@ enum AvailableOrderStatus {
 	'DECLINED',
 	'REFUNDED',
 	'MANUAL_VERIFICATION_REQUIRED',
-	'PARTIALLY_REFUNDED'
+	'PARTIALLY_REFUNDED',
 }
 
 export type AvailableOrderStatusType = keyof typeof AvailableOrderStatus;
@@ -133,15 +133,21 @@ class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 		return this.props.value === status;
 	}
 
-	public static isValidValue = (status: AvailableOrderStatusType) => status in AvailableOrderStatus;
+	public static isValidValue = (status: AvailableOrderStatusType) =>
+		status in AvailableOrderStatus;
 
-	public static create(value: AvailableOrderStatusType): Result<OrderStatusValueObject> {
-
+	public static create(
+		value: AvailableOrderStatusType
+	): Result<OrderStatusValueObject> {
 		if (!OrderStatusValueObject.isValidValue(value)) {
-			return Result.fail<OrderStatusValueObject>('Invalid status value for an order');
+			return Result.fail<OrderStatusValueObject>(
+				'Invalid status value for an order'
+			);
 		}
 
-		return Result.ok<OrderStatusValueObject>(new OrderStatusValueObject({ value }));
+		return Result.ok<OrderStatusValueObject>(
+			new OrderStatusValueObject({ value })
+		);
 	}
 }
 

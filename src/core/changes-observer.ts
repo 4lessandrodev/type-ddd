@@ -1,26 +1,26 @@
-import { Result } from './result'
+import { Result } from './result';
 
 interface IChangesObserver<T> {
-	reset: ()=> ChangesObserver<T>;
-	isAllResultsSuccess: ()=> boolean;
-	getResult: ()=> Result<T>;
-	add: (result: Result<T>)=> ChangesObserver<T>;
-	removeLast: ()=> ChangesObserver<T>;
-	removeFirst: ()=> ChangesObserver<T>;
-	getResultsQtd:()=> number;
-	getLastRemoved: ()=> Readonly<Result<T>> | undefined;
-	getLastAdded: ()=> Readonly<Result<T>> | undefined;
+	reset: () => ChangesObserver<T>;
+	isAllResultsSuccess: () => boolean;
+	getResult: () => Result<T>;
+	add: (result: Result<T>) => ChangesObserver<T>;
+	removeLast: () => ChangesObserver<T>;
+	removeFirst: () => ChangesObserver<T>;
+	getResultsQtd: () => number;
+	getLastRemoved: () => Readonly<Result<T>> | undefined;
+	getLastAdded: () => Readonly<Result<T>> | undefined;
 }
 
 /**
  * Keep state to check results
  */
 class ChangesObserver<T> implements IChangesObserver<T> {
-	private results:Result<T>[]=[];
+	private results: Result<T>[] = [];
 	private removed: Result<T> | undefined;
 	private added: Result<T> | undefined;
 
-	private constructor(args?: Result<T>[]){
+	private constructor(args?: Result<T>[]) {
 		this.setItems(args);
 		this.added = undefined;
 		this.removed = undefined;
@@ -35,25 +35,25 @@ class ChangesObserver<T> implements IChangesObserver<T> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @returns return last removed item if exists.
 	 * If It does not exists return undefined
 	 */
-	getLastRemoved (): Readonly<Result<T>> | undefined {
+	getLastRemoved(): Readonly<Result<T>> | undefined {
 		return Object.freeze(this.removed);
-	};
+	}
 
 	/**
-	 * 
+	 *
 	 * @returns return last added item if exists.
 	 * If It does not exists return undefined
 	 */
-	getLastAdded (): Readonly<Result<T>> | undefined {
+	getLastAdded(): Readonly<Result<T>> | undefined {
 		return Object.freeze(this.added);
-	};
+	}
 
 	/**
-	 * 
+	 *
 	 * @returns return quantity of results are on instance state
 	 */
 	public getResultsQtd(): number {
@@ -61,10 +61,10 @@ class ChangesObserver<T> implements IChangesObserver<T> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param result add a new result on state of instance
 	 */
-	public add(result: Result<T>):  ChangesObserver<T> {
+	public add(result: Result<T>): ChangesObserver<T> {
 		this.results = this.results.concat(result);
 		this.added = result;
 		return this;
@@ -74,7 +74,7 @@ class ChangesObserver<T> implements IChangesObserver<T> {
 	 * @description remove the last added result from state
 	 * @returns removed result or undefined if empty
 	 */
-	public removeLast():  ChangesObserver<T>{
+	public removeLast(): ChangesObserver<T> {
 		this.removed = this.results.pop();
 		return this;
 	}
@@ -83,7 +83,7 @@ class ChangesObserver<T> implements IChangesObserver<T> {
 	 * @description remove the first added result from state
 	 * @returns removed result or undefined if empty
 	 */
-	public removeFirst():  ChangesObserver<T> {
+	public removeFirst(): ChangesObserver<T> {
 		this.removed = this.results.shift();
 		return this;
 	}
@@ -116,29 +116,29 @@ class ChangesObserver<T> implements IChangesObserver<T> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param args results to initial state
 	 * @returns instance of ChangesObserver<T>
-	 * 
-	 * @example 
-	 * 
+	 *
+	 * @example
+	 *
 	 * // Starting with initial state:
-	 * 
+	 *
 	 * const observer = ChangesObserver.init<string>(
 	 * 	[
 	 * 		Result.ok<string>("Hello"),
 	 * 		Result.ok<string>("World")
 	 * 	]
 	 * );
-	 * 
+	 *
 	 * ...
-	 * 
+	 *
 	 * // Starting with no initial state:
-	 * 
+	 *
 	 * const observer = ChangesObserver.init<string>();
-	 * 
+	 *
 	 * ...
-	 * 
+	 *
 	 */
 	public static init<T>(args?: Result<T>[]): ChangesObserver<T> {
 		return new ChangesObserver<T>(args);

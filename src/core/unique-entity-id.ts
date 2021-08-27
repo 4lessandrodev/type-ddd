@@ -6,7 +6,7 @@ import Identifier from './identifier';
  * If id is provided returns itself else generate a new uuid
  */
 export default class UniqueEntityID extends Identifier<string | number> {
-	constructor (id?: string | number) {
+	constructor(id?: string | number) {
 		super(id ? id : randomUUID());
 	}
 }

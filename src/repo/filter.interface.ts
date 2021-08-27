@@ -8,9 +8,9 @@
  * { id: 1 }
  * { name: "Alessandro" }
  */
- type Filter<T = {}> = {
-	[K in keyof T] : T[K]
-}
+type Filter<T = {}> = {
+	[K in keyof T]: T[K];
+};
 
 export default Filter;
 export { Filter };

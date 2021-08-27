@@ -1,4 +1,4 @@
-import getUndefinedKeysAsArray from "./get-undefined-keys-as-array.util";
+import getUndefinedKeysAsArray from './get-undefined-keys-as-array.util';
 
 interface Params {
 	object: Object;
@@ -6,7 +6,7 @@ interface Params {
 }
 
 /**
- * 
+ *
  * @param params object and boolean to check or not nullable value
  * @returns array with undefined keys
  */
@@ -22,7 +22,7 @@ const getUndefinedKeysAsObject = (params: Params): Object => {
 		objResult = Object.assign({}, { ...objResult }, { ...undefinedKey });
 	}
 	return objResult;
-}
+};
 
 export { getUndefinedKeysAsObject };
 export default getUndefinedKeysAsObject;

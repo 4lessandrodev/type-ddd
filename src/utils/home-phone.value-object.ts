@@ -1,9 +1,9 @@
-import { Result, ValueObject } from "..";
+import { Result, ValueObject } from '..';
 const regexHash = /^\([1-9]{2}\)\s[2-5][0-9]{3}\-[0-9]{4}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;
 
 interface Prop {
-	value: string
+	value: string;
 }
 
 /**
@@ -11,12 +11,12 @@ interface Prop {
  * @default (XX) XXXX-XXXX
  */
 class HomePhoneValueObject extends ValueObject<Prop> {
-	private constructor(prop:Prop){
-		super(prop)
+	private constructor(prop: Prop) {
+		super(prop);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param value Phone number (XX) XXXX-XXXX
 	 * @returns true if pattern match and false if not.
 	 */
@@ -32,17 +32,20 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @returns only numbers without special chars. Includes DDD.
 	 * @example 1122502301
 	 */
 	getOnlyNumbers(): number {
-		const onlyNumbersAsString = this.props.value.replace(regexHashSpecialChars, '');
+		const onlyNumbersAsString = this.props.value.replace(
+			regexHashSpecialChars,
+			''
+		);
 		return parseInt(onlyNumbersAsString);
 	}
 
 	/**
-	 * 
+	 *
 	 * @returns DDD only as number
 	 * @example 11
 	 */
@@ -51,16 +54,20 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param value Brazilian home phone number
 	 * @example (XX) XXXX-XXXX
 	 * @returns Result of HomePhoneValueObject
 	 */
-	public static create (value: string): Result<HomePhoneValueObject> {
-		if(!HomePhoneValueObject.isValidValue(value)){
-			return Result.fail<HomePhoneValueObject>('Invalid Home Phone Number');
+	public static create(value: string): Result<HomePhoneValueObject> {
+		if (!HomePhoneValueObject.isValidValue(value)) {
+			return Result.fail<HomePhoneValueObject>(
+				'Invalid Home Phone Number'
+			);
 		}
-		return Result.ok<HomePhoneValueObject>(new HomePhoneValueObject({ value }));
+		return Result.ok<HomePhoneValueObject>(
+			new HomePhoneValueObject({ value })
+		);
 	}
 }
 
