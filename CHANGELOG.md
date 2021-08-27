@@ -1,6 +1,7 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+
 ## Unreleased
 
 ### Added
@@ -13,6 +14,18 @@ All notable changes to this project will be documented in this file.
 - UPCCodeValueObject
 - CPFValueObject
 - CNPJValueObject
+
+### 2.3.0 - 2021-08-27
+
+---
+
+### Added
+
+- StatusCodeEnum
+
+### Changed
+
+- Result - provide an enum as string declaration instead number
 
 ### 2.2.3 - 2021-08-24
 
@@ -47,7 +60,6 @@ All notable changes to this project will be documented in this file.
 ---
 
 ### Added
-
 
 - getUndefinedKeysAsArray
 - getUndefinedKeysAsObject
@@ -122,6 +134,7 @@ All notable changes to this project will be documented in this file.
 ### 1.5.0 - 2021-08-11
 
 ---
+
 ### Added
 
 - colorConverter
@@ -135,6 +148,7 @@ All notable changes to this project will be documented in this file.
 ### 1.4.1 - 2021-08-11
 
 ---
+
 ### Added
 
 - RGBColorValueObject
@@ -170,12 +184,11 @@ All notable changes to this project will be documented in this file.
 - DomainId
 - TrackingCodeValueObject
 
-
 ### 1.2.0 - 2021-08-09
 
 ---
 
-### Added 
+### Added
 
 - PasswordValueObject
 - passwordGenerator
@@ -200,7 +213,6 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - Define Node crash version on package.json
-
 
 ### 1.0.2 - 2021-07-09
 

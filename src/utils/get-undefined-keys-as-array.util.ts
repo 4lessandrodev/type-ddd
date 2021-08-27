@@ -4,7 +4,7 @@ interface Params {
 }
 
 /**
- * 
+ *
  * @param params object and boolean to check or not nullable value
  * @returns array with undefined keys
  */
@@ -16,15 +16,17 @@ const getUndefinedKeysAsArray = (params: Params): string[] => {
 		return [];
 	}
 
-	for(const key of keys) {
-			const objKey = key as keyof Object;
-			if (typeof params.object[objKey] === 'undefined' 
-				|| (params.object[objKey] === null && params.includesNull))
-				undefinedKeys.push(key);
+	for (const key of keys) {
+		const objKey = key as keyof Object;
+		if (
+			typeof params.object[objKey] === 'undefined' ||
+			(params.object[objKey] === null && params.includesNull)
+		)
+			undefinedKeys.push(key);
 	}
 
 	return undefinedKeys;
-}
+};
 
 export { getUndefinedKeysAsArray };
 export default getUndefinedKeysAsArray;

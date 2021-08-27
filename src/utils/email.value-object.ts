@@ -1,12 +1,12 @@
-import { Result, ValueObject } from "..";
+import { Result, ValueObject } from '..';
 const regexHash = /^\w+-?\w+[0-9]?@\w+[0-9]?\.\w{1,5}(\.\w{2})?/;
 
 interface Prop {
-	value: string
+	value: string;
 }
-export class EmailValueObject extends ValueObject<Prop>{
-	private constructor(props: Prop){
-		super(props)
+export class EmailValueObject extends ValueObject<Prop> {
+	private constructor(props: Prop) {
+		super(props);
 	}
 
 	get value(): string {
@@ -19,8 +19,8 @@ export class EmailValueObject extends ValueObject<Prop>{
 
 	getDomain(): string {
 		return this.props.value
-		.slice(this.props.value.indexOf('@') + 1)
-		.toLowerCase();
+			.slice(this.props.value.indexOf('@') + 1)
+			.toLowerCase();
 	}
 
 	public static isValidValue(email: string): boolean {
@@ -28,10 +28,10 @@ export class EmailValueObject extends ValueObject<Prop>{
 		return isValidEmail;
 	}
 
-	public static create(value: string): Result<EmailValueObject>{
-		if (!EmailValueObject.isValidValue(value)){
+	public static create(value: string): Result<EmailValueObject> {
+		if (!EmailValueObject.isValidValue(value)) {
 			return Result.fail<EmailValueObject>('Invalid email');
 		}
-		return Result.ok<EmailValueObject>(new EmailValueObject({ value }))
+		return Result.ok<EmailValueObject>(new EmailValueObject({ value }));
 	}
 }

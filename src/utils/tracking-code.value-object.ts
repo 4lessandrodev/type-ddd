@@ -1,5 +1,5 @@
-import { Result, ValueObject } from "..";
-import generateRandomTracking from "./generate-random-tracking-code.util";
+import { Result, ValueObject } from '..';
+import generateRandomTracking from './generate-random-tracking-code.util';
 const regexHash = /^[0-9|A-Z]{3}-[\w]{1}[0-9]{5}-[0-9]{4}$/;
 
 interface OrderIdProps {
@@ -19,18 +19,18 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @returns tracking code as string
 	 */
 	public static generate(): string {
-		return generateRandomTracking()
+		return generateRandomTracking();
 	}
 
 	/**
-	 * 
+	 *
 	 * @param code value as string
 	 * @returns true if code match with pattern or false if not
-	 * @pattern 
+	 * @pattern
 	 * XXX-A99999-9999
 	 */
 	public static isValidValue(code: string): boolean {
@@ -42,17 +42,21 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	 * The value is optional. If you not provide a new one will be generated.
 	 * @param code optional
 	 * @returns Result of TrackingCode
-	 * @pattern 
+	 * @pattern
 	 * XXX-A99999-9999
 	 */
 	public static create(code?: string): Result<TrackingCodeValueObject> {
 		const value = code ?? TrackingCodeValueObject.generate();
 		if (code) {
 			if (!TrackingCodeValueObject.isValidValue(code)) {
-				return Result.fail<TrackingCodeValueObject>('Invalid value for Tracking code');
+				return Result.fail<TrackingCodeValueObject>(
+					'Invalid value for Tracking code'
+				);
 			}
 		}
-		return Result.ok<TrackingCodeValueObject>(new TrackingCodeValueObject({ value }));
+		return Result.ok<TrackingCodeValueObject>(
+			new TrackingCodeValueObject({ value })
+		);
 	}
 }
 

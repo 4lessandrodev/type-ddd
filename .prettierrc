@@ -1,0 +1,9 @@
+{
+	"useTabs": true,
+	"arrowParens": "always",
+	"singleQuote": true,
+	"semi": true,
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "tabWidth": 4
+}

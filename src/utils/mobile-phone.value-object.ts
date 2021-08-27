@@ -1,9 +1,10 @@
-import { Result, ValueObject } from "..";
-const regexHash = /^\([1-9]{2}\)\s[9](?!\d(?:(\d)\1{2})-(\d)\1{3})[5-9][0-9]{3}\-[0-9]{4}$/;
+import { Result, ValueObject } from '..';
+const regexHash =
+	/^\([1-9]{2}\)\s[9](?!\d(?:(\d)\1{2})-(\d)\1{3})[5-9][0-9]{3}\-[0-9]{4}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;
 
 interface Prop {
-	value: string
+	value: string;
 }
 
 /**
@@ -11,12 +12,12 @@ interface Prop {
  * @default (XX) 9XXXX-XXXX
  */
 class MobilePhoneValueObject extends ValueObject<Prop> {
-	private constructor(prop:Prop){
-		super(prop)
+	private constructor(prop: Prop) {
+		super(prop);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param value Phone number (XX) 9XXXX-XXXX
 	 * @returns true if pattern match and false if not.
 	 */
@@ -32,17 +33,20 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @returns only numbers without special chars. Includes DDD.
 	 * @example 11992502301
 	 */
 	getOnlyNumbers(): number {
-		const onlyNumbersAsString = this.props.value.replace(regexHashSpecialChars, '');
+		const onlyNumbersAsString = this.props.value.replace(
+			regexHashSpecialChars,
+			''
+		);
 		return parseInt(onlyNumbersAsString);
 	}
 
 	/**
-	 * 
+	 *
 	 * @returns DDD only as number
 	 * @example 11
 	 */
@@ -51,16 +55,20 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param value Brazilian Mobile phone number
 	 * @example (XX) 9XXXX-XXXX
 	 * @returns Result of MobilePhoneValueObject
 	 */
-	public static create (value: string): Result<MobilePhoneValueObject> {
-		if(!MobilePhoneValueObject.isValidValue(value)){
-			return Result.fail<MobilePhoneValueObject>('Invalid Mobile Phone Number');
+	public static create(value: string): Result<MobilePhoneValueObject> {
+		if (!MobilePhoneValueObject.isValidValue(value)) {
+			return Result.fail<MobilePhoneValueObject>(
+				'Invalid Mobile Phone Number'
+			);
 		}
-		return Result.ok<MobilePhoneValueObject>(new MobilePhoneValueObject({ value }));
+		return Result.ok<MobilePhoneValueObject>(
+			new MobilePhoneValueObject({ value })
+		);
 	}
 }
 

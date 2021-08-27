@@ -1,10 +1,10 @@
-import { Result, ValueObject } from "..";
+import { Result, ValueObject } from '..';
 
 interface Prop {
 	value: Date;
 }
 
-export class BirthdayValueObject extends ValueObject<Prop>{
+export class BirthdayValueObject extends ValueObject<Prop> {
 	private readonly ONE_YEAR: number = 31536000902;
 	private constructor(prop: Prop) {
 		super(prop);
@@ -24,12 +24,12 @@ export class BirthdayValueObject extends ValueObject<Prop>{
 	getAgeAsYearsOld(): number {
 		const now = new Date().getTime();
 		const difference = now - this.props.value.getTime();
-		const ageInYears = (difference / this.ONE_YEAR);
+		const ageInYears = difference / this.ONE_YEAR;
 		return Math.trunc(ageInYears);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param age as number
 	 * @returns true if instance value is greater than provided value else return false
 	 */
@@ -39,7 +39,7 @@ export class BirthdayValueObject extends ValueObject<Prop>{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param age as number
 	 * @returns true if instance value is equal to provided value else return false
 	 */
@@ -49,21 +49,26 @@ export class BirthdayValueObject extends ValueObject<Prop>{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param date birthday as Date
 	 * @returns true if is a valid age for a human
 	 */
 	public static isValidValue(date: Date): boolean {
 		const now = new Date();
 		const isBeforeToday = date < now;
-		const hasLessThan121YearsOld = (now.getFullYear() - date.getFullYear()) < 121;
-		return (isBeforeToday && hasLessThan121YearsOld);
+		const hasLessThan121YearsOld =
+			now.getFullYear() - date.getFullYear() < 121;
+		return isBeforeToday && hasLessThan121YearsOld;
 	}
 
-	public static create(value: Date): Result<BirthdayValueObject>{
-		if (!BirthdayValueObject.isValidValue(value)){
-			return Result.fail<BirthdayValueObject>('Invalid age for a human. Must has less than 121 years old and birth not in future');
+	public static create(value: Date): Result<BirthdayValueObject> {
+		if (!BirthdayValueObject.isValidValue(value)) {
+			return Result.fail<BirthdayValueObject>(
+				'Invalid age for a human. Must has less than 121 years old and birth not in future'
+			);
 		}
-		return Result.ok<BirthdayValueObject>(new BirthdayValueObject({ value }));
+		return Result.ok<BirthdayValueObject>(
+			new BirthdayValueObject({ value })
+		);
 	}
 }

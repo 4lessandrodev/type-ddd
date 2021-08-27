@@ -15,13 +15,13 @@ import Filter from './filter.interface';
  * @method orm:
  */
 export default interface IBaseConnection<Entity, ORM> {
-     find: (filter: Filter) => Promise<Entity[] | null>;
-     findOne: (filter: Filter) => Promise<Entity | null>;
-     delete: (filter: Filter) => Promise<void>;
-     exists: (filter: Filter) => Promise<boolean>;
-     update: (target: Entity) => Promise<void>;
-     create: (target: Entity) => Promise<void>;
-     orm(): ORM;
+	find: (filter: Filter) => Promise<Entity[] | null>;
+	findOne: (filter: Filter) => Promise<Entity | null>;
+	delete: (filter: Filter) => Promise<void>;
+	exists: (filter: Filter) => Promise<boolean>;
+	update: (target: Entity) => Promise<void>;
+	create: (target: Entity) => Promise<void>;
+	orm(): ORM;
 }
 
 export { IBaseConnection };
