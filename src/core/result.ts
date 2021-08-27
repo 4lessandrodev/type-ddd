@@ -1,37 +1,102 @@
 import Logger from '../utils/logger.util';
+/*
+ * @property `100` Continue
+ * @property `101` Switching Protocols
+ * @property `102` Processing (WebDAV)
+ * @property `200` OK
+ * @property `201` Created
+ * @property `202` Accepted
+ * @property `203` Non-Authoritative Information
+ * @property `204` No Content
+ * @property `205` Reset Content
+ * @property `206` Partial Content
+ */
+enum SuccessStatusEnum {
+	CONTINUE = 100,
+	SWITCHING_PROTOCOL = 101,
+	PROCESSING = 102,
+	OK = 200,
+	CREATED = 201,
+	ACCEPTED = 202,
+	NON_AUTHORITATIVE = 203,
+	NO_CONTENT = 204,
+	RESET_CONTENT = 205,
+	PARTIAL_CONTENT = 206,
+}
 
-type SuccessStatus = 100 | 101 | 102 | 200 | 201 | 202 | 203 | 204 | 205 | 206;
-type ErrorStatus =
-	| 300
-	| 301
-	| 302
-	| 303
-	| 304
-	| 305
-	| 306
-	| 400
-	| 401
-	| 402
-	| 403
-	| 404
-	| 405
-	| 406
-	| 407
-	| 408
-	| 409
-	| 410
-	| 411
-	| 412
-	| 413
-	| 414
-	| 415
-	| 422
-	| 500
-	| 501
-	| 502
-	| 503
-	| 504
-	| 505;
+type SuccessStatus = keyof typeof SuccessStatusEnum;
+
+/**
+ *
+ * @param error string
+ * @param statusCode optional number
+ * @returns instance of Result with error
+ *
+ * @example
+ * Result.fail<string>("your error message");
+ *
+ * @property `300` Multiple Choices
+ * @property `301` Moved Permanently
+ * @property `302` Found
+ * @property `303` See Other
+ * @property `304` Not Modified
+ * @property `305` Use Proxy
+ * @property `306` (Unused)
+ * @property `400` Bad Request
+ * @property `401` Unauthorized
+ * @property `402` Payment Required
+ * @property `403` Forbidden
+ * @property `404` Not Found
+ * @property `405` Method Not Allowed
+ * @property `406` Not Acceptable
+ * @property `407` Proxy Authentication Required
+ * @property `408` Request Timeout
+ * @property `409` Conflict
+ * @property `410` Gone
+ * @property `411` Length Required
+ * @property `412` Precondition Failed
+ * @property `413` Request Entity Too Large
+ * @property `415` Unsupported Media Type
+ * @property `422` Unprocessable Entity (WebDAV)
+ * @property `451` Unavailable For Legal Reasons
+ * @property `500` Internal Server Error
+ * @property `501` Not Implemented
+ * @property `502` Bad Gateway
+ * @property `503` Service Unavailable
+ * @property `504` Gateway Timeout
+ */
+enum ErrorStatusEnum {
+	MULTIPLE_CHOICES = 300,
+	MOVED_PERMANENTLY = 301,
+	FOUND = 302,
+	SEE_OTHER = 303,
+	NOT_MODIFIED = 304,
+	USE_PROXY = 305,
+	UNUSED = 306,
+	BAD_REQUEST = 400,
+	UNAUTHORIZED = 401,
+	PAYMENT_REQUIRED = 402,
+	FORBIDDEN = 403,
+	NOT_FOUND = 404,
+	METHOD_NOT_ALLOWED = 405,
+	NOT_ACCEPTABLE = 406,
+	PROXY_AUTHENTICATED_REQUIRED = 407,
+	REQUEST_TIMEOUT = 408,
+	CONFLICT = 409,
+	GONE = 410,
+	LENGTH_REQUIRED = 411,
+	PRECONDITION_FAILED = 412,
+	REQUEST_ENTITY_TOO_LARGE = 413,
+	UNSUPPORTED_MEDIA_TYPE = 415,
+	UNPROCESSABLE_ENTITY = 422,
+	INTERNAL_SERVER_ERROR = 500,
+	NOT_IMPLEMENTED = 501,
+	BAD_GATEWAY = 502,
+	SERVICE_UNAVAILABLE = 503,
+	GATEWAY_TIMEOUT = 504,
+}
+
+type ErrorStatus = keyof typeof ErrorStatusEnum;
 
 /**
  * @description
@@ -40,10 +105,19 @@ type ErrorStatus =
  * And most importantly, it does not throw errors
  */
 class Result<T> {
-	public isSuccess: boolean;
-	public isFailure: boolean;
-	public statusCode: SuccessStatus | ErrorStatus;
-	public error: T | string;
+	public readonly isSuccess: boolean;
+	public readonly isFailure: boolean;
+	/**
+	 * @default OK for success
+	 * @default PRECONDITION_FAILED for error
+	 */
+	public readonly statusCode: SuccessStatus | ErrorStatus;
+	/**
+	 * @default 200 for success
+	 * @default 422 for error
+	 */
+	public readonly statusCodeNumber: number;
+	public readonly error: T | string;
 	private _value: T;
 
 	public constructor(
@@ -56,25 +130,36 @@ class Result<T> {
 			Logger.error(
 				'InvalidOperation: A result cannot be successful and contain an error'
 			);
+			this.statusCodeNumber = 409;
 			this.printError();
 		}
 		if (!isSuccess && !error) {
 			Logger.error(
 				'InvalidOperation: A failing result needs to contain an error message'
 			);
+			this.statusCodeNumber = 409;
 			this.printError();
 		}
 		if (statusCode) {
 			this.statusCode = statusCode;
+			if (isSuccess) {
+				this.statusCodeNumber = SuccessStatusEnum[this.statusCode];
+			} else {
+				this.statusCodeNumber = ErrorStatusEnum[this.statusCode];
+			}
 		} else if (error && !statusCode) {
-			this.statusCode = 412;
+			this.statusCode = 'UNPROCESSABLE_ENTITY';
+			this.statusCodeNumber = 422;
 		} else if (isSuccess && !statusCode) {
-			this.statusCode = 200;
+			this.statusCode = 'OK';
+			this.statusCodeNumber = 200;
 		} else {
-			this.statusCode = 400;
+			this.statusCode = 'BAD_REQUEST';
 			Logger.error(
 				'Could not define StatusCode for result. By default It was defined as 400'
 			);
+			this.statusCodeNumber = 400;
+			this.statusCode = 'BAD_REQUEST';
 			Logger.warn(JSON.stringify(this));
 			this.printError();
 		}
@@ -122,7 +207,7 @@ class Result<T> {
 
 	/**
 	 *
-	 * @returns error as T
+	 * @returns error as string
 	 */
 	public errorValue(): string {
 		return this.error as string;
