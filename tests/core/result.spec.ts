@@ -3,6 +3,17 @@ import { IUseCase } from '../../src/core/use-case.interface';
 import Logger from '../../src/utils/logger.util';
 
 describe('result', () => {
+	// Internationalization  errors
+	interface IErrorMessage {
+		PT_BR: string;
+		EN_US: string;
+	}
+
+	interface IUser {
+		id: number;
+		name: string;
+	}
+
 	const useCase = class fakeCase implements IUseCase<any, any> {
 		async execute() {
 			return Result.fail<any>(
@@ -142,5 +153,93 @@ describe('result', () => {
 		const result = new Result(false, false, 'BAD_REQUEST', false);
 		result.getResult();
 		expect(logError).toHaveBeenCalled();
+	});
+
+	// Internationalization errors
+
+	it('should create a valid international error', () => {
+		const result = Result.fail<IUser, IErrorMessage>({
+			EN_US: 'Error message',
+			PT_BR: 'Mensagem de erro',
+		});
+
+		expect(result).toBeDefined();
+	});
+
+	it('should match international error message', () => {
+		const result = Result.fail<IUser, IErrorMessage>({
+			EN_US: 'Error message',
+			PT_BR: 'Mensagem de erro',
+		});
+
+		expect(result.error.EN_US).toBe('Error message');
+		expect(result.error.PT_BR).toBe('Mensagem de erro');
+		expect(result.errorValue()).toEqual(
+			JSON.stringify({
+				EN_US: 'Error message',
+				PT_BR: 'Mensagem de erro',
+			})
+		);
+	});
+
+	it('should return success with international error message defined', () => {
+		const result = Result.ok<IUser>({
+			id: 1,
+			name: 'user name',
+		});
+
+		expect(result.isSuccess).toBe(true);
+		expect(result.getResult()).toEqual({
+			id: 1,
+			name: 'user name',
+		});
+	});
+
+	it('should return the same type required by function', () => {
+		const doSomething = (): Result<IUser, IErrorMessage> => {
+			return Result.fail({ PT_BR: 'valido', EN_US: 'valid' });
+		};
+		const result = doSomething();
+
+		expect(result.isFailure).toBe(true);
+	});
+
+	it('should return the same type required by function', () => {
+		const doSomething = (): Result<IUser, IErrorMessage> => {
+			return Result.ok({ id: 1, name: 'valid' });
+		};
+		const result = doSomething();
+
+		expect(result.isSuccess).toBe(true);
+	});
+
+	it('should return check many results with type', () => {
+		const result1 = Result.ok<IUser, IErrorMessage>({
+			id: 1,
+			name: 'valid',
+		});
+		const result2 = Result.fail<IUser, IErrorMessage>({
+			EN_US: 'Error message',
+			PT_BR: 'Mensagem de erro',
+		});
+
+		const isSomeFail = Result.combine([result1, result2]);
+
+		expect(isSomeFail.isSuccess).toBeFalsy();
+	});
+
+	it('should return check many results with type', () => {
+		const result1 = Result.ok<IUser, IErrorMessage>({
+			id: 1,
+			name: 'valid',
+		});
+		const result2 = Result.ok<IUser, IErrorMessage>({
+			id: 1,
+			name: 'valid',
+		});
+
+		const isSomeFail = Result.combine([result1, result2]);
+
+		expect(isSomeFail.isFailure).toBeFalsy();
 	});
 });
