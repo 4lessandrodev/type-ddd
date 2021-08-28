@@ -15,6 +15,14 @@ All notable changes to this project will be documented in this file.
 - CPFValueObject
 - CNPJValueObject
 
+### 2.3.1 - 2021-08-28
+
+---
+
+### Changed
+
+- Result - added an internationalization error message
+
 ### 2.3.0 - 2021-08-27
 
 ---

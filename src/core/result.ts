@@ -103,8 +103,49 @@ type ErrorStatus = keyof typeof ErrorStatusEnum;
  * Result as its name says, returns an instance capable of identifying
  * whether the processing of a function was successful or failed.
  * And most importantly, it does not throw errors
+ * Result receive two params to type definition
+ * first one refer to object result if success, and next one refer to error type
+ * by default error type is string, but you can change that like example below
+ *
+ * @example
+ *
+ * interface IUser {
+ *  id: number;
+ *  name: string;
+ * }
+ *
+ * // the success result to return is instance of an user
+ * // the error result to return is an message as string.
+ * Result<IUser, string>
+ *
+ * Result.fail<IUser>("Error message here");
+ *
+ * Result.ok<IUser>(user);
+ *
+ * @description you can use an internationalization message like example below
+ *
+ * @example
+ *
+ * interface IUser {
+ *  id: number;
+ *  name: string;
+ * }
+ *
+ * interface IError {
+ *  PT_BR: string;
+ *  EN_US: string;
+ * }
+ *
+ * Result<IUser, IError>
+ *
+ * Result.fail<IUser, IError>({ PT_BR: "Mensagem de erro", EN_US: "Error message" });
+ *
+ * Result.ok<IUser, IError>(user);
+ *
+ * // For more detail check documentation
+ * ..
  */
-class Result<T> {
+class Result<T, F = string> {
 	public readonly isSuccess: boolean;
 	public readonly isFailure: boolean;
 	/**
@@ -117,12 +158,12 @@ class Result<T> {
 	 * @default 422 for error
 	 */
 	public readonly statusCodeNumber: number;
-	public readonly error: T | string;
+	public readonly error: F;
 	private _value: T;
 
 	public constructor(
 		isSuccess: boolean,
-		error?: T | string | null,
+		error?: F | null,
 		statusCode?: SuccessStatus | ErrorStatus | null,
 		value?: T
 	) {
@@ -141,6 +182,7 @@ class Result<T> {
 			this.printError();
 		}
 		if (statusCode) {
+			//
 			this.statusCode = statusCode;
 			if (isSuccess) {
 				this.statusCodeNumber = SuccessStatusEnum[this.statusCode];
@@ -148,11 +190,15 @@ class Result<T> {
 				this.statusCodeNumber = ErrorStatusEnum[this.statusCode];
 			}
 		} else if (error && !statusCode) {
+			//
 			this.statusCode = 'UNPROCESSABLE_ENTITY';
 			this.statusCodeNumber = 422;
+			//
 		} else if (isSuccess && !statusCode) {
+			//
 			this.statusCode = 'OK';
 			this.statusCodeNumber = 200;
+			//
 		} else {
 			this.statusCode = 'BAD_REQUEST';
 			Logger.error(
@@ -166,14 +212,14 @@ class Result<T> {
 
 		this.isSuccess = isSuccess;
 		this.isFailure = !isSuccess;
-		this.error = error as T;
+		this.error = error as F;
 		this._value = value as T;
 
 		Object.freeze(this);
 	}
 
 	private printError(): void {
-		let match;
+		let match: any;
 		const stack = new Error().stack ?? '';
 		try {
 			match = stack.match(/at Object\.\<anonymous\> \(.*/);
@@ -210,7 +256,12 @@ class Result<T> {
 	 * @returns error as string
 	 */
 	public errorValue(): string {
-		return this.error as string;
+		const isErrorString = typeof this.error === 'string';
+		if (!isErrorString) {
+			return JSON.stringify(this.error);
+		} else {
+			return String(this.error);
+		}
 	}
 
 	/**
@@ -233,8 +284,11 @@ class Result<T> {
 	 * @property `205` Reset Content
 	 * @property `206` Partial Content
 	 */
-	public static ok<U>(value?: U, statusCode?: SuccessStatus): Result<U> {
-		return new Result<U>(true, null, statusCode, value);
+	public static ok<U = void, F = string>(
+		value: U,
+		statusCode?: SuccessStatus
+	): Result<U, F> {
+		return new Result<U, F>(true, null, statusCode, value);
 	}
 
 	/**
@@ -277,8 +331,11 @@ class Result<T> {
 	 * @property `504` Gateway Timeout
 	 * @property `505` HTTP Version Not Supported
 	 */
-	public static fail<U>(error: string, statusCode?: ErrorStatus): Result<U> {
-		return new Result<U>(false, error, statusCode);
+	public static fail<U, F = string>(
+		error: F,
+		statusCode?: ErrorStatus
+	): Result<U, F> {
+		return new Result<U, F>(false, error, statusCode);
 	}
 
 	/**
@@ -286,11 +343,17 @@ class Result<T> {
 	 * @param results Array of Result
 	 * @returns Result with success or error
 	 */
-	public static combine(results: Result<any>[]): Result<any> {
+	public static combine<T = any, F = any>(
+		results: Result<T, F>[]
+	): Result<T, F> {
 		for (const result of results) {
 			if (result.isFailure) return result;
 		}
-		return Result.ok();
+		if (results.length > 0) {
+			return results[0];
+		} else {
+			return Result.ok<T, F>({} as unknown as T);
+		}
 	}
 }
 
