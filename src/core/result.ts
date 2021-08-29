@@ -235,7 +235,6 @@ class Result<T, F = string> {
 			this.statusCodeNumber = 200;
 			//
 		} else {
-			this.statusCode = 'BAD_REQUEST';
 			Logger.error(
 				'Could not define StatusCode for result. By default It was defined as 400'
 			);
