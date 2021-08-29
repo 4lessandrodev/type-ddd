@@ -8,7 +8,40 @@ interface Params {
 /**
  *
  * @param params object and boolean to check or not nullable value
- * @returns array with undefined keys
+ * @returns object with undefined keys
+ * @example
+ *
+ * const user = {
+ *    name: "user name",
+ *    age: undefined
+ * }
+ *
+ * const result = getUndefinedKeysAsObject(user);
+ *
+ * console.log(result);
+ * > { age: "" }
+ *
+ *
+ * ...
+ *
+ * @description
+ * You also can get null keys
+ *
+ * @example
+ *
+ * const user = {
+ *    name: "user name",
+ *    age: undefined,
+ *    isMarried: null
+ * }
+ *
+ * const result = getUndefinedKeysAsObject(user, { includesNull: true });
+ *
+ * console.log(result);
+ * > { age: "", isMarried: "" }
+ *
+ *
+ * ...
  */
 const getUndefinedKeysAsObject = (params: Params): Object => {
 	let objResult: Object = {};
@@ -17,8 +50,8 @@ const getUndefinedKeysAsObject = (params: Params): Object => {
 		return objResult;
 	}
 
-	for (let key of keys) {
-		let undefinedKey: Object = { [key]: '' };
+	for (const key of keys) {
+		const undefinedKey: Object = { [key]: '' };
 		objResult = Object.assign({}, { ...objResult }, { ...undefinedKey });
 	}
 	return objResult;

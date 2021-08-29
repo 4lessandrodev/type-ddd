@@ -1,28 +1,26 @@
 {
-    "compilerOptions": {
-        "module": "CommonJS",
-        "declaration": true,
-        "noImplicitAny": false,
-        "removeComments": false,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
+	"compilerOptions": {
+		"module": "CommonJS",
+		"declaration": true,
+		"noImplicitAny": false,
+		"removeComments": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"skipDefaultLibCheck": true,
 		"skipLibCheck": true,
-        "target": "ES2017",
-        "strict": true,
-        "lib": [
-            "ES2017"
-        ],
-        "sourceMap": true,
-        "outDir": "./dist",
-        "esModuleInterop": true,
+		"target": "ES2017",
+		"strict": true,
+		"lib": ["ES2017"],
+		"sourceMap": true,
+		"outDir": "./dist",
+		"esModuleInterop": true,
 		"baseUrl": "./",
 		"paths": {
-			"@types-ddd":["src/index"]
+			"@types-ddd": ["src/index"]
 		}
-    },
-	"include": ["src/*", "src/**/*", "example"],
+	},
+	"include": ["src/*", "src/**/*", "example", "tests"]
 }

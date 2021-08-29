@@ -7,8 +7,8 @@ import UniqueEntityID from '../unique-entity-id';
  * `UniqueEntityID` refer to Aggregate Id
  */
 export default interface IDomainEvent {
-     dateTimeOccurred: Date;
-     getAggregateId(): UniqueEntityID;
+	dateTimeOccurred: Date;
+	getAggregateId(): UniqueEntityID;
 }
 
 export { IDomainEvent };
