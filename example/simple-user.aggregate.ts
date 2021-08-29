@@ -1,44 +1,50 @@
-import { 
-	AggregateRoot, 
-	BaseDomainEntity, 
-	UserNameValueObject, 
-	EmailValueObject, 
+import {
+	AggregateRoot,
+	BaseDomainEntity,
+	UserNameValueObject,
+	EmailValueObject,
 	BirthdayValueObject,
-	Result
+	Result,
+	PasswordValueObject,
 } from '@types-ddd';
 
 // Important extends to BaseDomainEntity
 interface Props extends BaseDomainEntity {
-	name: UserNameValueObject,
-	email: EmailValueObject,
-	birthDay: BirthdayValueObject,
+	userName: UserNameValueObject;
+	userEmail: EmailValueObject;
+	userBirthDay: BirthdayValueObject;
+	userPassword: PasswordValueObject;
 }
 
 export class User extends AggregateRoot<Props> {
 	private constructor(props: Props) {
-		super(props, User.name)
+		super(props, User.name);
 	}
 
 	get name(): UserNameValueObject {
-		return this.props.name;
+		return this.props.userName;
 	}
-	
+
 	setName(newName: UserNameValueObject): void {
-		this.props.name = newName;
+		this.props.userName = newName;
 		this.props.updatedAt = new Date();
 	}
 
 	get email(): EmailValueObject {
-		return this.props.email;
+		return this.props.userEmail;
 	}
 
 	setEmail(newEmail: EmailValueObject): void {
-		this.props.email = newEmail;
+		this.props.userEmail = newEmail;
 		this.props.updatedAt = new Date();
 	}
 
 	get birthDay(): BirthdayValueObject {
-		return this.props.birthDay;
+		return this.props.userBirthDay;
+	}
+
+	get password(): PasswordValueObject {
+		return this.props.userPassword;
 	}
 
 	public static create(props: Props): Result<User> {

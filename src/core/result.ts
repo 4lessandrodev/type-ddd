@@ -438,7 +438,7 @@ class Result<T, F = string> {
 	 * @param results Array of Result
 	 * @returns Result with success or error
 	 */
-	public static combine<T = any, F = any>(
+	public static combine<T = unknown, F = unknown>(
 		results: Result<T, F>[]
 	): Result<T, F> {
 		for (const result of results) {

@@ -25,6 +25,7 @@ describe('result', () => {
 
 	it('methods should be defined', () => {
 		expect(Result.combine).toBeDefined();
+		expect(Result.success).toBeDefined();
 		expect(Result.ok).toBeDefined();
 		expect(Result.fail).toBeDefined();
 	});
@@ -45,6 +46,46 @@ describe('result', () => {
 		expect(success.statusCodeNumber).toBe(200);
 		expect(success.statusCode).toBe('OK');
 		expect(success.getResult()).toBe('Success');
+	});
+
+	it('validations should be defined', () => {
+		const success = Result.ok<string>('Success');
+		const error = Result.fail<any>('Error defined');
+		const successVoid = Result.success<void>();
+		const validation = Result.combine([success, error, successVoid]);
+
+		expect(validation.isFailure).toBe(true);
+		expect(validation.isSuccess).toBe(false);
+	});
+
+	it('validations should be defined', () => {
+		const success = Result.ok<string>('Success');
+		const successNumber = Result.ok<number>(10);
+		const successVoid = Result.success<void>();
+		const validation = Result.combine<unknown>([
+			success,
+			successNumber,
+			successVoid,
+		]);
+
+		expect(validation.isFailure).toBe(false);
+		expect(validation.isSuccess).toBe(true);
+	});
+
+	it('validations should be defined', () => {
+		const success = Result.ok<string>('Success');
+		const successNumber = Result.ok<number>(10);
+		const successVoid = Result.success<void>();
+		const error = Result.fail<any>('Error defined');
+		const validation = Result.combine([
+			success,
+			successNumber,
+			successVoid,
+			error,
+		]);
+
+		expect(validation.isFailure).toBe(true);
+		expect(validation.isSuccess).toBe(false);
 	});
 
 	it('validations should be defined', () => {
