@@ -98,6 +98,18 @@ describe('result', () => {
 		expect(successA.statusCodeNumber).toBe(201);
 	});
 
+	it('should return status as void', () => {
+		const successA = Result.ok(null);
+		expect(successA.isSuccess).toBe(true);
+		expect(successA.statusCodeNumber).toBe(200);
+	});
+
+	it('should return status as void', () => {
+		const successA = Result.ok(null);
+		expect(successA.isSuccess).toBe(true);
+		expect(successA.statusCodeNumber).toBe(200);
+	});
+
 	it('should return status 500', () => {
 		const successA = Result.fail<any>('error', 'INTERNAL_SERVER_ERROR');
 		expect(successA.isSuccess).toBe(false);
@@ -143,7 +155,7 @@ describe('result', () => {
 	it('should throw if result has no status code defined', () => {
 		jest.spyOn(Logger, 'error').mockClear();
 		const logError = jest.spyOn(Logger, 'error');
-		new Result(false, false, undefined, false);
+		new Result<boolean, boolean>(false, false, 'NO_CONTENT', false);
 		expect(logError).toHaveBeenCalled();
 	});
 
@@ -153,6 +165,26 @@ describe('result', () => {
 		const result = new Result(false, false, 'BAD_REQUEST', false);
 		result.getResult();
 		expect(logError).toHaveBeenCalled();
+	});
+
+	it('should return result of void as success', () => {
+		const doSomething = (): Result<void> => {
+			return Result.ok();
+		};
+		const result = doSomething();
+
+		expect(result.isSuccess).toBe(true);
+		expect(result.getResult()).toBeNull();
+	});
+
+	it('should return result of void as failure', () => {
+		const doSomething = (): Result<void> => {
+			return Result.fail('error message');
+		};
+		const result = doSomething();
+
+		expect(result.isFailure).toBe(true);
+		expect(result.errorValue()).toBe('error message');
 	});
 
 	// Internationalization errors

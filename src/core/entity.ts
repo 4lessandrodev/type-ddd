@@ -97,7 +97,7 @@ abstract class Entity<T extends BaseDomainEntity> {
  * @abstract AggregateRoot<T>
  * @extends Entity<T> props
  * @type
- * T referes to Props
+ * T refers to Props
  *
  * This class receive props from implementation
  */
