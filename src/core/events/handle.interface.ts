@@ -5,8 +5,8 @@
  * @method dispatch(event: IDomainEvent): Promise<void>;
  */
 export default interface IHandle<IDomainEvent> {
-     setupSubscriptions(): void;
-     dispatch(event: IDomainEvent): Promise<void>;
+	setupSubscriptions(): void;
+	dispatch(event: IDomainEvent): Promise<void>;
 }
 
 export { IHandle };

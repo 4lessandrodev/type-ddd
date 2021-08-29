@@ -15,6 +15,14 @@ All notable changes to this project will be documented in this file.
 - CPFValueObject
 - CNPJValueObject
 
+### 2.3.4 - 2021-08-29
+
+---
+
+### Changed
+
+- ChangesObserver - Fix added possibility to get all added results `getAllAddedResults`
+
 ### 2.3.3 - 2021-08-28
 
 ---
