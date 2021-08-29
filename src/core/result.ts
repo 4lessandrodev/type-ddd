@@ -100,8 +100,8 @@ type ErrorStatus = keyof typeof ErrorStatusEnum;
 
 /**
  *
- * @argument T: type to return as success value
- * @argument F: type to return as error if failure. By default It is type string
+ * @argument T: Generic type to return as success value
+ * @argument F: Generic type to return as error value if result is failure. By default It is type `string`
  *
  * @description
  * Result as its name says, returns an instance capable of identifying
@@ -110,7 +110,7 @@ type ErrorStatus = keyof typeof ErrorStatusEnum;
  * ...
  *
  * @summary
- * Result receive two argument to type definition
+ * Result receive two argument as generic type definition
  * first one refer to object result if success, and next one refer to error type
  * by default error type is string, but you can change that like example below
  *
@@ -154,9 +154,10 @@ type ErrorStatus = keyof typeof ErrorStatusEnum;
  *
  *
  * @description
- * You also may define a function to return Result of void
+ * You also may define a function to return Result of void. Use `Result.success` instead `Result.ok`
+ * @summary Its hight recommended you use `Result.success` only for `void` returns
  * @example
- * const doSomething = (): Result<void> => Result.ok();
+ * const doSomething = (): Result<void> => Result.success();
  *
  * console.log(doSomething().isSuccess);
  * > true
@@ -166,7 +167,9 @@ type ErrorStatus = keyof typeof ErrorStatusEnum;
  * console.log(doAnotherThing().isSuccess);
  * > false
  *
- * @description You also may return statusCode on return
+ * @description You also may return `statusCode` as second param
+ * @see SuccessStatus for available success statusCode
+ * @see ErrorStatus for available error statusCode
  * @example
  *
  * const doThing = (): Result<void> => Result.fail("Error message", "NOT_FOUND");
@@ -299,13 +302,13 @@ class Result<T, F = string> {
 	}
 
 	/**
-	 *
-	 * @description return operation success
+	 * @requires `value to return`
+	 * @description return operation success with required value
 	 * @param U: type to return as value on success case
 	 * @param F: optional type of Error to return case failure
 	 * @returns instance of Result with value
 	 *
-	 * @default U: void
+	 * @default U: unknown
 	 * @description to return nothing use `null`
 	 * @example Result<void>(null);
 	 * @default F: string
@@ -325,7 +328,43 @@ class Result<T, F = string> {
 	 * @property `205` Reset Content
 	 * @property `206` Partial Content
 	 */
-	public static ok<U = void, F = string>(
+	public static ok<U = unknown, F = string>(
+		value: U,
+		statusCode?: SuccessStatus
+	): Result<U, F> {
+		const statusResult = statusCode ?? 'OK';
+		return new Result<U, F>(true, null, statusResult, value);
+	}
+
+	/**
+	 * @description return operation success with optional param. Used to return `void`
+	 * @summary use this method only to return `void`.
+	 * @throws It may break if you define a value to return and use this method to return nothing.
+	 * @param U: type to return as optional value on success case
+	 * @param F: optional type of Error to return case failure
+	 * @returns instance of Result with value
+	 *
+	 * @default U: void
+	 * @description to return nothing use `void`
+	 * @example Result<void>;
+	 * @default F: string
+	 *
+	 * @example
+	 * Result.success<void>(?); // optional param
+	 *
+	 * @default status: "OK" - 200
+	 * @property `100` Continue
+	 * @property `101` Switching Protocols
+	 * @property `102` Processing (WebDAV)
+	 * @property `200` OK
+	 * @property `201` Created
+	 * @property `202` Accepted
+	 * @property `203` Non-Authoritative Information
+	 * @property `204` No Content
+	 * @property `205` Reset Content
+	 * @property `206` Partial Content
+	 */
+	public static success<U = void, F = string>(
 		value?: U,
 		statusCode?: SuccessStatus
 	): Result<U, F> {

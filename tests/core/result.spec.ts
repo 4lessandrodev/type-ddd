@@ -99,15 +99,16 @@ describe('result', () => {
 	});
 
 	it('should return status as void', () => {
-		const successA = Result.ok(null);
+		const successA = Result.success();
 		expect(successA.isSuccess).toBe(true);
 		expect(successA.statusCodeNumber).toBe(200);
 	});
 
 	it('should return status as void', () => {
-		const successA = Result.ok(null);
+		const successA = Result.success('with param');
 		expect(successA.isSuccess).toBe(true);
 		expect(successA.statusCodeNumber).toBe(200);
+		expect(successA.getResult()).toBe('with param');
 	});
 
 	it('should return status 500', () => {
@@ -169,7 +170,7 @@ describe('result', () => {
 
 	it('should return result of void as success', () => {
 		const doSomething = (): Result<void> => {
-			return Result.ok();
+			return Result.success();
 		};
 		const result = doSomething();
 
