@@ -37,6 +37,7 @@ interface Prop {
 }
 
 /**
+ * @throws MaxValue `900.719.925.474`
  * @description Domain Value Object to financial operation
  * @param object `{ value: number, currency: string }`
  * @method create `new instance`
@@ -94,6 +95,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	}
 
 	/**
+	 * @throws MaxValue `900.719.925.474`
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description add instance value with provided value
 	 * @param value number to add
@@ -167,6 +169,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	}
 
 	/**
+	 * @throws MaxValue `900.719.925.474`
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description receives a value and multiply with instance value
 	 * @param value number to multiply
@@ -195,6 +198,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	}
 
 	/**
+	 * @throws MaxValue `900.719.925.474`
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description receives a percentage value and add on instance value
 	 * @param percent number as percentage to add on instance value
@@ -251,6 +255,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	}
 
 	/**
+	 * @throws MaxValue `90.071.992.537.570`
 	 * @description the precision calculation works for up to three decimal numbers `0.000`
 	 * @param props object currency and value
 	 * @returns Result with instance of CurrencyValueObject

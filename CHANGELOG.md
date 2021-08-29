@@ -15,6 +15,13 @@ All notable changes to this project will be documented in this file.
 - CPFValueObject
 - CNPJValueObject
 
+
+### 2.3.6 - 2021-08-29
+
+---
+
+- CurrencyValueObject: docs - identify max safe number
+
 ### 2.3.5 - 2021-08-29
 
 ---
