@@ -15,6 +15,14 @@ All notable changes to this project will be documented in this file.
 - CPFValueObject
 - CNPJValueObject
 
+### 2.3.2 - 2021-08-28
+
+---
+
+### Changed
+
+- Result - Fix possibility to return a void instance
+
 ### 2.3.1 - 2021-08-28
 
 ---

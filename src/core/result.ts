@@ -99,31 +99,38 @@ enum ErrorStatusEnum {
 type ErrorStatus = keyof typeof ErrorStatusEnum;
 
 /**
+ *
+ * @argument T: type to return as success value
+ * @argument F: type to return as error if failure. By default It is type string
+ *
  * @description
  * Result as its name says, returns an instance capable of identifying
  * whether the processing of a function was successful or failed.
  * And most importantly, it does not throw errors
- * Result receive two params to type definition
+ * ...
+ *
+ * @summary
+ * Result receive two argument to type definition
  * first one refer to object result if success, and next one refer to error type
  * by default error type is string, but you can change that like example below
  *
- * @example
  *
+ * @example
  * interface IUser {
  *  id: number;
  *  name: string;
  * }
- *
- * // the success result to return is instance of an user
- * // the error result to return is an message as string.
- * Result<IUser, string>
- *
- * Result.fail<IUser>("Error message here");
- *
- * Result.ok<IUser>(user);
+ * // the success value to return is instance of an user
+ * // the error value to return is an message as string.
+ * // ...
+ * const someThing = (errorBool: boolean): Result<IUser, string> => {
+ *   if (errorBool) {
+ *    return Result.fail("Error message here");
+ *   }
+ *   return Result.ok({ id:1, name: "john" });
+ * }
  *
  * @description you can use an internationalization message like example below
- *
  * @example
  *
  * interface IUser {
@@ -135,12 +142,40 @@ type ErrorStatus = keyof typeof ErrorStatusEnum;
  *  PT_BR: string;
  *  EN_US: string;
  * }
+ * // the success value to return is instance of an user
+ * // the error value to return is a message object in two languages
+ * // ...
+ * const someMessage = (errorBool: boolean): Result<IUser, IError> => {
+ *   if (errorBool) {
+ *    return Result.fail({ PT_BR: "Mensagem de erro", EN_US: "Error message" });
+ *   }
+ *   return Result.ok({ id:1, name: "john" });
+ * }
  *
- * Result<IUser, IError>
  *
- * Result.fail<IUser, IError>({ PT_BR: "Mensagem de erro", EN_US: "Error message" });
+ * @description
+ * You also may define a function to return Result of void
+ * @example
+ * const doSomething = (): Result<void> => Result.ok();
  *
- * Result.ok<IUser, IError>(user);
+ * console.log(doSomething().isSuccess);
+ * > true
+ *
+ * const doAnotherThing = (): Result<void> => Result.fail("Error message");
+ *
+ * console.log(doAnotherThing().isSuccess);
+ * > false
+ *
+ * @description You also may return statusCode on return
+ * @example
+ *
+ * const doThing = (): Result<void> => Result.fail("Error message", "NOT_FOUND");
+ *
+ * console.log(doThing().statusCode);
+ * > "NOT_FOUND"
+ *
+ * console.log(doThing().statusCodeNumber);
+ * > 404
  *
  * // For more detail check documentation
  * ..
@@ -163,9 +198,9 @@ class Result<T, F = string> {
 
 	public constructor(
 		isSuccess: boolean,
-		error?: F | null,
-		statusCode?: SuccessStatus | ErrorStatus | null,
-		value?: T
+		error: F | null,
+		statusCode: SuccessStatus | ErrorStatus,
+		value: T | null
 	) {
 		if (isSuccess && error) {
 			Logger.error(
@@ -266,13 +301,20 @@ class Result<T, F = string> {
 
 	/**
 	 *
-	 * @param value as U
-	 * @param statusCode optional number
+	 * @description return operation success
+	 * @param U: type to return as value on success case
+	 * @param F: optional type of Error to return case failure
 	 * @returns instance of Result with value
+	 *
+	 * @default U: void
+	 * @description to return nothing use `null`
+	 * @example Result<void>(null);
+	 * @default F: string
 	 *
 	 * @example
 	 * Result.ok<string>("simple string");
 	 *
+	 * @default status: "OK" - 200
 	 * @property `100` Continue
 	 * @property `101` Switching Protocols
 	 * @property `102` Processing (WebDAV)
@@ -285,20 +327,30 @@ class Result<T, F = string> {
 	 * @property `206` Partial Content
 	 */
 	public static ok<U = void, F = string>(
-		value: U,
+		value?: U,
 		statusCode?: SuccessStatus
 	): Result<U, F> {
-		return new Result<U, F>(true, null, statusCode, value);
+		const statusResult = statusCode ?? 'OK';
+		const valueResult = value ?? null;
+		return new Result<U, F>(true, null, statusResult, valueResult);
 	}
 
 	/**
 	 *
-	 * @param error string
-	 * @param statusCode optional number
-	 * @returns instance of Result with error
+	 * @description return operation failure
+	 * @param U: type to return as value on success case
+	 * @param F: optional type of Error to return case failure
+	 * @returns instance of Result with error value
+	 *
+	 * @default U: void
+	 * @description to return nothing use `null`
+	 * @example Result<void>(null);
+	 * @default F: string
 	 *
 	 * @example
-	 * Result.fail<string>("your error message");
+	 * Result.ok<string>("simple string");
+	 *
+	 * @default status: "OK" - 200
 	 *
 	 * @property `300` Multiple Choices
 	 * @property `301` Moved Permanently
@@ -335,10 +387,15 @@ class Result<T, F = string> {
 		error: F,
 		statusCode?: ErrorStatus
 	): Result<U, F> {
-		return new Result<U, F>(false, error, statusCode);
+		const status = statusCode ?? 'UNPROCESSABLE_ENTITY';
+		return new Result<U, F>(false, error, status, null);
 	}
 
 	/**
+	 * @argument T: type to return as success value
+	 * @argument F: type to return as failure value
+	 * @default T: any
+	 * @default F: any
 	 *
 	 * @param results Array of Result
 	 * @returns Result with success or error

@@ -49,7 +49,7 @@ describe('simple-player.entity', () => {
 		);
 		const loggerSpy = jest.spyOn(Logger, 'error');
 		const error = () => YearOfManufacture.create(1900).getResult();
-		expect(error()).toBeUndefined();
+		expect(error()).toBeNull();
 		expect(loggerSpy).toHaveBeenCalled();
 	});
 });
