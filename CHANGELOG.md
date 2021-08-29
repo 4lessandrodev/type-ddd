@@ -15,6 +15,15 @@ All notable changes to this project will be documented in this file.
 - CPFValueObject
 - CNPJValueObject
 
+### 2.3.5 - 2021-08-29
+
+---
+
+### Changed
+
+- Result - Change default generic type on `combine` method to `unknown` instead `any`
+
+
 ### 2.3.4 - 2021-08-29
 
 ---
