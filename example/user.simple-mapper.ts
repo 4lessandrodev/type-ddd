@@ -23,39 +23,29 @@ class Model {
 // ----------------------------------------------------------------------------
 // Mapper to be injected on repository
 export class UserMapper implements IMapper<User, Model> {
-	toDomain = ({
-		id,
-		userPassword,
-		userName,
-		userEmail,
-		userBirthDay,
-		updatedAt,
-		createdAt,
-	}: Model): User =>
+	//
+	toDomain = (model: Model): User =>
 		User.create({
-			ID: DomainId.create(id),
-			userName: UserNameValueObject.create(userName).getResult(),
-			userEmail: EmailValueObject.create(userEmail).getResult(),
-			userPassword: PasswordValueObject.create(userPassword).getResult(),
-			userBirthDay: BirthdayValueObject.create(userBirthDay).getResult(),
-			createdAt: createdAt,
-			updatedAt: updatedAt,
+			ID: DomainId.create(model.id),
+			userName: UserNameValueObject.create(model.userName).getResult(),
+			userEmail: EmailValueObject.create(model.userEmail).getResult(),
+			userPassword: PasswordValueObject.create(
+				model.userPassword
+			).getResult(),
+			userBirthDay: BirthdayValueObject.create(
+				model.userBirthDay
+			).getResult(),
+			createdAt: model.createdAt,
+			updatedAt: model.updatedAt,
 		}).getResult();
-	toPersistence = ({
-		id,
-		createdAt,
-		password,
-		name,
-		email,
-		birthDay,
-		updatedAt,
-	}: User): Model => ({
-		id: id.value.toString(),
-		userName: name.value,
-		userEmail: email.value,
-		userPassword: password.value,
-		userBirthDay: birthDay.value,
-		createdAt: createdAt,
-		updatedAt: updatedAt,
+
+	toPersistence = (aggregate: User): Model => ({
+		id: aggregate.id.value.toString(),
+		userName: aggregate.name.value,
+		userEmail: aggregate.email.value,
+		userPassword: aggregate.password.value,
+		userBirthDay: aggregate.birthDay.value,
+		createdAt: aggregate.createdAt,
+		updatedAt: aggregate.updatedAt,
 	});
 }
