@@ -139,8 +139,42 @@ Divided by
 - Application layer
 - Infra layer
 
-!["image"](./readme/arch.png "image")
+```shell
+  $ tree
+  .
+  ├── package.json
+  ├── README.md
+  └── src
+       ├── config
+       │    ├── main.ts    
+       │    └── env.ts 
+       │
+       └── modules
+            │ 
+            └── [module-name]
+                  │ 
+                  │── domain
+                  │     ├── value-objects
+                  │     ├── entities
+                  │     ├── aggregates
+                  │     ├── events
+                  │     ├── subscriptions
+                  │     └── services
+                  │ 
+                  ├── application
+                  │     └── use-cases 
+                  │ 
+                  └── infra
+                        ├── models     
+                        └── mappers 
 
+```
+
+### Module generator
+
+you might also like this tool.
+
+[Module Generator](https://github.com/4lessandrodev/types-generator)
 ## 14. Available resources
 
 Resources on this lib (Core)
@@ -303,6 +337,12 @@ console.log(myCar.year.value);
 
 ---
 
+### Check a full example 
+
+A project is available on link below
+
+[Project App Example](https://github.com/4lessandrodev/simple-ddd-app-example)
+
 ### Documentation is being written
 
 [Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/)
@@ -428,7 +468,7 @@ console.log(isAllSuccess);
 
 > Contribute to this project [PIX]
 
-<img src="https://alessandrodev.s3.amazonaws.com/pix.jpeg" width="250">
+<img src="https://alessandrodev.s3.amazonaws.com/pix.jpeg" width="180">
 
 > Or use link
 [Pix https://nubank.com.br/pagar/izlen/Tn0D9KyXRb](https://nubank.com.br/pagar/izlen/Tn0D9KyXRb)
