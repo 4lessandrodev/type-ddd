@@ -159,6 +159,7 @@ Divided by
                   │     ├── aggregates
                   │     ├── events
                   │     ├── subscriptions
+                  │     ├── repo
                   │     └── services
                   │ 
                   ├── application
@@ -166,6 +167,7 @@ Divided by
                   │ 
                   └── infra
                         ├── models     
+                        ├── repo
                         └── mappers 
 
 ```
