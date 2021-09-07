@@ -169,7 +169,7 @@ describe('result', () => {
 
 	it('error message should be string when result is typed as void', () => {
 		Logger.info(
-			'THE 13 ERRORS AND 01 WARN BELLOW ON TERMINAL IS ONLY SOME LOGGER TESTS. DO NOT WORRY!'
+			'THE 13 ERRORS AND 01 WARN BELOW ON TERMINAL IS ONLY SOME LOGGER TESTS. DO NOT WORRY!'
 		);
 		const error = Result.fail<void>('Error defined');
 		const testeString = (value: string): string => value;

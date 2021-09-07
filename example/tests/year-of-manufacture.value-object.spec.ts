@@ -45,7 +45,7 @@ describe('simple-player.entity', () => {
 
 	it('should fails if try get value from invalid result', () => {
 		Logger.info(
-			'THE 3 ERRORS BELLOW ON TERMINAL IS ONLY SOME LOGGER TESTS. DO NOT WORRY!'
+			'THE 3 ERRORS BELOW ON TERMINAL IS ONLY SOME LOGGER TESTS. DO NOT WORRY!'
 		);
 		const loggerSpy = jest.spyOn(Logger, 'error');
 		const error = () => YearOfManufacture.create(1900).getResult();

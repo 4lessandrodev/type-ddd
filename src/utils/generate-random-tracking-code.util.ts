@@ -50,5 +50,5 @@ const generateRandomTracking = (): string => {
 	return `${controller}-${middle.slice(0, 6)}-${normalize}`;
 };
 
-export { generateRandomTracking };
+export { generateRandomTracking, getRandomChar };
 export default generateRandomTracking;

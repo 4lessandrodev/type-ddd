@@ -368,6 +368,7 @@ A project is available on link below
 - ✔ PostalCodeValueObject
 - ✔ UrlValueObject
 - ✔ OrderStatusValueObject
+- ✔ PinValueObject
 - ☐ ItemDimensionsValueObject
 - ☐ ShippingWeightValueObject
 - ☐ EANCodeValueObject
