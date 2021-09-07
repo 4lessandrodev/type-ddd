@@ -16,9 +16,17 @@ All notable changes to this project will be documented in this file.
 - CNPJValueObject
 
 
+### 2.4.0 - 2021-09-07
+
+---
+### Changed
+
+- PinValueObject: util value object
+
 ### 2.3.6 - 2021-08-29
 
 ---
+### Changed
 
 - CurrencyValueObject: docs - identify max safe number
 
