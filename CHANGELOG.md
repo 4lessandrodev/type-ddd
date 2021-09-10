@@ -16,6 +16,13 @@ All notable changes to this project will be documented in this file.
 - CNPJValueObject
 
 
+### 2.4.1 - 2021-09-09
+
+---
+### Fixed
+
+- UrlValueObject: export value object
+
 ### 2.4.0 - 2021-09-07
 
 ---
