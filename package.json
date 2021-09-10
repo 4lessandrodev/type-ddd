@@ -22,11 +22,10 @@
 		"Base Value Object"
 	],
 	"scripts": {
-		"prepublic": "rimraf ./dist && tsc -p tsconfig.lib.json",
 		"prebuild": "rimraf ./dist",
 		"build": "tsc -p tsconfig.lib.json",
 		"test": "jest --silent --runInBand",
-		"public": "npm publish --access public"
+		"public": "./publish.sh"
 	},
 	"repository": {
 		"type": "git",
