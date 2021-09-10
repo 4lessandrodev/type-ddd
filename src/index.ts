@@ -36,3 +36,4 @@ export * from './utils/get-undefined-keys-as-array.util';
 export * from './utils/get-undefined-keys-as-object.util';
 export * from './patterns/specification/specification.composite';
 export * from './utils/pin.value-object';
+export * from './utils/url.value-object';
