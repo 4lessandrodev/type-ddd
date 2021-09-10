@@ -36,7 +36,7 @@ else
     yarn test
     echo ""
     echo "${GREEN}Publishing${COLOR_OFF} new version ..."
-    #yarn publish --"${VERSION}" --access public
+    yarn publish --"${VERSION}" --access public
     echo ""
     VERSION=$(cat package.json | grep -e "version" | cut -d ':' -f2 | cut -d ',' -f1)
     echo "Updated package.json to version ${VERSION}"
