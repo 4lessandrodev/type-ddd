@@ -19,7 +19,13 @@ describe('pin.value-object', () => {
 	it('should create a valid pin if not provide value', () => {
 		const pin = PinValueObject.create();
 		expect(pin.isSuccess).toBeTruthy();
-		expect(pin.getResult().value).toHaveLength(8);
+		expect(pin.getResult().value).toHaveLength(5);
+	});
+
+	it('should generate default a valid pin', () => {
+		const pin = PinValueObject.generatePin();
+		expect(pin.isSuccess).toBeTruthy();
+		expect(pin.getResult().value).toHaveLength(5);
 	});
 
 	it('should create a generatePin a valid pin with 3 digits', () => {

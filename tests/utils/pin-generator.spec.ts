@@ -40,4 +40,9 @@ describe('pin-generator', () => {
 
 		expect(pin).toHaveLength(7);
 	});
+
+	it('should generate a default pin 5 digits', () => {
+		const pin = pinGenerator();
+		expect(pin).toHaveLength(5);
+	});
 });

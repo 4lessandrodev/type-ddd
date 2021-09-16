@@ -12,10 +12,22 @@ All notable changes to this project will be documented in this file.
 - EANCodeValueObject
 - ISBNCodeValueObject
 - UPCCodeValueObject
+
+### 2.5.0 - 2021-09-16
+
+---
+### Changed
+
+- PinValueObject: Define pin props as optional
+
+### Added
+
 - CPFValueObject
 - CNPJValueObject
+- CustomStringValueObject
+- CustomNumberValueObject
 
-### 2.4.2 ~ 2.4.7 - 2021-09-09
+### 2.4.2 ~ 2.4.10 - 2021-09-09
 
 ---
 ### Fixed

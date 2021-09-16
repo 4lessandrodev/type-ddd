@@ -5,7 +5,11 @@ export interface PinProps {
 	lettersLength: 0 | 3 | 4 | 5 | 6 | 7;
 }
 
-export const pinGenerator = (props: PinProps): string => {
+export const pinGenerator = (props?: PinProps): string => {
+	if (!props) {
+		return pinGenerator({ lettersLength: 0, numbersLength: 5 });
+	}
+
 	const { numbersLength, lettersLength } = props;
 	let index = 0;
 	let pinNumbers = '';
