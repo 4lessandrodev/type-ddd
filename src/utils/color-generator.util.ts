@@ -1,16 +1,22 @@
 import colorConverter from './color-converter.util';
 
-type IRGB = {
+type RGB = {
 	R: number;
 	G: number;
 	B: number;
 };
 
-const randomRGBColor = (): IRGB => {
+const randomRGBColor = (): RGB => {
+	const colorR = Math.floor(Math.random() * 255);
+	const colorB = Math.floor(Math.random() * 255);
+	const colorG =
+		colorB > 100 && colorR > 100
+			? Math.floor(Math.random() * 100)
+			: Math.floor(Math.random() * 255);
 	return {
-		R: Math.floor(Math.random() * 255),
-		B: Math.floor(Math.random() * 255),
-		G: Math.floor(Math.random() * 255),
+		R: colorR,
+		G: colorG,
+		B: colorB,
 	};
 };
 

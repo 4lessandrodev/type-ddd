@@ -369,13 +369,13 @@ A project is available on link below
 - ✔ UrlValueObject
 - ✔ OrderStatusValueObject
 - ✔ PinValueObject
+- ✔ CPFValueObject
+- ☐ CNPJValueObject
 - ☐ ItemDimensionsValueObject
 - ☐ ShippingWeightValueObject
 - ☐ EANCodeValueObject
 - ☐ ISBNCodeValueObject
 - ☐ UPCCodeValueObject
-- ☐ CNPJValueObject
-- ☐ CPFValueObject
 
 > If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
 

@@ -3,33 +3,32 @@ import HEXColorValueObject from '../../src/utils/hex-color.value-object';
 import { RGBColorValueObject } from '../../src/utils/rgb-color.value-object';
 
 describe('color-generator', () => {
-	it('should be defined', ()=>{
+	it('should be defined', () => {
 		const generator = colorGenerator;
-		expect(generator).toBeDefined()
-	})
+		expect(generator).toBeDefined();
+	});
 
-	it('should has two functions', ()=>{
+	it('should has two functions', () => {
 		const randomHEX = colorGenerator.randomHEX;
 		const randomRGB = colorGenerator.randomRGB;
 
-		expect(randomRGB).toBeDefined()
-		expect(randomHEX).toBeDefined()
-	})
+		expect(randomRGB).toBeDefined();
+		expect(randomHEX).toBeDefined();
+	});
 
-	it('should generate a random valid RGB color', ()=>{
+	it('should generate a random valid RGB color', () => {
 		const randomRGB = colorGenerator.randomRGB();
 		const isValid = RGBColorValueObject.isValidValue(randomRGB);
 		expect(isValid).toBeTruthy();
-	})
+	});
 
-	it('should generate a random valid HEX color', ()=>{
+	it('should generate a random valid HEX color', () => {
 		const randomHEX = colorGenerator.randomHEX();
 		const isValid = HEXColorValueObject.isValidValue(randomHEX);
 		expect(isValid).toBeTruthy();
-	})
+	});
 
-	it('should generate colors with 6 char length', ()=>{
-
+	it('should generate colors with 6 char length', () => {
 		const colors: string[] = [];
 		let i = 0;
 		while (i < 100) {
@@ -42,10 +41,9 @@ describe('color-generator', () => {
 			expect(colorLength).toBe(7);
 			i--;
 		}
-	})
+	});
 
-	it('should generate colors rgb pattern', ()=>{
-
+	it('should generate colors rgb pattern', () => {
 		const colors: string[] = [];
 		let i = 0;
 		while (i < 100) {
@@ -54,9 +52,11 @@ describe('color-generator', () => {
 			i++;
 		}
 		while (i > 1) {
-			const color = colors[i-1];
-			expect(color).toMatch(/^rgb\((\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\,\s(\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\,\s(\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\)/);
+			const color = colors[i - 1];
+			expect(color).toMatch(
+				/^rgb\((\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\,\s(\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\,\s(\d{1,2}|(0|1)\d{2}|2[0-4]\d|25[0-5])\)/
+			);
 			i--;
 		}
-	})
+	});
 });

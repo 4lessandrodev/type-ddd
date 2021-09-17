@@ -26,6 +26,8 @@ All notable changes to this project will be documented in this file.
 - CNPJValueObject
 - CustomStringValueObject
 - CustomNumberValueObject
+- HEXColorValueObject: Ensure don't generate light color like white
+- RGBColorValueObject: Ensure don't generate light color like white
 
 ### 2.4.2 ~ 2.4.10 - 2021-09-09
 
