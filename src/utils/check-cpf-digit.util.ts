@@ -5,7 +5,25 @@ interface CpfDigits {
 
 const removeSpecialCharsFromCpfRegex = /[\.]|[-]/g;
 
-const removeSpecialCharsFromCpf = (cpf: string): string => {
+export const formatValueToCpfPattern = (cpf: string): string => {
+	const cpfValue = removeSpecialCharsFromCpf(cpf);
+	let formattedValue: string = '';
+	let index: number = 0;
+
+	while (formattedValue.length < 14 && index < 11) {
+		if (index === 3 || index === 6) {
+			formattedValue += '.';
+		} else if (index === 9) {
+			formattedValue += '-';
+		}
+		formattedValue += cpfValue[index];
+		index++;
+	}
+
+	return formattedValue;
+};
+
+export const removeSpecialCharsFromCpf = (cpf: string): string => {
 	return cpf.replace(removeSpecialCharsFromCpfRegex, '');
 };
 
@@ -36,34 +54,34 @@ const calculateCpfDigits = (cpfNumbers: number[]): CpfDigits => {
 	const factor = 11;
 	let index = 0;
 	let startAuxValue = 10;
-	let totalFirstDigit = 0;
+	let totalForDigit = 0;
 
 	while (index < 9) {
-		totalFirstDigit = totalFirstDigit + cpfNumbers[index] * startAuxValue;
+		totalForDigit = totalForDigit + cpfNumbers[index] * startAuxValue;
 		startAuxValue--;
 		index++;
 	}
 
-	const calcPDigit = totalFirstDigit % factor;
+	const calcPDigit = totalForDigit % factor;
 	const resultPDigit = factor - calcPDigit;
-	const zeroIfPGreaterThanNine = resultPDigit <= 9 ? resultPDigit : 0;
+	const zeroIfPGreaterThanNine = resultPDigit >= 9 ? 0 : resultPDigit;
 	const penultimateDigit = zeroIfPGreaterThanNine;
 
 	index = 0;
 	startAuxValue = 11;
-	totalFirstDigit = 0;
+	totalForDigit = 0;
 
 	cpfNumbers.push(penultimateDigit);
 
 	while (index < 10) {
-		totalFirstDigit = totalFirstDigit + cpfNumbers[index] * startAuxValue;
+		totalForDigit = totalForDigit + cpfNumbers[index] * startAuxValue;
 		startAuxValue--;
 		index++;
 	}
 
-	const calcUDigit = totalFirstDigit % factor;
+	const calcUDigit = totalForDigit % factor;
 	const resultUDigit = factor - calcUDigit;
-	const zeroIfGreaterThanNine = resultUDigit <= 9 ? resultUDigit : 0;
+	const zeroIfGreaterThanNine = resultUDigit > 9 ? 0 : resultUDigit;
 	const ultimateDigit = zeroIfGreaterThanNine;
 
 	return {

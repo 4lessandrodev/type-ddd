@@ -1,4 +1,8 @@
 import isValidCpfDigit from '../../src/utils/check-cpf-digit.util';
+import {
+	formatValueToCpfPattern,
+	removeSpecialCharsFromCpf,
+} from '../../src/utils/check-cpf-digit.util';
 describe('is-valid-cpf-digits', () => {
 	it('should be defined', () => {
 		const isValidCpfDigitFn = isValidCpfDigit;
@@ -43,5 +47,35 @@ describe('is-valid-cpf-digits', () => {
 	it('should return true and validate with success', () => {
 		const isValidCpfDigitFn = isValidCpfDigit('48153676474');
 		expect(isValidCpfDigitFn).toBe(true);
+	});
+
+	it('should format cpf from pattern to only numbers', () => {
+		const isValidCpfDigitFn = removeSpecialCharsFromCpf('641.482.734-79');
+		expect(isValidCpfDigitFn).toBe('64148273479');
+	});
+
+	it('should format cpf from pattern to only numbers', () => {
+		const isValidCpfDigitFn = removeSpecialCharsFromCpf('64148273479');
+		expect(isValidCpfDigitFn).toBe('64148273479');
+	});
+
+	it('should format cpf from pattern to only numbers', () => {
+		const isValidCpfDigitFn = removeSpecialCharsFromCpf('val.cpf.str-d0');
+		expect(isValidCpfDigitFn).toBe('valcpfstrd0');
+	});
+
+	it('should format cpf from only numbers to pattern', () => {
+		const isValidCpfDigitFn = formatValueToCpfPattern('64148273479');
+		expect(isValidCpfDigitFn).toBe('641.482.734-79');
+	});
+
+	it('should format cpf from only numbers to pattern', () => {
+		const isValidCpfDigitFn = formatValueToCpfPattern('64148273479');
+		expect(isValidCpfDigitFn).toBe('641.482.734-79');
+	});
+
+	it('should format cpf from only numbers to pattern', () => {
+		const isValidCpfDigitFn = formatValueToCpfPattern('valcpfstrd0');
+		expect(isValidCpfDigitFn).toBe('val.cpf.str-d0');
 	});
 });
