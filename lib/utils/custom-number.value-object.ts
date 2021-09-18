@@ -1,21 +1,21 @@
 import { ValueObject } from '..';
 import Result from '../core/result';
 
-export interface ICustomValidator {
+export interface ICustomNmbValidator {
 	(value: number): boolean;
 }
 
-export interface CustomProps {
+export interface CustomNmbProps {
 	MAX?: number;
 	MIN?: number;
-	VALIDATOR?: ICustomValidator;
+	VALIDATOR?: ICustomNmbValidator;
 }
 
 interface Prop {
 	value: number;
 }
 
-const defaultCustomProps: CustomProps = {
+const defaultCustomProps: CustomNmbProps = {
 	VALIDATOR: function (value: number) {
 		return typeof value === 'number';
 	},
@@ -24,8 +24,8 @@ const defaultCustomProps: CustomProps = {
 };
 
 export class CustomNumberValueObject extends ValueObject<Prop> {
-	private readonly customProps: CustomProps;
-	private constructor(props: Prop, customProps?: CustomProps) {
+	private readonly customProps: CustomNmbProps;
+	private constructor(props: Prop, customProps?: CustomNmbProps) {
 		super(props);
 		this.customProps = customProps ?? defaultCustomProps;
 	}
@@ -71,19 +71,19 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 	 * @property
 	 * MIN: Number.MIN_SAFE_INTEGER,
 	 */
-	get customValidation(): CustomProps {
+	get customValidation(): CustomNmbProps {
 		return this.customProps;
 	}
 
 	/**
 	 *
 	 * @param value number
-	 * @param customProps @see CustomProps
+	 * @param customProps @see CustomNmbProps
 	 * @returns boolean
 	 */
 	public static isValidValue(
 		value: number,
-		customProps?: CustomProps
+		customProps?: CustomNmbProps
 	): boolean {
 		const MAX = customProps?.MAX ?? defaultCustomProps.MAX;
 		const MIN = customProps?.MIN ?? defaultCustomProps.MIN;
@@ -100,7 +100,7 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 
 	public static create(
 		value: number,
-		customProps?: CustomProps
+		customProps?: CustomNmbProps
 	): Result<CustomNumberValueObject> {
 		const isValidValue = CustomNumberValueObject.isValidValue(
 			value,

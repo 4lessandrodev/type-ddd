@@ -1,9 +1,9 @@
 import {
 	CustomStringValueObject,
-	CustomProps,
+	CustomStrProps,
 } from '../../lib/utils/custom-string.value-object';
 describe('custom-string.value-object', () => {
-	const customValidation: CustomProps = {
+	const customValidation: CustomStrProps = {
 		LENGTH: {
 			MAX: 8,
 			MIN: 8,

@@ -39,3 +39,4 @@ export * from './utils/url.value-object';
 export * from './utils/cpf.value-object';
 export * from './utils/cnpj.value-object';
 export * from './utils/custom-string.value-object';
+export * from './utils/custom-number.value-object';

@@ -6,20 +6,20 @@ interface ICustomStringLength {
 	MIN: number;
 }
 
-export interface ICustomValidator {
+export interface ICustomStrValidator {
 	(value: string): boolean;
 }
 
-export interface CustomProps {
+export interface CustomStrProps {
 	LENGTH: ICustomStringLength;
-	VALIDATOR?: ICustomValidator;
+	VALIDATOR?: ICustomStrValidator;
 }
 
 interface Prop {
 	value: string;
 }
 
-const defaultCustomProps: CustomProps = {
+const defaultCustomProps: CustomStrProps = {
 	VALIDATOR: function (value: string) {
 		return typeof value === 'string';
 	},
@@ -30,8 +30,8 @@ const defaultCustomProps: CustomProps = {
 };
 
 export class CustomStringValueObject extends ValueObject<Prop> {
-	private readonly customProps: CustomProps;
-	private constructor(props: Prop, customProps?: CustomProps) {
+	private readonly customProps: CustomStrProps;
+	private constructor(props: Prop, customProps?: CustomStrProps) {
 		super(props);
 		this.customProps = customProps ?? defaultCustomProps;
 	}
@@ -80,13 +80,13 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 	 * MAX: 255
 	 * MIN: 1
 	 */
-	get customValidation(): CustomProps {
+	get customValidation(): CustomStrProps {
 		return this.customProps;
 	}
 
 	public static isValidValue(
 		value: string,
-		customProps?: CustomProps
+		customProps?: CustomStrProps
 	): boolean {
 		const MIN = customProps?.LENGTH.MIN ?? defaultCustomProps.LENGTH.MIN;
 		const MAX = customProps?.LENGTH.MAX ?? defaultCustomProps.LENGTH.MAX;
@@ -103,7 +103,7 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 
 	public static create(
 		value: string,
-		customProps?: CustomProps
+		customProps?: CustomStrProps
 	): Result<CustomStringValueObject> {
 		const isValidValue = CustomStringValueObject.isValidValue(
 			value,

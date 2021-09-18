@@ -1,9 +1,9 @@
 import {
 	CustomNumberValueObject,
-	CustomProps,
+	CustomNmbProps,
 } from '../../lib/utils/custom-number.value-object';
 describe('custom-number.value-object', () => {
-	const customValidation: CustomProps = {
+	const customValidation: CustomNmbProps = {
 		MAX: 1000,
 		MIN: -1000,
 		VALIDATOR: function (value: number): boolean {
