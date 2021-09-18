@@ -6,7 +6,7 @@ import isValidCpfDigit, {
 const regexCpf =
 	/^([0-9]{3})[\.]((?!\1)[0-9]{3})[\.]([0-9]{3})[-]([0-9]{2})$|^[0-9]{11}$/;
 
-export interface Prop {
+interface Prop {
 	value: string;
 }
 
@@ -89,3 +89,5 @@ export class CPFValueObject extends ValueObject<Prop> {
 		return Result.ok(new CPFValueObject({ value }));
 	}
 }
+
+export default CPFValueObject;

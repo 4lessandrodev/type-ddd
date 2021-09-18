@@ -6,7 +6,7 @@ import isValidCnpjDigit, {
 const regexCnpj =
 	/^([0-9]{2})[\.]([0-9]{3})[\.]((?!\2)[0-9]{3})[\/]([0-9]{4})[-]([0-9]{2})$|^[0-9]{14}$/;
 
-export interface Prop {
+interface Prop {
 	value: string;
 }
 
@@ -89,3 +89,5 @@ export class CNPJValueObject extends ValueObject<Prop> {
 		return Result.ok(new CNPJValueObject({ value }));
 	}
 }
+
+export default CNPJValueObject;

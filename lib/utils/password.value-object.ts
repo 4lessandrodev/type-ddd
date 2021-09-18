@@ -52,12 +52,13 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 *
 	 * @param length password length as number 8/10/12/14/16/18
 	 * @returns PasswordValueObject
-	 * @default 14 chars is recommended for strongest password
+	 * @default 12 chars or greater is recommended for strongest password
 	 */
-	public static generateRandomPassword(length: ILength): PasswordValueObject {
-		return PasswordValueObject.create(
-			passwordGenerator(length)
-		).getResult();
+	public static generateRandomPassword(
+		length?: ILength
+	): PasswordValueObject {
+		const pass = passwordGenerator(length ?? 12);
+		return PasswordValueObject.create(pass).getResult();
 	}
 
 	/**

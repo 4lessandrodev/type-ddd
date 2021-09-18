@@ -77,3 +77,5 @@ export class PinValueObject extends ValueObject<Prop> {
 		return Result.ok(new PinValueObject({ value }));
 	}
 }
+
+export default PinValueObject;

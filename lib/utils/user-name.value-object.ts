@@ -105,3 +105,5 @@ export class UserNameValueObject extends ValueObject<Prop> {
 		);
 	}
 }
+
+export default UserNameValueObject;

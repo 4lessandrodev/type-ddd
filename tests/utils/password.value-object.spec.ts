@@ -66,6 +66,13 @@ describe('password.value-object', () => {
 		expect(isEncrypted).toBe(false);
 	});
 
+	it('should generate a valid random password not encrypted default 12 chars', () => {
+		const result = PasswordValueObject.generateRandomPassword();
+		const isEncrypted = result.isEncrypted();
+		expect(isEncrypted).toBe(false);
+		expect(result.value).toHaveLength(12);
+	});
+
 	it('should compare password not encrypted', () => {
 		const result = PasswordValueObject.create('123456').getResult();
 		const match = result.compare('123456');
