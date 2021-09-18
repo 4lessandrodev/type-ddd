@@ -72,3 +72,5 @@ export class BirthdayValueObject extends ValueObject<Prop> {
 		);
 	}
 }
+
+export default BirthdayValueObject;

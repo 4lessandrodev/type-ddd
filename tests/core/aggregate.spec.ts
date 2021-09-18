@@ -1,11 +1,11 @@
-import UniqueEntityID from '../../src/core/unique-entity-id';
-import Result from '../../src/core/result';
-import DomainId from '../../src/core/domain-id';
-import IDomainEvent from '../../src/core/events/domain-event.interface';
-import IHandle from '../../src/core/events/handle.interface';
-import DomainEvents from '../../src/core/events/domain-events';
-import Logger from '../../src/utils/logger.util';
-import { AggregateRoot, BaseDomainEntity } from '../../src';
+import UniqueEntityID from '../../lib/core/unique-entity-id';
+import Result from '../../lib/core/result';
+import DomainId from '../../lib/core/domain-id';
+import IDomainEvent from '../../lib/core/events/domain-event.interface';
+import IHandle from '../../lib/core/events/handle.interface';
+import DomainEvents from '../../lib/core/events/domain-events';
+import Logger from '../../lib/utils/logger.util';
+import { AggregateRoot, BaseDomainEntity } from '../../lib';
 
 describe('aggregate', () => {
 	//

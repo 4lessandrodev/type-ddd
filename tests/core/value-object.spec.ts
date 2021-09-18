@@ -1,5 +1,5 @@
-import ValueObject from '../../src/core/value-object';
-import Result from '../../src/core/result';
+import ValueObject from '../../lib/core/value-object';
+import Result from '../../lib/core/result';
 
 describe('value-object', () => {
 	//-------------------------------------------------------------------

@@ -35,3 +35,5 @@ export class EmailValueObject extends ValueObject<Prop> {
 		return Result.ok<EmailValueObject>(new EmailValueObject({ value }));
 	}
 }
+
+export default EmailValueObject;

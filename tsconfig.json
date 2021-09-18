@@ -19,8 +19,8 @@
 		"esModuleInterop": true,
 		"baseUrl": "./",
 		"paths": {
-			"@types-ddd": ["src/index"]
+			"@types-ddd": ["lib/index"]
 		}
 	},
-	"include": ["src/*", "src/**/*", "example", "tests"]
+	"include": ["lib/*", "lib/**/*", "example", "tests"]
 }

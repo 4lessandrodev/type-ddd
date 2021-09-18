@@ -1,8 +1,8 @@
-import IBaseConnection from '../../src/repo/base-connection.interface';
+import IBaseConnection from '../../lib/repo/base-connection.interface';
 import IRepository, {
 	BaseRepository,
-} from '../../src/repo/base-repository.abstract';
-import IMapper from '../../src/repo/mapper.interface';
+} from '../../lib/repo/base-repository.abstract';
+import IMapper from '../../lib/repo/mapper.interface';
 
 describe('repository', () => {
 	// Define an ORM type

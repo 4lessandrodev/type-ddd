@@ -1,4 +1,4 @@
-import { CurrencyValueObject } from '../../src/utils/currency.value-object';
+import { CurrencyValueObject } from '../../lib/utils/currency.value-object';
 
 describe('currency.value-object', () => {
 	it('should be defined', () => {

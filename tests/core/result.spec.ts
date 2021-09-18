@@ -1,6 +1,6 @@
-import Result from '../../src/core/result';
-import { IUseCase } from '../../src/core/use-case.interface';
-import Logger from '../../src/utils/logger.util';
+import Result from '../../lib/core/result';
+import { IUseCase } from '../../lib/core/use-case.interface';
+import Logger from '../../lib/utils/logger.util';
 
 describe('result', () => {
 	// Internationalization  errors

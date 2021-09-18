@@ -10,6 +10,7 @@ interface Prop {
  * Pin to use as email confirmation or sms
  * @example ABC-1234
  * @example 123
+ * @example ABCDEF-123456
  */
 export class PinValueObject extends ValueObject<Prop> {
 	private constructor(prop: Prop) {
@@ -18,8 +19,8 @@ export class PinValueObject extends ValueObject<Prop> {
 
 	/**
 	 * @returns pin as string
-	 * @example ABC-1234
-	 * @example 123
+	 * @example CTF-8723
+	 * @example 52155
 	 */
 	get value(): string {
 		return this.props.value;
@@ -30,11 +31,11 @@ export class PinValueObject extends ValueObject<Prop> {
 	 * @param props as object with params
 	 * @param numbersLength: 3 | 4 | 5 | 6 | 7
 	 * @param lettersLength: 0 | 3 | 4 | 5 | 6 | 7
-	 * @default numbersLength 4
-	 * @default lettersLength 3
+	 * @default numbersLength 5
+	 * @default lettersLength 0
 	 * @returns Result PinValueObject as instance
 	 */
-	public static generatePin(props: PinProps): Result<PinValueObject> {
+	public static generatePin(props?: PinProps): Result<PinValueObject> {
 		const pin = pinGenerator(props);
 		return PinValueObject.create(pin);
 	}
@@ -59,16 +60,14 @@ export class PinValueObject extends ValueObject<Prop> {
 
 	/**
 	 *
-	 * @param pin as optional string
+	 * @description if not provide a value automatically generate a pin with 5 digits
+	 * @param pin as optional string @max 15 digits @min 3 digits
 	 * @returns Result PinValueObject as instance
+	 * @default 5 digits
+	 * @example 98537
 	 */
 	public static create(pin?: string): Result<PinValueObject> {
-		let value: string =
-			pin ??
-			pinGenerator({
-				lettersLength: 3,
-				numbersLength: 4,
-			});
+		let value: string = pin ?? pinGenerator();
 
 		const isValidValue = PinValueObject.isValidValue(value);
 		if (!isValidValue) {
@@ -78,3 +77,5 @@ export class PinValueObject extends ValueObject<Prop> {
 		return Result.ok(new PinValueObject({ value }));
 	}
 }
+
+export default PinValueObject;

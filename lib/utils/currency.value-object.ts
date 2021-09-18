@@ -37,7 +37,7 @@ interface Prop {
 }
 
 /**
- * @throws MaxValue `900.719.925.474`
+ * @throws MaxValue `90.071.992.537.570`
  * @description Domain Value Object to financial operation
  * @param object `{ value: number, currency: string }`
  * @method create `new instance`

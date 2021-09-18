@@ -1,4 +1,4 @@
-import pinGenerator from '../../src/utils/pin-generator.util';
+import pinGenerator from '../../lib/utils/pin-generator.util';
 describe('pin-generator', () => {
 	it('should be defined', () => {
 		const generator = pinGenerator;
@@ -39,5 +39,10 @@ describe('pin-generator', () => {
 		});
 
 		expect(pin).toHaveLength(7);
+	});
+
+	it('should generate a default pin 5 digits', () => {
+		const pin = pinGenerator();
+		expect(pin).toHaveLength(5);
 	});
 });

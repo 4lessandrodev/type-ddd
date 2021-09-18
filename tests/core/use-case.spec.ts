@@ -1,4 +1,4 @@
-import IUseCase from '../../src/core/use-case.interface';
+import IUseCase from '../../lib/core/use-case.interface';
 
 describe('use-case', () => {
 	//

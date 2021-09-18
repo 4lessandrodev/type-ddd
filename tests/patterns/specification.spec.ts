@@ -1,4 +1,4 @@
-import SpecificationComposite from '../../src/patterns/specification/specification.composite';
+import SpecificationComposite from '../../lib/patterns/specification/specification.composite';
 
 type User = {
 	name: string;

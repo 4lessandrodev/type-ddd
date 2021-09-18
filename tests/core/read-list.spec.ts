@@ -1,6 +1,6 @@
-import WriteList from '../../src/core/write-list';
-import ReadList from '../../src/core/read-list';
-import { BaseDomainEntity, DomainId, Entity } from '../../src';
+import WriteList from '../../lib/core/write-list';
+import ReadList from '../../lib/core/read-list';
+import { BaseDomainEntity, DomainId, Entity } from '../../lib';
 
 describe('read-list', () => {
 	//

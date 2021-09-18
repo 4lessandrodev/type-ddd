@@ -12,10 +12,25 @@ All notable changes to this project will be documented in this file.
 - EANCodeValueObject
 - ISBNCodeValueObject
 - UPCCodeValueObject
+
+### 2.5.0 - 2021-09-18
+
+---
+### Changed
+
+- PinValueObject: Define pin props as optional
+- Rename folder: from src to lib
+
+### Added
+
 - CPFValueObject
 - CNPJValueObject
+- CustomStringValueObject
+- CustomNumberValueObject
+- HEXColorValueObject: Ensure don't generate light color like white
+- RGBColorValueObject: Ensure don't generate light color like white
 
-### 2.4.2 ~ 2.4.7 - 2021-09-09
+### 2.4.2 ~ 2.4.10 - 2021-09-09
 
 ---
 ### Fixed

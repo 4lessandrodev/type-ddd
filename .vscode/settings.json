@@ -9,5 +9,6 @@
 	"editor.autoIndent": "full",
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
 	"typescript.format.insertSpaceAfterConstructor": true,
-	"typescript.format.insertSpaceBeforeFunctionParenthesis": true
+	"typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+	"cSpell.words": ["cnpj"]
 }
