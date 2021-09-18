@@ -36,18 +36,30 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 		this.customProps = customProps ?? defaultCustomProps;
 	}
 
+	/**
+	 * @returns original value as string
+	 */
 	get value(): string {
 		return this.props.value;
 	}
 
+	/**
+	 * @returns value lowerCase as string
+	 */
 	get lowerCaseValue(): string {
 		return this.props.value.toLowerCase();
 	}
 
+	/**
+	 * @returns value upperCase as string
+	 */
 	get upperCaseValue(): string {
 		return this.props.value.toUpperCase();
 	}
 
+	/**
+	 * @returns value capitalized as string
+	 */
 	get capitalizeValue(): string {
 		return (
 			this.props.value[0].toUpperCase() +
@@ -55,6 +67,19 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 		);
 	}
 
+	/**
+	 * @returns validation
+	 * @method VALIDATOR: function (value: string): boolean;
+	 * @property
+	 * LENGTH: MAX / MIN,
+	 * @property
+	 * MIN: number
+	 * @property
+	 * MAX: number
+	 * @default
+	 * MAX: 255
+	 * MIN: 1
+	 */
 	get customValidation(): CustomProps {
 		return this.customProps;
 	}
@@ -63,16 +88,17 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 		value: string,
 		customProps?: CustomProps
 	): boolean {
-		const { LENGTH, VALIDATOR } = customProps ?? defaultCustomProps;
+		const MIN = customProps?.LENGTH.MIN ?? defaultCustomProps.LENGTH.MIN;
+		const MAX = customProps?.LENGTH.MAX ?? defaultCustomProps.LENGTH.MAX;
+		const VALIDATOR =
+			customProps?.VALIDATOR ?? defaultCustomProps.VALIDATOR;
 
 		if (VALIDATOR) {
 			return (
-				VALIDATOR(value) &&
-				value.length >= LENGTH.MIN &&
-				value.length <= LENGTH.MAX
+				VALIDATOR(value) && value.length >= MIN && value.length <= MAX
 			);
 		}
-		return value.length >= LENGTH.MIN && value.length <= LENGTH.MAX;
+		return value.length >= MIN && value.length <= MAX;
 	}
 
 	public static create(
@@ -91,3 +117,5 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 		return Result.ok(new CustomStringValueObject({ value }, customProps));
 	}
 }
+
+export default CustomStringValueObject;
