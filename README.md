@@ -371,6 +371,8 @@ A project is available on link below
 - ✔ PinValueObject
 - ✔ CPFValueObject
 - ✔ CNPJValueObject
+- ✔ CustomStringValueObject
+- ✔ CustomNumberValueObject
 - ☐ ItemDimensionsValueObject
 - ☐ ShippingWeightValueObject
 - ☐ EANCodeValueObject
