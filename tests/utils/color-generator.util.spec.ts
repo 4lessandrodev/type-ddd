@@ -1,6 +1,6 @@
-import { colorGenerator } from '../../src/utils/color-generator.util';
-import HEXColorValueObject from '../../src/utils/hex-color.value-object';
-import { RGBColorValueObject } from '../../src/utils/rgb-color.value-object';
+import { colorGenerator } from '../../lib/utils/color-generator.util';
+import HEXColorValueObject from '../../lib/utils/hex-color.value-object';
+import { RGBColorValueObject } from '../../lib/utils/rgb-color.value-object';
 
 describe('color-generator', () => {
 	it('should be defined', () => {

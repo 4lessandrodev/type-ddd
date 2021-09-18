@@ -1,4 +1,4 @@
-import pinGenerator from '../../src/utils/pin-generator.util';
+import pinGenerator from '../../lib/utils/pin-generator.util';
 describe('pin-generator', () => {
 	it('should be defined', () => {
 		const generator = pinGenerator;

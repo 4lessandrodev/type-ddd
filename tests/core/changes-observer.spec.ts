@@ -1,5 +1,5 @@
-import { ChangesObserver } from '../../src/core/changes-observer';
-import Result from '../../src/core/result';
+import { ChangesObserver } from '../../lib/core/changes-observer';
+import Result from '../../lib/core/result';
 
 describe('changes-observer', () => {
 	it('should be defined', () => {

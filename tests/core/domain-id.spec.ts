@@ -1,4 +1,4 @@
-import DomainId from '../../src/core/domain-id';
+import DomainId from '../../lib/core/domain-id';
 
 describe('domain-id', () => {
 	it('should be defined', () => {

@@ -1,30 +1,38 @@
-import { AvailableOrderStatusType, OrderStatusValueObject } from '../../src/utils/order-status.value-object';
+import {
+	AvailableOrderStatusType,
+	OrderStatusValueObject,
+} from '../../lib/utils/order-status.value-object';
 
 describe('order-status.value-object', () => {
-	it('should be defined', ()=>{
+	it('should be defined', () => {
 		const status = OrderStatusValueObject.create;
 		expect(status).toBeDefined();
-	})
+	});
 
-	it('should create a valid status', ()=>{
+	it('should create a valid status', () => {
 		const status = OrderStatusValueObject.create('IN_PREPARATION');
 		expect(status.isSuccess).toBe(true);
 		expect(status.getResult().value).toBe('IN_PREPARATION');
-	})
+	});
 
-	it('should check if is on status', ()=>{
-		const status = OrderStatusValueObject.create('IN_PREPARATION').getResult();
+	it('should check if is on status', () => {
+		const status =
+			OrderStatusValueObject.create('IN_PREPARATION').getResult();
 		expect(status.isOnStatus('IN_PREPARATION')).toBe(true);
 		expect(status.isOnStatus('DECLINED')).toBe(false);
-	})
+	});
 
-	it('should fail if try create an invalid status', ()=>{
-		const status = OrderStatusValueObject.create('INVALID' as AvailableOrderStatusType);
+	it('should fail if try create an invalid status', () => {
+		const status = OrderStatusValueObject.create(
+			'INVALID' as AvailableOrderStatusType
+		);
 		expect(status.isSuccess).toBe(false);
-	})
+	});
 
-	it('should validate an status', ()=>{
-		const isValid = OrderStatusValueObject.isValidValue('INVALID' as AvailableOrderStatusType);
+	it('should validate an status', () => {
+		const isValid = OrderStatusValueObject.isValidValue(
+			'INVALID' as AvailableOrderStatusType
+		);
 		expect(isValid).toBe(false);
-	})
+	});
 });

@@ -1,4 +1,4 @@
-import generateRandomTracking from '../../src/utils/generate-random-tracking-code.util';
+import generateRandomTracking from '../../lib/utils/generate-random-tracking-code.util';
 
 describe('generate-random-tracking-code.util', () => {
 	it('should be defined', () => {

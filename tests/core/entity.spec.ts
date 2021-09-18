@@ -1,6 +1,6 @@
-import { BaseDomainEntity } from '../../src/core/base-domain-entity';
-import { Result } from '../../src/core/result';
-import { DomainId, Entity } from '../../src';
+import { BaseDomainEntity } from '../../lib/core/base-domain-entity';
+import { Result } from '../../lib/core/result';
+import { DomainId, Entity } from '../../lib';
 
 describe('entity', () => {
 	// Define Car interface props

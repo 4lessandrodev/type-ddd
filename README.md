@@ -370,7 +370,7 @@ A project is available on link below
 - ✔ OrderStatusValueObject
 - ✔ PinValueObject
 - ✔ CPFValueObject
-- ☐ CNPJValueObject
+- ✔ CNPJValueObject
 - ☐ ItemDimensionsValueObject
 - ☐ ShippingWeightValueObject
 - ☐ EANCodeValueObject

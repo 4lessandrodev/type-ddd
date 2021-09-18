@@ -1,4 +1,4 @@
-import { UniqueEntityID } from '../../src/core/unique-entity-id';
+import { UniqueEntityID } from '../../lib/core/unique-entity-id';
 
 describe('unique-entity-id', () => {
 	it('should create a new random unique entity id', () => {

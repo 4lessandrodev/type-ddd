@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - PinValueObject: Define pin props as optional
+- Rename folder: from src to lib
 
 ### Added
 

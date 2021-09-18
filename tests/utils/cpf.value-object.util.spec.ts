@@ -1,4 +1,4 @@
-import { CPFValueObject } from '../../src/utils/cpf.value-object';
+import { CPFValueObject } from '../../lib/utils/cpf.value-object';
 
 describe('cpf.value-object', () => {
 	it('should be defined', () => {
@@ -34,6 +34,12 @@ describe('cpf.value-object', () => {
 		const valueObject = CPFValueObject.create('673.761.543-02');
 		expect(valueObject.isSuccess).toBeTruthy();
 		expect(valueObject.getResult().value).toBe('67376154302');
+	});
+
+	it('should create a valid cpf with special chars and remove special chars on get value', () => {
+		const valueObject = CPFValueObject.create('024.815.901-12');
+		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.getResult().value).toBe('02481590112');
 	});
 
 	it('should create a valid cpf with special chars and remove special chars on get value', () => {
@@ -121,5 +127,11 @@ describe('cpf.value-object', () => {
 		const valueObject = CPFValueObject.create('53534317661');
 		expect(valueObject.isSuccess).toBeTruthy();
 		expect(valueObject.getResult().value).toBe('53534317661');
+	});
+
+	it('should create a valid cpf only numbers', () => {
+		const valueObject = CPFValueObject.create('02481590112');
+		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.getResult().value).toBe('02481590112');
 	});
 });

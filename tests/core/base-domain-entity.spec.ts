@@ -1,5 +1,5 @@
-import { DomainId } from '../../src';
-import { BaseDomainEntity } from '../../src/core/base-domain-entity';
+import { DomainId } from '../../lib';
+import { BaseDomainEntity } from '../../lib/core/base-domain-entity';
 
 class ClassTest extends BaseDomainEntity {}
 

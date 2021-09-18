@@ -1,5 +1,5 @@
-import IBaseConnection from '../../src/repo/base-connection.interface';
-import Filter from '../../src/repo/filter.interface';
+import IBaseConnection from '../../lib/repo/base-connection.interface';
+import Filter from '../../lib/repo/filter.interface';
 
 describe('base-connection', () => {
 	const ORM = {

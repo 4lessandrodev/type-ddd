@@ -1,7 +1,7 @@
-import { BaseDomainEntity, DomainId, Entity } from '../../src/';
-import Result from '../../src/core/result';
-import { IBaseRepository } from '../../src/repo/base-repository.interface';
-import Filter from '../../src/repo/filter.interface';
+import { BaseDomainEntity, DomainId, Entity } from '../../lib';
+import Result from '../../lib/core/result';
+import { IBaseRepository } from '../../lib/repo/base-repository.interface';
+import Filter from '../../lib/repo/filter.interface';
 
 interface IFilterKeys {
 	name: string;

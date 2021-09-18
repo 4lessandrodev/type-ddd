@@ -1,4 +1,4 @@
-import { PinValueObject } from '../../src/utils/pin.value-object';
+import { PinValueObject } from '../../lib/utils/pin.value-object';
 describe('pin.value-object', () => {
 	it('should be defined', () => {
 		const create = PinValueObject.create;

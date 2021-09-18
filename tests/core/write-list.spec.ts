@@ -1,4 +1,4 @@
-import WriteList from '../../src/core/write-list';
+import WriteList from '../../lib/core/write-list';
 
 describe('write-list', () => {
 	//---------------------------------------------------

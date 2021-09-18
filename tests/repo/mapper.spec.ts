@@ -1,8 +1,8 @@
-import Result from '../../src/core/result';
-import { IMapper } from '../../src/repo/mapper.interface';
-import ValueObject from '../../src/core/value-object';
-import DomainId from '../../src/core/domain-id';
-import { BaseDomainEntity, Entity } from '../../src';
+import Result from '../../lib/core/result';
+import { IMapper } from '../../lib/repo/mapper.interface';
+import ValueObject from '../../lib/core/value-object';
+import DomainId from '../../lib/core/domain-id';
+import { BaseDomainEntity, Entity } from '../../lib';
 
 describe('mapper', () => {
 	// Interface for name prop

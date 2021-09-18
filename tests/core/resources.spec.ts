@@ -34,7 +34,7 @@ import {
 	colorConverter,
 	colorGenerator,
 	passwordGenerator,
-} from '../../src';
+} from '../../lib';
 
 describe('all resources should be defined and available', () => {
 	const fakeValueA: IBaseConnection<any, any> =
