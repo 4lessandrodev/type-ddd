@@ -1,4 +1,5 @@
-import { ValueObject, Result } from '..';
+import { ValueObject } from '../core/value-object';
+import Result from '../core/result';
 import isValidCpfDigit, {
 	formatValueToCpfPattern,
 	removeSpecialCharsFromCpf,

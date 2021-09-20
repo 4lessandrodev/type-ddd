@@ -1,4 +1,5 @@
-import { Result, ValueObject } from '..';
+import { ValueObject } from '../core/value-object';
+import Result from '../core/result';
 import calculatePercent from './calculate-percentage.util';
 import convertValueToCent from './convert-value-to-cent.util';
 import convertCentToFloat from './convert-cent-to-float.util';

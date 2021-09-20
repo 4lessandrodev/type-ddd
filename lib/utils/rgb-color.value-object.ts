@@ -1,4 +1,5 @@
-import { Result, ValueObject } from '..';
+import { ValueObject } from '../core/value-object';
+import Result from '../core/result';
 import colorConverter from './color-converter.util';
 import colorGenerator from './color-generator.util';
 const regexHash =

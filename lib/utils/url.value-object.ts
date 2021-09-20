@@ -1,4 +1,5 @@
-import { Result, ValueObject } from '..';
+import { ValueObject } from '../core/value-object';
+import Result from '../core/result';
 const regexHash = /^\w{3,5}:\/{1,}\w{1,}\.\w*\.?\w{2,}/;
 
 interface Prop {

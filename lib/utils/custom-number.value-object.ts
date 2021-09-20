@@ -1,4 +1,4 @@
-import { ValueObject } from '..';
+import { ValueObject } from '../core/value-object';
 import Result from '../core/result';
 
 export interface ICustomNmbValidator {

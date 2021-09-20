@@ -13,6 +13,20 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+
+### 2.5.1 - 2021-09-20
+
+---
+### Changed
+
+- Lib utils: Imports path
+
+### Added
+
+- UnitOfMeasureValueObject
+- WeightUnitValueObject
+- WeightEntity
+
 ### 2.5.0 - 2021-09-18
 
 ---
