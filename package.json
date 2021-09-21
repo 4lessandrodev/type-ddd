@@ -22,11 +22,12 @@
 		"Base Value Object"
 	],
 	"scripts": {
-		"prebuild": "rimraf ./dist",
+		"prebuild": "rimraf ./dist && yarn check:circular-deps",
 		"build": "tsc -p tsconfig.lib.json",
 		"test": "jest --silent --runInBand",
 		"test:verbose": "jest --runInBand",
-		"public": "./publish.sh"
+		"check:circular-deps": "madge --circular --extensions ts ./lib",
+		"public": "npm publish"
 	},
 	"repository": {
 		"type": "git",
@@ -48,6 +49,7 @@
 		"@types/node": "16.9.1",
 		"@types/pino": "6.3.11",
 		"jest": "27.1.1",
+		"madge": "^5.0.1",
 		"rimraf": "3.0.2",
 		"ts-jest": "27.0.5",
 		"ts-node": "10.2.1",

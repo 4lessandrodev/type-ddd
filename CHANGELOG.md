@@ -23,8 +23,9 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- UnitOfMeasureValueObject
 - WeightUnitValueObject
+- UnitOfMeasureValueObject
+- DimensionEntity
 - WeightEntity
 
 ### 2.5.0 - 2021-09-18

@@ -22,5 +22,5 @@
 			"@types-ddd": ["lib/index"]
 		}
 	},
-	"include": ["lib/*", "lib/**/*", "example", "tests"]
+	"include": ["lib/*", "lib/**/*", "example", "tests", "types"]
 }
