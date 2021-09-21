@@ -7,12 +7,17 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - ValueObject Decorator
-- ItemDimensionsValueObject
-- ShippingWeightValueObject
 - EANCodeValueObject
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+
+### 2.5.2 - 2021-09-21
+
+---
+### Changed
+
+- dist: remove unused files on dist
 
 ### 2.5.1 - 2021-09-20
 
