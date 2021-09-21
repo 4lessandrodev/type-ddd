@@ -14,22 +14,39 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 		super(props, WeightEntity.name);
 	}
 
+	/**
+	 * @returns WeightUnitValueObject instance
+	 */
 	get weightUnit(): WeightUnitValueObject {
 		return this.props.weightUnit;
 	}
 
+	/**
+	 * @returns CustomNumberValueObject instance
+	 */
 	get weight(): CustomNumberValueObject {
 		return this.props.weight;
 	}
 
+	/**
+	 *
+	 * @param newValue WeightUnitValueObject instance
+	 */
 	changeWeightUnit(newValue: WeightUnitValueObject): void {
 		this.props.weightUnit = newValue;
 	}
 
+	/**
+	 *
+	 * @param newValue CustomNumberValueObject instance
+	 */
 	changeWeight(newValue: CustomNumberValueObject): void {
 		this.props.weight = newValue;
 	}
 
+	/**
+	 * convert instance value to kilogram
+	 */
 	toKG(): void {
 		const currentUnit = this.props.weightUnit.value;
 		let kg: number = this.props.weight.value;
@@ -59,6 +76,9 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 		this.changeWeightUnit(WeightUnitValueObject.create('KG').getResult());
 	}
 
+	/**
+	 * convert instance value to gram
+	 */
 	toG(): void {
 		const currentUnit = this.props.weightUnit.value;
 		let g: number = this.props.weight.value;
@@ -86,6 +106,10 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 		);
 		this.changeWeightUnit(WeightUnitValueObject.create('G').getResult());
 	}
+
+	/**
+	 * convert instance value to milligram
+	 */
 	toMG(): void {
 		const currentUnit = this.props.weightUnit.value;
 		let mg: number = this.props.weight.value;
@@ -115,6 +139,9 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 		this.changeWeightUnit(WeightUnitValueObject.create('MG').getResult());
 	}
 
+	/**
+	 * convert instance value to tonne
+	 */
 	toTON(): void {
 		const currentUnit = this.props.weightUnit.value;
 		let ton: number = this.props.weight.value;
@@ -143,6 +170,10 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 		);
 		this.changeWeightUnit(WeightUnitValueObject.create('TON').getResult());
 	}
+
+	/**
+	 * convert instance value to libre
+	 */
 	toLB(): void {
 		const currentUnit = this.props.weightUnit.value;
 		let lb: number = this.props.weight.value;
@@ -171,6 +202,10 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 		);
 		this.changeWeightUnit(WeightUnitValueObject.create('LB').getResult());
 	}
+
+	/**
+	 * convert instance value to onz
+	 */
 	toOZ(): void {
 		const currentUnit = this.props.weightUnit.value;
 		let lb: number = this.props.weight.value;

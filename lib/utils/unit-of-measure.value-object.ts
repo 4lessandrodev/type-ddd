@@ -7,8 +7,6 @@ export enum UnitsOfMeasure {
 	'MT' = 'MT',
 	'INCH' = 'INCH',
 	'FOOT' = 'FOOT',
-	'MICROMETER' = 'MICROMETER',
-	'NANOMETER' = 'NANOMETER',
 	'YARD' = 'YARD',
 }
 
@@ -18,8 +16,6 @@ export enum UnitsDescription {
 	'MT' = 'METER',
 	'INCH' = 'INCHES',
 	'FOOT' = 'FOOT',
-	'MICROMETER' = 'MICROMETER',
-	'NANOMETER' = 'NANOMETER',
 	'YARD' = 'YARD',
 }
 

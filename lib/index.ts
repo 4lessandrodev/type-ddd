@@ -43,3 +43,4 @@ export * from './utils/custom-number.value-object';
 export * from './utils/weight-unit.value-object';
 export * from './utils/weight.entity';
 export * from './utils/unit-of-measure.value-object';
+export * from './utils/dimension.entity';
