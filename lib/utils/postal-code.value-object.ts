@@ -1,4 +1,5 @@
-import { Result, ValueObject } from '..';
+import { ValueObject } from '../core/value-object';
+import Result from '../core/result';
 const regexHash = /^[0-9]{5}-[0-9]{3}$|^[0-9]{8}$/;
 
 interface Prop {

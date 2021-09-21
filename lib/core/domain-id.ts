@@ -1,4 +1,4 @@
-import { ValueObject } from '..';
+import { ValueObject } from '../core/value-object';
 import UniqueEntityID from './unique-entity-id';
 
 /**

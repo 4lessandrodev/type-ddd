@@ -373,8 +373,10 @@ A project is available on link below
 - ✔ CNPJValueObject
 - ✔ CustomStringValueObject
 - ✔ CustomNumberValueObject
-- ☐ ItemDimensionsValueObject
-- ☐ ShippingWeightValueObject
+- ✔ WeightUnitValueObject
+- ✔ UnitOfMeasureValueObject
+- ✔ DimensionEntity
+- ✔ WeightEntity
 - ☐ EANCodeValueObject
 - ☐ ISBNCodeValueObject
 - ☐ UPCCodeValueObject

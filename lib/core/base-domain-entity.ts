@@ -29,3 +29,4 @@ abstract class BaseDomainEntity {
 }
 
 export { BaseDomainEntity };
+export default BaseDomainEntity;
