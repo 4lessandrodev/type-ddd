@@ -1,39 +1,64 @@
-import { Entity, BaseDomainEntity } from '..';
+import ValueObject from '../core/value-object';
 import { Result } from '../core/result';
 import CustomNumberValueObject from './custom-number.value-object';
-import UnitOfMeasureValueObject from './unit-of-measure.value-object';
+import { UnitOfMeasure } from './unit-of-measure.value-object';
+import { CustomNmbProps } from './custom-number.value-object';
 
-export interface DimensionProps extends BaseDomainEntity {
+interface DimensionValueObjectProps {
 	dimension: CustomNumberValueObject;
-	dimensionUnit: UnitOfMeasureValueObject;
+	unit: UnitOfMeasure;
 }
 
-export class DimensionEntity extends Entity<DimensionProps> {
-	private constructor(props: DimensionProps) {
-		super(props, DimensionEntity.name);
+interface Props {
+	value: number;
+	unit: UnitOfMeasure;
+}
+
+export class DimensionValueObject extends ValueObject<DimensionValueObjectProps> {
+	private constructor(props: DimensionValueObjectProps) {
+		super(props);
 	}
 
 	get dimension(): CustomNumberValueObject {
 		return this.props.dimension;
 	}
 
-	get dimensionUnit(): UnitOfMeasureValueObject {
-		return this.props.dimensionUnit;
-	}
-
-	changeDimension(newDimension: UnitOfMeasureValueObject): void {
-		this.props.dimensionUnit = newDimension;
-	}
-
-	changeDimensionUnit(newDimensionUnit: UnitOfMeasureValueObject): void {
-		this.props.dimensionUnit = newDimensionUnit;
+	get unit(): UnitOfMeasure {
+		return this.props.unit;
 	}
 
 	/**
-	 * convert value to cm
+	 *
+	 * @description this method does not change value, only measure unit.
+	 * @summary to convert value and unit use toMT / toMM ...
+	 * @param newDimension as CustomNumberValueObject
+	 */
+	changeValue(newDimension: CustomNumberValueObject): void {
+		this.props.dimension = newDimension;
+	}
+
+	/**
+	 *
+	 * @description this method does not change value, only measure unit.
+	 * @summary to convert value and unit use toMT / toMM ...
+	 * @param newDimensionUnit as UnitOfMeasure MT/MM/CM etc.
+	 */
+	changeDimensionUnit(newDimensionUnit: UnitOfMeasure): void {
+		this.props.unit = newDimensionUnit;
+	}
+
+	private updateInstanceValues(value: number, unit: UnitOfMeasure): void {
+		const float = (value = parseFloat(value.toFixed(3)));
+		this.props.dimension =
+			CustomNumberValueObject.create(float).getResult();
+		this.changeDimensionUnit(unit);
+	}
+
+	/**
+	 * convert value and unit to cm
 	 */
 	toCM(): void {
-		let unit = this.props.dimensionUnit.value;
+		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
 			case unit === 'FOOT':
@@ -52,18 +77,14 @@ export class DimensionEntity extends Entity<DimensionProps> {
 				value = (value * 100 * 91.44) / 100;
 				break;
 		}
-		value = parseFloat(value.toFixed(3));
-		this.props.dimension =
-			CustomNumberValueObject.create(value).getResult();
-		this.props.dimensionUnit =
-			UnitOfMeasureValueObject.create('CM').getResult();
+		this.updateInstanceValues(value, 'CM');
 	}
 
 	/**
-	 * convert value to mm
+	 * convert value and unit to mm
 	 */
 	toMM(): void {
-		let unit = this.props.dimensionUnit.value;
+		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
 			case unit === 'CM':
@@ -82,18 +103,14 @@ export class DimensionEntity extends Entity<DimensionProps> {
 				value = (value * 100 * 914) / 100;
 				break;
 		}
-		value = parseFloat(value.toFixed(3));
-		this.props.dimension =
-			CustomNumberValueObject.create(value).getResult();
-		this.props.dimensionUnit =
-			UnitOfMeasureValueObject.create('MM').getResult();
+		this.updateInstanceValues(value, 'MM');
 	}
 
 	/**
-	 * convert value to mt
+	 * convert value and unit to mt
 	 */
 	toMT(): void {
-		let unit = this.props.dimensionUnit.value;
+		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
 			case unit === 'CM':
@@ -112,18 +129,14 @@ export class DimensionEntity extends Entity<DimensionProps> {
 				value = (value * 100) / 1.094 / 100;
 				break;
 		}
-		value = parseFloat(value.toFixed(3));
-		this.props.dimension =
-			CustomNumberValueObject.create(value).getResult();
-		this.props.dimensionUnit =
-			UnitOfMeasureValueObject.create('MT').getResult();
+		this.updateInstanceValues(value, 'MT');
 	}
 
 	/**
-	 * convert value to inch
+	 * convert value and unit to inch
 	 */
 	toINCH(): void {
-		let unit = this.props.dimensionUnit.value;
+		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
 			case unit === 'CM':
@@ -142,14 +155,14 @@ export class DimensionEntity extends Entity<DimensionProps> {
 				value = (value * 100 * 36) / 100;
 				break;
 		}
-		value = parseFloat(value.toFixed(3));
-		this.props.dimension =
-			CustomNumberValueObject.create(value).getResult();
-		this.props.dimensionUnit =
-			UnitOfMeasureValueObject.create('INCH').getResult();
+		this.updateInstanceValues(value, 'INCH');
 	}
+
+	/**
+	 * convert value and unit to foot
+	 */
 	toFOOT(): void {
-		let unit = this.props.dimensionUnit.value;
+		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
 			case unit === 'CM':
@@ -168,14 +181,14 @@ export class DimensionEntity extends Entity<DimensionProps> {
 				value = (value * 100 * 3) / 100;
 				break;
 		}
-		value = parseFloat(value.toFixed(3));
-		this.props.dimension =
-			CustomNumberValueObject.create(value).getResult();
-		this.props.dimensionUnit =
-			UnitOfMeasureValueObject.create('FOOT').getResult();
+		this.updateInstanceValues(value, 'FOOT');
 	}
+
+	/**
+	 * convert value and unit to yard
+	 */
 	toYARD(): void {
-		let unit = this.props.dimensionUnit.value;
+		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
 			case unit === 'CM':
@@ -194,16 +207,28 @@ export class DimensionEntity extends Entity<DimensionProps> {
 				value = (value * 100 * 1.094) / 100;
 				break;
 		}
-		value = parseFloat(value.toFixed(3));
-		this.props.dimension =
-			CustomNumberValueObject.create(value).getResult();
-		this.props.dimensionUnit =
-			UnitOfMeasureValueObject.create('YARD').getResult();
+		this.updateInstanceValues(value, 'YARD');
 	}
 
-	public static create(props: DimensionProps): Result<DimensionEntity> {
-		return Result.ok(new DimensionEntity(props));
+	public static create(
+		{ unit, value }: Props,
+		customValidation?: CustomNmbProps
+	): Result<DimensionValueObject> {
+		const customNumber = CustomNumberValueObject.create(
+			parseFloat(value.toFixed(3)),
+			customValidation
+		);
+		if (customNumber.isFailure) {
+			return Result.fail(customNumber.errorValue());
+		}
+
+		return Result.ok(
+			new DimensionValueObject({
+				unit,
+				dimension: customNumber.getResult(),
+			})
+		);
 	}
 }
 
-export default DimensionEntity;
+export default DimensionValueObject;
