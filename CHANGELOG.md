@@ -11,6 +11,13 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+### 2.5.3 - 2021-09-22
+
+---
+### Changed
+
+- DimensionEntity > changed to value object: DimensionValueObject
+- WeightEntity > changed to value object: WeightValueObject
 
 ### 2.5.2 - 2021-09-21
 

@@ -375,8 +375,8 @@ A project is available on link below
 - ✔ CustomNumberValueObject
 - ✔ WeightUnitValueObject
 - ✔ UnitOfMeasureValueObject
-- ✔ DimensionEntity
-- ✔ WeightEntity
+- ✔ DimensionValueObject
+- ✔ WeightValueObject
 - ☐ EANCodeValueObject
 - ☐ ISBNCodeValueObject
 - ☐ UPCCodeValueObject

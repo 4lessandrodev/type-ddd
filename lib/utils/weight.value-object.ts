@@ -1,24 +1,29 @@
-import { Entity } from '../core/entity';
-import { BaseDomainEntity } from '../core/base-domain-entity';
 import CustomNumberValueObject from './custom-number.value-object';
-import WeightUnitValueObject from './weight-unit.value-object';
 import { Result } from '../core/result';
+import { ValueObject } from '../core/value-object';
+import { UnitOfWeight } from './weight-unit.value-object';
+import { CustomNmbProps } from './custom-number.value-object';
 
-export interface WeightEntityProps extends BaseDomainEntity {
-	weightUnit: WeightUnitValueObject;
+interface WeightValueObjectProps {
+	unit: UnitOfWeight;
 	weight: CustomNumberValueObject;
 }
 
-export class WeightEntity extends Entity<WeightEntityProps> {
-	private constructor(props: WeightEntityProps) {
-		super(props, WeightEntity.name);
+interface Props {
+	unit: UnitOfWeight;
+	value: number;
+}
+
+export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
+	private constructor(props: WeightValueObjectProps) {
+		super(props);
 	}
 
 	/**
 	 * @returns WeightUnitValueObject instance
 	 */
-	get weightUnit(): WeightUnitValueObject {
-		return this.props.weightUnit;
+	get unit(): UnitOfWeight {
+		return this.props.unit;
 	}
 
 	/**
@@ -32,23 +37,31 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 	 *
 	 * @param newValue WeightUnitValueObject instance
 	 */
-	changeWeightUnit(newValue: WeightUnitValueObject): void {
-		this.props.weightUnit = newValue;
+	changeWeightUnit(newValue: UnitOfWeight): void {
+		this.props.unit = newValue;
 	}
 
 	/**
 	 *
 	 * @param newValue CustomNumberValueObject instance
 	 */
-	changeWeight(newValue: CustomNumberValueObject): void {
-		this.props.weight = newValue;
+	changeValue(newValue: CustomNumberValueObject): void {
+		this.props.weight = CustomNumberValueObject.create(
+			parseFloat(newValue.value.toFixed(3))
+		).getResult();
+	}
+
+	private updateInstanceValues(value: number, unit: UnitOfWeight): void {
+		const float = parseFloat(value.toFixed(3));
+		this.props.weight = CustomNumberValueObject.create(float).getResult();
+		this.changeWeightUnit(unit);
 	}
 
 	/**
-	 * convert instance value to kilogram
+	 * convert instance value and unit to kilogram
 	 */
 	toKG(): void {
-		const currentUnit = this.props.weightUnit.value;
+		const currentUnit = this.props.unit;
 		let kg: number = this.props.weight.value;
 
 		switch (currentUnit.length > 0) {
@@ -68,19 +81,14 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 				kg = (this.props.weight.value * 100) / 35.274 / 100;
 				break;
 		}
-		this.changeWeight(
-			CustomNumberValueObject.create(
-				parseFloat(kg.toFixed(3))
-			).getResult()
-		);
-		this.changeWeightUnit(WeightUnitValueObject.create('KG').getResult());
+		this.updateInstanceValues(kg, 'KG');
 	}
 
 	/**
-	 * convert instance value to gram
+	 * convert instance value and unit to gram
 	 */
 	toG(): void {
-		const currentUnit = this.props.weightUnit.value;
+		const currentUnit = this.props.unit;
 		let g: number = this.props.weight.value;
 
 		switch (currentUnit.length > 0) {
@@ -101,17 +109,14 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 				g = (this.props.weight.value * 100 * 28.349) / 100;
 				break;
 		}
-		this.changeWeight(
-			CustomNumberValueObject.create(parseFloat(g.toFixed(3))).getResult()
-		);
-		this.changeWeightUnit(WeightUnitValueObject.create('G').getResult());
+		this.updateInstanceValues(g, 'G');
 	}
 
 	/**
-	 * convert instance value to milligram
+	 * convert instance value and unit to milligram
 	 */
 	toMG(): void {
-		const currentUnit = this.props.weightUnit.value;
+		const currentUnit = this.props.unit;
 		let mg: number = this.props.weight.value;
 
 		switch (currentUnit.length > 0) {
@@ -131,19 +136,14 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 				mg = (this.props.weight.value * 100 * 28350) / 100;
 				break;
 		}
-		this.changeWeight(
-			CustomNumberValueObject.create(
-				parseFloat(mg.toFixed(3))
-			).getResult()
-		);
-		this.changeWeightUnit(WeightUnitValueObject.create('MG').getResult());
+		this.updateInstanceValues(mg, 'MG');
 	}
 
 	/**
-	 * convert instance value to tonne
+	 * convert instance value and unit to tonne
 	 */
 	toTON(): void {
-		const currentUnit = this.props.weightUnit.value;
+		const currentUnit = this.props.unit;
 		let ton: number = this.props.weight.value;
 
 		switch (currentUnit.length > 0) {
@@ -163,19 +163,14 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 				ton = (this.props.weight.value * 100) / 35274 / 100;
 				break;
 		}
-		this.changeWeight(
-			CustomNumberValueObject.create(
-				parseFloat(ton.toFixed(3))
-			).getResult()
-		);
-		this.changeWeightUnit(WeightUnitValueObject.create('TON').getResult());
+		this.updateInstanceValues(ton, 'TON');
 	}
 
 	/**
-	 * convert instance value to libre
+	 * convert instance value and unit to libre
 	 */
 	toLB(): void {
-		const currentUnit = this.props.weightUnit.value;
+		const currentUnit = this.props.unit;
 		let lb: number = this.props.weight.value;
 
 		switch (currentUnit.length > 0) {
@@ -195,49 +190,56 @@ export class WeightEntity extends Entity<WeightEntityProps> {
 				lb = (this.props.weight.value * 100) / 16 / 100;
 				break;
 		}
-		this.changeWeight(
-			CustomNumberValueObject.create(
-				parseFloat(lb.toFixed(3))
-			).getResult()
-		);
-		this.changeWeightUnit(WeightUnitValueObject.create('LB').getResult());
+		this.updateInstanceValues(lb, 'LB');
 	}
 
 	/**
-	 * convert instance value to onz
+	 * convert instance value and unit to onz
 	 */
 	toOZ(): void {
-		const currentUnit = this.props.weightUnit.value;
-		let lb: number = this.props.weight.value;
+		const currentUnit = this.props.unit;
+		let oz: number = this.props.weight.value;
 
 		switch (currentUnit.length > 0) {
 			case currentUnit === 'KG':
-				lb = (this.props.weight.value * 100 * 35.274) / 100;
+				oz = (this.props.weight.value * 100 * 35.274) / 100;
 				break;
 			case currentUnit === 'G':
-				lb = (this.props.weight.value * 100) / 28.35 / 100;
+				oz = (this.props.weight.value * 100) / 28.35 / 100;
 				break;
 			case currentUnit === 'TON':
-				lb = (this.props.weight.value * 100 * 35274) / 100;
+				oz = (this.props.weight.value * 100 * 35274) / 100;
 				break;
 			case currentUnit === 'MG':
-				lb = (this.props.weight.value * 100) / 28350 / 100;
+				oz = (this.props.weight.value * 100) / 28350 / 100;
 				break;
 			case currentUnit === 'LB':
-				lb = (this.props.weight.value * 100 * 16) / 100;
+				oz = (this.props.weight.value * 100 * 16) / 100;
 				break;
 		}
-		this.changeWeight(
-			CustomNumberValueObject.create(
-				parseFloat(lb.toFixed(3))
-			).getResult()
-		);
-		this.changeWeightUnit(WeightUnitValueObject.create('OZ').getResult());
+		this.updateInstanceValues(oz, 'OZ');
 	}
 
-	public static create(props: WeightEntityProps): Result<WeightEntity> {
-		return Result.ok(new WeightEntity(props));
+	public static create(
+		{ value, unit }: Props,
+		customValidation?: CustomNmbProps
+	): Result<WeightValueObject> {
+		const customNumber = CustomNumberValueObject.create(
+			parseFloat(value.toFixed(3)),
+			customValidation
+		);
+
+		if (customNumber.isFailure) {
+			return Result.fail(customNumber.errorValue());
+		}
+
+		return Result.ok(
+			new WeightValueObject({
+				unit,
+				weight: customNumber.getResult(),
+			})
+		);
 	}
 }
 
-export default WeightEntity;
+export default WeightValueObject;
