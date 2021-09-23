@@ -11,6 +11,12 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+### 2.5.5 - 2021-09-24
+
+---
+### Changed
+
+- getUndefinedKeysAsObject > define value to be applied
 
 ### 2.5.4 - 2021-09-24
 
