@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "2.5.5",
+	"version": "2.5.6",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.js",
@@ -27,7 +27,8 @@
 		"test": "jest --silent --runInBand",
 		"test:verbose": "jest --runInBand",
 		"check:circular-deps": "madge --circular --extensions ts ./lib",
-		"public": "npm publish"
+		"prepublish": "rimraf ./dist && yarn check:circular-deps",
+		"publish": "npm publish"
 	},
 	"repository": {
 		"type": "git",
