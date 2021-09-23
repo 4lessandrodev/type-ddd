@@ -353,4 +353,12 @@ describe('weight.value-object', () => {
 		expect(valueObject.weight.value).toBeGreaterThanOrEqual(3.527e7);
 		expect(valueObject.unit).toBe('OZ');
 	});
+
+	it('should fail if provide an invalid unit', () => {
+		const valueObject = WeightValueObject.create({
+			unit: 'KGS' as UnitOfWeight,
+			value: 100,
+		});
+		expect(valueObject.isFailure).toBeTruthy();
+	});
 });

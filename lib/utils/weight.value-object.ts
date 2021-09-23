@@ -1,7 +1,7 @@
 import CustomNumberValueObject from './custom-number.value-object';
 import { Result } from '../core/result';
 import { ValueObject } from '../core/value-object';
-import { UnitOfWeight } from './weight-unit.value-object';
+import { UnitOfWeight, UnitsOfWeight } from './weight-unit.value-object';
 import { CustomNmbProps } from './custom-number.value-object';
 
 interface WeightValueObjectProps {
@@ -59,8 +59,9 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 
 	/**
 	 * convert instance value and unit to kilogram
+	 * @returns instance
 	 */
-	toKG(): void {
+	toKG(): WeightValueObject {
 		const currentUnit = this.props.unit;
 		let kg: number = this.props.weight.value;
 
@@ -82,12 +83,14 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 				break;
 		}
 		this.updateInstanceValues(kg, 'KG');
+		return this;
 	}
 
 	/**
 	 * convert instance value and unit to gram
+	 * @returns instance
 	 */
-	toG(): void {
+	toG(): WeightValueObject {
 		const currentUnit = this.props.unit;
 		let g: number = this.props.weight.value;
 
@@ -110,12 +113,14 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 				break;
 		}
 		this.updateInstanceValues(g, 'G');
+		return this;
 	}
 
 	/**
 	 * convert instance value and unit to milligram
+	 * @returns instance
 	 */
-	toMG(): void {
+	toMG(): WeightValueObject {
 		const currentUnit = this.props.unit;
 		let mg: number = this.props.weight.value;
 
@@ -137,12 +142,14 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 				break;
 		}
 		this.updateInstanceValues(mg, 'MG');
+		return this;
 	}
 
 	/**
 	 * convert instance value and unit to tonne
+	 * @returns instance
 	 */
-	toTON(): void {
+	toTON(): WeightValueObject {
 		const currentUnit = this.props.unit;
 		let ton: number = this.props.weight.value;
 
@@ -164,12 +171,14 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 				break;
 		}
 		this.updateInstanceValues(ton, 'TON');
+		return this;
 	}
 
 	/**
 	 * convert instance value and unit to libre
+	 * @returns instance
 	 */
-	toLB(): void {
+	toLB(): WeightValueObject {
 		const currentUnit = this.props.unit;
 		let lb: number = this.props.weight.value;
 
@@ -191,12 +200,14 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 				break;
 		}
 		this.updateInstanceValues(lb, 'LB');
+		return this;
 	}
 
 	/**
 	 * convert instance value and unit to onz
+	 * @returns instance
 	 */
-	toOZ(): void {
+	toOZ(): WeightValueObject {
 		const currentUnit = this.props.unit;
 		let oz: number = this.props.weight.value;
 
@@ -218,6 +229,7 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 				break;
 		}
 		this.updateInstanceValues(oz, 'OZ');
+		return this;
 	}
 
 	public static create(
@@ -228,6 +240,12 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 			parseFloat(value.toFixed(3)),
 			customValidation
 		);
+
+		const isValidUnit = unit in UnitsOfWeight;
+
+		if (!isValidUnit) {
+			return Result.fail('Invalid unit for weight');
+		}
 
 		if (customNumber.isFailure) {
 			return Result.fail(customNumber.errorValue());

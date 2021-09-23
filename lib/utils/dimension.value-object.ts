@@ -1,7 +1,7 @@
 import ValueObject from '../core/value-object';
 import { Result } from '../core/result';
 import CustomNumberValueObject from './custom-number.value-object';
-import { UnitOfMeasure } from './unit-of-measure.value-object';
+import { UnitOfMeasure, UnitsOfMeasure } from './unit-of-measure.value-object';
 import { CustomNmbProps } from './custom-number.value-object';
 
 interface DimensionValueObjectProps {
@@ -56,8 +56,9 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 
 	/**
 	 * convert value and unit to cm
+	 * @returns instance
 	 */
-	toCM(): void {
+	toCM(): DimensionValueObject {
 		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
@@ -78,12 +79,14 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 				break;
 		}
 		this.updateInstanceValues(value, 'CM');
+		return this;
 	}
 
 	/**
 	 * convert value and unit to mm
+	 * @returns instance
 	 */
-	toMM(): void {
+	toMM(): DimensionValueObject {
 		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
@@ -104,12 +107,14 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 				break;
 		}
 		this.updateInstanceValues(value, 'MM');
+		return this;
 	}
 
 	/**
 	 * convert value and unit to mt
+	 * @returns instance
 	 */
-	toMT(): void {
+	toMT(): DimensionValueObject {
 		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
@@ -130,12 +135,14 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 				break;
 		}
 		this.updateInstanceValues(value, 'MT');
+		return this;
 	}
 
 	/**
 	 * convert value and unit to inch
+	 * @returns instance
 	 */
-	toINCH(): void {
+	toINCH(): DimensionValueObject {
 		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
@@ -156,12 +163,14 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 				break;
 		}
 		this.updateInstanceValues(value, 'INCH');
+		return this;
 	}
 
 	/**
 	 * convert value and unit to foot
+	 * @returns instance
 	 */
-	toFOOT(): void {
+	toFOOT(): DimensionValueObject {
 		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
@@ -182,12 +191,14 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 				break;
 		}
 		this.updateInstanceValues(value, 'FOOT');
+		return this;
 	}
 
 	/**
 	 * convert value and unit to yard
+	 * @returns instance
 	 */
-	toYARD(): void {
+	toYARD(): DimensionValueObject {
 		let unit = this.props.unit;
 		let value: number = this.props.dimension.value;
 		switch (unit.length > 0) {
@@ -208,12 +219,19 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 				break;
 		}
 		this.updateInstanceValues(value, 'YARD');
+		return this;
 	}
 
 	public static create(
 		{ unit, value }: Props,
 		customValidation?: CustomNmbProps
 	): Result<DimensionValueObject> {
+		const isValidUnit = unit in UnitsOfMeasure;
+
+		if (!isValidUnit) {
+			return Result.fail('Invalid unit for Dimension');
+		}
+
 		const customNumber = CustomNumberValueObject.create(
 			parseFloat(value.toFixed(3)),
 			customValidation
