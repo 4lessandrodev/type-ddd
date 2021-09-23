@@ -1,6 +1,7 @@
 interface Params {
 	object: Object;
 	includesNull: boolean;
+	ignoreSubObject?: boolean;
 }
 
 /**
@@ -43,7 +44,11 @@ interface Params {
  */
 const getUndefinedKeysAsArray = (params: Params): string[] => {
 	const undefinedKeys: string[] = [];
-	const keys = Object.keys(params.object);
+	const keys = Object.keys(params?.object ?? {});
+	const ignoreSubObj =
+		typeof params?.ignoreSubObject === 'undefined'
+			? false
+			: params.ignoreSubObject;
 
 	if (keys.length < 1) {
 		return [];
@@ -54,8 +59,24 @@ const getUndefinedKeysAsArray = (params: Params): string[] => {
 		if (
 			typeof params.object[objKey] === 'undefined' ||
 			(params.object[objKey] === null && params.includesNull)
-		)
+		) {
 			undefinedKeys.push(key);
+		} else if (
+			typeof params.object[objKey] === 'object' &&
+			ignoreSubObj === false
+		) {
+			const isArray = Array.isArray(params.object[objKey]);
+
+			if (!isArray) {
+				const subUndefinedKeys = getUndefinedKeysAsArray({
+					includesNull: params.includesNull,
+					object: params.object[objKey],
+				});
+				subUndefinedKeys.map((undefinedKey) =>
+					undefinedKeys.push(`${key}.${undefinedKey}`)
+				);
+			}
+		}
 	}
 
 	return undefinedKeys;

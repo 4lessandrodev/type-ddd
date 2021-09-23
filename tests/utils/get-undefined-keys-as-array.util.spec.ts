@@ -72,4 +72,78 @@ describe('get-undefined-keys-as-array.util', () => {
 		});
 		expect(keys).toEqual([]);
 	});
+
+	it('should get sub key', () => {
+		const keys = getUndefinedKeysAsArray({
+			object: {
+				test: 'hello',
+				val: undefined,
+				profile: {
+					isMarried: undefined,
+					age: 21,
+					children: {
+						isMarried: undefined,
+						age: 21,
+					},
+					grades: [9, 7, 6],
+				},
+				grades: [9, 7, 6],
+			},
+			includesNull: false,
+		});
+		expect(keys).toEqual([
+			'val',
+			'profile.isMarried',
+			'profile.children.isMarried',
+		]);
+	});
+
+	it('should get sub key', () => {
+		const keys = getUndefinedKeysAsArray({
+			object: {
+				test: 'hello',
+				val: undefined,
+				profile: {
+					me: undefined,
+					age: 21,
+					children: {
+						isMarried: undefined,
+						nick: undefined,
+						age: 21,
+					},
+					grades: [9, 7, 6],
+				},
+				grades: [9, 7, 6],
+			},
+			includesNull: false,
+		});
+		expect(keys).toEqual([
+			'val',
+			'profile.me',
+			'profile.children.isMarried',
+			'profile.children.nick',
+		]);
+	});
+
+	it('should get only simple keys not included sub object', () => {
+		const keys = getUndefinedKeysAsArray({
+			object: {
+				test: 'hello',
+				val: undefined,
+				profile: {
+					isMarried: undefined,
+					age: 21,
+					children: {
+						isMarried: undefined,
+						age: 21,
+					},
+					grades: [9, 7, 6],
+				},
+				grades: [9, 7, 6],
+			},
+			includesNull: false,
+			ignoreSubObject: true,
+		});
+		expect(keys).toEqual(['val']);
+	});
 });
