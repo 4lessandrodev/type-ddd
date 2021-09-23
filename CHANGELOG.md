@@ -11,6 +11,13 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+### 2.5.6 - 2021-09-24
+
+---
+### Changed
+
+- dist > update build
+
 ### 2.5.5 - 2021-09-24
 
 ---
