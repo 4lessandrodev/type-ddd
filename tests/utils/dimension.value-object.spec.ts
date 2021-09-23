@@ -1,5 +1,6 @@
 import { CustomNumberValueObject } from '@types-ddd';
 import { DimensionValueObject } from '../../lib/utils/dimension.value-object';
+import { UnitsOfMeasure } from '../../lib/utils/unit-of-measure.value-object';
 describe('dimension.value-object', () => {
 	const dimension = 1000;
 
@@ -449,5 +450,13 @@ describe('dimension.value-object', () => {
 		valueObject.toMT();
 		expect(valueObject.dimension.value).toBe(1000);
 		expect(valueObject.unit).toBe('MT');
+	});
+
+	it('should fail if provide an invalid unit', () => {
+		const valueObject = DimensionValueObject.create({
+			value: dimension,
+			unit: 'MTS' as UnitsOfMeasure,
+		});
+		expect(valueObject.isFailure).toBeTruthy();
 	});
 });

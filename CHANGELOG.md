@@ -11,6 +11,15 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+
+### 2.5.4 - 2021-09-24
+
+---
+### Changed
+
+- DimensionValueObject > validate unit before create value object
+- WeightValueObject > validate unit before create value object
+
 ### 2.5.3 - 2021-09-22
 
 ---
@@ -201,7 +210,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- Result
+- Result: new approach
 
 ### 2.0.2 - 2021-08-12
 
@@ -222,8 +231,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - DomainId
-- AggregateRoot
-- Entity
+- AggregateRoot: new approach
+- Entity: new approach
 - Filter
 
 ### Added

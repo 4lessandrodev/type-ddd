@@ -377,6 +377,9 @@ A project is available on link below
 - ✔ UnitOfMeasureValueObject
 - ✔ DimensionValueObject
 - ✔ WeightValueObject
+- ✔ getUndefinedKeysAsArray
+- ✔ getUndefinedKeysAsObject
+- ✔ SpecificationComposite
 - ☐ EANCodeValueObject
 - ☐ ISBNCodeValueObject
 - ☐ UPCCodeValueObject
@@ -459,19 +462,69 @@ import { ChangesObserver } from 'types-ddd';
 const observer = ChangesObserver.init<string>();
 
 const isAllSuccess = observer
-	.add(Result.ok<string>('1'))
-	.add(Result.ok<string>('2'))
-	.add(Result.ok<string>('3'))
-	.add(Result.ok<string>('4'))
-	.add(Result.ok<string>('5'))
-	.add(Result.fail<string>('fail'))
-	.add(Result.ok<string>('7'))
+	.add(Result.ok('1'))
+	.add(Result.ok('2'))
+	.add(Result.ok('3'))
+	.add(Result.ok('4'))
+	.add(Result.ok('5'))
+	.add(Result.fail('fail'))
+	.add(Result.ok('7'))
 	.isAllResultsSuccess();
 
 console.log(isAllSuccess);
 > false
 
+// OR 
+
+const isOK = ChangesObserver.init<string>(
+  [
+    Result.ok('1'),
+    Result.ok('2'),
+    Result.ok('3'),
+    Result.ok('4'),
+    Result.ok('5'),
+    Result.fail('fail'),
+    Result.ok('7')
+  ]
+).isAllResultsSuccess();;
+
+console.log(isOK);
+> false
+
 ```
+
+```ts
+
+const valueObjectOrError = WeightValueObject.create(
+  {
+    value: 1000,
+    unit: "TON"
+  }
+);
+
+const isOk = valueObjectOrError.isSuccess;
+console.log(isOK);
+> true
+
+const valueObject = valueObjectOrError.getResult();
+
+console.log(valueObject.unit);
+> "TON"
+
+console.log(valueObject.weight.value);
+> 1000
+
+// Convert instance value and unit to KG
+valueObject.toKG();
+
+console.log(valueObject.unit);
+> "KG"
+
+console.log(valueObject.weight.value);
+> 1
+
+```
+
 
 > Contribute to this project [PIX]
 
