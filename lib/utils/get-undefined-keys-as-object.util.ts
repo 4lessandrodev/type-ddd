@@ -22,8 +22,8 @@ type ApplyValue = keyof typeof IApplyValue;
  * @param applyKeyValue as value to be applied to key. empty string / null / undefined / zero. default empty string
  * @param ignoreSubObject as boolean. if true all subDocuments on object will be considered. default true.
  */
-interface Params {
-	object: Object;
+interface Params<T> {
+	object: T;
 	includesNull: boolean;
 	applyKeyValue?: ApplyValue;
 	ignoreSubObject?: boolean;
@@ -70,8 +70,8 @@ interface Params {
  *
  * ...
  */
-const getUndefinedKeysAsObject = (params: Params): Object => {
-	let objResult: Object = {};
+const getUndefinedKeysAsObject = <T = {}>(params: Params<T>): Partial<T> => {
+	let objResult = {};
 	const keys: string[] = getUndefinedKeysAsArray(params);
 	if (keys.length < 1) {
 		return objResult;

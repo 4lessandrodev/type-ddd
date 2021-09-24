@@ -379,6 +379,7 @@ A project is available on link below
 - ✔ WeightValueObject
 - ✔ getUndefinedKeysAsArray
 - ✔ getUndefinedKeysAsObject
+- ✔ removeUndefinedKeysFromObject
 - ✔ SpecificationComposite
 - ☐ EANCodeValueObject
 - ☐ ISBNCodeValueObject

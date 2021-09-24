@@ -11,7 +11,13 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
-### 2.5.6 - 2021-09-24
+### 2.5.7 - 2021-09-25
+
+### Added 
+
+- removeUndefinedKeysFromObject
+
+### 2.5.6 - 2021-09-23
 
 ---
 ### Changed
