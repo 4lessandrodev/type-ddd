@@ -11,7 +11,14 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
-### 2.5.7 - 2021-09-25
+### 2.6.0 - 2021-09-29
+
+### Changed 
+
+- CurrencyValueObject > added functions to compare values
+- getUndefinedKeysAsObject > added option to get path as string
+
+### 2.5.7 ~ 2.5.10 - 2021-09-25
 
 ### Added 
 

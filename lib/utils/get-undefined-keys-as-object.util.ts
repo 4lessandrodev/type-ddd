@@ -27,6 +27,7 @@ interface Params<T> {
 	includesNull: boolean;
 	applyKeyValue?: ApplyValue;
 	ignoreSubObject?: boolean;
+	keyAsStringPath?: boolean;
 }
 
 /**
@@ -35,6 +36,7 @@ interface Params<T> {
  * @param includesNull as boolean. if true all nullable values will be considered as undefined.
  * @param applyKeyValue as value to be applied to key. empty string / null / undefined / zero. default empty string
  * @param ignoreSubObject as boolean. if true all subDocuments on object will be considered. default true.
+ * @param keyAsStringPath as boolean. if true return key as path separate by dot `object.key`. default false.
  * @returns object with undefined keys
  * @example
  *
@@ -83,27 +85,42 @@ const getUndefinedKeysAsObject = <T = {}>(params: Params<T>): Partial<T> => {
 		? (params.applyKeyValue as ApplyValue)
 		: 'empty';
 
-	for (const key of keys) {
-		const isSubObject = key.includes('.');
+	const keyAsPath =
+		typeof params.keyAsStringPath !== 'undefined'
+			? params.keyAsStringPath
+			: false;
 
-		if (!isSubObject) {
-			const undefinedKey: Object = { [key]: ValuesKey[valueToApply] };
+	if (!keyAsPath) {
+		for (const key of keys) {
+			const isSubObject = key.includes('.');
+
+			if (!isSubObject) {
+				const undefinedKey: Object = { [key]: ValuesKey[valueToApply] };
+				objResult = Object.assign(
+					{},
+					{ ...objResult },
+					{ ...undefinedKey }
+				);
+			} else {
+				const subKeys = key.split('.');
+
+				const subObjectKeys = getUndefinedKeysAsObject({
+					...params,
+					object: params.object[subKeys[0]],
+				});
+
+				const subObj = { [subKeys[0]]: { ...subObjectKeys } };
+
+				objResult = Object.assign({}, { ...objResult }, { ...subObj });
+			}
+		}
+	} else {
+		for (const key of keys) {
 			objResult = Object.assign(
 				{},
 				{ ...objResult },
-				{ ...undefinedKey }
+				{ [key]: ValuesKey[valueToApply] }
 			);
-		} else {
-			const subKeys = key.split('.');
-
-			const subObjectKeys = getUndefinedKeysAsObject({
-				...params,
-				object: params.object[subKeys[0]],
-			});
-
-			const subObj = { [subKeys[0]]: { ...subObjectKeys } };
-
-			objResult = Object.assign({}, { ...objResult }, { ...subObj });
 		}
 	}
 	return objResult;
