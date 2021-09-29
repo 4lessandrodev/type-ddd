@@ -375,28 +375,55 @@ describe('currency.value-object', () => {
 			value: 0.5,
 		}).getResult();
 
-		total = valueObject.add(0.5).getResult(); // 1
+		total = valueObject.add(0.5).getResult().value; // 1
 		expect(total).toBe(1);
 
-		total = valueObject.multiplyBy(50).getResult(); // 50
+		total = valueObject.multiplyBy(50).getResult().value; // 50
 		expect(total).toBe(50);
 
-		total = valueObject.divideBy(2).getResult(); // 25
+		total = valueObject.divideBy(2).getResult().value; // 25
 		expect(total).toBe(25);
 
-		total = valueObject.subtractBy(5).getResult(); // 20
+		total = valueObject.subtractBy(5).getResult().value; // 20
 		expect(total).toBe(20);
 
-		total = valueObject.add(80).getResult(); // 100
+		total = valueObject.add(80).getResult().value; // 100
 		expect(total).toBe(100);
 
-		total = valueObject.addPercent(2).getResult(); // 102
+		total = valueObject.addPercent(2).getResult().value; // 102
 		expect(total).toBe(102);
 
-		total = valueObject.subtractBy(2).getResult(); // 100
+		total = valueObject.subtractBy(2).getResult().value; // 100
 		expect(total).toBe(100);
 
-		total = valueObject.subtractPercent(30).getResult(); // 70
+		total = valueObject.subtractPercent(30).getResult().value; // 70
 		expect(total).toBe(70);
+	});
+
+	it('should to be equal', () => {
+		const valueObject = CurrencyValueObject.create({
+			currency: 'BRL',
+			value: 1,
+		}).getResult();
+		const isEqual = valueObject.isEqualTo(1);
+		expect(isEqual).toBeTruthy();
+	});
+
+	it('should to be greater than', () => {
+		const valueObject = CurrencyValueObject.create({
+			currency: 'BRL',
+			value: 3,
+		}).getResult();
+		const isGreater = valueObject.isGreaterThan(1);
+		expect(isGreater).toBeTruthy();
+	});
+
+	it('should to be less than', () => {
+		const valueObject = CurrencyValueObject.create({
+			currency: 'BRL',
+			value: 3,
+		}).getResult();
+		const isLessThan = valueObject.isLessThan(7);
+		expect(isLessThan).toBeTruthy();
 	});
 });

@@ -258,4 +258,43 @@ describe('get-undefined-keys-as-array.util', () => {
 			uncle: '',
 		});
 	});
+
+	it('should return object as string path', () => {
+		const object = {
+			name: 'Andres',
+			mother: 'Lane',
+			father: undefined,
+			uncle: null,
+			profile: {
+				age: 21,
+				grades: [5, 8, 9],
+				isMarried: false,
+				movies: ['matrix'],
+				series: undefined,
+				note: null,
+				child: {
+					note: null,
+					age: undefined,
+					name: 'Luck',
+					grades: [5, 8, 9],
+				},
+			},
+		};
+		const keys = getUndefinedKeysAsObject({
+			object,
+			includesNull: true,
+			keyAsStringPath: true,
+		});
+
+		console.log(keys);
+
+		expect(keys).toEqual({
+			father: '',
+			uncle: '',
+			'profile.series': '',
+			'profile.note': '',
+			'profile.child.note': '',
+			'profile.child.age': '',
+		});
+	});
 });
