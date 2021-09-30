@@ -11,6 +11,13 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+
+### 2.6.1 - 2021-09-30
+
+### Changed 
+
+- getUndefinedKeysAsObject > added new option to return as value
+
 ### 2.6.0 - 2021-09-29
 
 ### Changed 
