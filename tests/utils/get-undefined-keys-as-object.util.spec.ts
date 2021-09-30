@@ -286,8 +286,6 @@ describe('get-undefined-keys-as-array.util', () => {
 			keyAsStringPath: true,
 		});
 
-		console.log(keys);
-
 		expect(keys).toEqual({
 			father: '',
 			uncle: '',

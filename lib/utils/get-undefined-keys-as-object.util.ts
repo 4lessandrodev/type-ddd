@@ -5,6 +5,9 @@ enum IApplyValue {
 	null = 'null',
 	undefined = 'undefined',
 	zero = 'zero',
+	one = 'one',
+	true = 'true',
+	false = 'false',
 }
 
 const ValuesKey = {
@@ -12,6 +15,9 @@ const ValuesKey = {
 	null: null,
 	undefined: undefined,
 	zero: 0,
+	one: 1,
+	true: true,
+	false: false,
 };
 
 type ApplyValue = keyof typeof IApplyValue;
