@@ -381,9 +381,6 @@ A project is available on link below
 - ✔ getUndefinedKeysAsObject
 - ✔ removeUndefinedKeysFromObject
 - ✔ SpecificationComposite
-- ☐ EANCodeValueObject
-- ☐ ISBNCodeValueObject
-- ☐ UPCCodeValueObject
 
 > If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
 
@@ -415,6 +412,22 @@ console.log(passMatch);
 
 console.log(PasswordValueObject.generateRandomPassword(12));
 > "WtS65$@!A6by"
+
+```
+
+### Gerete uid from domain
+
+```ts
+
+import { DomainId } from 'types-ddd';
+
+const ID = DomainId.create();
+
+console.log(ID.value.uid);
+> "461235de-ec04-48aa-af94-31fbfa95efcf"
+
+console.log(ID.toShort().uid);
+> "1asi128lr3ogdeec"
 
 ```
 
@@ -458,7 +471,7 @@ console.log(myCurrency.getCurrencyString());
 
 ```ts
 
-import { ChangesObserver } from 'types-ddd';
+import { ChangesObserver, Result } from 'types-ddd';
 
 const observer = ChangesObserver.init<string>();
 
@@ -495,6 +508,9 @@ console.log(isOK);
 ```
 
 ```ts
+
+import { WeightValueObject } from 'types-ddd';
+
 
 const valueObjectOrError = WeightValueObject.create(
   {

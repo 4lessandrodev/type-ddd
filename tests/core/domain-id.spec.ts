@@ -44,4 +44,41 @@ describe('domain-id', () => {
 		const isEqual = DomainId.create('id_b').value.equals(IdA.value);
 		expect(isEqual).toBeFalsy();
 	});
+
+	it('should generate a short id', () => {
+		const uuid = DomainId.create();
+		const short = uuid.toShort();
+		expect(short).toBeDefined();
+		expect(short.toString()).toHaveLength(16);
+	});
+
+	it('should generate a short id unique', () => {
+		const results: string[] = [];
+
+		let i = 0;
+		while (i < 1000) {
+			const ID = DomainId.create();
+			const short = ID.toShort().toString();
+			results.push(short);
+			i++;
+		}
+		const uniques = [...new Set(results)];
+
+		expect(uniques).toHaveLength(1000);
+	});
+
+	it('should generate the same short id', () => {
+		const uid = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
+		expect(uid.toShort().uid).toBe('1asi128lr3ogdeec');
+	});
+
+	it('should return the same value if is not an uuid', () => {
+		const uid = DomainId.create('valid_id');
+		expect(uid.toShort().uid).toBe('valid_id');
+	});
+
+	it('should return formatted value ', () => {
+		const uid = DomainId.create('long_but_invalid_uuid');
+		expect(uid.toShort().uid).toBe('long_but_invalid');
+	});
 });

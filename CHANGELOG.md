@@ -11,23 +11,28 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
+### 2.6.2 - 2021-10-06
+
+### Changed
+
+- DomainId > added toShort method
 
 ### 2.6.1 - 2021-09-30
 
-### Changed 
+### Changed
 
 - getUndefinedKeysAsObject > added new option to return as value
 
 ### 2.6.0 - 2021-09-29
 
-### Changed 
+### Changed
 
 - CurrencyValueObject > added functions to compare values
 - getUndefinedKeysAsObject > added option to get path as string
 
 ### 2.5.7 ~ 2.5.10 - 2021-09-25
 
-### Added 
+### Added
 
 - removeUndefinedKeysFromObject
 

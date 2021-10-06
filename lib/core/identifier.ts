@@ -17,6 +17,10 @@ export default class Identifier<T> {
 		return String(this.value);
 	}
 
+	get uid(): string {
+		return String(this.value);
+	}
+
 	/**
 	 * Return raw value of identifier
 	 */
