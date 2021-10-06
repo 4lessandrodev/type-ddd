@@ -20,16 +20,25 @@ class DomainId extends ValueObject<any> {
 		const isUuid = isUUID.test(uuid);
 
 		if (!isUuid) {
-			return new UniqueEntityID(this.props.value.slice(0, 16));
+			return new UniqueEntityID(this.props.value.slice(0, 14));
 		}
 
-		const onlyNumbs: string = uuid.replace(/[a-z]|[A-Z]|[-]/g, '');
-		const numbs = parseInt(onlyNumbs);
-		const calc = numbs / 100000 - (Math.log(numbs) + Math.sqrt(numbs));
-		const letters: string = uuid.replace(/[0-9]|[-]/g, '');
-		const hex32 = calc.toString(32);
-		const uid = `${hex32}${letters}`.replace(/[\.]/g, '').slice(0, 16);
-		return new UniqueEntityID(uid);
+		const parts = this.props.value.split('-');
+		const total =
+			parseInt(parts[4], 16) -
+			(parseInt(parts[0], 16) -
+				parseInt(parts[1], 16) -
+				parseInt(parts[2], 16) -
+				parseInt(parts[3], 16));
+		let uid = total.toString(16);
+
+		let complete = 'x';
+		while (uid.length < 14) {
+			uid = `${uid}${complete}`;
+			complete = complete + 'x';
+		}
+
+		return new UniqueEntityID(uid.slice(0, 14));
 	}
 
 	toString(): string {

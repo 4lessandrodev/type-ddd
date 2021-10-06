@@ -49,7 +49,7 @@ describe('domain-id', () => {
 		const uuid = DomainId.create();
 		const short = uuid.toShort();
 		expect(short).toBeDefined();
-		expect(short.toString()).toHaveLength(16);
+		expect(short.toString()).toHaveLength(14);
 	});
 
 	it('should generate a short id unique', () => {
@@ -63,13 +63,14 @@ describe('domain-id', () => {
 			i++;
 		}
 		const uniques = [...new Set(results)];
+		console.table(uniques);
 
 		expect(uniques).toHaveLength(1000);
 	});
 
 	it('should generate the same short id', () => {
 		const uid = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
-		expect(uid.toShort().uid).toBe('1asi128lr3ogdeec');
+		expect(uid.toShort().uid).toBe('31fbb4859e33xx');
 	});
 
 	it('should return the same value if is not an uuid', () => {
@@ -79,6 +80,6 @@ describe('domain-id', () => {
 
 	it('should return formatted value ', () => {
 		const uid = DomainId.create('long_but_invalid_uuid');
-		expect(uid.toShort().uid).toBe('long_but_invalid');
+		expect(uid.toShort().uid).toBe('long_but_inval');
 	});
 });
