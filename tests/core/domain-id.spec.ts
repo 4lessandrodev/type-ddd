@@ -63,14 +63,14 @@ describe('domain-id', () => {
 			i++;
 		}
 		const uniques = [...new Set(results)];
-		console.table(uniques);
+		// console.table(uniques);
 
 		expect(uniques).toHaveLength(1000);
 	});
 
 	it('should generate the same short id', () => {
 		const uid = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
-		expect(uid.toShort().uid).toBe('31fbb4859e33xx');
+		expect(uid.toShort().uid).toBe('31fbb4859e3301');
 	});
 
 	it('should return the same value if is not an uuid', () => {
@@ -81,5 +81,10 @@ describe('domain-id', () => {
 	it('should return formatted value ', () => {
 		const uid = DomainId.create('long_but_invalid_uuid');
 		expect(uid.toShort().uid).toBe('long_but_inval');
+	});
+
+	it('should generate the same short id but you ca choose size', () => {
+		const uid = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
+		expect(uid.toShort({ length: 21 }).uid).toBe('31fbb4859e3301fcfe59a');
 	});
 });

@@ -1,7 +1,32 @@
+import { calculateCpfDigits } from '../utils/check-cpf-digit.util';
 import { ValueObject } from '../core/value-object';
 import UniqueEntityID from './unique-entity-id';
 const isUUID =
 	/[0-9|a-z]{8}[-][0-9|a-z]{4}[-][0-9|a-z]{4}[-][0-9|a-z]{4}[-][0-9|a-z]{12}/;
+
+interface ILength {
+	length:
+		| 14
+		| 15
+		| 16
+		| 17
+		| 18
+		| 19
+		| 20
+		| 21
+		| 22
+		| 23
+		| 24
+		| 25
+		| 26
+		| 27
+		| 28
+		| 29
+		| 30
+		| 31
+		| 32;
+}
+
 /**
  * @extends Entity
  *
@@ -15,12 +40,27 @@ class DomainId extends ValueObject<any> {
 		super(props);
 	}
 
-	toShort(): UniqueEntityID {
+	/**
+	 *
+	 * @param param length to define id size
+	 * @returns UniqueEntityID with short id as value
+	 * @default length 14
+	 *
+	 * @example
+	 * const ID = DomainId.create().toShort({ length: 21 })
+	 *
+	 * console.log(ID.uid)
+	 * > "31fbb4859e3301fcfe59a"
+	 *
+	 * ...
+	 */
+	toShort(param?: ILength): UniqueEntityID {
+		const length = param?.length ?? 14;
 		const uuid: string = this.props.value;
 		const isUuid = isUUID.test(uuid);
 
 		if (!isUuid) {
-			return new UniqueEntityID(this.props.value.slice(0, 14));
+			return new UniqueEntityID(this.props.value.slice(0, length));
 		}
 
 		const parts = this.props.value.split('-');
@@ -32,13 +72,16 @@ class DomainId extends ValueObject<any> {
 				parseInt(parts[3], 16));
 		let uid = total.toString(16);
 
-		let complete = 'x';
-		while (uid.length < 14) {
-			uid = `${uid}${complete}`;
-			complete = complete + 'x';
-		}
+		const lastPart = parseInt(parts[4], 16).toString();
+		const arr = [...lastPart].reverse();
+		const original = uuid.replace(/[-]/g, '');
+		const reverse = [...original].reverse().toString().replace(/\,/g, '');
 
-		return new UniqueEntityID(uid.slice(0, 14));
+		const sum = calculateCpfDigits(arr.map((v) => parseInt(v)));
+		const complete = `${sum.penultimateDigit}${sum.ultimateDigit}${reverse}`;
+		uid = `${uid}${complete}`;
+
+		return new UniqueEntityID(uid.slice(0, length));
 	}
 
 	toString(): string {

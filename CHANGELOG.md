@@ -11,11 +11,12 @@ All notable changes to this project will be documented in this file.
 - ISBNCodeValueObject
 - UPCCodeValueObject
 
-### 2.6.2 ~ 2.6.3 - 2021-10-06
+### 2.6.2 ~ 2.6.4 - 2021-10-06
 
 ### Changed
 
 - DomainId > added toShort method
+- DomainId > toShort method. Now you can choose length
 
 ### 2.6.1 - 2021-09-30
 
