@@ -427,7 +427,7 @@ console.log(ID.value.uid);
 > "461235de-ec04-48aa-af94-31fbfa95efcf"
 
 console.log(ID.toShort().uid);
-> "1asi128lr3ogdeec"
+> "31fbb4859e33xx"
 
 ```
 
