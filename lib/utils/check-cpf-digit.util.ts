@@ -50,7 +50,7 @@ const transformCpfInArrNumber = (cpf: string): number[] => {
 	return arr;
 };
 
-const calculateCpfDigits = (cpfNumbers: number[]): CpfDigits => {
+export const calculateCpfDigits = (cpfNumbers: number[]): CpfDigits => {
 	const factor = 11;
 	let index = 0;
 	let startAuxValue = 10;
