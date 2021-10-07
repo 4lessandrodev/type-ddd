@@ -6,10 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- ValueObject Decorator
-- EANCodeValueObject
-- ISBNCodeValueObject
-- UPCCodeValueObject
+- ValueObject DecoratorS
+
+### 2.7.0 - 2021-10-06
+
+### Changed
+
+- DomainId > change getters method
 
 ### 2.6.2 ~ 2.6.4 - 2021-10-06
 

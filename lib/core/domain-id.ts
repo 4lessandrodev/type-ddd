@@ -1,6 +1,7 @@
 import { calculateCpfDigits } from '../utils/check-cpf-digit.util';
 import { ValueObject } from '../core/value-object';
 import UniqueEntityID from './unique-entity-id';
+
 const isUUID =
 	/[0-9|a-z]{8}[-][0-9|a-z]{4}[-][0-9|a-z]{4}[-][0-9|a-z]{4}[-][0-9|a-z]{12}/;
 
@@ -43,7 +44,7 @@ class DomainId extends ValueObject<any> {
 	/**
 	 *
 	 * @param param length to define id size
-	 * @returns UniqueEntityID with short id as value
+	 * @returns string with short id value
 	 * @default length 14
 	 *
 	 * @example
@@ -54,34 +55,42 @@ class DomainId extends ValueObject<any> {
 	 *
 	 * ...
 	 */
-	toShort(param?: ILength): UniqueEntityID {
+	toShort(param?: ILength): string {
 		const length = param?.length ?? 14;
 		const uuid: string = this.props.value;
 		const isUuid = isUUID.test(uuid);
 
 		if (!isUuid) {
-			return new UniqueEntityID(this.props.value.slice(0, length));
+			return new UniqueEntityID(this.props.value.slice(0, length)).uid;
 		}
 
 		const parts = this.props.value.split('-');
+		// get each part of uuid. transform in number and subtract each
 		const total =
 			parseInt(parts[4], 16) -
 			(parseInt(parts[0], 16) -
 				parseInt(parts[1], 16) -
 				parseInt(parts[2], 16) -
 				parseInt(parts[3], 16));
-		let uid = total.toString(16);
 
+		// get last part from uuid as string
 		const lastPart = parseInt(parts[4], 16).toString();
+		// transform calc to hex
+		let uid = total.toString(16);
+		// transform calc to arr
 		const arr = [...lastPart].reverse();
+		// remove dash from original uuid
 		const original = uuid.replace(/[-]/g, '');
+		// reverse value
 		const reverse = [...original].reverse().toString().replace(/\,/g, '');
-
+		// calculate digit sum from calc
 		const sum = calculateCpfDigits(arr.map((v) => parseInt(v)));
+		// get values to complete the length if result is less than 14 chars
 		const complete = `${sum.penultimateDigit}${sum.ultimateDigit}${reverse}`;
+		// add value completion to id
 		uid = `${uid}${complete}`;
 
-		return new UniqueEntityID(uid.slice(0, length));
+		return new UniqueEntityID(uid.slice(0, length)).uid;
 	}
 
 	toString(): string {
@@ -97,6 +106,26 @@ class DomainId extends ValueObject<any> {
 	get value(): UniqueEntityID {
 		return new UniqueEntityID(this.props.value);
 	}
+
+	/**
+	 * @returns uid as string
+	 * @example
+	 * > "461235de-ec04-48aa-af94-31fbfa95efcf"
+	 */
+	get uid(): string {
+		return new UniqueEntityID(this.props.value).uid;
+	}
+
+	/**
+	 * @returns short uid as string
+	 * @default length 14 chars
+	 * @example
+	 * > "31fbb4859e3301"
+	 */
+	get shortUid(): string {
+		return this.toShort();
+	}
+
 	/**
 	 * @extends Entity
 	 *
