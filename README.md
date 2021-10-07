@@ -415,7 +415,10 @@ console.log(PasswordValueObject.generateRandomPassword(12));
 
 ```
 
-### Gerete uid from domain
+### Gerete short or normal uid from domain
+> repeating a value is unlikely with 14 characters or more
+
+Has been tested to create 90,000 short ids per second and no repeats were generated.
 
 ```ts
 
@@ -423,11 +426,14 @@ import { DomainId } from 'types-ddd';
 
 const ID = DomainId.create();
 
-console.log(ID.value.uid);
+console.log(ID.uid);
 > "461235de-ec04-48aa-af94-31fbfa95efcf"
 
-console.log(ID.toShort().uid);
+console.log(ID.shortUid);
 > "31fbb4859e3301"
+
+console.log(ID.toShort(18));
+> "31fbb4859e3301fcfe"
 
 ```
 

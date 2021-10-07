@@ -70,21 +70,31 @@ describe('domain-id', () => {
 
 	it('should generate the same short id', () => {
 		const uid = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
-		expect(uid.toShort().uid).toBe('31fbb4859e3301');
+		expect(uid.toShort()).toBe('31fbb4859e3301');
 	});
 
 	it('should return the same value if is not an uuid', () => {
 		const uid = DomainId.create('valid_id');
-		expect(uid.toShort().uid).toBe('valid_id');
+		expect(uid.toShort()).toBe('valid_id');
 	});
 
 	it('should return formatted value ', () => {
 		const uid = DomainId.create('long_but_invalid_uuid');
-		expect(uid.toShort().uid).toBe('long_but_inval');
+		expect(uid.toShort()).toBe('long_but_inval');
 	});
 
 	it('should generate the same short id but you ca choose size', () => {
 		const uid = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
-		expect(uid.toShort({ length: 21 }).uid).toBe('31fbb4859e3301fcfe59a');
+		expect(uid.toShort({ length: 21 })).toBe('31fbb4859e3301fcfe59a');
+	});
+
+	it('should GET the same short id', () => {
+		const ID = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
+		expect(ID.shortUid).toBe('31fbb4859e3301');
+	});
+
+	it('should GET the same id', () => {
+		const ID = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
+		expect(ID.uid).toBe('461235de-ec04-48aa-af94-31fbfa95efcf');
 	});
 });
