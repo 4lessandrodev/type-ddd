@@ -45,3 +45,4 @@ export * from './utils/weight.value-object';
 export * from './utils/unit-of-measure.value-object';
 export * from './utils/dimension.value-object';
 export * from './utils/remove-undefined-keys-from-object.util';
+export * from './utils/date-value-object';
