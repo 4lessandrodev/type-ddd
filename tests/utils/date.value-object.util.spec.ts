@@ -267,4 +267,25 @@ describe('date.value-object', () => {
 		).getResult();
 		expect(date.differenceInYears(new Date('2021-01-01 00:00:00'))).toBe(1);
 	});
+
+	it('should be after', () => {
+		const date = DateValueObject.create(
+			new Date('2022-01-02 00:00:00')
+		).getResult();
+		expect(date.isAfter(new Date('2021-01-01 00:00:00'))).toBe(true);
+	});
+
+	it('should not to be before', () => {
+		const date = DateValueObject.create(
+			new Date('2022-01-02 00:00:00')
+		).getResult();
+		expect(date.isBefore(new Date('2021-01-01 00:00:00'))).toBe(false);
+	});
+
+	it('should not to be equal', () => {
+		const date = DateValueObject.create(
+			new Date('2022-01-02 00:00:00')
+		).getResult();
+		expect(date.isEqual(new Date('2021-01-01 00:00:00'))).toBe(false);
+	});
 });

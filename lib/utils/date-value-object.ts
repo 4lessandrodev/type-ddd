@@ -369,6 +369,65 @@ export class DateValueObject extends ValueObject<Prop> {
 		return day > 0 && day < 6;
 	}
 
+	/**
+	 *
+	 * @param date as Date
+	 * @returns true or false. True if instance date is greater than provided value
+	 * @example
+	 *
+	 * const date = new Date("1989-05-31 11:42:00");
+	 *
+	 * const valueObj = DateValueObject.create(date).getResult();
+	 *
+	 * const isAfter = valueObj.isAfter(new Date());
+	 *
+	 * console.log(isAfter);
+	 *
+	 * > false
+	 *
+	 * ...
+	 */
+	isAfter(date: Date): boolean {
+		const time = date.getTime();
+		const instanceTime = this.props.value.getTime();
+		return instanceTime > time;
+	}
+
+	/**
+	 *
+	 * @param date as Date
+	 * @returns true or false. True if instance date is less than provided value
+	 * @example
+	 *
+	 * const date = new Date("1989-05-31 11:42:00");
+	 *
+	 * const valueObj = DateValueObject.create(date).getResult();
+	 *
+	 * const isBefore = valueObj.isBefore(new Date());
+	 *
+	 * console.log(isBefore);
+	 *
+	 * > true
+	 *
+	 * ...
+	 */
+	isBefore(date: Date): boolean {
+		const time = date.getTime();
+		const instanceTime = this.props.value.getTime();
+		return instanceTime < time;
+	}
+
+	/**
+	 *
+	 * @param date as Date
+	 * @returns true or false. True if instance date is equal to provided value
+	 */
+	isEqual(date: Date): boolean {
+		const time = date.getTime();
+		const instanceTime = this.props.value.getTime();
+		return instanceTime === time;
+	}
+
 	public static create(date?: Date): Result<DateValueObject> {
 		const value = date ?? new Date();
 		const isValid = DateValueObject.isValidDate(value);

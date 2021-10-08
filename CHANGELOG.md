@@ -6,7 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- ValueObject DecoratorS
+- ValueObject Decorator
+
+### 2.7.2 - 2021-10-08
+
+### Changed
+
+- DateValueObject: added comparators methods
 
 ### 2.7.2 - 2021-10-08
 
