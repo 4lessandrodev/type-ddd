@@ -1,3 +1,4 @@
+import { Result } from '../core/result';
 import ValueObject from '../core/value-object';
 
 enum DateFormats {
@@ -353,6 +354,10 @@ export class DateValueObject extends ValueObject<Prop> {
 		return `${fullYear}-${month}-${date} ${hours}:${minutes}:${sec}`;
 	}
 
+	public static isValidDate(value: Date): boolean {
+		return value instanceof Date;
+	}
+
 	/**
 	 *
 	 * @param date optional value as date.
@@ -364,9 +369,13 @@ export class DateValueObject extends ValueObject<Prop> {
 		return day > 0 && day < 6;
 	}
 
-	public static create(date?: Date): DateValueObject {
-		return date
-			? new DateValueObject({ value: date })
-			: new DateValueObject({ value: new Date() });
+	public static create(date?: Date): Result<DateValueObject> {
+		const value = date ?? new Date();
+		const isValid = DateValueObject.isValidDate(value);
+		if (!isValid) {
+			return Result.fail('Invalid Date Value');
+		}
+
+		return Result.ok(new DateValueObject({ value }));
 	}
 }
