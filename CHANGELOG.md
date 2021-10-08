@@ -10,30 +10,35 @@ All notable changes to this project will be documented in this file.
 
 ### 2.7.3 - 2021-10-08
 
+---
 ### Changed
 
 - DateValueObject: added comparators methods
 
 ### 2.7.2 - 2021-10-08
 
+---
 ### Changed
 
 - DateValueObject: added validation on create a new instance
 
 ### 2.7.1 - 2021-10-08
 
+---
 ### Added 
 
 - DateValueObject
 
 ### 2.7.0 - 2021-10-06
 
+---
 ### Changed
 
 - DomainId > change getters method
 
 ### 2.6.2 ~ 2.6.4 - 2021-10-06
 
+---
 ### Changed
 
 - DomainId > added toShort method
@@ -41,18 +46,22 @@ All notable changes to this project will be documented in this file.
 
 ### 2.6.1 - 2021-09-30
 
+---
 ### Changed
 
 - getUndefinedKeysAsObject > added new option to return as value
 
 ### 2.6.0 - 2021-09-29
 
+---
 ### Changed
 
 - CurrencyValueObject > added functions to compare values
 - getUndefinedKeysAsObject > added option to get path as string
 
 ### 2.5.7 ~ 2.5.10 - 2021-09-25
+
+---
 
 ### Added
 
