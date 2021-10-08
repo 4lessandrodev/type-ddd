@@ -377,6 +377,7 @@ A project is available on link below
 - ✔ UnitOfMeasureValueObject
 - ✔ DimensionValueObject
 - ✔ WeightValueObject
+- ✔ DateValueObject
 - ✔ getUndefinedKeysAsArray
 - ✔ getUndefinedKeysAsObject
 - ✔ removeUndefinedKeysFromObject

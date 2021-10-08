@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 
 - ValueObject DecoratorS
 
+### 2.7.1 - 2021-10-08
+
+### Added 
+
+- DateValueObject
+
 ### 2.7.0 - 2021-10-06
 
 ### Changed
