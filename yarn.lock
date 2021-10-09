@@ -1162,10 +1162,10 @@ color-name@^1.1.4, color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-colorette@^1.3.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.4.0.tgz#5190fbb87276259a86ad700bff2c6d6faa3fca40"
-  integrity sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==
+colorette@^2.0.0:
+  version "2.0.16"
+  resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.16.tgz#713b9af84fdb000139f04546bd4a93f62a5085da"
+  integrity sha512-hUewv7oMjCp+wkBv5Rm0v87eJhq4woh5rSR+42YSQJKecCqgIqNkZ6lAlQms/BwHPJA5NKMRlpxPRv0n8HQW6g==
 
 combined-stream@^1.0.8:
   version "1.0.8"
@@ -2903,24 +2903,24 @@ picomatch@^2.0.4, picomatch@^2.2.3:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
   integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
 
-pino-abstract-transport@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/pino-abstract-transport/-/pino-abstract-transport-0.2.0.tgz#e27d58d7bb16735c587c54e1d4efecc2cce27436"
-  integrity sha512-40sX7xrzDXsrUYr65brL0+bLm6rpZ+wCujDeeBmmZ/y5RVcPdVQsmz0bBe8NtTpELgmzmKwRRPVj1lvKjgFVHw==
+pino-abstract-transport@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/pino-abstract-transport/-/pino-abstract-transport-0.3.0.tgz#9925d826a1b6e9a667ca43d14981d82240edd794"
+  integrity sha512-jsd59/ruahIoIU4xAdFtvk3lS9rwsDNJ7Vi0K34ATh1PEOD796SPqvydMaRk296CeTROyBG0SNCwsshN6QhxVg==
   dependencies:
     split2 "^3.2.2"
 
-pino-pretty@7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-7.0.0.tgz#5a0a1e2ac0c98a4df94d421e52d3b9e19f32da56"
-  integrity sha512-lU5RpkfssYJxRI/veMGsUu7RqTUD/NDb2r+U4VIx7Dyo5vA3MbbbGMUOhAM4e02IAYXuTAa/PH56s8shstP9BA==
+pino-pretty@7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-7.0.1.tgz#1e5cf4f7ddacc5b45f5308f3adf4fedb02a3ec95"
+  integrity sha512-GMcNSmkZkwZseMOkaQWgmkGBPPhSuVwDZMf85i3sbkD/rZldoYyLSyU22YcXvYoLc3usX25GLA1VN6zvzQx7MQ==
   dependencies:
     args "^5.0.1"
-    colorette "^1.3.0"
+    colorette "^2.0.0"
     dateformat "^4.5.1"
     fast-safe-stringify "^2.0.7"
     joycon "^3.0.0"
-    pino-abstract-transport "^0.2.0"
+    pino-abstract-transport "^0.3.0"
     pump "^3.0.0"
     readable-stream "^3.6.0"
     rfdc "^1.3.0"
