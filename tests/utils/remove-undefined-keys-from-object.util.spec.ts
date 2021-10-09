@@ -107,4 +107,60 @@ describe('remove-undefined-keys-from-object', () => {
 			},
 		});
 	});
+
+	it('should not remove dates from object', () => {
+		const currentDate = new Date();
+		const obj = {
+			id: 1,
+			name: undefined,
+			age: null,
+			profile: undefined,
+			empty: '',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+		};
+
+		const remove = removeUndefinedKeysFromObject({
+			object: obj,
+		});
+
+		expect(remove).toEqual({
+			id: 1,
+			empty: '',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+		});
+	});
+
+	it('should not remove dates from sub object', () => {
+		const currentDate = new Date();
+		const obj = {
+			id: 1,
+			name: undefined,
+			age: null,
+			profile: {
+				name: undefined,
+				createdAt: currentDate,
+				updatedAt: currentDate,
+			},
+			empty: '',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+		};
+
+		const remove = removeUndefinedKeysFromObject({
+			object: obj,
+		});
+
+		expect(remove).toEqual({
+			id: 1,
+			empty: '',
+			profile: {
+				createdAt: currentDate,
+				updatedAt: currentDate,
+			},
+			createdAt: currentDate,
+			updatedAt: currentDate,
+		});
+	});
 });
