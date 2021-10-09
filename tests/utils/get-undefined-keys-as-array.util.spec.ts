@@ -1,18 +1,21 @@
 import getUndefinedKeysAsArray from '../../lib/utils/get-undefined-keys-as-array.util';
 
 describe('get-undefined-keys-as-array.util', () => {
+	const currentDate = new Date();
 	const obj = {
 		name: 'username',
 		email: 'some@domain.com',
 		terms: {
 			ip: '127.0.0.1',
 			browser: 'firefox',
+			createdAt: currentDate,
 		},
 		something: undefined,
 		age: undefined,
 		createdAt: undefined,
 		notes: null,
 		address: null,
+		updatedAt: currentDate,
 	};
 
 	it('should be defined', () => {

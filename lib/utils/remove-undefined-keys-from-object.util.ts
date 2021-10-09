@@ -77,8 +77,9 @@ export const removeUndefinedKeysFromObject = <T = {}>(
 
 	for (const key of keys) {
 		const value = param.object[key];
+		const isDate = value instanceof Date;
 
-		if (typeof value === 'object') {
+		if (typeof value === 'object' && !isDate) {
 			const isArray = Array.isArray(value);
 			if (!isArray && ignoreSubObject === false) {
 				const subObjectResult = removeUndefinedKeysFromObject({

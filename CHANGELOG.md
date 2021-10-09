@@ -8,6 +8,13 @@ All notable changes to this project will be documented in this file.
 
 - ValueObject Decorator
 
+### 2.7.4 - 2021-10-09
+
+---
+### Fixed
+
+- removeUndefinedKeysFromObject: do not remove dates
+
 ### 2.7.3 - 2021-10-08
 
 ---
