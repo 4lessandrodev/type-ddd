@@ -178,12 +178,12 @@ abstract class Entity<T extends BaseDomainEntity> {
 	}
 
 	/**
-	 *
-	 * @returns hash code [ClassName]:[id]
+	 * @description combination of ClassName and instance id.shortUid
+	 * @returns hash code `[ClassName]`:`[id.shortUid]`
 	 */
 	getHashCode(): UniqueEntityID {
 		const name = `@${this.entityName}`;
-		return new UniqueEntityID(`${name}:${this._id.toString()}`);
+		return new UniqueEntityID(`${name}:${this._id.shortUid}`);
 	}
 
 	/**

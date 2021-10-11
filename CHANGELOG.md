@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-### Added
+### Changed
 
-- ValueObject Decorator
+---
+
+- entities and aggregates: getHashCode > combination of class name and id. Now using short uid.
 
 ### 2.7.5 - 2021-10-11
 

@@ -71,8 +71,7 @@ describe('entity', () => {
 			color: 'BLUE',
 			year: 2021,
 		}).getResult();
-		expect(car.getHashCode().toString()).toBe(
-			'@Car:143150b2-47b6-4d97-945b-289f821c7fb9'
-		);
+		// short uid
+		expect(car.getHashCode().uid).toBe('@Car:289f6dec58af00');
 	});
 });

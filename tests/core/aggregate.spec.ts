@@ -138,8 +138,8 @@ describe('aggregate', () => {
 			ID: DomainId.create('bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'),
 			name: 'username',
 		});
-		expect(user.getResult().getHashCode().toString()).toBe(
-			'@UserAggregate:bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'
+		expect(user.getResult().getHashCode().uid).toBe(
+			'@UserAggregate:dbb03c978af332'
 		);
 	});
 });
