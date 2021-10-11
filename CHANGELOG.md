@@ -8,6 +8,13 @@ All notable changes to this project will be documented in this file.
 
 - ValueObject Decorator
 
+### 2.7.5 - 2021-10-11
+
+---
+### Fixed
+
+- lib: publish only dist to keep lib small
+
 ### 2.7.4 - 2021-10-09
 
 ---

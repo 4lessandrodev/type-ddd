@@ -110,11 +110,25 @@ describe('date.value-object', () => {
 		expect(date.isWeekday()).toBeTruthy();
 	});
 
+	it('should not to be weekend', () => {
+		const date = DateValueObject.create(
+			new Date('2021-10-08 00:00:00')
+		).getResult();
+		expect(date.isWeekend()).toBeFalsy();
+	});
+
 	it('should is not weekDay', () => {
 		const date = DateValueObject.create(
 			new Date('2021-10-09 00:00:00')
 		).getResult();
 		expect(date.isWeekday()).toBeFalsy();
+	});
+
+	it('should is weekend', () => {
+		const date = DateValueObject.create(
+			new Date('2021-10-09 00:00:00')
+		).getResult();
+		expect(date.isWeekend()).toBeTruthy();
 	});
 
 	it('should add one day', () => {

@@ -19,7 +19,10 @@
 		"DDD-Utils",
 		"Base Entity",
 		"Base Aggregate",
-		"Base Value Object"
+		"Base Value Object",
+		"Use Cases",
+		"Domain Events",
+		"Clean Architecture"
 	],
 	"scripts": {
 		"prebuild": "rimraf ./dist && yarn check:circular-deps",

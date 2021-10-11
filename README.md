@@ -438,7 +438,46 @@ console.log(ID.toShort(18));
 
 ```
 
+
 ### Just import and use it
+
+
+> Easy date manipulation
+
+```ts
+
+import { DateValueObject } from 'types-ddd';
+
+const currentDate = new Date();
+
+const myDate = DateValueObject.create(currentDate).getResult();
+
+console.log(myDate.value);
+> "2021-10-11T14:45:04.758Z"
+
+console.log(myDate.format("DD-MM-YYYY"));
+> "11-10-2021"
+
+myDate.addDays(3);
+
+console.log(myDate.value);
+> "2021-10-14T14:45:04.758Z"
+
+const isWeekday = myDate.isWeekend();
+
+console.log(isWeekday);
+> false
+
+myDate.addHours(7);
+
+const isAfter = myDate.isAfter(currentDate);
+
+console.log(isAfter);
+> true
+
+```
+
+
 
 > Safe value object to calculate finance values.
 > Each operation return an instance of Result cause It validate safe number
@@ -548,6 +587,8 @@ console.log(valueObject.weight.value);
 > 1
 
 ```
+
+
 
 
 > Contribute to this project [PIX]

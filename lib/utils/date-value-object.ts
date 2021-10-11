@@ -371,6 +371,17 @@ export class DateValueObject extends ValueObject<Prop> {
 
 	/**
 	 *
+	 * @param date optional value as date.
+	 * If provide It will be checked, If It not be provided instance value will be considered
+	 * @returns true if date day is weekend day [Sat-Sunday]
+	 */
+	isWeekend(date?: Date): boolean {
+		const day = date?.getDay() ?? this.props.value.getDay();
+		return day === 6 || day === 0;
+	}
+
+	/**
+	 *
 	 * @param date as Date
 	 * @returns true or false. True if instance date is greater than provided value
 	 * @example
