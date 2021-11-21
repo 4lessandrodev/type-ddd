@@ -10,6 +10,14 @@ All notable changes to this project will be documented in this file.
 
 - entities and aggregates: getHashCode > combination of class name and id. Now using short uid.
 
+
+### 2.7.6 - 2021-11-21
+
+---
+### Fixed
+
+- util: change regex to validate email
+
 ### 2.7.5 - 2021-10-11
 
 ---
