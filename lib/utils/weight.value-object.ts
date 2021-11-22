@@ -36,25 +36,33 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 	/**
 	 *
 	 * @param newValue WeightUnitValueObject instance
+	 * @returns instance
 	 */
-	changeWeightUnit(newValue: UnitOfWeight): void {
+	changeWeightUnit(newValue: UnitOfWeight): WeightValueObject {
 		this.props.unit = newValue;
+		return this;
 	}
 
 	/**
 	 *
 	 * @param newValue CustomNumberValueObject instance
+	 * @returns instance
 	 */
-	changeValue(newValue: CustomNumberValueObject): void {
+	changeValue(newValue: CustomNumberValueObject): WeightValueObject {
 		this.props.weight = CustomNumberValueObject.create(
 			parseFloat(newValue.value.toFixed(3))
 		).getResult();
+		return this;
 	}
 
-	private updateInstanceValues(value: number, unit: UnitOfWeight): void {
+	private updateInstanceValues(
+		value: number,
+		unit: UnitOfWeight
+	): WeightValueObject {
 		const float = parseFloat(value.toFixed(3));
 		this.props.weight = CustomNumberValueObject.create(float).getResult();
 		this.changeWeightUnit(unit);
+		return this;
 	}
 
 	/**

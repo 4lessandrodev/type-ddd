@@ -64,10 +64,12 @@ class PasswordValueObject extends ValueObject<Prop> {
 
 	/**
 	 * @description encrypt value of instance
+	 * @returns instance
 	 */
-	public encrypt(): void {
+	public encrypt(): PasswordValueObject {
 		const salt = genSaltSync();
 		this.props.value = hashSync(this.props.value, salt);
+		return this;
 	}
 
 	/**

@@ -32,9 +32,11 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 	 * @description this method does not change value, only measure unit.
 	 * @summary to convert value and unit use toMT / toMM ...
 	 * @param newDimension as CustomNumberValueObject
+	 * @returns instance
 	 */
-	changeValue(newDimension: CustomNumberValueObject): void {
+	changeValue(newDimension: CustomNumberValueObject): DimensionValueObject {
 		this.props.dimension = newDimension;
+		return this;
 	}
 
 	/**
@@ -42,16 +44,22 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 	 * @description this method does not change value, only measure unit.
 	 * @summary to convert value and unit use toMT / toMM ...
 	 * @param newDimensionUnit as UnitOfMeasure MT/MM/CM etc.
+	 * @returns instance
 	 */
-	changeDimensionUnit(newDimensionUnit: UnitOfMeasure): void {
+	changeDimensionUnit(newDimensionUnit: UnitOfMeasure): DimensionValueObject {
 		this.props.unit = newDimensionUnit;
+		return this;
 	}
 
-	private updateInstanceValues(value: number, unit: UnitOfMeasure): void {
+	private updateInstanceValues(
+		value: number,
+		unit: UnitOfMeasure
+	): DimensionValueObject {
 		const float = (value = parseFloat(value.toFixed(3)));
 		this.props.dimension =
 			CustomNumberValueObject.create(float).getResult();
 		this.changeDimensionUnit(unit);
+		return this;
 	}
 
 	/**

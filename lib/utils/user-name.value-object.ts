@@ -18,7 +18,11 @@ export class UserNameValueObject extends ValueObject<Prop> {
 		return this.props.value;
 	}
 
-	private capitalize(): void {
+	/**
+	 *
+	 * @returns instance
+	 */
+	private capitalize(): UserNameValueObject {
 		const names = this.props.value.split(' ');
 		const capitalized: string[] = [];
 		for (const name of names) {
@@ -27,6 +31,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 			capitalized.push(lowerCaseName);
 		}
 		this.props.value = capitalized.toString().replace(/,/g, ' ');
+		return this;
 	}
 
 	/**

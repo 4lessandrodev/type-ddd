@@ -4,23 +4,31 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-### Changed
+### 2.7.7 - 2021-11-22
 
 ---
 
-- entities and aggregates: getHashCode > combination of class name and id. Now using short uid.
+### Changed
 
+- DimensionValueObject: now update methods returns updated instance.
+- PasswordValueObject: now encrypt method returns updated instance.
+- UserNameValueObject: now capitalize method returns updated instance.
+- WeightValueObject: now update methods returns updated instance.
 
 ### 2.7.6 - 2021-11-21
 
 ---
 ### Fixed
 
-- util: change regex to validate email
+- util: change regex to validate email (includes dot as valid char).
 
 ### 2.7.5 - 2021-10-11
 
 ---
+### Changed
+
+- entities and aggregates: getHashCode > combination of class name and id. Now using short uid.
+
 ### Fixed
 
 - lib: publish only dist to keep lib small
