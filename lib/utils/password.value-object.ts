@@ -63,10 +63,15 @@ class PasswordValueObject extends ValueObject<Prop> {
 	}
 
 	/**
-	 * @description encrypt value of instance
+	 * @summary this function check if value already is encrypted. If already encrypted just returns instance.
+	 * @description encrypt instance value
 	 * @returns instance
 	 */
 	public encrypt(): PasswordValueObject {
+		const isEncrypted = this.isEncrypted();
+		if (isEncrypted) {
+			return this;
+		}
 		const salt = genSaltSync();
 		this.props.value = hashSync(this.props.value, salt);
 		return this;

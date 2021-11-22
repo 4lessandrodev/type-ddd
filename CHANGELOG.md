@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.7.8 - 2021-11-22
+
+---
+
+### Fixed
+
+- PasswordValueObject: validate if instance value already is encrypted.
+
+
 ### 2.7.7 - 2021-11-22
 
 ---

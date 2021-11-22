@@ -98,4 +98,15 @@ describe('password.value-object', () => {
 		const match = result.compare('abcdef');
 		expect(match).toBeFalsy();
 	});
+
+	it('should encrypt many times and keep value', () => {
+		const valueObject = PasswordValueObject.create('12345').getResult();
+		expect(valueObject.isEncrypted()).toBeFalsy();
+		valueObject.encrypt();
+		expect(valueObject.isEncrypted()).toBeTruthy();
+		expect(valueObject.compare('12345')).toBeTruthy();
+		valueObject.encrypt();
+		expect(valueObject.compare('12345')).toBe(true);
+		expect(valueObject.isEncrypted()).toBeTruthy();
+	});
 });
