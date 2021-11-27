@@ -62,6 +62,12 @@ describe('email-value-object.util', () => {
 	});
 
 	it('should create value object with success', () => {
+		const valueObject = EmailValueObject.create('user_nick2.0@hotmail.com');
+		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.getResult().value).toBe('user_nick2.0@hotmail.com');
+	});
+
+	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('rocio_65@gmail.com');
 		expect(valueObject.isSuccess).toBeTruthy();
 		expect(valueObject.getResult().value).toBe('rocio_65@gmail.com');
