@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.7.10 - 2021-12-14
+
+---
+### Fix 
+
+- ShortDomainId: export resource
+
 ### 2.7.9 - 2021-12-14
 
 ---
