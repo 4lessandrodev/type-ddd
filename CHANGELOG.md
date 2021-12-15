@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.7.9 - 2021-12-14
+
+---
+### Added 
+
+- ShortDomainId: default short domain id - 16 bit
+
 ### 2.7.8 - 2021-11-22
 
 ---
