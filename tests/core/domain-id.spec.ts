@@ -48,5 +48,10 @@ describe('domain-id', () => {
 	it('should GET the same id', () => {
 		const ID = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
 		expect(ID.uid).toBe('461235de-ec04-48aa-af94-31fbfa95efcf');
+	} );
+	
+	it('should convert to short uid', () => {
+		const ID = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
+		expect(ID.toShort()).toBe('31fbb4859e3301fc');
 	});
 });
