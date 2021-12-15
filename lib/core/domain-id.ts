@@ -1,5 +1,29 @@
 import { ValueObject } from '../core/value-object';
+import ShortDomainId from './short-domain-id';
 import UniqueEntityID from './unique-entity-id';
+
+interface ILength {
+	length:
+		| 14
+		| 15
+		| 16
+		| 17
+		| 18
+		| 19
+		| 20
+		| 21
+		| 22
+		| 23
+		| 24
+		| 25
+		| 26
+		| 27
+		| 28
+		| 29
+		| 30
+		| 31
+		| 32;
+}
 
 /**
  * @extends Entity
@@ -11,7 +35,12 @@ import UniqueEntityID from './unique-entity-id';
  */
 class DomainId extends ValueObject<any> {
 	private constructor(props: UniqueEntityID) {
-		super(props);
+		super( props );
+		this.toShort
+	}
+
+	toShort ( length?: ILength ): string {
+		return ShortDomainId.create(this.uid, length).uid
 	}
 
 	toString(): string {
