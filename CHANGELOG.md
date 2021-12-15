@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.7.12 - 2021-12-14
+
+---
+
+### Changed
+
+- DomainId and ShortDomainId: make both compatible
+
 ### 2.7.11 - 2021-12-14
 
 ---
