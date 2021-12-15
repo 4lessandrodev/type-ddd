@@ -55,7 +55,7 @@ class ShortDomainId extends ValueObject<any> {
 	 *
 	 * ...
 	 */
-	toShort(param?: ILength): string {
+	private toShort(param?: ILength): string {
 		const length = param?.length ?? 16;
 		const uuid: string = this.props.value;
 		const isUuid = isUUID.test(uuid);
@@ -114,16 +114,6 @@ class ShortDomainId extends ValueObject<any> {
 	 */
 	get uid(): string {
 		return new UniqueEntityID(this.props.value).uid;
-	}
-
-	/**
-	 * @returns short uid as string
-	 * @default length 14 chars
-	 * @example
-	 * > "31fbb4859e3301"
-	 */
-		get shortUid(): string {
-		return this.toShort();
 	}
 
 	/**
