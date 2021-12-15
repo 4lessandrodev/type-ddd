@@ -183,7 +183,7 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 */
 	getHashCode(): UniqueEntityID {
 		const name = `@${this.entityName}`;
-		return new UniqueEntityID(`${name}:${this._id.shortUid}`);
+		return new UniqueEntityID(`${name}:${this._id.uid}`);
 	}
 
 	/**
