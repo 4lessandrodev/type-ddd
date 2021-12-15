@@ -1,4 +1,4 @@
-import { DomainId, HEXColorValueObject } from "@types-ddd";
+import { DomainId, HEXColorValueObject, ShortDomainId } from "@types-ddd";
 import { Player } from "../simple-player.entity";
 
 describe('simple-player.entity', () => {
@@ -54,5 +54,17 @@ describe('simple-player.entity', () => {
 		const isDiffColor = oldColor !== player.teamColor.value;
 
 		expect(isDiffColor).toBeTruthy();
+	} )
+	
+	it('should create a valid player with short id', ()=> {
+
+		// 	Create value objects
+		const teamColor = HEXColorValueObject.randomColor();
+		const ID = ShortDomainId.create();
+		const userId = DomainId.create();
+
+		// Create player
+		const player = Player.create({ ID, teamColor, userId });
+		expect(player.isSuccess).toBeTruthy();
 	})
 });

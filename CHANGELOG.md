@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.7.11 - 2021-12-14
+
+---
+
+### Changed
+
+- BaseDomainEntity: ID accept DomainId or ShortDomainId
+- Entity: getHashCode - now returns uid value base value added to ID
+- Breaking change - Remove methods from DomainId:
+- toShort()
+- shortUid
+
 ### 2.7.10 - 2021-12-14
 
 ---

@@ -139,7 +139,7 @@ describe('aggregate', () => {
 			name: 'username',
 		});
 		expect(user.getResult().getHashCode().uid).toBe(
-			'@UserAggregate:dbb03c978af332'
+			'@UserAggregate:bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'
 		);
 	});
 });

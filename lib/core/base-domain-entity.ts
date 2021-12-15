@@ -10,11 +10,11 @@
  * All optional properties
  */
 
-import { DomainId } from '..';
+import { DomainId, ShortDomainId } from '..';
 
 abstract class BaseDomainEntity {
 	constructor(
-		public readonly ID: DomainId,
+		public readonly ID: DomainId | ShortDomainId,
 		public createdAt?: Date,
 		public updatedAt?: Date,
 		public isDeleted?: boolean,
