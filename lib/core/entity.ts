@@ -4,6 +4,8 @@ import Logger from '../utils/logger.util';
 import BaseDomainEntity from './base-domain-entity';
 import DomainId from './domain-id';
 import UniqueEntityID from './unique-entity-id';
+import { FactoryMapper2 } from '../repo/mapper.interface';
+import Result from './result';
 
 export class DomainEvents {
 	private static handlersMap: any = {};
@@ -205,6 +207,42 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 */
 	get deletedAt(): Date | undefined {
 		return this.props.deletedAt;
+	}
+
+	/**
+	 * 
+	 * @param dto props as object with attributes
+	 * @param factory a mapper creator that implements FactoryMapper2 interface
+	 * @returns a result with entity instance
+	 */
+	static buildFromDto<DTO, ENTITY, SCHEMA, ERROR> (
+		dto: DTO, factory: FactoryMapper2<DTO, ENTITY, SCHEMA, ERROR>
+	):Result<ENTITY, ERROR> {
+		return factory.dtoToDomain(dto)
+	}
+
+	/**
+	 * 
+	 * @param model as persistence instance
+	 * @param factory a mapper creator that implements FactoryMapper2 interface
+	 * @returns a result with entity instance
+	 */
+	static buildFromModel<DTO, ENTITY, SCHEMA, ERROR> (
+		model: SCHEMA, factory: FactoryMapper2<DTO, ENTITY, SCHEMA, ERROR>
+	):Result<ENTITY, ERROR> {
+		return factory.modelToDomain(model)
+	}
+
+	/**
+	 * 
+	 * @param entity domain entity instance
+	 * @param factory a mapper creator that implements FactoryMapper2 interface
+	 * @returns a model instance
+	 */
+	static buildToModel<DTO, ENTITY, SCHEMA, ERROR> (
+		entity: ENTITY, factory: FactoryMapper2<DTO, ENTITY, SCHEMA, ERROR>
+	):SCHEMA {
+		return factory.domainToModel(entity)
 	}
 
 	/**

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.7.15  - 2021-12-21
+
+---
+
+### Added 
+
+- static method on domain entities
+- buildFromDto
+- buildFromModel
+- buildToModel
 
 ### 2.7.14  - 2021-12-21
 
