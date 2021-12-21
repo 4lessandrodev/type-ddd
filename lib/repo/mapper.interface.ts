@@ -24,7 +24,7 @@ export default interface IMapper<DomainAggregate, Entity> {
 export interface IMapper2<DTO = GENERIC, AGGREGATE = GENERIC, MODEL = GENERIC, ERROR = string> {
 	dtoToDomain: (dto: DTO) => Result<AGGREGATE, ERROR>;
 	modelToDomain: (model: MODEL) => Result<AGGREGATE, ERROR>;
-	domainToModel: (domain: AGGREGATE) => Result<MODEL, ERROR>;
+	domainToModel: (domain: AGGREGATE) => MODEL;
 }
 
 /**
@@ -43,6 +43,14 @@ export abstract class Mapper<PROPS = GENERIC, ERROR = string> {
 
 	constructor() {
 		this.state = new Map();
+	}
+
+	/**
+	 * @description state is located on array. the size is array length.
+	 * @returns state size as number: array length
+	 */
+	protected getSize (): number {
+		return this.state.size;
 	}
 
 	/**
@@ -93,8 +101,16 @@ export abstract class Mapper<PROPS = GENERIC, ERROR = string> {
  * @method dtoToDomain
  * @method modelToDomain
  * @method domainToModel
+ * 
+ * @summary You must implement the create method
+ * 
+ * @template
+ * abstract create(): IMapper2<DTO, AGGREGATE, MODEL, ERROR>;
  */
 export abstract class FactoryMapper2<DTO = GENERIC, AGGREGATE = GENERIC, MODEL = GENERIC, ERROR = string> {
+	/**
+	 * Method to be implemented
+	 */
 	protected abstract create(): IMapper2<DTO, AGGREGATE, MODEL, ERROR>;
 
 	/**
@@ -122,7 +138,7 @@ export abstract class FactoryMapper2<DTO = GENERIC, AGGREGATE = GENERIC, MODEL =
 	 * @param domain as aggregate or entity
 	 * @returns a result of model
 	 */
-	public domainToModel (domain: AGGREGATE): Result<MODEL, ERROR> {
+	public domainToModel (domain: AGGREGATE): MODEL {
 		const mapper = this.create();
 		return mapper.domainToModel(domain);
 	};
