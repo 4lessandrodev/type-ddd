@@ -1,8 +1,8 @@
 import Result from '../../lib/core/result';
-import { IMapper } from '../../lib/repo/mapper.interface';
+import { IMapper, Mapper, IMapper3 } from '../../lib/repo/mapper.interface';
 import ValueObject from '../../lib/core/value-object';
 import DomainId from '../../lib/core/domain-id';
-import { BaseDomainEntity, Entity } from '../../lib';
+import { BaseDomainEntity, Entity, ShortDomainId } from '../../lib';
 
 describe('mapper', () => {
 	// Interface for name prop
@@ -22,8 +22,8 @@ describe('mapper', () => {
 		}
 
 		public static create(name: string): Result<NameValueObject> {
-			// must have less than 120 character
-			if (name.length > 120) {
+			// must have less than 50 character
+			if (name.length > 50) {
 				return Result.fail<NameValueObject>('Name too long');
 			}
 
@@ -123,6 +123,30 @@ describe('mapper', () => {
 		}
 	}
 	//-------------------------------------------------------------------
+		// Mapper2
+		class UserMapper2 extends Mapper<UserProps> implements IMapper3<UserSchema, UserEntity> {
+
+			convert( target: UserSchema ): Result<UserEntity, string> {
+				this.resetState();
+				this.addState( 'name', NameValueObject.create( target.name ) );
+				this.addState( 'age', AgeValueObject.create( target.age ) );
+
+				const stateResult = this.checkState();
+				if ( stateResult.isFailure ) {
+					return Result.fail( stateResult.error );
+				}
+
+				return UserEntity.create( {
+					ID: ShortDomainId.create(),
+					age: this.getStateByKey<AgeValueObject>( 'age' ).getResult(),
+					name: this.getStateByKey<NameValueObject>('name').getResult()
+				})
+
+			};
+
+		}
+	//-------------------------------------------------------------------
+	
 
 	it('should convert from persistence to domain', () => {
 		const persistence: UserSchema = {
@@ -163,5 +187,37 @@ describe('mapper', () => {
 		expect(persistence.name).toBe('John Stuart');
 		expect(persistence.id).toBe('valid_uuid');
 		expect(persistence.isDeleted).toBe(false);
-	});
+	} );
+	
+	it( 'should create a valid user with mapper2', () => {
+		const mapper = new UserMapper2();
+
+		const entity = mapper.convert( {
+			id: ShortDomainId.create().uid,
+			age: 21,
+			createdAt: new Date(),
+			isDeleted: false,
+			name: 'valid name',
+			updatedAt: new Date()
+		} )
+		
+		expect( entity.isSuccess ).toBeTruthy();
+		expect( entity.getResult().age.value ).toBe(21);
+		expect( entity.getResult().name.value ).toBe('valid name');
+	} )
+	
+	it( 'should fail if provide an invalid value', () => {
+		const mapper = new UserMapper2();
+
+		const entity = mapper.convert( {
+			id: ShortDomainId.create().uid,
+			age: 21,
+			createdAt: new Date(),
+			isDeleted: false,
+			name: 'long_invalid_name_length'.repeat(5),
+			updatedAt: new Date()
+		} )
+		
+		expect( entity.isFailure ).toBeTruthy();
+	})
 });

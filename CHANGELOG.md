@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+
+### 2.7.14  - 2021-12-21
+
+---
+
+### Added 
+
+- abstract class Mapper with state management methods
+- IMappers interface with new methods
+
 ### 2.7.12 - 2.7.13  - 2021-12-14
 
 ---
