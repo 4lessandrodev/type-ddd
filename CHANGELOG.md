@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.8.0  - 2021-12-22
+
+---
+
+### Changed 
+
+- static method on domain entities
+- buildFromDto > change to build
+- buildFromModel > change to build
+- buildToModel > change to build
+- IMapper2 > change to TMapper
+
 ### 2.7.15  - 2021-12-21
 
 ---
