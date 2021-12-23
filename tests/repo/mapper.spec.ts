@@ -1,5 +1,5 @@
 import Result from '../../lib/core/result';
-import { IMapper, IMapper2, IMapper3, Mapper, FactoryMapper2, FactoryMapper3 } from '../../lib/repo/mapper.interface';
+import { IMapper, Mapper, FactoryMethod, TMapper } from '../../lib/repo/mapper.interface';
 import ValueObject from '../../lib/core/value-object';
 import DomainId from '../../lib/core/domain-id';
 import { BaseDomainEntity, Entity, ShortDomainId } from '../../lib';
@@ -66,9 +66,9 @@ describe('mapper', () => {
 	}
 	//-------------------------------------------------------------------
 	// User Entity
-	class UserEntity extends Entity<UserProps> {
+	class UserDomainEntity extends Entity<UserProps> {
 		private constructor(props: UserProps) {
-			super(props, UserEntity.name);
+			super(props, UserDomainEntity.name);
 		}
 
 		get age(): AgeValueObject {
@@ -79,13 +79,13 @@ describe('mapper', () => {
 			return this.props.name;
 		}
 
-		public static create(props: UserProps): Result<UserEntity> {
-			return Result.ok<UserEntity>(new UserEntity(props));
+		public static create(props: UserProps): Result<UserDomainEntity> {
+			return Result.ok<UserDomainEntity>(new UserDomainEntity(props));
 		}
 	}
 	//-------------------------------------------------------------------
 	// Schema persistence - the way to be saved on database
-	interface UserSchema {
+	interface UserModel {
 		id: string;
 		name: string;
 		age: number;
@@ -96,10 +96,10 @@ describe('mapper', () => {
 	}
 	//-------------------------------------------------------------------
 	// User mapper has responsibility to convert an object from domain to persistence
-	class UserMapper implements IMapper<UserEntity, UserSchema> {
+	class UserMapper implements IMapper<UserDomainEntity, UserModel> {
 		//
-		toDomain(target: UserSchema): UserEntity {
-			return UserEntity.create({
+		toDomain(target: UserModel): UserDomainEntity {
+			return UserDomainEntity.create({
 				ID: DomainId.create('valid_uuid'),
 				age: AgeValueObject.create(target.age).getResult(),
 				name: NameValueObject.create(target.name).getResult(),
@@ -110,7 +110,7 @@ describe('mapper', () => {
 			}).getResult();
 		}
 		//
-		toPersistence(target: UserEntity): UserSchema {
+		toPersistence(target: UserDomainEntity): UserModel {
 			return {
 				id: target.id.toString(),
 				name: target.name.value,
@@ -124,9 +124,8 @@ describe('mapper', () => {
 	}
 	//-------------------------------------------------------------------
 		// Mapper2
-		class UserMapper2 extends Mapper<UserProps> implements IMapper3<UserSchema, UserEntity> {
-
-			convert( target: UserSchema ): Result<UserEntity, string> {
+		class UserMapper2 extends Mapper<UserProps> implements TMapper<UserModel, UserDomainEntity> {
+			map( target: UserModel ): Result<UserDomainEntity, string> {
 				this.resetState();
 				this.addState( 'name', NameValueObject.create( target.name ) );
 				this.addState( 'age', AgeValueObject.create( target.age ) );
@@ -136,10 +135,10 @@ describe('mapper', () => {
 					return Result.fail( stateResult.error );
 				}
 
-				return UserEntity.create( {
+				return UserDomainEntity.create( {
 					ID: ShortDomainId.create(),
-					age: this.getStateByKey<AgeValueObject>( 'age' ).getResult(),
-					name: this.getStateByKey<NameValueObject>('name').getResult()
+					age: this.getStateByKey<AgeValueObject>( 'age' )?.getResult() as AgeValueObject,
+					name: this.getStateByKey<NameValueObject>('name')?.getResult() as NameValueObject
 				})
 
 			};
@@ -148,7 +147,7 @@ describe('mapper', () => {
 	//-------------------------------------------------------------------
 	// base mapper
 
-	class BaseMapper extends Mapper<UserSchema> { 
+	class BaseMapper extends Mapper<UserModel> { 
 
 		GET_STATE () {
 			return this.getState();
@@ -162,7 +161,7 @@ describe('mapper', () => {
 			this.resetState();
 		}
 
-		GET_BY_KEY (key: keyof UserSchema) {
+		GET_BY_KEY (key: keyof UserModel) {
 			return this.getStateByKey<AgeValueObject>( key );
 		}
 
@@ -178,83 +177,82 @@ describe('mapper', () => {
 	//-------------------------------------------------------------------
 	// factory method
 
-	interface Dto {
-		id: string;
-		name: string;
-		age: number;
-	}
-
 	// Mapper concrete implementation: Implement IMapper2 or IMapper3
-	// param: Dto > use case default params;
-	// param: UserEntity > Domain Entity: Aggregate or Entity
-	// param: schema > Persistence model: the interface that represents database model
-	// param: string > the error value to be returned if occurs some conflict
-	class MapperImplementation implements IMapper2<Dto, UserEntity, UserSchema, string> {
-
-		dtoToDomain ( dto: Dto ): Result<UserEntity, string> {
-			return UserEntity.create( {
-				ID: ShortDomainId.create(),
-				age: AgeValueObject.create( dto.age ).getResult(),
-				name: NameValueObject.create(dto.name).getResult()
-			})
-		}
-
-		modelToDomain ( model: UserSchema): Result<UserEntity, string> {
-			return UserEntity.create( {
-				ID: ShortDomainId.create(),
-				age: AgeValueObject.create( model.age ).getResult(),
-				name: NameValueObject.create(model.name).getResult()
-			})
-		}
-
-		domainToModel ( domain: UserEntity ): UserSchema {
-			return {
+	// param: TARGET > the input param;
+	// param: TARGET > the output param;
+	// param: ERROR > the error value to be returned if occurs some conflict
+	class UserToModelMapper implements TMapper<UserDomainEntity, UserModel> {
+		// input is domain entity
+		map ( domain: UserDomainEntity ): Result<UserModel> {
+			// output persistence instance
+			return Result.ok( {
 				id: domain.id.uid,
 				age: domain.age.value,
 				name: domain.name.value,
 				createdAt: domain.createdAt,
 				updatedAt: domain.updatedAt,
 				isDeleted: domain.isDeleted
-			}
+			})
 		}
 	}
 
 	// Mapper creator: Factory to create a mapper instance
-	class UserMapperCreator extends FactoryMapper2<Dto, UserEntity, UserSchema, string> {
-		protected create (): IMapper2<Dto, UserEntity, UserSchema, string> {
-			return new MapperImplementation();
+	class UserToModelFactory extends FactoryMethod<UserDomainEntity, UserModel> {
+		protected create (): TMapper<UserDomainEntity, UserModel, string> {
+			return new UserToModelMapper();
 		}
 	}
 	
-	// Client code, this function receives a factory and returns a domain entity
-	const CreateEntity = <DTO, ENTITY, SCHEMA, ERROR> ( factory: FactoryMapper2<DTO, ENTITY, SCHEMA, ERROR>, dto: DTO ) => {
-		return factory.dtoToDomain( dto );
-	}
+	// factory method
 
-	//-------------------------------------------------------------------
-	// simple mapper converter
+	// Mapper concrete implementation: Implement IMapper2 or IMapper3
+	// param: TARGET > the input param;
+	// param: TARGET > the output param;
+	// param: ERROR > the error value to be returned if occurs some conflict
+	class UserToDomainMapper extends Mapper<UserModel> implements TMapper<UserModel, UserDomainEntity> {
+		// input persistence instance
+		map ( model: Partial<UserModel> ): Result<UserDomainEntity> {
 
-	class SimpleMapper implements IMapper3<Dto, UserEntity> {
-		convert ( target: Dto ) : Result<UserEntity, string>{
-			return UserEntity.create( {
-				ID: ShortDomainId.create( target.id ),
-				age: AgeValueObject.create( target.age ).getResult(),
-				name: NameValueObject.create(target.name).getResult()
+			// start a new state
+			this.startState();
+			model.age && this.addState( 'age', AgeValueObject.create( model.age ) );
+			model.name && this.addState( 'name', NameValueObject.create( model.name ) );
+			
+			// check if has errors
+			const result = this.checkState();
+			if ( result.isFailure ) {
+				return Result.fail( result.error );
+			}
+
+			// output domain entity instance
+			return UserDomainEntity.create( {
+				ID: ShortDomainId.create(model.id),
+				age: this.getStateByKey<AgeValueObject>('age')?.getResult()!,
+				name: this.getStateByKey<NameValueObject>('name')?.getResult()!,
+				createdAt: model.createdAt,
+				updatedAt: model.updatedAt
 			})
-		};
-	}
-
-	class SimpleMapperCreator extends FactoryMapper3<Dto, UserEntity> {
-		protected create(): IMapper3<Dto, UserEntity, string> {
-			return new SimpleMapper();
 		}
 	}
 
+	// Mapper creator: Factory to create a mapper instance
+	class UserToDomainFactory extends FactoryMethod<UserModel, UserDomainEntity> {
+		protected create (): TMapper<UserModel, UserDomainEntity> {
+			return new UserToDomainMapper();
+		}
+	}
+
+	// Client code, this function receives a factory and returns a domain entity
+	const CreateEntity = <DTO, ENTITY, ERROR> (
+		factory: FactoryMethod<DTO, ENTITY, ERROR>, dto: DTO
+	) => {
+		return factory.map( dto );
+	}
 	//-------------------------------------------------------------------
 	
 
 	it('should convert from persistence to domain', () => {
-		const persistence: UserSchema = {
+		const persistence: UserModel = {
 			age: 20,
 			createdAt: new Date(),
 			id: 'valid_uuid',
@@ -271,11 +269,11 @@ describe('mapper', () => {
 		expect(domain.name.value).toBe('John Stuart');
 		expect(domain.id.toValue()).toBe('valid_uuid');
 		expect(domain.isDeleted).toBe(false);
-		expect(domain).toBeInstanceOf(UserEntity);
+		expect(domain).toBeInstanceOf(UserDomainEntity);
 	});
 
 	it('should convert from domain to persistence', () => {
-		const domain: UserEntity = UserEntity.create({
+		const domain: UserDomainEntity = UserDomainEntity.create({
 			ID: DomainId.create('valid_uuid'),
 			age: AgeValueObject.create(21).getResult(),
 			createdAt: new Date(),
@@ -297,7 +295,7 @@ describe('mapper', () => {
 	it( 'should create a valid user with mapper2', () => {
 		const mapper = new UserMapper2();
 
-		const entity = mapper.convert( {
+		const entity = mapper.map( {
 			id: ShortDomainId.create().uid,
 			age: 21,
 			createdAt: new Date(),
@@ -314,7 +312,7 @@ describe('mapper', () => {
 	it( 'should fail if provide an invalid value', () => {
 		const mapper = new UserMapper2();
 
-		const entity = mapper.convert( {
+		const entity = mapper.map( {
 			id: ShortDomainId.create().uid,
 			age: 21,
 			createdAt: new Date(),
@@ -357,36 +355,39 @@ describe('mapper', () => {
 		const baseMapper = new BaseMapper();
 		baseMapper.ADD_STATE( 18 );
 		const state = baseMapper.GET_BY_KEY( 'age' );
-		expect( state.getResult().value ).toBe( 18 );
+		expect( state?.getResult().value ).toBe( 18 );
 	} )
 	
 	it( 'should implement factory method mapper', () => {
-		const entity = CreateEntity( new UserMapperCreator(), {
+		const entity = CreateEntity( new UserToDomainFactory(), {
 			id: 'valid_id',
 			age: 21,
-			name: 'valid_name'
+			name: 'valid_name',
+			createdAt: new Date(),
+			isDeleted: false,
+			updatedAt: new Date()
 		} );
 
-		expect( entity.getResult() ).toBeInstanceOf( UserEntity );
+		expect( entity.getResult() ).toBeInstanceOf( UserDomainEntity );
 	} );
 
 	it( 'should build a model with static method on entity', () => {
 
-		const domainEntity = UserEntity.create( {
+		const domainEntity = UserDomainEntity.create( {
 			ID: ShortDomainId.create(),
 			age: AgeValueObject.create( 18 ).getResult(),
 			name: NameValueObject.create( 'valid_name' ).getResult()
 		} ).getResult();
 
-		const model = UserEntity.buildToModel( domainEntity, new UserMapperCreator() );
-		expect( model ).toBeDefined();
-		expect( model.name ).toBe( 'valid_name' );
-		expect( model.age ).toBe(18);
+		const model = UserDomainEntity.build( domainEntity, new UserToModelFactory() );
+		expect( model.isSuccess ).toBeTruthy();
+		expect( model.getResult().name ).toBe( 'valid_name' );
+		expect( model.getResult().age ).toBe(18);
 	} );
 
 	it( 'should build a domain entity with static method on entity from model', () => {
 
-		const model: UserSchema = {
+		const model: UserModel = {
 			id: 'valid_id',
 			age: 18,
 			updatedAt: new Date(),
@@ -395,29 +396,16 @@ describe('mapper', () => {
 			name: 'valid_name'
 		}
 
-		const result = UserEntity.buildFromModel( model, new UserMapperCreator() );
+		const result = UserDomainEntity.build( model, new UserToDomainFactory() );
 		expect( result.isSuccess ).toBeTruthy();
 		expect( result.getResult().age.value ).toBe( 18 )
 		expect( result.getResult().name.value ).toBe( 'valid_name' )
 	} );
 
-	it( 'should build a domain entity with static method on entity from dto', () => {
-
-		const dto: Dto = {
-			id: 'valid_id',
-			age: 18,
-			name: 'valid_name'
-		}
-
-		const result = UserEntity.buildFromDto( dto, new UserMapperCreator() );
-		expect( result.isSuccess ).toBeTruthy();
-		expect( result.getResult().age.value ).toBe( 18 )
-		expect( result.getResult().name.value ).toBe( 'valid_name' )
-	} );
 
 	it( 'should convert a model to domain entity using a simple mapper creator', () => {
-		const simpleMapper = new SimpleMapperCreator();
-		const entity = simpleMapper.convert( {
+		const simpleMapper = new UserToDomainMapper();
+		const entity = simpleMapper.map( {
 			id: 'valid_id',
 			name: 'valid_name',
 			age: 21,

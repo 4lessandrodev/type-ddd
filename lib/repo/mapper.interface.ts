@@ -1,7 +1,5 @@
 import { Result } from "../core/result";
 import { ChangesObserver } from '../core/changes-observer';
-const OBJ = {};
-type GENERIC = typeof OBJ;
 
 /**
  * `TargetPersistence` as Entity to persist on database and
@@ -15,17 +13,17 @@ export default interface IMapper<DomainAggregate, Entity> {
 	toPersistence: (target: DomainAggregate) => Entity;
 }
 
+
 /**
- * @description a simple interface that determines 3 methods
- * @method dtoToDomain
- * @method modelToDomain
- * @method domainToModel
+ * @description a simple interface that determines conversion method from dto to domain
+ * @method toDomain
  */
-export interface IMapper2<DTO = GENERIC, AGGREGATE = GENERIC, MODEL = GENERIC, ERROR = string> {
-	dtoToDomain: (dto: DTO) => Result<AGGREGATE, ERROR>;
-	modelToDomain: (model: MODEL) => Result<AGGREGATE, ERROR>;
-	domainToModel: (domain: AGGREGATE) => MODEL;
-}
+export interface TMapper<TARGET, RESULT, ERROR = string> {
+	/**
+	 * @param model must be a persistence model or dto
+	 */
+	map: (model: TARGET) => Result<RESULT, ERROR>;
+ }
 
 /**
  * @description abstract class Mapper with some default methods.
@@ -38,7 +36,7 @@ export interface IMapper2<DTO = GENERIC, AGGREGATE = GENERIC, MODEL = GENERIC, E
  * @method resetState: clear all state
  * @method checkState: check all props in state
  */
-export abstract class Mapper<PROPS = GENERIC, ERROR = string> {
+export abstract class Mapper<PROPS, ERROR = string> {
 	private readonly state: Map<keyof PROPS, Result<unknown, ERROR>>;
 
 	constructor() {
@@ -76,7 +74,7 @@ export abstract class Mapper<PROPS = GENERIC, ERROR = string> {
 	 * @param label a key of props defined on PROPS generic type
 	 * @returns a Result of instance defined as generic type by VO
 	 */
-	protected getStateByKey<VO = GENERIC>(label: keyof PROPS): Result<VO, ERROR> {
+	protected getStateByKey<VO>(label: keyof PROPS): Result<VO, ERROR> | undefined {
 		return this.state.get(label) as Result<VO, ERROR>;
 	}
 
@@ -88,6 +86,13 @@ export abstract class Mapper<PROPS = GENERIC, ERROR = string> {
 	}
 
 	/**
+	 * @description reset start a new state
+	 */
+		protected startState(): void {
+			this.state.clear();
+	}
+
+	/**
 	 *
 	 * @returns a result on check all props on state.
 	 */
@@ -95,81 +100,21 @@ export abstract class Mapper<PROPS = GENERIC, ERROR = string> {
 		return ChangesObserver.init(this.getState()).getResult();
 	}
 }
-
-/**
- * @description A abstract factory
- * @method dtoToDomain
- * @method modelToDomain
- * @method domainToModel
- * 
- * @summary You must implement the create method
- * 
- * @template
- * abstract create(): IMapper2<DTO, AGGREGATE, MODEL, ERROR>;
- */
-export abstract class FactoryMapper2<DTO = GENERIC, AGGREGATE = GENERIC, MODEL = GENERIC, ERROR = string> {
+export abstract class FactoryMethod<TARGET, RESULT, ERROR = string> {
 	/**
 	 * Method to be implemented
 	 */
-	protected abstract create(): IMapper2<DTO, AGGREGATE, MODEL, ERROR>;
-
-	/**
-	 *
-	 * @param dto as props
-	 * @returns a result with aggregate instance
-	 */
-	public dtoToDomain(dto: DTO): Result<AGGREGATE, ERROR> {
-		const mapper = this.create();
-		return mapper.dtoToDomain(dto);
-	}
-
-	/**
-	 *
-	 * @param model instance as persistence class
-	 * @returns a result of aggregate
-	 */
-	public modelToDomain (model: MODEL): Result<AGGREGATE, ERROR> {
-		const mapper = this.create();
-		return mapper.modelToDomain(model);
-	};
+	protected abstract create(): TMapper<TARGET, RESULT, ERROR>;
 
 	/**
 	 *
 	 * @param domain as aggregate or entity
 	 * @returns a result of model
 	 */
-	public domainToModel (domain: AGGREGATE): MODEL {
+	public map (domain: TARGET): Result<RESULT, ERROR> {
 		const mapper = this.create();
-		return mapper.domainToModel(domain);
+		return mapper.map(domain);
 	};
-}
-
-/**
- * @description a simple interface that determines 1 methods
- * @param TARGET what you will receive as param on convert method.
- * @param RESULT the convert result to be returned
- * @method convert
- */
- export interface IMapper3<TARGET = GENERIC, RESULT = GENERIC, ERROR = string> {
-	convert: (target: TARGET) => Result<RESULT, ERROR>;
-}
-
-/**
- * @description A abstract factory
- * @method convert
- */
- export abstract class FactoryMapper3<TARGET = GENERIC, RESULT = GENERIC, ERROR = string> {
-	protected abstract create(): IMapper3<TARGET, RESULT, ERROR>;
-
-	/**
-	 *
-	 * @param target as props
-	 * @returns a result with target instance
-	 */
-	public convert(target: TARGET): Result<RESULT, ERROR> {
-		const mapper = this.create();
-		return mapper.convert(target);
-	}
 }
 
 export { IMapper };
