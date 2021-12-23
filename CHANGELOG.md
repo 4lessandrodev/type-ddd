@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.8.1  - 2021-12-22
+
+---
+
+### Changed 
+
+- Mapper: added logger if state key does not exits
+
 ### 2.8.0  - 2021-12-22
 
 ---

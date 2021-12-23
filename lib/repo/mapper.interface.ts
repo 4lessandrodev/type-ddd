@@ -74,8 +74,9 @@ export abstract class Mapper<PROPS, ERROR = string> {
 	 * @param label a key of props defined on PROPS generic type
 	 * @returns a Result of instance defined as generic type by VO
 	 */
-	protected getStateByKey<VO>(label: keyof PROPS): Result<VO, ERROR> | undefined {
-		return this.state.get(label) as Result<VO, ERROR>;
+	protected getStateByKey<VO>(label: keyof PROPS): Result<VO | undefined, ERROR | string> {
+		const existKey = this.state.get( label ) as Result<VO, ERROR>;
+		return existKey ?? Result.fail<undefined, string>(`The key: ${label} does not exists on mapper state`)
 	}
 
 	/**

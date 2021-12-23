@@ -621,8 +621,8 @@ console.log(valueObject.weight.value);
 			// output domain entity instance
 			return UserDomainEntity.create( {
 				ID: ShortDomainId.create(model.id),
-				age: this.getStateByKey<AgeValueObject>('age')?.getResult()!,
-				name: this.getStateByKey<NameValueObject>('name')?.getResult()!,
+				age: this.getStateByKey<AgeValueObject>('age')?.getResult(),
+				name: this.getStateByKey<NameValueObject>('name')?.getResult(),
 				createdAt: model.createdAt ?? new Date(),
 				updatedAt: model.updatedAt ?? new Date()
 			})

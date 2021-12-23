@@ -2,7 +2,7 @@ import Result from '../../lib/core/result';
 import { IMapper, Mapper, FactoryMethod, TMapper } from '../../lib/repo/mapper.interface';
 import ValueObject from '../../lib/core/value-object';
 import DomainId from '../../lib/core/domain-id';
-import { BaseDomainEntity, Entity, ShortDomainId } from '../../lib';
+import { BaseDomainEntity, Entity, Logger, ShortDomainId } from '../../lib';
 
 describe('mapper', () => {
 	// Interface for name prop
@@ -330,6 +330,13 @@ describe('mapper', () => {
 		baseMapper.ADD_STATE( 18 );
 		expect( baseMapper.GET_QUANTITY() ).toBe( 1 );
 	} )
+
+	it( 'should print a fail message if the key does not exists', () => {
+		const baseMapper = new BaseMapper();
+		Logger.info('THE ERROR PRINTED BELOW IS JUST A TEST')
+		expect( baseMapper.GET_BY_KEY( 'isDeleted' ).isFailure ).toBeTruthy();
+		baseMapper.GET_BY_KEY( 'isDeleted' )?.getResult();
+	} )
 	
 	it( 'should clear state', () => {
 		const baseMapper = new BaseMapper();
@@ -355,7 +362,7 @@ describe('mapper', () => {
 		const baseMapper = new BaseMapper();
 		baseMapper.ADD_STATE( 18 );
 		const state = baseMapper.GET_BY_KEY( 'age' );
-		expect( state?.getResult().value ).toBe( 18 );
+		expect( state?.getResult()?.value ).toBe( 18 );
 	} )
 	
 	it( 'should implement factory method mapper', () => {
