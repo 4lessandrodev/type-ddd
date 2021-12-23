@@ -20,9 +20,10 @@ export default interface IMapper<DomainAggregate, Entity> {
  */
 export interface TMapper<TARGET, RESULT, ERROR = string> {
 	/**
-	 * @param model must be a persistence model or dto
+	 * @param target input
+	 * @returns result
 	 */
-	map: (model: TARGET) => Result<RESULT, ERROR>;
+	map: (target: TARGET) => Result<RESULT, ERROR>;
  }
 
 /**
@@ -66,7 +67,7 @@ export abstract class State<PROPS, ERROR = string> {
 	 * @param key a key of PROPS defined as GENERIC
 	 * @returns true if key exists or false if not
 	 */
-	exists (key: keyof PROPS): boolean {
+	 protected exists (key: keyof PROPS): boolean {
 		return this.state.has( key );
 	}
 
