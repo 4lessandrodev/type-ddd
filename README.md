@@ -592,7 +592,7 @@ console.log(valueObject.weight.value);
 
 ```ts
 
-import { Mapper, TMapper, FactoryMethod, Result } from 'types-ddd';
+import { State, TMapper, FactoryMethod, Result } from 'types-ddd';
 
 // factory method
 
@@ -600,7 +600,7 @@ import { Mapper, TMapper, FactoryMethod, Result } from 'types-ddd';
 // param: TARGET > the input param;
 // param: TARGET > the output param;
 // param: ERROR > the error value to be returned if occurs some conflict
-class UserToDomainMapper extends Mapper<UserModel> implements TMapper<UserModel, UserDomainEntity> {
+class UserToDomainMapper extends State<UserModel> implements TMapper<UserModel, UserDomainEntity> {
 
   // input persistence instance
   map ( model: Partial<UserModel> ): Result<UserDomainEntity> {

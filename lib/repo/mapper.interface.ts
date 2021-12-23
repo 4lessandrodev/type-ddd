@@ -36,7 +36,7 @@ export interface TMapper<TARGET, RESULT, ERROR = string> {
  * @method resetState: clear all state
  * @method checkState: check all props in state
  */
-export abstract class Mapper<PROPS, ERROR = string> {
+export abstract class State<PROPS, ERROR = string> {
 	private readonly state: Map<keyof PROPS, Result<unknown, ERROR>>;
 
 	constructor() {
@@ -53,12 +53,21 @@ export abstract class Mapper<PROPS, ERROR = string> {
 
 	/**
 	 *
-	 * @param label a key of PROPS defined as GENERIC
+	 * @param key a key of PROPS defined as GENERIC
 	 * @param value a result of instance defined on generic type
 	 */
-	protected addState<VO>(label: keyof PROPS, value: Result<VO, ERROR>): void {
-		this.state.delete(label);
-		this.state.set(label, value);
+	protected addState<VO>(key: keyof PROPS, value: Result<VO, ERROR>): void {
+		this.state.delete(key);
+		this.state.set(key, value);
+	}
+
+	/**
+	 * 
+	 * @param key a key of PROPS defined as GENERIC
+	 * @returns true if key exists or false if not
+	 */
+	exists (key: keyof PROPS): boolean {
+		return this.state.has( key );
 	}
 
 	/**
@@ -71,12 +80,15 @@ export abstract class Mapper<PROPS, ERROR = string> {
 
 	/**
 	 *
-	 * @param label a key of props defined on PROPS generic type
-	 * @returns a Result of instance defined as generic type by VO
+	 * @param key a key of props defined on PROPS generic type
+	 * @returns a Result of instance defined as generic type by VO. if key does not exists return Result.fail
 	 */
-	protected getStateByKey<VO>(label: keyof PROPS): Result<VO | undefined, ERROR | string> {
-		const existKey = this.state.get( label ) as Result<VO, ERROR>;
-		return existKey ?? Result.fail<undefined, string>(`The key: ${label} does not exists on mapper state`)
+	protected getStateByKey<VO>(key: keyof PROPS): Result<VO | undefined, ERROR | string> {
+		const existKey = this.exists( key );
+		if ( existKey ) {
+			return this.state.get( key ) as Result<VO, ERROR>;
+		}
+		return Result.fail<undefined, string>(`The key: ${key} does not exists on mapper state`)
 	}
 
 	/**

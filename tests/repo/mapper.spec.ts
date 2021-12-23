@@ -1,5 +1,5 @@
 import Result from '../../lib/core/result';
-import { IMapper, Mapper, FactoryMethod, TMapper } from '../../lib/repo/mapper.interface';
+import { IMapper, State, FactoryMethod, TMapper } from '../../lib/repo/mapper.interface';
 import ValueObject from '../../lib/core/value-object';
 import DomainId from '../../lib/core/domain-id';
 import { BaseDomainEntity, Entity, Logger, ShortDomainId } from '../../lib';
@@ -124,7 +124,7 @@ describe('mapper', () => {
 	}
 	//-------------------------------------------------------------------
 		// Mapper2
-		class UserMapper2 extends Mapper<UserProps> implements TMapper<UserModel, UserDomainEntity> {
+		class UserMapper2 extends State<UserProps> implements TMapper<UserModel, UserDomainEntity> {
 			map( target: UserModel ): Result<UserDomainEntity, string> {
 				this.resetState();
 				this.addState( 'name', NameValueObject.create( target.name ) );
@@ -147,7 +147,7 @@ describe('mapper', () => {
 	//-------------------------------------------------------------------
 	// base mapper
 
-	class BaseMapper extends Mapper<UserModel> { 
+	class BaseMapper extends State<UserModel> { 
 
 		GET_STATE () {
 			return this.getState();
@@ -159,6 +159,10 @@ describe('mapper', () => {
 
 		CLEAR_STATE () {
 			this.resetState();
+		}
+
+		EXISTS (key: keyof UserModel) {
+			return this.exists(key)
 		}
 
 		GET_BY_KEY (key: keyof UserModel) {
@@ -209,7 +213,7 @@ describe('mapper', () => {
 	// param: TARGET > the input param;
 	// param: TARGET > the output param;
 	// param: ERROR > the error value to be returned if occurs some conflict
-	class UserToDomainMapper extends Mapper<UserModel> implements TMapper<UserModel, UserDomainEntity> {
+	class UserToDomainMapper extends State<UserModel> implements TMapper<UserModel, UserDomainEntity> {
 		// input persistence instance
 		map ( model: Partial<UserModel> ): Result<UserDomainEntity> {
 
@@ -337,6 +341,18 @@ describe('mapper', () => {
 		expect( baseMapper.GET_BY_KEY( 'isDeleted' ).isFailure ).toBeTruthy();
 		baseMapper.GET_BY_KEY( 'isDeleted' )?.getResult();
 	} )
+
+	it( 'should return false if key does not exists', () => {
+		const baseMapper = new BaseMapper();
+		expect( baseMapper.EXISTS( 'isDeleted' ) ).toBeFalsy();
+	} )
+
+	it( 'should return true if key exists', () => {
+		const baseMapper = new BaseMapper();
+		baseMapper.ADD_STATE( 8 );
+		expect( baseMapper.EXISTS( 'age' ) ).toBeTruthy();
+	} )
+	
 	
 	it( 'should clear state', () => {
 		const baseMapper = new BaseMapper();
