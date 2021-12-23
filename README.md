@@ -592,57 +592,57 @@ console.log(valueObject.weight.value);
 
 ```ts
 
-  import { Mapper, TMapper, FactoryMethod, Result } from 'types-ddd';
+import { Mapper, TMapper, FactoryMethod, Result } from 'types-ddd';
 
-	// factory method
+// factory method
 
-	// Mapper concrete implementation: Implement TMapper
-	// param: TARGET > the input param;
-	// param: TARGET > the output param;
-	// param: ERROR > the error value to be returned if occurs some conflict
-	class UserToDomainMapper extends Mapper<UserModel> implements TMapper<UserModel, UserDomainEntity> {
-		
-    // input persistence instance
-		map ( model: Partial<UserModel> ): Result<UserDomainEntity> {
+// Mapper concrete implementation: Implement TMapper
+// param: TARGET > the input param;
+// param: TARGET > the output param;
+// param: ERROR > the error value to be returned if occurs some conflict
+class UserToDomainMapper extends Mapper<UserModel> implements TMapper<UserModel, UserDomainEntity> {
 
-			// start a new state
-			this.startState();
+  // input persistence instance
+  map ( model: Partial<UserModel> ): Result<UserDomainEntity> {
 
-      // add value object on state
-			model.age && this.addState( 'age', AgeValueObject.create( model.age ) );
-			model.name && this.addState( 'name', NameValueObject.create( model.name ) );
-			
-			// check if has errors
-			const result = this.checkState();
-			if ( result.isFailure ) {
-				return Result.fail( result.error );
-			}
+    // start a new state
+    this.startState();
 
-			// output domain entity instance
-			return UserDomainEntity.create( {
-				ID: ShortDomainId.create(model.id),
-				age: this.getStateByKey<AgeValueObject>('age')?.getResult(),
-				name: this.getStateByKey<NameValueObject>('name')?.getResult(),
-				createdAt: model.createdAt ?? new Date(),
-				updatedAt: model.updatedAt ?? new Date()
-			})
-		}
-	}
+    // add value objects on state
+    model.age && this.addState( 'age', AgeValueObject.create( model.age ) );
+    model.name && this.addState( 'name', NameValueObject.create( model.name ) );
 
-	// Mapper creator: Factory to create a mapper instance
-	class UserToDomainFactory extends FactoryMethod<UserModel, UserDomainEntity> {
-		protected create (): TMapper<UserModel, UserDomainEntity> {
-			return new UserToDomainMapper();
-		}
-	}
+    // check if has errors
+    const result = this.checkState();
+    if ( result.isFailure ) {
+      return Result.fail( result.error );
+    }
 
-  const model:Partial<UserModel> = {
-    age: 18,
-    name: 'Neo'
+  // output domain entity instance
+    return UserDomainEntity.create( {
+      ID: ShortDomainId.create(model.id),
+      age: this.getStateByKey<AgeValueObject>('age')?.getResult(),
+      name: this.getStateByKey<NameValueObject>('name')?.getResult(),
+      createdAt: model.createdAt ?? new Date(),
+      updatedAt: model.updatedAt ?? new Date()
+    })
   }
+}
 
-  // Use Domain Entity to build a instance from model
-  const domainEntity = UserDomainEntity.build(model, new UserToDomainFactory());
+// Mapper creator: Factory to create a mapper instance
+class UserToDomainFactory extends FactoryMethod<UserModel, UserDomainEntity> {
+  protected create (): TMapper<UserModel, UserDomainEntity> {
+    return new UserToDomainMapper();
+  }
+}
+
+const model:Partial<UserModel> = {
+  age: 18,
+  name: 'Neo'
+}
+
+// Use Domain Entity to build a instance from model
+const domainEntity = UserDomainEntity.build(model, new UserToDomainFactory());
 
 ```
 
