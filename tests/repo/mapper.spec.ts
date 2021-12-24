@@ -89,9 +89,9 @@ describe('mapper', () => {
 		id: string;
 		name: string;
 		age: number;
-		createdAt: Date;
-		updatedAt: Date;
-		isDeleted: boolean;
+		createdAt?: Date;
+		updatedAt?: Date;
+		isDeleted?: boolean;
 		deletedAt?: Date;
 	}
 	//-------------------------------------------------------------------
@@ -127,8 +127,8 @@ describe('mapper', () => {
 		class UserMapper2 extends State<UserProps> implements TMapper<UserModel, UserDomainEntity> {
 			map( target: UserModel ): Result<UserDomainEntity, string> {
 				this.resetState();
-				this.addState( 'name', NameValueObject.create( target.name ) );
-				this.addState( 'age', AgeValueObject.create( target.age ) );
+				target.name && this.addState( 'name', NameValueObject.create( target.name ) );
+				target.age && this.addState( 'age', AgeValueObject.create( target.age ) );
 
 				const stateResult = this.checkState();
 				if ( stateResult.isFailure ) {
@@ -137,8 +137,8 @@ describe('mapper', () => {
 
 				return UserDomainEntity.create( {
 					ID: ShortDomainId.create(),
-					age: this.getStateByKey<AgeValueObject>( 'age' )?.getResult() as AgeValueObject,
-					name: this.getStateByKey<NameValueObject>('name')?.getResult() as NameValueObject
+					age: this.getStateByKey<AgeValueObject>( 'age', AgeValueObject.create( 18 ))?.getResult(),
+					name: this.getStateByKey<NameValueObject>('name', NameValueObject.create('default'))?.getResult()
 				})
 
 			};
@@ -215,12 +215,12 @@ describe('mapper', () => {
 	// param: ERROR > the error value to be returned if occurs some conflict
 	class UserToDomainMapper extends State<UserModel> implements TMapper<UserModel, UserDomainEntity> {
 		// input persistence instance
-		map ( model: Partial<UserModel> ): Result<UserDomainEntity> {
+		map ( model: UserModel): Result<UserDomainEntity> {
 
 			// start a new state
 			this.startState();
-			model.age && this.addState( 'age', AgeValueObject.create( model.age ) );
-			model.name && this.addState( 'name', NameValueObject.create( model.name ) );
+			this.addState( 'age', AgeValueObject.create( model.age ) );
+			this.addState( 'name', NameValueObject.create( model.name ) );
 			
 			// check if has errors
 			const result = this.checkState();
@@ -231,8 +231,8 @@ describe('mapper', () => {
 			// output domain entity instance
 			return UserDomainEntity.create( {
 				ID: ShortDomainId.create(model.id),
-				age: this.getStateByKey<AgeValueObject>('age')?.getResult()!,
-				name: this.getStateByKey<NameValueObject>('name')?.getResult()!,
+				age: this.getStateByKey<AgeValueObject>('age').getResult(),
+				name: this.getStateByKey<NameValueObject>('name').getResult(),
 				createdAt: model.createdAt,
 				updatedAt: model.updatedAt
 			})
@@ -326,6 +326,52 @@ describe('mapper', () => {
 		} )
 		
 		expect( entity.isFailure ).toBeTruthy();
+	} );
+
+		
+	it( 'should create a default name if not provide a value', () => {
+		const mapper = new UserMapper2();
+
+		const entity = mapper.map( {
+			id: ShortDomainId.create().uid,
+			age: 21,
+			createdAt: new Date(),
+			isDeleted: false,
+			updatedAt: new Date()
+		} as UserModel)
+		
+		expect( entity.isFailure ).toBeFalsy();
+		expect( entity.getResult().name.value ).toBe('default');
+	} );
+
+	it( 'should create a default age if not provide a value', () => {
+		const mapper = new UserMapper2();
+
+		const entity = mapper.map( {
+			id: ShortDomainId.create().uid,
+			name: 'oliver',
+			createdAt: new Date(),
+			isDeleted: false,
+			updatedAt: new Date()
+		} as UserModel)
+		
+		expect( entity.isFailure ).toBeFalsy();
+		expect( entity.getResult().age.value ).toBe(18);
+	} );
+
+	it( 'should create a default age and name if not provide values', () => {
+		const mapper = new UserMapper2();
+
+		const entity = mapper.map( {
+			id: ShortDomainId.create().uid,
+			createdAt: new Date(),
+			isDeleted: false,
+			updatedAt: new Date()
+		} as UserModel)
+		
+		expect( entity.isFailure ).toBeFalsy();
+		expect( entity.getResult().age.value ).toBe(18);
+		expect( entity.getResult().name.value ).toBe('default');
 	} );
 
 	it( 'should start with 0 state and add one', () => {

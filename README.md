@@ -592,7 +592,16 @@ console.log(valueObject.weight.value);
 
 ```ts
 
-import { State, TMapper, FactoryMethod, Result } from 'types-ddd';
+import { State, TMapper, FactoryMethod, Result, DomainId } from 'types-ddd';
+
+// Model interface
+interface UserModel {
+  id: string;
+  name: string;
+  age: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 // factory method
 
@@ -603,14 +612,14 @@ import { State, TMapper, FactoryMethod, Result } from 'types-ddd';
 class UserToDomainMapper extends State<UserModel> implements TMapper<UserModel, UserDomainEntity> {
 
   // input persistence instance
-  map ( model: Partial<UserModel> ): Result<UserDomainEntity> {
+  map ( model: UserModel ): Result<UserDomainEntity> {
 
     // start a new state
     this.startState();
 
     // add value objects on state
-    model.age && this.addState( 'age', AgeValueObject.create( model.age ) );
-    model.name && this.addState( 'name', NameValueObject.create( model.name ) );
+    this.addState( 'age', AgeValueObject.create( model.age ) );
+    this.addState( 'name', NameValueObject.create( model.name ) );
 
     // check if has errors
     const result = this.checkState();
@@ -620,11 +629,11 @@ class UserToDomainMapper extends State<UserModel> implements TMapper<UserModel, 
 
   // output domain entity instance
     return UserDomainEntity.create( {
-      ID: ShortDomainId.create(model.id),
-      age: this.getStateByKey<AgeValueObject>('age')?.getResult(),
-      name: this.getStateByKey<NameValueObject>('name')?.getResult(),
-      createdAt: model.createdAt ?? new Date(),
-      updatedAt: model.updatedAt ?? new Date()
+      ID: DomainId.create(model.id),
+      age: this.getStateByKey<AgeValueObject>('age').getResult(),
+      name: this.getStateByKey<NameValueObject>('name').getResult(),
+      createdAt: model.createdAt,
+      updatedAt: model.updatedAt
     })
   }
 }
@@ -636,7 +645,9 @@ class UserToDomainFactory extends FactoryMethod<UserModel, UserDomainEntity> {
   }
 }
 
-const model:Partial<UserModel> = {
+// model instance
+const model: UserModel = {
+  id: 'b082f233-0600-4359-994d-31f63ea2fa39',
   age: 18,
   name: 'Neo'
 }

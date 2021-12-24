@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.8.4  - 2021-12-24
+
+---
+
+### Changed 
+
+- State: define exists method as protected
+
+### Added 
+
+- State: added callback on state
+
 ### 2.8.3  - 2021-12-23
 
 ---

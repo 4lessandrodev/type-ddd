@@ -1,5 +1,6 @@
 import { Result } from "../core/result";
 import { ChangesObserver } from '../core/changes-observer';
+import { Logger } from "@types-ddd";
 
 /**
  * `TargetPersistence` as Entity to persist on database and
@@ -83,13 +84,22 @@ export abstract class State<PROPS, ERROR = string> {
 	 *
 	 * @param key a key of props defined on PROPS generic type
 	 * @returns a Result of instance defined as generic type by VO. if key does not exists return Result.fail
+	 * 
+	 * @param VO is instance result
+	 * @param ALT is alternative type to return
 	 */
-	protected getStateByKey<VO>(key: keyof PROPS): Result<VO | undefined, ERROR | string> {
+	protected getStateByKey<VO, ALT = Result<VO, ERROR>> (
+		key: keyof PROPS, callback?: ALT
+	): Result<VO, ERROR> | ALT {
 		const existKey = this.exists( key );
 		if ( existKey ) {
 			return this.state.get( key ) as Result<VO, ERROR>;
 		}
-		return Result.fail<undefined, string>(`The key: ${key} does not exists on mapper state`)
+		if ( callback ) {
+			return callback;
+		}
+		Logger.warn( `The key: ${key} does not exists on mapper state` );
+		return Result.fail<VO, ERROR>({} as unknown as ERROR)
 	}
 
 	/**
@@ -98,7 +108,7 @@ export abstract class State<PROPS, ERROR = string> {
 	protected resetState(): void {
 		this.state.clear();
 	}
-
+	
 	/**
 	 * @description reset start a new state
 	 */
