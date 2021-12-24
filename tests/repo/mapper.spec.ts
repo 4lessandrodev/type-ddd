@@ -169,6 +169,12 @@ describe('mapper', () => {
 			return this.getStateByKey<AgeValueObject>( key );
 		}
 
+		GET_BY_KEY_WITH_CALLBACK (
+			key: keyof UserModel, callback: Result<AgeValueObject>
+		) {
+			return this.getStateByKey<AgeValueObject>( key, callback );
+		}
+
 		CHECK_STATE () {
 			return this.checkState();
 		}
@@ -412,6 +418,12 @@ describe('mapper', () => {
 		const baseMapper = new BaseMapper();
 		baseMapper.ADD_STATE( 18 );
 		expect( baseMapper.CHECK_STATE().isSuccess).toBeTruthy( );
+	} )
+
+	it( 'should get a state from callback', () => {
+		const baseMapper = new BaseMapper();
+		expect( baseMapper.GET_BY_KEY_WITH_CALLBACK('age', AgeValueObject.create(18)).isSuccess).toBeTruthy( );
+		expect( baseMapper.GET_BY_KEY_WITH_CALLBACK('age', AgeValueObject.create(18)).getResult().value).toBe(18);
 	} )
 	
 	it( 'should check state', () => {

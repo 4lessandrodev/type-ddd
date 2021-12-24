@@ -1,6 +1,6 @@
 import { Result } from "../core/result";
 import { ChangesObserver } from '../core/changes-observer';
-import { Logger } from "@types-ddd";
+import { Logger } from "../utils/logger.util";
 
 /**
  * `TargetPersistence` as Entity to persist on database and
