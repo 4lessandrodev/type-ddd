@@ -423,18 +423,21 @@ Has been tested to create 90,000 short ids per second and no repeats were genera
 
 ```ts
 
-import { DomainId } from 'types-ddd';
+import { DomainId, ShortDomainId } from 'types-ddd';
 
 const ID = DomainId.create();
 
 console.log(ID.uid);
 > "461235de-ec04-48aa-af94-31fbfa95efcf"
 
-console.log(ID.shortUid);
-> "31fbb4859e3301"
+console.log(ID.toShort());
+> "31fbb4859e3301fg"
 
 console.log(ID.toShort(18));
 > "31fbb4859e3301fcfe"
+
+console.log(ShortDomainId.create())
+> "4859eec0123595ef"
 
 ```
 
