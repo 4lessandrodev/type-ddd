@@ -196,10 +196,12 @@ Resources on this lib (Core)
 - IRepository
 - Filter
 - IMapper
+- TMapper
 - IDomainEvent
 - DomainEvents
 - IHandle
 - DomainId
+- ShortDomainId
 - ChangesObserver
 
 ---
@@ -411,19 +413,6 @@ A project is available on link below
 - ✔ SpecificationComposite
 - ✔ State
 - ✔ FactoryMethod
-- ✔ IMapper
-- ✔ TMapper
-- ✔ AggregateRoot
-- ✔ Entity
-- ✔ ValueObject
-- ✔ IUseCase
-- ✔ BaseDomainEntity
-- ✔ IDomainEvent
-- ✔ DomainEvents
-- ✔ DomainId
-- ✔ ShortDomainId
-- ✔ WriteList
-- ✔ ChangesObserver
 
 > If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
 
