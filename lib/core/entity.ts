@@ -7,6 +7,8 @@ import UniqueEntityID from './unique-entity-id';
 import { FactoryMethod } from '../repo/mapper.interface';
 import Result from './result';
 
+type Type = 'undefined' | 'symbol' | 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string'
+
 export class DomainEvents {
 	private static handlersMap: any = {};
 	private static markedAggregates: AggregateRoot<any>[] = [];
@@ -193,6 +195,44 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 */
 	get updatedAt(): Date {
 		return this.props.updatedAt ?? new Date();
+	}
+
+	/**
+	 * 
+	 * @param keys Array of entity keys
+	 * @returns methods to check
+	 */
+	checkProps ( keys: Array<keyof T> ) {
+		type KEY = keyof Object;
+		return {
+			/**
+			 * 
+			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` as string
+			 * @returns boolean. true if some value has type provided
+			 */
+			isSome: (type: Type): boolean => {
+				const results = keys.map( ( key ) => typeof this.props[key as KEY] !== type );
+				return results.includes( false );
+			},
+			/**
+			 * 
+			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` as string
+			 * @returns boolean. true if all value has type provided
+			 */
+			isAll: (type: Type):boolean => {
+				const results = keys.map( ( key ) => typeof this.props[key as KEY] !== type );
+				return !results.includes( true );
+			},
+			/**
+			 * 
+			 * @param prop ValueObject or Entity class
+			 * @returns boolean. true if all values is instance of provided class
+			 */
+			isInstanceOf: (prop: any): boolean => {
+				const results = keys.map( ( key ) => this.props[key as KEY] instanceof prop );
+				return !results.includes( false );
+			}
+		}
 	}
 
 	/**

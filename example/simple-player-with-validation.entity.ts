@@ -29,10 +29,21 @@ export class Player extends Entity<Props> {
 		this.props.updatedAt = new Date();
 	}
 
+	private isRequiredPropsDefined ():boolean {
+		return !this.checkProps( ['userId', 'teamColor'] ).isSome( 'undefined' );
+	}
+
 	public static create(props: Props): Result<Player> {
 		/*
 		 Business Logic Validations Here
 		*/
-		return Result.ok<Player>(new Player(props));
+		const player = new Player( props );
+		const isPropsDefined = player.isRequiredPropsDefined();
+
+		if ( !isPropsDefined ) {
+			return Result.fail( 'userId and teamColor is required' );
+		}
+		
+		return Result.ok<Player>(player);
 	}
 }

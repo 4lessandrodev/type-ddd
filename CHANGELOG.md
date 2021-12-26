@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.8.5  - 2021-12-25
+
+---
+
+### Added
+
+- Entity: added method checkProps to entity instance
+
 ### 2.8.4  - 2021-12-24
 
 ---
