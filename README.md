@@ -227,8 +227,8 @@ class AgeValueObject extends ValueObject<Prop> {
   }
 
   public static create(age: number): Result<AgeValueObject> {
-    // must have less than 130 years old
-    if (age > 130) {
+    // must be positive and less than 131 years old
+    if (age < 0 || age > 130) {
       return Result.fail<AgeValueObject>("There's no Person like Methuselah");
     }
 
@@ -288,6 +288,7 @@ import { Entity, BaseDomainEntity, DomainId, Result } from "types-ddd";
 interface Props extends BaseDomainEntity {
   color: ColorValueObject;
   year: YearValueObject;
+  weight?: WeightValueObject;
 }
 ```
 
@@ -305,13 +306,39 @@ class Car extends Entity<Props> {
     return this.props.year;
   }
 
+  get birthDay(): WeightValueObject | undefined {
+    return this.props.birthDay;
+  }
+
+  private hasRequiredProps(): boolean {
+    return !this.checkProps(['color', 'year']).isSome('undefined');
+  }
+
+  private isValidYearForCar(year: YearValueObject): boolean {
+    return year.isOnRange({ min: 1920, max: 'currentYear' })
+  }
+
   public static create(props: Props): Result<Car> {
+
     // Your business validation logic
-    // You should use rules before create entity instance
-    if (props.year.value < 1960) {
-      return Result.fail<Car>("The car is so wreck");
+    // You may use rules before return a entity instance
+    const car = new Car(props);
+
+    // Example: Required props must be provided 
+    const hasRequiredPros = car.hasRequiredProps();
+
+    if (!hasRequiredPros) {
+      return Result.fail<Car>("Required props: year and color");
     }
-    return Result.ok<Car>(new Car(props));
+
+    // Example: Year must be on range 1920 ~ currentYear
+    const isValidYearForCar = car.isValidYearForCar(props.year);
+
+    if (!isValidYearForCar) {
+      return Result.fail<Car>("The car is so wreck. Invalid year");
+    }
+
+    return Result.ok<Car>(car);
   }
 }
 
@@ -382,6 +409,21 @@ A project is available on link below
 - ✔ getUndefinedKeysAsObject
 - ✔ removeUndefinedKeysFromObject
 - ✔ SpecificationComposite
+- ✔ State
+- ✔ FactoryMethod
+- ✔ IMapper
+- ✔ TMapper
+- ✔ AggregateRoot
+- ✔ Entity
+- ✔ ValueObject
+- ✔ IUseCase
+- ✔ BaseDomainEntity
+- ✔ IDomainEvent
+- ✔ DomainEvents
+- ✔ DomainId
+- ✔ ShortDomainId
+- ✔ WriteList
+- ✔ ChangesObserver
 
 > If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
 
@@ -598,12 +640,9 @@ console.log(valueObject.weight.value);
 import { State, TMapper, FactoryMethod, Result, DomainId } from 'types-ddd';
 
 // Model interface
-interface UserModel {
-  id: string;
+interface CreateUserDto {
   name: string;
   age: number;
-  createdAt?: Date;
-  updatedAt?: Date;
 }
 
 // factory method
@@ -612,10 +651,10 @@ interface UserModel {
 // param: TARGET > the input param;
 // param: TARGET > the output param;
 // param: ERROR > the error value to be returned if occurs some conflict
-class UserToDomainMapper extends State<UserModel> implements TMapper<UserModel, UserDomainEntity> {
+class UserToDomainMapper extends State<CreateUserDto> implements TMapper<CreateUserDto, UserEntity> {
 
   // input persistence instance
-  map ( model: UserModel ): Result<UserDomainEntity> {
+  map ( model: CreateUserDto ): Result<UserEntity> {
 
     // start a new state
     this.startState();
@@ -631,36 +670,31 @@ class UserToDomainMapper extends State<UserModel> implements TMapper<UserModel, 
     }
 
   // output domain entity instance
-    return UserDomainEntity.create( {
-      ID: DomainId.create(model.id),
+    return UserEntity.create( {
+      ID: DomainId.create(),
       age: this.getStateByKey<AgeValueObject>('age').getResult(),
-      name: this.getStateByKey<NameValueObject>('name').getResult(),
-      createdAt: model.createdAt,
-      updatedAt: model.updatedAt
+      name: this.getStateByKey<NameValueObject>('name').getResult()
     })
   }
 }
 
 // Mapper creator: Factory to create a mapper instance
-class UserToDomainFactory extends FactoryMethod<UserModel, UserDomainEntity> {
-  protected create (): TMapper<UserModel, UserDomainEntity> {
+class UserToDomainFactory extends FactoryMethod<CreateUserDto, UserEntity> {
+  protected create (): TMapper<CreateUserDto, UserDomainEntity> {
     return new UserToDomainMapper();
   }
 }
 
-// model instance
-const model: UserModel = {
-  id: 'b082f233-0600-4359-994d-31f63ea2fa39',
+// dto instance
+const dto: CreateUserDto = {
   age: 18,
   name: 'Neo'
 }
 
-// Use Domain Entity to build a instance from model
-const domainEntity = UserDomainEntity.build(model, new UserToDomainFactory());
+// Use Domain Entity to build a instance from dto
+const userEntity = UserEntity.build(dto, new UserToDomainFactory());
 
 ```
-
-
 
 > Contribute to this project [PIX]
 
