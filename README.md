@@ -498,9 +498,9 @@ myDate.addDays(3);
 console.log(myDate.value);
 > "2021-10-14T14:45:04.758Z"
 
-const isWeekday = myDate.isWeekend();
+const isWeekend = myDate.isWeekend();
 
-console.log(isWeekday);
+console.log(isWeekend);
 > false
 
 myDate.addHours(7);
@@ -681,8 +681,12 @@ const dto: CreateUserDto = {
   name: 'Neo'
 }
 
-// Use Domain Entity to build a instance from dto
-const userEntity = UserEntity.build(dto, new UserToDomainFactory());
+// Use Domain Entity to build a instance from dto > return a result of Domain Entity
+const userEntity = UserEntity.build(dto, new UserToDomainFactory()).getResult();
+
+// Inverse from domain instance to model > returns a object as model
+const model = userEntity.toObject<UserModel>(new UserToModelFactory());
+
 
 ```
 
