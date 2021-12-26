@@ -308,8 +308,8 @@ class Car extends Entity<Props> {
     return this.props.year;
   }
 
-  get birthDay(): WeightValueObject | undefined {
-    return this.props.birthDay;
+  get weight(): WeightValueObject | undefined {
+    return this.props.weight;
   }
 
   private hasRequiredProps(): boolean {
