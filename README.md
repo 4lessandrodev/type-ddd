@@ -456,7 +456,8 @@ Has been tested to create 90,000 short ids per second and no repeats were genera
 
 import { DomainId, ShortDomainId } from 'types-ddd';
 
-const ID = DomainId.create();
+const ID = DomainId.create(); // 3x faster than uuid lib
+const SID = ShortDomainId.create();
 
 console.log(ID.uid);
 > "461235de-ec04-48aa-af94-31fbfa95efcf"
@@ -467,7 +468,7 @@ console.log(ID.toShort());
 console.log(ID.toShort(18));
 > "31fbb4859e3301fcfe"
 
-console.log(ShortDomainId.create())
+console.log(SID.uid)
 > "4859eec0123595ef"
 
 ```
