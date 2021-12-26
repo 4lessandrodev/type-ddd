@@ -344,6 +344,9 @@ class Car extends Entity<Props> {
   }
 }
 
+```
+
+```ts
 const myCarOrError = Car.create({
 	ID: DomainId.create(),
 	color: ColorValueObject.create('BLACK').getResult(),
@@ -457,7 +460,6 @@ Has been tested to create 90,000 short ids per second and no repeats were genera
 import { DomainId, ShortDomainId } from 'types-ddd';
 
 const ID = DomainId.create(); // 3x faster than uuid lib
-const SID = ShortDomainId.create();
 
 console.log(ID.uid);
 > "461235de-ec04-48aa-af94-31fbfa95efcf"
@@ -467,6 +469,9 @@ console.log(ID.toShort());
 
 console.log(ID.toShort(18));
 > "31fbb4859e3301fcfe"
+
+// Short id. default 16 bytes
+const SID = ShortDomainId.create();
 
 console.log(SID.uid)
 > "4859eec0123595ef"
@@ -634,7 +639,9 @@ interface CreateUserDto {
   name: string;
   age: number;
 }
+```
 
+```ts
 // factory method
 
 // Mapper concrete implementation: Implement TMapper
@@ -668,6 +675,9 @@ class UserToDomainMapper extends State<CreateUserDto> implements TMapper<CreateU
   }
 }
 
+```
+
+```ts
 // Mapper creator: Factory to create a mapper instance
 class UserToDomainFactory extends FactoryMethod<CreateUserDto, UserEntity> {
   protected create (): TMapper<CreateUserDto, UserDomainEntity> {
@@ -675,6 +685,9 @@ class UserToDomainFactory extends FactoryMethod<CreateUserDto, UserEntity> {
   }
 }
 
+```
+
+```ts
 // dto instance
 const dto: CreateUserDto = {
   age: 18,
@@ -684,6 +697,9 @@ const dto: CreateUserDto = {
 // Use Domain Entity to build a instance from dto > return a result of Domain Entity
 const userEntity = UserEntity.build(dto, new UserToDomainFactory()).getResult();
 
+```
+
+```ts
 // Inverse from domain instance to model > returns a object as model
 const model = userEntity.toObject<UserModel>(new UserToModelFactory());
 
