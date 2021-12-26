@@ -484,6 +484,24 @@ describe('mapper', () => {
 	} );
 
 
+	it( 'should build a domain entity with static method on entity from model', () => {
+
+		const model: UserModel = {
+			id: 'valid_id',
+			age: 18,
+			updatedAt: new Date(),
+			createdAt: new Date(),
+			isDeleted: false,
+			name: 'valid_name'
+		}
+
+		const result = UserDomainEntity.build( model, new UserToDomainMapper() );
+		expect( result.isSuccess ).toBeTruthy();
+		expect( result.getResult().age.value ).toBe( 18 )
+		expect( result.getResult().name.value ).toBe( 'valid_name' )
+	} );
+
+
 	it( 'should convert a model to domain entity using a simple mapper creator', () => {
 		const simpleMapper = new UserToDomainMapper();
 		const entity = simpleMapper.map( {

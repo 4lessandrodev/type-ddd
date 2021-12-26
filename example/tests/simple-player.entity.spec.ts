@@ -1,4 +1,4 @@
-import { DomainId, HEXColorValueObject, ShortDomainId } from "@types-ddd";
+import { DomainId, HEXColorValueObject, Result, ShortDomainId, TMapper } from "@types-ddd";
 import { Player } from "../simple-player.entity";
 
 describe('simple-player.entity', () => {
@@ -113,5 +113,40 @@ describe('simple-player.entity', () => {
 			.isSome('undefined');
 		
 		expect( isSomeUndefined ).toBeTruthy();
+	} )
+	
+	it( 'should transform a entity on persistence model', () => {
+
+		interface IPlayer {
+			id: string;
+			teamColor: string;
+			userId: string;
+		}
+
+		class PlayerToObjectMapper implements TMapper<Player, IPlayer>{
+			map ( target: Player ): Result<IPlayer, string> {
+				return Result.ok( {
+					id: target.id.uid,
+					teamColor: target.teamColor.value,
+					userId: target.userId.uid
+				})
+			};
+		}
+
+		// 	Create value objects
+		const teamColor = HEXColorValueObject.randomColor();
+		const ID = ShortDomainId.create();
+		const userId = DomainId.create();
+
+		// Create player
+		const player = Player.create( { ID, teamColor, userId } ).getResult();
+
+		const model = player.toObject<IPlayer>( new PlayerToObjectMapper() );
+		
+		expect( model ).toEqual( {
+			id: ID.uid,
+			teamColor: teamColor.value,
+			userId: userId.uid
+		})
 	})
 });

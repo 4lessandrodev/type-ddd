@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.8.6 + 2021-12-26
+
+---
+
+### Added
+
+- Entity: toObject<T, E> method transform instance in persistence object
+
+
 ### 2.8.5  - 2021-12-25
 
 ---

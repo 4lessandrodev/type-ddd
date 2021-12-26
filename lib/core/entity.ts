@@ -4,7 +4,7 @@ import Logger from '../utils/logger.util';
 import BaseDomainEntity from './base-domain-entity';
 import DomainId from './domain-id';
 import UniqueEntityID from './unique-entity-id';
-import { FactoryMethod } from '../repo/mapper.interface';
+import { FactoryMethod, TMapper } from '../repo/mapper.interface';
 import Result from './result';
 
 type Type = 'undefined' | 'symbol' | 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string'
@@ -256,9 +256,19 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * @returns a result with entity instance
 	 */
 	static build<TARGET, RESULT, ERROR = string> (
-		target: TARGET, factory: FactoryMethod<TARGET, RESULT, ERROR>
+		target: TARGET, factory: FactoryMethod<TARGET, RESULT, ERROR> | TMapper<TARGET, RESULT, ERROR>
 	):Result<RESULT, ERROR> {
 		return factory.map(target)
+	}
+
+	/**
+	 * 
+	 * @description param T as persistence model
+	 * @param mapper as implementation of TMapper OR FactoryMethod
+	 * @returns a instance of T
+	 */
+	toObject<T, E =string > (mapper: TMapper<this, T, E> | FactoryMethod<this, T, E>): T {
+		return mapper.map( this ).getResult();
 	}
 
 	/**
