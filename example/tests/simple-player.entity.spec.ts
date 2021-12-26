@@ -65,6 +65,53 @@ describe('simple-player.entity', () => {
 
 		// Create player
 		const player = Player.create({ ID, teamColor, userId });
-		expect(player.isSuccess).toBeTruthy();
+		expect( player.isSuccess ).toBeTruthy();
+		
+	} )
+	
+	it( 'should validate the entity props', () => {
+
+		// 	Create value objects
+		const teamColor = HEXColorValueObject.randomColor();
+		const ID = ShortDomainId.create();
+		const userId = DomainId.create();
+
+		// Create player
+		const player = Player.create( { ID, teamColor, userId } ).getResult();
+		
+		const isInstance = player
+			.checkProps( ['teamColor'] )
+			.isInstanceOf( HEXColorValueObject );
+		
+		expect( isInstance ).toBeTruthy();
+	} )
+	
+	it( 'should validate the entity props', () => {
+
+		// 	Create value objects
+		const teamColor = HEXColorValueObject.randomColor();
+		const ID = ShortDomainId.create();
+		const userId = DomainId.create();
+
+		// Create player
+		const player = Player.create( { ID, teamColor, userId } ).getResult();
+		
+		const isInstance = player
+			.checkProps( ['teamColor', 'userId'] )
+			.isInstanceOf( HEXColorValueObject );
+		
+		expect( isInstance ).toBeFalsy();
+
+		const isAllUndefined = player
+			.checkProps( ['teamColor', 'userId', 'age'] )
+			.isAll('undefined');
+		
+		expect( isAllUndefined ).toBeFalsy();
+
+		const isSomeUndefined = player
+			.checkProps( ['teamColor', 'userId', 'age'] )
+			.isSome('undefined');
+		
+		expect( isSomeUndefined ).toBeTruthy();
 	})
 });
