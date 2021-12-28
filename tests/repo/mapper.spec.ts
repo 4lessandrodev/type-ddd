@@ -2,7 +2,7 @@ import Result from '../../lib/core/result';
 import { IMapper, State, FactoryMethod, TMapper } from '../../lib/repo/mapper.interface';
 import ValueObject from '../../lib/core/value-object';
 import DomainId from '../../lib/core/domain-id';
-import { BaseDomainEntity, Entity, Logger, ShortDomainId } from '../../lib';
+import { BaseDomainEntity, Entity, Logger, ShortDomainId, UniqueEntityID } from '../../lib';
 
 describe('mapper', () => {
 	// Interface for name prop
@@ -173,6 +173,15 @@ describe('mapper', () => {
 			key: keyof UserModel, callback: Result<AgeValueObject>
 		) {
 			return this.getStateByKey<AgeValueObject>( key, callback );
+		}
+
+		GET_BY_KEYS_WITH_CALLBACK (
+			keys: UniqueEntityID[], callback?: number
+		) {
+
+			let returnIfNotFound: Array<Result<AgeValueObject>> =  [AgeValueObject.create( callback ?? 18 )];
+
+			return this.getStateByKeys<AgeValueObject>( keys, (callback !== undefined) ? returnIfNotFound : undefined );
 		}
 
 		CHECK_STATE () {
@@ -430,6 +439,21 @@ describe('mapper', () => {
 		const baseMapper = new BaseMapper();
 		baseMapper.ADD_STATE( 1800 );
 		expect(baseMapper.CHECK_STATE().isFailure).toBeTruthy( );
+	} )
+
+	it( 'should get a empty arr', () => {
+		const baseMapper = new BaseMapper();
+
+		const emptyArr = baseMapper.GET_BY_KEYS_WITH_CALLBACK( [new UniqueEntityID()] );
+		expect(emptyArr).toEqual([]);
+		expect(emptyArr).toHaveLength(0);
+	} )
+
+	it( 'should get a callback', () => {
+		const baseMapper = new BaseMapper();
+
+		const emptyArr = baseMapper.GET_BY_KEYS_WITH_CALLBACK( [new UniqueEntityID()], 21 );
+		expect(emptyArr).toHaveLength(1);
 	} )
 	
 	it( 'should get state by key', () => {

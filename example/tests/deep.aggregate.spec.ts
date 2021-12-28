@@ -22,7 +22,12 @@ describe( 'deep-aggregate', () => {
 				}
 			],
 			name: 'valid_name',
-			weights: [10, 7, 3, 21]
+			weights: [
+				{ value: 10, unit: 'KG' },
+				{ value: 7, unit: 'MG' },
+				{ value: 3, unit: 'OZ' },
+				{ value: 21, unit: 'TON' }
+			]
 		}, mapper );
 
 		expect( result.isSuccess ).toBeTruthy();

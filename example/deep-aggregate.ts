@@ -1,9 +1,9 @@
-import { AggregateRoot, BaseDomainEntity, BirthdayValueObject, CustomStringValueObject, Entity, PasswordValueObject, Result, ShortDomainId, State, TMapper, UserNameValueObject, WeightValueObject } from "@types-ddd";
+import { AggregateRoot, BaseDomainEntity, BirthdayValueObject, CustomStringValueObject as StringVo, Entity, PasswordValueObject, Result, ShortDomainId, State, TMapper, UnitOfWeight, UserNameValueObject, WeightValueObject } from "@types-ddd";
 
 // Props
 interface EntityProps extends BaseDomainEntity { 
 	password: PasswordValueObject;
-	notes: CustomStringValueObject[];
+	notes: StringVo[];
 }
 
 // Props
@@ -23,7 +23,7 @@ export class DeepEntity extends Entity<EntityProps> {
 	get password(): PasswordValueObject{
 		return this.props.password;
 	};
-	get notes(): CustomStringValueObject[] {
+	get notes(): StringVo[] {
 		return this.props.notes
 	};
 
@@ -88,12 +88,17 @@ export interface DeepModelChild {
 	notes: string[];
 }
 
+interface Weight {
+	unit: UnitOfWeight;
+	value: number;
+}
+
 // Model
 export interface DeepModel {
 	id: string;
 	name: string;
 	age: Date;
-	weights: number[];
+	weights: Weight[];
 	children: DeepModelChild[];
 }
 
@@ -102,8 +107,9 @@ export class ENToDomainMapper extends State<DeepModelChild> implements TMapper<D
 	map ( target: DeepModelChild ): Result<DeepEntity, string>{
 		this.startState();
 
-		target.notes.map( ( n ) => this.addState(
-			JSON.stringify( n ) as any, CustomStringValueObject.create( n ) ) );
+		const notes = target.notes.map( ( n ) => StringVo.create( n ) );
+		const noteKeys = this.addManyState( notes );
+
 		this.addState( 'password', PasswordValueObject.create( target.password ) );
 
 		const result = this.checkState();
@@ -113,9 +119,7 @@ export class ENToDomainMapper extends State<DeepModelChild> implements TMapper<D
 
 		return DeepEntity.create( {
 			ID: ShortDomainId.create(),
-			notes: target.notes
-				.map( ( n ) => this
-					.getStateByKey<CustomStringValueObject>( JSON.stringify(n) as any ).getResult() ),
+			notes: this.getStateByKeys<StringVo>(noteKeys).map((note) => note.getResult()),
 			password: this.getStateByKey<PasswordValueObject>('password').getResult()
 		})
 	};
@@ -133,16 +137,15 @@ export class AGGToDomainMapper extends State<DeepModel> implements TMapper<DeepM
 	map ( target: DeepModel ): Result<DeepAggregate, string>{
 
 		this.startState();
-		target.children.map(
-			( child ) => this.addState(
-			JSON.stringify( child ) as any, this.mapper.map( child ) ) );
+		
+		const children = target.children.map( ( child ) => this.mapper.map( child ) );
+		const childrenKeys = this.addManyState( children );
+
 		this.addState( 'age', BirthdayValueObject.create( target.age ) );
 		this.addState( 'name', UserNameValueObject.create( target.name ) );
-		target.weights.map(
-			( weight ) => this.addState(
-				JSON.stringify( weight ) as any, WeightValueObject.create( {
-			unit: 'KG', value: weight
-		})))
+		
+		const weights = target.weights.map( weight => WeightValueObject.create( weight ) );
+		const weightKeys = this.addManyState( weights );
 
 		const result = this.checkState();
 		if ( result.isFailure ) {
@@ -151,12 +154,10 @@ export class AGGToDomainMapper extends State<DeepModel> implements TMapper<DeepM
 
 		return DeepAggregate.create( {
 			ID: ShortDomainId.create(),
-			children: target.children.map(
-				( child ) => this.getStateByKey<DeepEntity>( JSON.stringify( child ) as any ).getResult() ),
+			children: this.getStateByKeys<DeepEntity>(childrenKeys).map(child => child.getResult()),
 			age: this.getStateByKey<BirthdayValueObject>( 'age' ).getResult(),
 			name: this.getStateByKey<UserNameValueObject>( 'name' ).getResult(),
-				weights: target.weights.map( ( weight) => this.getStateByKey<WeightValueObject>( JSON.stringify(weight) as any ).getResult()),
-			
+			weights: this.getStateByKeys<WeightValueObject>( weightKeys ).map(weight => weight.getResult())
 		})
 	};
 }
