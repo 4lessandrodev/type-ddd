@@ -1,6 +1,8 @@
 import { Result } from "../core/result";
 import { ChangesObserver } from '../core/changes-observer';
 import { Logger } from "../utils/logger.util";
+import { ShortDomainId } from '../core/short-domain-id';
+import { UniqueEntityID } from '../core/unique-entity-id';
 
 /**
  * `TargetPersistence` as Entity to persist on database and
@@ -61,6 +63,51 @@ export abstract class State<PROPS, ERROR = string> {
 	protected addState<VO>(key: keyof PROPS, value: Result<VO, ERROR>): void {
 		this.state.delete(key);
 		this.state.set(key, value);
+	}
+
+	/**
+	 * 
+	 * @param values Array<Result<VO, ERROR>>
+	 * @returns array of generated keys
+	 */
+	protected addManyState <VO>( values: Array<Result<VO, ERROR>> ): UniqueEntityID[] {
+		const keys: UniqueEntityID[] = [];
+		values.forEach( ( value ) => {
+			const key = ShortDomainId.create().value;
+			keys.push( key );
+			this.addState( key.uid as any, value );
+		} )
+		
+		return keys;
+	}
+
+	/**
+	 * 
+	 * @param keys Array of UniqueEntityID
+	 * @param callback Array of Results to return if keys is not found
+	 * @returns Array of result if keys is found or provided callback if not. else returns a empty array
+	 */
+	protected getStateByKeys<VO, ALT = Result<VO, ERROR>> ( keys: UniqueEntityID[], callback?: Array<ALT> ): Array<Result<VO, ERROR>> | Array<ALT> {
+
+		const values: Array<Result<VO, ERROR>> = [];
+
+		keys.forEach(
+			( key ) => {
+				if ( this.exists( key.uid as any ) ) {
+					values.push( this.getStateByKey( key.uid as any ) );
+				} 
+			}
+		);
+
+		if ( values.length < 1 && callback) {
+			return callback;
+		}
+
+		if ( values.length < 1 && callback === undefined ) {
+			return [];
+		}
+		
+		return values;
 	}
 
 	/**

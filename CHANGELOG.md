@@ -4,7 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-### 2.8.6 + 2021-12-26
+### 2.8.7 - 2021-12-28
+
+---
+
+### Added
+
+- State: addManyState<T, E> method add many results to state and return unique keys
+- State: getStateByKeys<T, E> method get many results by keys
+
+
+### 2.8.6 - 2021-12-26
 
 ---
 
