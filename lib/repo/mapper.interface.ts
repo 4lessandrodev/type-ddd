@@ -1,7 +1,8 @@
 import { Result } from "../core/result";
 import { ChangesObserver } from '../core/changes-observer';
 import { Logger } from "../utils/logger.util";
-import { ShortDomainId, UniqueEntityID } from "@types-ddd";
+import { ShortDomainId } from '../core/short-domain-id';
+import { UniqueEntityID } from '../core/unique-entity-id';
 
 /**
  * `TargetPersistence` as Entity to persist on database and
