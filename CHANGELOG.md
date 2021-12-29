@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.8.8 - 2021-12-29
+
+---
+### Added
+
+- Entity: hasSomeTypes method to validate different types from instance keys
+
+### Changed 
+
+- Entity: isSome method > new accepted type: 'null'
+- Entity: isAll method > new accepted type: 'null'
+
+
 ### 2.8.7 - 2021-12-28
 
 ---
