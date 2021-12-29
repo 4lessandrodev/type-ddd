@@ -7,7 +7,21 @@ import UniqueEntityID from './unique-entity-id';
 import { FactoryMethod, TMapper } from '../repo/mapper.interface';
 import Result from './result';
 
-type Type = 'undefined' | 'symbol' | 'bigint' | 'boolean' | 'function' | 'number' | 'object' | 'string'
+
+enum ValidTypes {
+	'undefined' = 'undefined',
+	'symbol' = 'symbol',
+	'bigint' = 'bigint',
+	'boolean' = 'boolean',
+	'function' = 'function',
+	'number' = 'number',
+	'object' = 'object',
+	'string' = 'string',
+	'null' = 'null'
+}
+
+type Type = keyof typeof ValidTypes;
+type CustomType = any;
 
 export class DomainEvents {
 	private static handlersMap: any = {};
@@ -207,16 +221,21 @@ abstract class Entity<T extends BaseDomainEntity> {
 		return {
 			/**
 			 * 
-			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` as string
+			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` or `null` as string
 			 * @returns boolean. true if some value has type provided
 			 */
-			isSome: (type: Type): boolean => {
+			isSome: ( type: Type ): boolean => {
+
+				if ( type === 'null' ) {
+					const results = keys.map( ( key ) => this.props[key as KEY] !== null );
+					return results.includes( false );
+				}
 				const results = keys.map( ( key ) => typeof this.props[key as KEY] !== type );
 				return results.includes( false );
 			},
 			/**
 			 * 
-			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` as string
+			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` or `null` as string
 			 * @returns boolean. true if all value has type provided
 			 */
 			isAll: (type: Type):boolean => {
@@ -231,6 +250,41 @@ abstract class Entity<T extends BaseDomainEntity> {
 			isInstanceOf: (prop: any): boolean => {
 				const results = keys.map( ( key ) => this.props[key as KEY] instanceof prop );
 				return !results.includes( false );
+			},
+			/**
+			 * 
+			 * @param customTypes any type you need validate
+			 * @returns boolean if type is equal returns true and false if not.
+			 */
+			hasSomeTypes: ( customTypes: CustomType[] | Type[] ): boolean => {
+
+				const results: boolean[] = [];
+
+				customTypes.forEach( ( customType ) => {
+
+					if ( customType in ValidTypes ) {
+
+						if ( customType === 'null' ) {
+							
+							const typeValidationResult = keys
+								.map( ( key ) => this.props[key as KEY] !== null );
+							results.push( ...typeValidationResult );
+
+						} else {
+							const typeValidationResult = keys
+								.map( ( key ) => typeof this.props[key as KEY] !== customType );
+							results.push( ...typeValidationResult );
+						}
+
+					} else {
+						const typeValidationResult = keys
+						.map( ( key ) => this.props[key as KEY] !== customType );
+						results.push( ...typeValidationResult );
+					}
+
+				})
+
+				return results.includes( false );
 			}
 		}
 	}
