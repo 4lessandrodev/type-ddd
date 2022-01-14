@@ -706,9 +706,3 @@ const model = userEntity.toObject<UserModel>(new UserToModelFactory());
 
 ```
 
-> Contribute to this project [PIX]
-
-<img src="https://alessandrodev.s3.amazonaws.com/pix.jpeg" width="180">
-
-> Or use link
-[Pix https://nubank.com.br/pagar/izlen/Tn0D9KyXRb](https://nubank.com.br/pagar/izlen/Tn0D9KyXRb)
