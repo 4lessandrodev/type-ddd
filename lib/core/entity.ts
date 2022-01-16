@@ -6,6 +6,7 @@ import DomainId from './domain-id';
 import UniqueEntityID from './unique-entity-id';
 import { FactoryMethod, TMapper } from '../repo/mapper.interface';
 import Result from './result';
+import { autoConvertEntityToObject } from '@types-ddd';
 
 
 enum ValidTypes {
@@ -320,9 +321,16 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * @description param T as persistence model
 	 * @param mapper as implementation of TMapper OR FactoryMethod
 	 * @returns a instance of T
+	 * 
+	 * @summary
+	 * If you do not provide a custom mapper the instance will use `auto-mapper` It is on beta
+	 * @version beta
 	 */
-	toObject<T, E =string > (mapper: TMapper<this, T, E> | FactoryMethod<this, T, E>): T {
-		return mapper.map( this ).getResult();
+	toObject<T = {}, E = string> ( mapper?: TMapper<this, T, E> | FactoryMethod<this, T, E> ): T {
+		if ( mapper ) {
+			return mapper.map( this ).getResult();
+		}
+		return autoConvertEntityToObject( this );
 	}
 
 	/**
