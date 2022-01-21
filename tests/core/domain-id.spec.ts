@@ -72,5 +72,15 @@ describe('domain-id', () => {
 		const NEW_ID = ID.clone();
 		expect( NEW_ID.isNew ).toBeTruthy();
 		expect( NEW_ID.uid ).toBe('461235de-ec04-48aa-af94-31fbfa95efcf');
+	} );
+	
+		
+	it('should clone existing id as existing', () => {
+		const ID = DomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
+		expect( ID.isNew ).toBeFalsy();
+
+		const NEW_ID = ID.clone({ isNew: false });
+		expect( NEW_ID.isNew ).toBeFalsy();
+		expect( NEW_ID.uid ).toBe('461235de-ec04-48aa-af94-31fbfa95efcf');
 	});
 });
