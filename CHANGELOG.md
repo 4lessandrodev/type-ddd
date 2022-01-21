@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 2.9.3 - 2021-01-21
+
+### Fixed 
+
+- AutoMapper: get string value when prop is DomainId or ShortDomainId
+
+---
+
 ### 2.9.1 ~ 2.9.2 - 2021-01-21
 
 ### Changed 
@@ -15,7 +23,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Available Automapper to convert Entity, Aggregate and ValueObject from domain instance to a persistence model
+- Available AutoMapper to convert Entity, Aggregate and ValueObject from domain instance to a persistence model
 
 ---
 
@@ -28,7 +36,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Available Automapper to convert Entity, Aggregate and ValueObject from domain instance to a persistence model
+- Available AutoMapper to convert Entity, Aggregate and ValueObject from domain instance to a persistence model
 
 ---
 
