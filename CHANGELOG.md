@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-### 2.9.1 - 2021-01-21
+### 2.9.1 ~ 2.9.2 - 2021-01-21
 
 ### Changed 
 
