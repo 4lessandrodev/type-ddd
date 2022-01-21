@@ -88,6 +88,14 @@ describe('aggregate', () => {
 			name: 'username',
 		});
 		expect(user.getResult().id).toBeDefined();
+	} );
+	
+	it('should create a new instance', () => {
+		const user = UserAggregate.create({
+			ID: DomainId.create(),
+			name: 'username',
+		}).getResult();
+		expect(user.id.isNew).toBeTruthy();
 	});
 
 	it('should create a new aggregate instance with name', () => {
