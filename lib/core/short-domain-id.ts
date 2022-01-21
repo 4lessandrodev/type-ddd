@@ -37,8 +37,10 @@ interface ILength {
  * if not provided will generate a new one uuid
  */
 class ShortDomainId extends ValueObject<any> {
-	private constructor(props: UniqueEntityID) {
-		super(props);
+	public readonly isNew: boolean;
+	private constructor(props: UniqueEntityID, isNew: boolean) {
+		super( props );
+		this.isNew = isNew;
 	}
 
 	/**
@@ -115,7 +117,7 @@ class ShortDomainId extends ValueObject<any> {
 	get uid(): string {
 		return new UniqueEntityID(this.props.value).uid;
 	}
-
+	
 	/**
 	 * @extends Entity
 	 *
@@ -129,9 +131,9 @@ class ShortDomainId extends ValueObject<any> {
 	 * if not provided will generate a new one value like `31fbb4859e3301fb`
 	 */
 	public static create ( id?: string | number, length?: ILength ): ShortDomainId {
-
-		const shortUid = new ShortDomainId(new UniqueEntityID(id)).toShort( length );
-		return new ShortDomainId(new UniqueEntityID(shortUid))
+		const isNew = id !== undefined && id !== null;
+		const shortUid = new ShortDomainId(new UniqueEntityID(id), isNew).toShort( length );
+		return new ShortDomainId(new UniqueEntityID(shortUid), !isNew)
 	}
 }
 

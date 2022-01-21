@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+---
+
+### 2.9.0 - 2021-01-21
+
+### Changed 
+
+- DomainId and ShortDomainId: added property isNew to identify if is a new id
+- Entity, Aggregate and ValueObject: added method toObject to convert domain instance to a persistence model
+
+### Added
+
+- Available Automapper to convert Entity, Aggregate and ValueObject from domain instance to a persistence model
+
+---
+
 ### 2.8.8 - 2021-12-29
 
 ---

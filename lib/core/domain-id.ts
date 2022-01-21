@@ -34,9 +34,10 @@ interface ILength {
  * if not provided will generate a new one uuid
  */
 class DomainId extends ValueObject<any> {
-	private constructor(props: UniqueEntityID) {
+	public readonly isNew: boolean;
+	private constructor(props: UniqueEntityID, isNew: boolean) {
 		super( props );
-		this.toShort
+		this.isNew = isNew;
 	}
 
 	toShort ( length?: ILength ): string {
@@ -74,8 +75,9 @@ class DomainId extends ValueObject<any> {
 	 * @description param is optional
 	 * if not provided will generate a new one uuid
 	 */
-	public static create(id?: string | number): DomainId {
-		return new DomainId(new UniqueEntityID(id));
+	public static create ( id?: string | number ): DomainId {
+		const isNew = id !== undefined && id !== null;
+		return new DomainId(new UniqueEntityID(id), !isNew);
 	}
 }
 
