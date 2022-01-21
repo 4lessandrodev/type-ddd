@@ -60,9 +60,9 @@ describe('simple-user.aggregate.ts', () => {
 		}).getResult();
 
 		expect(user.id).toBeDefined();
-		expect(user.email).toBeDefined();
-		expect(user.name).toBeDefined();
-		expect(user.birthDay).toBeDefined();
+		expect(user.userEmail).toBeDefined();
+		expect(user.userName).toBeDefined();
+		expect(user.userBirthDay).toBeDefined();
 		expect(user.createdAt).toBeDefined();
 		expect(user.updatedAt).toBeDefined();
 		expect(user.getHashCode).toBeDefined();
@@ -98,7 +98,7 @@ describe('simple-user.aggregate.ts', () => {
 		user.setName(newName);
 		user.setEmail(newEmail);
 
-		expect(user.email.value).toBe('new_email@domain.com');
-		expect(user.name.value).toBe('Mr. Arthur');
+		expect(user.userEmail.value).toBe('new_email@domain.com');
+		expect(user.userName.value).toBe('Mr. Arthur');
 	});
 });

@@ -41,10 +41,10 @@ export class UserMapper implements IMapper<User, Model> {
 
 	toPersistence = (aggregate: User): Model => ({
 		id: aggregate.id.value.toString(),
-		userName: aggregate.name.value,
-		userEmail: aggregate.email.value,
-		userPassword: aggregate.password.value,
-		userBirthDay: aggregate.birthDay.value,
+		userName: aggregate.userName.value,
+		userEmail: aggregate.userEmail.value,
+		userPassword: aggregate.userPassword.value,
+		userBirthDay: aggregate.userBirthDay.value,
 		createdAt: aggregate.createdAt,
 		updatedAt: aggregate.updatedAt,
 	});

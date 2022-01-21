@@ -21,7 +21,7 @@ export class User extends AggregateRoot<Props> {
 		super(props, User.name);
 	}
 
-	get name(): UserNameValueObject {
+	get userName(): UserNameValueObject {
 		return this.props.userName;
 	}
 
@@ -30,7 +30,7 @@ export class User extends AggregateRoot<Props> {
 		this.props.updatedAt = new Date();
 	}
 
-	get email(): EmailValueObject {
+	get userEmail(): EmailValueObject {
 		return this.props.userEmail;
 	}
 
@@ -39,11 +39,11 @@ export class User extends AggregateRoot<Props> {
 		this.props.updatedAt = new Date();
 	}
 
-	get birthDay(): BirthdayValueObject {
+	get userBirthDay(): BirthdayValueObject {
 		return this.props.userBirthDay;
 	}
 
-	get password(): PasswordValueObject {
+	get userPassword(): PasswordValueObject {
 		return this.props.userPassword;
 	}
 

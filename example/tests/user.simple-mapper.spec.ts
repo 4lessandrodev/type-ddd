@@ -45,7 +45,7 @@ describe('user.simple-mapper', () => {
 		const mapper = new UserMapper();
 		const generatedAggregate = mapper.toDomain(model);
 		expect(generatedAggregate).toEqual(aggregate);
-		expect(generatedAggregate.email.value).toBe(model.userEmail);
+		expect(generatedAggregate.userEmail.value).toBe(model.userEmail);
 		expect(generatedAggregate.id.value.toString()).toBe(model.id);
 	});
 
@@ -53,7 +53,7 @@ describe('user.simple-mapper', () => {
 		const mapper = new UserMapper();
 		const generatedModel = mapper.toPersistence(aggregate);
 		expect(generatedModel).toEqual(model);
-		expect(generatedModel.userEmail).toBe(aggregate.email.value);
+		expect(generatedModel.userEmail).toBe(aggregate.userEmail.value);
 		expect(generatedModel.id).toBe(aggregate.id.value.toString());
 	});
 });
