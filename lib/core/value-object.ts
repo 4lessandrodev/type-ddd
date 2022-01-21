@@ -17,6 +17,21 @@ export default abstract class ValueObject<T extends ValueObjectProps> {
 		this.props = baseProps;
 	}
 
+	toObject <D = T>(): Readonly<D[keyof D]> {
+		let valueObj = {};
+		const keys = Object.keys( this.props );
+
+		if ( keys.length > 1 ) {
+
+			valueObj = Object.assign( {}, { ...valueObj }, { ...this?.['props'] } );
+
+			return valueObj as Readonly<D[keyof D]>;
+		}
+
+		valueObj = this?.[keys[0]];
+		return valueObj as Readonly<D[keyof D]>;
+	}
+
 	public equals(valueObject?: ValueObject<T>): boolean {
 		if (valueObject === null || valueObject === undefined) {
 			return false;

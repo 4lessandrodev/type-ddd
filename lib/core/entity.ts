@@ -6,8 +6,7 @@ import DomainId from './domain-id';
 import UniqueEntityID from './unique-entity-id';
 import { FactoryMethod, TMapper } from '../repo/mapper.interface';
 import Result from './result';
-import { autoConvertEntityToObject } from '@types-ddd';
-
+import { ValueObject } from "../core/value-object";
 
 enum ValidTypes {
 	'undefined' = 'undefined',
@@ -23,6 +22,12 @@ enum ValidTypes {
 
 type Type = keyof typeof ValidTypes;
 type CustomType = any;
+
+export interface BaseModelProps {
+	id: string;
+	createdAt: Date;
+	updatedAt: Date;
+}
 
 export class DomainEvents {
 	private static handlersMap: any = {};
@@ -162,6 +167,109 @@ const isEntity = (v: any): v is Entity<any> => {
 	return v instanceof Entity;
 };
 
+interface DefaultProps extends Partial<BaseDomainEntity> {
+	ID: undefined,
+	id: string;
+}
+
+export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
+	let object: DefaultProps = {
+		ID: undefined as any,
+		id: '',
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		deletedAt: undefined,
+		isDeleted: false,
+	};
+
+	const keys = Object.keys( target?.['props'] );
+
+	keys.forEach( ( key ) => {
+
+		const subTarget = target?.[key];
+
+		const isEntityOrAggregate = subTarget?.id !== undefined;
+		
+		if ( isEntityOrAggregate ) {
+			const subKeys = convertEntity( subTarget as any );
+			object = Object.assign( {}, { ...object }, { [key]: { ...subKeys } } );
+		}
+
+		const isArray = Array.isArray( subTarget );
+		
+		if ( isArray ) {
+
+			if ( subTarget.length > 0 ) {
+				const firstElement = subTarget[0]
+	
+				const isEntityOrAggregate = firstElement instanceof Entity || firstElement instanceof AggregateRoot;
+
+				if ( isEntityOrAggregate ) {
+					
+					const subKeys = subTarget.map( ( obj ) => convertEntity( obj ) );
+					object = Object.assign( {}, { ...object }, { [key]: subKeys } );
+
+				} else if ( firstElement instanceof ValueObject ) {
+					
+					const subKeys = subTarget.map( ( obj ) => obj.value);
+					object = Object.assign( {}, { ...object }, { [key]: subKeys } );
+
+				} else {
+
+					object = Object.assign( {}, { ...object }, { [key]: subTarget } );
+
+				}
+			} else {
+				object = Object.assign( {}, { ...object }, { [key]: subTarget } );
+			}
+		}
+
+		if ( key !== 'ID' ) {
+			const keys = Object.keys( object );
+			const values = Object.values( object );
+			
+			object = Object.assign( {}, { ...object }, { [key]: subTarget?.value } );
+
+			keys.forEach( ( k , i) => {
+				Object.assign( object, { [k]: values[i] } );
+			})
+		}
+	} );
+	
+	object.id = String( target?.id );
+	delete object.ID;
+	object.createdAt = target?.createdAt ?? new Date();
+	object.updatedAt = target?.updatedAt ?? new Date();
+	object.deletedAt = target?.deletedAt as any;
+	object.isDeleted = target?.isDeleted;
+	return object;
+}
+
+
+export const autoConvertDomainToObject = <T, D>(target: T): Readonly<D> => {
+	if ( target instanceof Entity || target instanceof AggregateRoot) {
+		const obj = convertEntity( target as any );
+		return obj as D;
+	}
+	
+	if ( target instanceof ValueObject ) {
+		let valueObj = {};
+		const keys = Object.keys( target?.['props'] );
+
+		if ( keys.length > 1 ) {
+
+			valueObj = Object.assign( {}, { ...valueObj }, { ...target?.['props'] } );
+
+			return valueObj as D;
+		}
+
+		valueObj = target?.[keys[0]];
+		return valueObj as D;
+	}
+	return target as unknown as D;
+}
+
+
 /**
  * @extends BaseDomainEntity
  * @protected _id: UniqueEntityID
@@ -177,7 +285,7 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * @param props proprieties as T
 	 * @param entityName entity name as string
 	 */
-	constructor(props: T, entityName: string) {
+	constructor ( props: T, entityName: string ) {
 		this._id = props.ID;
 		this.props = props;
 		this.entityName = entityName;
@@ -185,14 +293,14 @@ abstract class Entity<T extends BaseDomainEntity> {
 	/**
 	 * @returns Date
 	 */
-	get createdAt(): Date {
+	get createdAt (): Date {
 		return this.props.createdAt ?? new Date();
 	}
 
 	/**
 	 * @returns DomainId
 	 */
-	get id(): DomainId {
+	get id (): DomainId {
 		return this._id;
 	}
 
@@ -200,15 +308,15 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * @description combination of ClassName and instance id.shortUid
 	 * @returns hash code `[ClassName]`:`[id.shortUid]`
 	 */
-	getHashCode(): UniqueEntityID {
+	getHashCode (): UniqueEntityID {
 		const name = `@${this.entityName}`;
-		return new UniqueEntityID(`${name}:${this._id.uid}`);
+		return new UniqueEntityID( `${name}:${this._id.uid}` );
 	}
 
 	/**
 	 * @returns Date
 	 */
-	get updatedAt(): Date {
+	get updatedAt (): Date {
 		return this.props.updatedAt ?? new Date();
 	}
 
@@ -239,7 +347,7 @@ abstract class Entity<T extends BaseDomainEntity> {
 			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` or `null` as string
 			 * @returns boolean. true if all value has type provided
 			 */
-			isAll: (type: Type):boolean => {
+			isAll: ( type: Type ): boolean => {
 				const results = keys.map( ( key ) => typeof this.props[key as KEY] !== type );
 				return !results.includes( true );
 			},
@@ -248,7 +356,7 @@ abstract class Entity<T extends BaseDomainEntity> {
 			 * @param prop ValueObject or Entity class
 			 * @returns boolean. true if all values is instance of provided class
 			 */
-			isInstanceOf: (prop: any): boolean => {
+			isInstanceOf: ( prop: any ): boolean => {
 				const results = keys.map( ( key ) => this.props[key as KEY] instanceof prop );
 				return !results.includes( false );
 			},
@@ -279,11 +387,11 @@ abstract class Entity<T extends BaseDomainEntity> {
 
 					} else {
 						const typeValidationResult = keys
-						.map( ( key ) => this.props[key as KEY] !== customType );
+							.map( ( key ) => this.props[key as KEY] !== customType );
 						results.push( ...typeValidationResult );
 					}
 
-				})
+				} )
 
 				return results.includes( false );
 			}
@@ -293,14 +401,14 @@ abstract class Entity<T extends BaseDomainEntity> {
 	/**
 	 * @returns Boolean
 	 */
-	get isDeleted(): boolean {
+	get isDeleted (): boolean {
 		return this.props.isDeleted ?? false;
 	}
 
 	/**
 	 * @returns Date or Undefined
 	 */
-	get deletedAt(): Date | undefined {
+	get deletedAt (): Date | undefined {
 		return this.props.deletedAt;
 	}
 
@@ -312,8 +420,8 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 */
 	static build<TARGET, RESULT, ERROR = string> (
 		target: TARGET, factory: FactoryMethod<TARGET, RESULT, ERROR> | TMapper<TARGET, RESULT, ERROR>
-	):Result<RESULT, ERROR> {
-		return factory.map(target)
+	): Result<RESULT, ERROR> {
+		return factory.map( target )
 	}
 
 	/**
@@ -322,15 +430,18 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * @param mapper as implementation of TMapper OR FactoryMethod
 	 * @returns a instance of T
 	 * 
+	 * @requires
+	 * Entity getters must have the same name defined on props
+	 * 
 	 * @summary
 	 * If you do not provide a custom mapper the instance will use `auto-mapper` It is on beta
 	 * @version beta
 	 */
-	toObject<T = {}, E = string> ( mapper?: TMapper<this, T, E> | FactoryMethod<this, T, E> ): T {
+	toObject<D = T & BaseModelProps, E = string> ( mapper?: TMapper<this, D, E> | FactoryMethod<this, D, E> ): Readonly<Omit<{ [K in keyof D]: unknown }, 'ID'>> {
 		if ( mapper ) {
 			return mapper.map( this ).getResult();
 		}
-		return autoConvertEntityToObject( this );
+		return autoConvertDomainToObject<this, D>( this );
 	}
 
 	/**

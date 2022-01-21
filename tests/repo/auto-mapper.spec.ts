@@ -7,12 +7,16 @@ import {
 	ShortDomainId,
 	UserNameValueObject,
 	AutoMapper,
-	CurrencyValueObject
+	CurrencyValueObject,
+	EmailValueObject,
+	DateValueObject
 } from "@types-ddd";
+import { User } from "../../example/simple-user.aggregate";
 
 describe( 'auto-mapper', () => {
 
 	interface Model {
+		id: string;
 		age: number;
 		name: string,
 		password: string,
@@ -32,7 +36,7 @@ describe( 'auto-mapper', () => {
 		coin: CurrencyValueObject;
 		parent?: SEntity,
 		hobbies: string[],
-		children: SEntity[]
+		children: User[]
 	}
 
 	class SEntity extends Entity<IProps> {
@@ -60,7 +64,7 @@ describe( 'auto-mapper', () => {
 			return this.props.parent
 		}
 
-		get children (): SEntity[] {
+		get children (): User[] {
 			return this.props.children;
 		}
 
@@ -70,6 +74,10 @@ describe( 'auto-mapper', () => {
 
 		changeName (newName: UserNameValueObject): void {
 			this.props.name = newName;
+		}
+
+		addChildren ( child: User ): void {
+			this.props.children.push( child );
 		}
 
 		public static create (props: IProps): Result<SEntity>{
@@ -142,7 +150,66 @@ describe( 'auto-mapper', () => {
 
 		const result = mapper.convert( entity );
 
-		expect( result ).toEqual(expectedResult);
+		expect( result ).toEqual( expectedResult );
+		
+		const child = User.create( {
+			ID: ShortDomainId.create(),
+			userBirthDay: BirthdayValueObject.create(new Date(2002)).getResult(),
+			userEmail: EmailValueObject.create( 'valid@domain.com' ).getResult(),
+			userName: UserNameValueObject.create( 'Valid' ).getResult(),
+			userPassword: PasswordValueObject.create( 'password123' ).getResult(),
+			createdAt: date,
+			updatedAt: date
+		}).getResult();
+
+		entity.addChildren(child);
+
+		const modelWithChild = entity.toObject();
+
+		const modelChild = child.toObject();
+		expectedResult.children.push( modelChild as never );
+
+		expect(modelWithChild).toEqual(expectedResult);
+	} );
+
+	it( 'should get a value from a value object', () => {
+		const autoMapper = new AutoMapper();
+
+		const currency = CurrencyValueObject.create( {
+			value: 200,
+			currency: 'BRL',
+		} ).getResult();
+
+		const obj = autoMapper.convert( currency );
+
+		expect( obj ).toEqual( { currency: 'BRL', value: 200 } );
+
+		expect( currency.toObject() ).toEqual( { currency: 'BRL', value: 200 } );
+	} );
+
+	it( 'should get a value from a value object', () => {
+		
+		const currentDate = new Date();
+
+		const autoMapper = new AutoMapper();
+
+		const dateVObj = DateValueObject.create(currentDate).getResult();
+
+		const obj = autoMapper.convert( dateVObj );
+
+		expect( obj ).toEqual( currentDate );
+
+		expect( dateVObj.toObject() ).toEqual( currentDate );
+	} );
+
+
+	it( 'should return value if provide a simple value', () => {
+		
+		const autoMapper = new AutoMapper();
+
+		const obj = autoMapper.convert( 'simple string' );
+
+		expect( obj ).toBe( 'simple string' );
 
 	} );
 

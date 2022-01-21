@@ -72,10 +72,10 @@ type IModelFactory = (aggregate: User) => Model;
 export const ModelFactory: IModelFactory = ({
 	id,
 	createdAt,
-	password,
-	name,
-	email,
-	birthDay,
+	userPassword: password,
+	userName: name,
+	userEmail: email,
+	userBirthDay: birthDay,
 	updatedAt,
 }: User): Model => ({
 	id: id.value.toString(),
