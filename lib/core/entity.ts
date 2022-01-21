@@ -192,7 +192,7 @@ export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
 		const isId = subTarget instanceof DomainId || subTarget instanceof ShortDomainId;
 
 		if ( isId ) {
-			object = Object.assign( {}, { ...object }, { [key]: subTarget.uid } );
+			object = Object.assign( {}, { ...object }, { [key]: subTarget?.uid } );
 		}
 
 		const isEntityOrAggregate = subTarget?.id !== undefined;
@@ -218,8 +218,14 @@ export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
 
 				} else if ( firstElement instanceof ValueObject ) {
 					
-					const subKeys = subTarget.map( ( obj ) => obj.value);
-					object = Object.assign( {}, { ...object }, { [key]: subKeys } );
+					if ( firstElement instanceof DomainId || ShortDomainId ) {
+						const subKeys = subTarget.map( ( obj ) => obj?.uid);
+						object = Object.assign( {}, { ...object }, { [key]: subKeys } );
+
+					} else {
+						const subKeys = subTarget.map( ( obj ) => obj?.value);
+						object = Object.assign( {}, { ...object }, { [key]: subKeys } );
+					}
 
 				} else {
 
@@ -266,7 +272,7 @@ export const autoConvertDomainToObject = <T, D>(target: T): Readonly<D> => {
 		const isId = target instanceof DomainId || target instanceof ShortDomainId;
 
 		if ( isId ) {
-			return target.uid as unknown as D;
+			return target?.uid as unknown as D;
 		}
 
 		const keys = Object.keys( target?.['props'] );

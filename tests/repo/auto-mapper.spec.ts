@@ -9,7 +9,8 @@ import {
 	AutoMapper,
 	CurrencyValueObject,
 	EmailValueObject,
-	DateValueObject
+	DateValueObject,
+	DomainId
 } from "@types-ddd";
 import { User } from "../../example/simple-user.aggregate";
 
@@ -20,6 +21,7 @@ describe( 'auto-mapper', () => {
 		age: number;
 		name: string,
 		password: string,
+		userId: string;
 		coin: number,
 		hobbies: string[],
 		children: Model[],
@@ -33,8 +35,10 @@ describe( 'auto-mapper', () => {
 		name: UserNameValueObject;
 		age: BirthdayValueObject;
 		password: PasswordValueObject;
+		userId?: DomainId;
 		coin: CurrencyValueObject;
 		parent?: SEntity,
+		parentIds: ShortDomainId[],
 		hobbies: string[],
 		children: User[]
 	}
@@ -72,6 +76,14 @@ describe( 'auto-mapper', () => {
 			return this.props.hobbies;
 		}
 
+		get userId (): DomainId | undefined {
+			return this.props.userId
+		}
+
+		get parentIds (): ShortDomainId[] {
+			return this.props.parentIds;
+		}
+
 		changeName (newName: UserNameValueObject): void {
 			this.props.name = newName;
 		}
@@ -88,6 +100,12 @@ describe( 'auto-mapper', () => {
 	it( 'should get all keys from entity', () => {
 
 		const date = new Date( '2020-01-01T03:00:00.000Z' );
+		const ids = [
+			ShortDomainId.create( '10d9211bf7f6361a' ),
+			ShortDomainId.create( '20d9211bf7f6361b' ),
+			ShortDomainId.create( '30d9211bf7f6361c' ),
+			ShortDomainId.create( '40d9211bf7f6361d' ),
+		]
 		
 		const entity = SEntity.create( {
 			ID: ShortDomainId.create('40d9211bf7f6260d'),
@@ -97,6 +115,8 @@ describe( 'auto-mapper', () => {
 			coin: CurrencyValueObject.create( { value: 10, currency: 'BRL' } ).getResult(),
 			hobbies: ['play games', 'play the guitar', 'play soccer'],
 			children: [],
+			parentIds: ids,
+			userId: ShortDomainId.create('70d9211bf7f6361f'),
 			parent: SEntity.create(
 				{
 					ID: ShortDomainId.create('50d9211bf7f6260e'),
@@ -109,7 +129,8 @@ describe( 'auto-mapper', () => {
 					createdAt: date,
 					updatedAt: date,
 					isDeleted: false,
-					parent: undefined
+					parent: undefined,
+					parentIds: []
 				}
 			).getResult(),
 			createdAt: date,
@@ -117,13 +138,17 @@ describe( 'auto-mapper', () => {
 			isDeleted: false
 		} ).getResult();
 
+		const modelIds = ids.map( ( id ) => id.uid );
+
 		const expectedResult = {
 			id: "40d9211bf7f6260d",
 			createdAt: date,
 			updatedAt: date,
 			isDeleted: false,
+			userId: '70d9211bf7f6361f',
 			age: date,
 			children: [],
+			parentIds: modelIds,
 			name: "Valid Name",
 			hobbies: ['play games', 'play the guitar', 'play soccer'],
 			password: ":4Y*3D_hhs8T",
@@ -131,6 +156,7 @@ describe( 'auto-mapper', () => {
 			parent: {
 				id: "50d9211bf7f6260e",
 				children: [],
+				parentIds: [],
 				createdAt: date,
 				updatedAt: date,
 				isDeleted: false,
@@ -210,6 +236,16 @@ describe( 'auto-mapper', () => {
 		const obj = autoMapper.convert( 'simple string' );
 
 		expect( obj ).toBe( 'simple string' );
+
+	} );
+
+	it( 'should return id value as string', () => {
+		
+		const autoMapper = new AutoMapper();
+
+		const id = autoMapper.convert( DomainId.create('valid_id') );
+
+		expect( id ).toBe( 'valid_id' );
 
 	} );
 
