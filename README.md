@@ -203,6 +203,7 @@ Resources on this lib (Core)
 - DomainId
 - ShortDomainId
 - ChangesObserver
+- AutoMapper
 
 ---
 
@@ -337,7 +338,7 @@ class Car extends Entity<Props> {
     const isValidYearForCar = car.isValidYearForCar(props.year);
 
     if (!isValidYearForCar) {
-      return Result.fail<Car>("The car is so wreck. Invalid year");
+      return Result.fail<Car>("The car is so wreck. Invalid year" );
     }
 
     return Result.ok<Car>(car);
@@ -366,6 +367,10 @@ console.log(myCar.color.value);
 
 console.log(myCar.year.value);
 > 2001
+
+// Get a object from domain instance
+console.log(myCar.toObject());
+> { id: "143150b2-47b6-4d97-945b-289f821c7fb9", color: "BLACK", year: 2001 }
 
 ```
 
@@ -460,6 +465,11 @@ Has been tested to create 90,000 short ids per second and no repeats were genera
 import { DomainId, ShortDomainId } from 'types-ddd';
 
 const ID = DomainId.create(); // 3x faster than uuid lib
+
+// Do you want to know if a new id was created?
+
+console.log(ID.isNew);
+> true
 
 console.log(ID.uid);
 > "461235de-ec04-48aa-af94-31fbfa95efcf"
@@ -634,7 +644,7 @@ console.log(valueObject.weight.value);
 
 import { State, TMapper, FactoryMethod, Result, DomainId } from 'types-ddd';
 
-// Model interface
+// Dto interface
 interface CreateUserDto {
   name: string;
   age: number;
@@ -646,19 +656,19 @@ interface CreateUserDto {
 
 // Mapper concrete implementation: Implement TMapper
 // param: TARGET > the input param;
-// param: TARGET > the output param;
+// param: RESULT > the output param;
 // param: ERROR > the error value to be returned if occurs some conflict
 class UserToDomainMapper extends State<CreateUserDto> implements TMapper<CreateUserDto, UserEntity> {
 
   // input persistence instance
-  map ( model: CreateUserDto ): Result<UserEntity> {
+  map ( dto: CreateUserDto ): Result<UserEntity> {
 
     // start a new state
     this.startState();
 
     // add value objects on state
-    this.addState( 'age', AgeValueObject.create( model.age ) );
-    this.addState( 'name', NameValueObject.create( model.name ) );
+    this.addState( 'age', AgeValueObject.create( dto.age ) );
+    this.addState( 'name', NameValueObject.create( dto.name ) );
 
     // check if has errors
     const result = this.checkState();
@@ -701,8 +711,11 @@ const userEntity = UserEntity.build(dto, new UserToDomainFactory()).getResult();
 
 ```ts
 // Inverse from domain instance to model > returns a object as model
+const model = userEntity.toObject<UserModel>();
+
+// or you may provide your custom mapper
+
 const model = userEntity.toObject<UserModel>(new UserToModelFactory());
 
 
 ```
-
