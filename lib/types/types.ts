@@ -5,3 +5,7 @@
 export interface IAutoMapper<T, R> {
 	convert: ( target: T ) => R;
 }
+
+export interface CloneProps {
+	isNew: boolean;
+}

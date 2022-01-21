@@ -1,3 +1,4 @@
+import { CloneProps } from '../types/types';
 import { ValueObject } from '../core/value-object';
 import ShortDomainId from './short-domain-id';
 import UniqueEntityID from './unique-entity-id';
@@ -60,10 +61,11 @@ class DomainId extends ValueObject<any> {
 
 	/**
 	 * @description this method clone the instance value as new ID
+	 * @description if you do not want the clone instance as new, you must provide false on props.isNew
 	 * @returns DomainId
 	 */
-	clone (): DomainId {
-		const isNew = true;
+	clone (props?: CloneProps): DomainId {
+		const isNew = props ? props.isNew : true;
 		return new DomainId(new UniqueEntityID(this.props.value), isNew);
 	}
 

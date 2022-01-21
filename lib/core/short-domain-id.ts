@@ -1,6 +1,7 @@
-import { calculateCpfDigits } from '../utils/check-cpf-digit.util';
+import { calculateCpfDigits as createDigit } from '../utils/check-cpf-digit.util';
 import { ValueObject } from './value-object';
 import UniqueEntityID from './unique-entity-id';
+import { CloneProps } from '../types/types';
 
 const isUUID =
 	/[0-9|a-z]{8}[-][0-9|a-z]{4}[-][0-9|a-z]{4}[-][0-9|a-z]{4}[-][0-9|a-z]{12}/;
@@ -86,7 +87,7 @@ class ShortDomainId extends ValueObject<any> {
 		// reverse value
 		const reverse = [...original].reverse().toString().replace(/\,/g, '');
 		// calculate digit sum from calc
-		const sum = calculateCpfDigits(arr.map((v) => parseInt(v)));
+		const sum = createDigit(arr.map((v) => parseInt(v)));
 		// get values to complete the length if result is less than 14 chars
 		const complete = `${sum.penultimateDigit}${sum.ultimateDigit}${reverse}`;
 		// add value completion to id
@@ -120,10 +121,11 @@ class ShortDomainId extends ValueObject<any> {
 	
 	/**
 	 * @description this method clone the instance value as new ID
+	 * @description if you do not want the clone instance as new, you must provide false on props.isNew
 	 * @returns DomainId
 	 */
-	clone (): ShortDomainId {
-		const isNew = true;
+	 clone (props?: CloneProps): ShortDomainId {
+		const isNew = props ? props.isNew : true;
 		return new ShortDomainId(new UniqueEntityID(this.props.value), isNew);
 	}
 
