@@ -119,6 +119,15 @@ class ShortDomainId extends ValueObject<any> {
 	}
 	
 	/**
+	 * @description this method clone the instance value as new ID
+	 * @returns DomainId
+	 */
+	clone (): ShortDomainId {
+		const isNew = true;
+		return new ShortDomainId(new UniqueEntityID(this.props.value), isNew);
+	}
+
+	/**
 	 * @extends Entity
 	 *
 	 * @param id UniqueEntityID
@@ -132,7 +141,7 @@ class ShortDomainId extends ValueObject<any> {
 	 */
 	public static create ( id?: string | number, length?: ILength ): ShortDomainId {
 		const isNew = id !== undefined && id !== null;
-		const shortUid = new ShortDomainId(new UniqueEntityID(id), isNew).toShort( length );
+		const shortUid = new ShortDomainId(new UniqueEntityID(id), !isNew).toShort( length );
 		return new ShortDomainId(new UniqueEntityID(shortUid), !isNew)
 	}
 }
