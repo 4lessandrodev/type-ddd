@@ -7,6 +7,7 @@ import UniqueEntityID from './unique-entity-id';
 import { FactoryMethod, TMapper } from '../repo/mapper.interface';
 import Result from './result';
 import { ValueObject } from "../core/value-object";
+import ShortDomainId from './short-domain-id';
 
 enum ValidTypes {
 	'undefined' = 'undefined',
@@ -188,6 +189,12 @@ export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
 
 		const subTarget = target?.[key];
 
+		const isId = subTarget instanceof DomainId || subTarget instanceof ShortDomainId;
+
+		if ( isId ) {
+			object = Object.assign( {}, { ...object }, { [key]: subTarget.uid } );
+		}
+
 		const isEntityOrAggregate = subTarget?.id !== undefined;
 		
 		if ( isEntityOrAggregate ) {
@@ -224,12 +231,13 @@ export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
 			}
 		}
 
+		
 		if ( key !== 'ID' ) {
 			const keys = Object.keys( object );
 			const values = Object.values( object );
 			
 			object = Object.assign( {}, { ...object }, { [key]: subTarget?.value } );
-
+			
 			keys.forEach( ( k , i) => {
 				Object.assign( object, { [k]: values[i] } );
 			})
@@ -254,6 +262,13 @@ export const autoConvertDomainToObject = <T, D>(target: T): Readonly<D> => {
 	
 	if ( target instanceof ValueObject ) {
 		let valueObj = {};
+
+		const isId = target instanceof DomainId || target instanceof ShortDomainId;
+
+		if ( isId ) {
+			return target.uid as unknown as D;
+		}
+
 		const keys = Object.keys( target?.['props'] );
 
 		if ( keys.length > 1 ) {
