@@ -59,6 +59,15 @@ class DomainId extends ValueObject<any> {
 	}
 
 	/**
+	 * @description this method clone the instance value as new ID
+	 * @returns DomainId
+	 */
+	clone (): DomainId {
+		const isNew = true;
+		return new DomainId(new UniqueEntityID(this.props.value), isNew);
+	}
+
+	/**
 	 * @returns uid as string
 	 * @example
 	 * > "461235de-ec04-48aa-af94-31fbfa95efcf"

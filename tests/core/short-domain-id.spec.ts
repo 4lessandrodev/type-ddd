@@ -108,5 +108,14 @@ describe('short-domain-id', () => {
 	it('should create a new id', () => {
 		const ID = ShortDomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
 		expect( ID.isNew ).toBeFalsy();
+	} );
+	
+	it('should clone existing id as a new one', () => {
+		const ID = ShortDomainId.create('31fbb4859e3301fc');
+		expect( ID.isNew ).toBeFalsy();
+
+		const NEW_ID = ID.clone();
+		expect( NEW_ID.isNew ).toBeTruthy();
+		expect( NEW_ID.uid ).toBe('31fbb4859e3301fc');
 	});
 });

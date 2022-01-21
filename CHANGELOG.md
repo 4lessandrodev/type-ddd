@@ -6,6 +6,19 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 2.9.1 - 2021-01-21
+
+### Changed 
+
+- DomainId: added clone method to create a new id from an instance
+- ShortDomainId: added clone method to create a new id from an instance
+
+### Added
+
+- Available Automapper to convert Entity, Aggregate and ValueObject from domain instance to a persistence model
+
+---
+
 ### 2.9.0 - 2021-01-21
 
 ### Changed 
