@@ -1,4 +1,4 @@
-import { Result, AggregateRoot, BaseDomainEntity } from '../../dist/core';
+import { Result, AggregateRoot, BaseDomainEntity } from '../../lib/core';
 
 describe( 'short imports', () => {
 	it( 'should accept import all from core index', () => {
