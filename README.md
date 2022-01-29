@@ -368,7 +368,7 @@ console.log(myCar.color.value);
 console.log(myCar.year.value);
 > 2001
 
-// Get a object from domain instance
+// Get an object from domain instance
 console.log(myCar.toObject());
 > { id: "143150b2-47b6-4d97-945b-289f821c7fb9", color: "BLACK", year: 2001 }
 
