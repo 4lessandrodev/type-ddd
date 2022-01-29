@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.9.4 - 2021-01-29
+
+### Added 
+
+- Imports: Create shortcuts for imports : Issue #114
+
 ---
 
 ### 2.9.3 - 2021-01-21
