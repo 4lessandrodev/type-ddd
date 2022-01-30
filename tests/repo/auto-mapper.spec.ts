@@ -10,11 +10,39 @@ import {
 	CurrencyValueObject,
 	EmailValueObject,
 	DateValueObject,
-	DomainId
+	DomainId,
+	ValueObject,
+	CustomStringValueObject
 } from "@types-ddd";
 import { User } from "../../example/simple-user.aggregate";
 
 describe( 'auto-mapper', () => {
+
+
+	interface SocialInfoVOProps {
+		links: string[],
+		publicEmail?: string
+	}
+	
+	class SocialInfoVO extends ValueObject<SocialInfoVOProps> {
+		public static MAX_LINKS = 5;
+
+		constructor ( props: SocialInfoVOProps ) {
+			super( props )
+		}
+
+		get links () {
+			return this.props.links
+		}
+		get publicEmail () {
+			return this.props.publicEmail
+		}
+		
+		public static create ( props: { links: string[], publicEmail: string } ): Result<SocialInfoVO> {
+			//... validate and do stuff
+			return Result.ok( new SocialInfoVO( props ) )
+		}
+	}
 
 	interface Model {
 		id: string;
@@ -152,7 +180,10 @@ describe( 'auto-mapper', () => {
 			name: "Valid Name",
 			hobbies: ['play games', 'play the guitar', 'play soccer'],
 			password: ":4Y*3D_hhs8T",
-			coin: 10,
+			coin: {
+				currency: 'BRL',
+				value: 10
+			},
 			parent: {
 				id: "50d9211bf7f6260e",
 				children: [],
@@ -164,7 +195,10 @@ describe( 'auto-mapper', () => {
 				age: date,
 				name: "Sub Name",
 				password: "subPassword",
-				coin: 14
+				coin: {
+					currency: 'BRL',
+					value: 14 
+				}
 			}
 		};
 
@@ -247,6 +281,85 @@ describe( 'auto-mapper', () => {
 
 		expect( id ).toBe( 'valid_id' );
 
+	} );
+
+
+	it( 'should map a complex value-object to a simple object', () => {
+		
+
+		const publicEmail = 'valid_email@domain.com';
+		const links = ['https://github.com/4lessandrodev/types-ddd', 'https://www.npmjs.com/package/types-ddd'];
+
+		const expectedResult = { publicEmail, links };
+
+		const valueObjectInstance = SocialInfoVO.create( { publicEmail, links } ).getResult();
+
+		const result = valueObjectInstance.toObject();
+
+		expect( result ).toEqual( expectedResult );
+
+	} );
+
+	it( 'should map a complex value-object inside an entity to a simple object', () => {
+		
+		const currentDate = new Date();
+		interface Props extends BaseDomainEntity {
+			title: CustomStringValueObject;
+			author: SocialInfoVO
+		}
+
+		class PostEntity extends Entity<Props> {
+			private constructor (props: Props) {
+				super(props, PostEntity.name)
+			}
+
+			get author (): SocialInfoVO {
+				return this.props.author;
+			}
+
+			get title (): CustomStringValueObject {
+				return this.props.title
+			}
+
+			public static create (props: Props): Result<PostEntity> {
+				
+				// ... do some stuff or validation
+				return Result.ok( new PostEntity( props ) );
+
+			}
+		}
+
+		// -------------
+
+		const publicEmail = 'valid_email@domain.com';
+		const links = ['https://github.com/4lessandrodev/types-ddd', 'https://www.npmjs.com/package/types-ddd'];
+
+		const author = SocialInfoVO.create( { publicEmail, links } ).getResult();
+		const title = CustomStringValueObject.create( 'Some simple post tile' ).getResult();
+		const ID = DomainId.create();
+
+		const expectedResult = {
+			id: ID.uid,
+			title: 'Some simple post tile',
+			author: { publicEmail, links },
+			isDeleted: false,
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			deletedAt: undefined
+		};
+
+		const postEntity = PostEntity.create( {
+			ID,
+			author,
+			title,
+			createdAt: currentDate,
+			updatedAt: currentDate
+		} ).getResult();
+
+		const result = postEntity.toObject();
+
+		expect( result ).toEqual( expectedResult );
+		
 	} );
 
 } );
