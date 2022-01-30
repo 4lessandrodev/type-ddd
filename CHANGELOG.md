@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+---
+### 2.9.6 - 2021-01-30
+
+### Fixed
+
+- toObject: ensure to convert a moderately complex value object
+
+---
+
 ### 2.9.5 - 2021-01-30
 
 ### Added 
