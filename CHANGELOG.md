@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 2.9.5 - 2021-01-30
+
+### Added 
+
+- toObject: update types on entity.toObject method
+
+### Changed
+
+- update and change some documentation and examples
+
+---
+
 ### 2.9.4 - 2021-01-29
 
 ### Added 
