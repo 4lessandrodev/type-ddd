@@ -172,8 +172,8 @@ describe('result', () => {
 			'THE 13 ERRORS AND 01 WARN BELOW ON TERMINAL IS ONLY SOME LOGGER TESTS. DO NOT WORRY!'
 		);
 		const error = Result.fail<void>('Error defined');
-		const testeString = (value: string): string => value;
-		testeString(error.errorValue());
+		const testString = (value: string): string => value;
+		testString(error.errorValue());
 
 		expect(error.isFailure).toBe(true);
 		expect(error.isSuccess).toBe(false);

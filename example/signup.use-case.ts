@@ -49,11 +49,13 @@ export class SignupUseCase implements IUseCase<SignupDto, Result<void>> {
 			observer.add(emailOrError);
 			observer.add(birthDayOrError);
 
-			const isAllValueObjectOk = observer.isAllResultsSuccess();
-			if (!isAllValueObjectOk) {
-				const message = observer.getResult().errorValue();
+			const observerResult = observer.getResult();
+			if (observerResult.isFailure) {
+				const message = observerResult.errorValue();
 				return Result.fail(message);
 			}
+
+			observer.reset();
 
 			const userName = nameOrError.getResult();
 			const userPassword = passwordOrError.getResult();
@@ -61,9 +63,11 @@ export class SignupUseCase implements IUseCase<SignupDto, Result<void>> {
 			const userBirthDay = birthDayOrError.getResult();
 
 			userPassword.encrypt();
+			
+			const ID = DomainId.create();
 
 			const userOrError = UserAggregate.create({
-				ID: DomainId.create(),
+				ID,
 				userName,
 				userPassword,
 				userEmail,
@@ -81,10 +85,7 @@ export class SignupUseCase implements IUseCase<SignupDto, Result<void>> {
 
 			return Result.success();
 		} catch (err) {
-			return Result.fail(
-				'Error on SignupUseCase',
-				'INTERNAL_SERVER_ERROR'
-			);
+			return Result.fail('Error on SignupUseCase', 'INTERNAL_SERVER_ERROR');
 		}
 	}
 }

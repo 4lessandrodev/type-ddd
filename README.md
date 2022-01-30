@@ -358,13 +358,24 @@ class Car extends Entity<Props> {
 ```ts
 
 const newID = DomainId.create();
-const colorBlack = ColorValueObject.create('BLACK').getResult();
-const buildYear = YearValueObject.crete(2001).getResult();
+
+// create value objects 
+const colorBlackOrError = ColorValueObject.create('BLACK');
+const manufactureYearOrError = YearValueObject.crete(2001);
+
+// important validate your value objects before use them
+const result = Result.combine([colorBlackOrError, manufactureYearOrError]);
+
+const isAllOk = result.isSuccess;
+// only execute next step if all value objects are ok
+
+const colorBlack = colorBlackOrError.getResult();
+const manufactureYear = colorBlackOrError.getResult();
 
 const myCarOrError = Car.create({
 	ID: newID,
 	color: colorBlack,
-	year: madeYear
+	year: manufactureYear
 });
 
 console.log(myCarOrError.isSuccess);
@@ -383,7 +394,11 @@ console.log(myCar.year.value);
 
 // Get an object from domain instance
 console.log(myCar.toObject());
-> { id: "143150b2-47b6-4d97-945b-289f821c7fb9", color: "BLACK", year: 2001 }
+> { 
+    id: "143150b2-47b6-4d97-945b-289f821c7fb9", 
+    color: "BLACK", 
+    year: 2001 
+  }
 
 ```
 
@@ -399,10 +414,7 @@ A project is available on link below
 
 [Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/)
 
-### Todo Utils:
-
-- ☐ Documentation
-
+## Utils
 #### Ready to use
 
 - ✔ EmailValueObject
@@ -468,7 +480,7 @@ console.log(PasswordValueObject.generateRandomPassword(12));
 
 ```
 
-### Gerete short or normal uid from domain
+### Generate short or normal uid from domain
 > repeating a value is unlikely with 14 characters or more
 
 Has been tested to create 90,000 short ids per second and no repeats were generated.
@@ -541,7 +553,6 @@ console.log(isAfter);
 ```
 
 
-
 > Safe value object to calculate finance values.
 > Each operation return an instance of Result cause It validate safe number
 
@@ -600,8 +611,7 @@ console.log(isAllSuccess);
 // OR 
 
 const isOK = ChangesObserver.init<string>(
-  [
-    Result.ok('1'),
+  [ Result.ok('1'),
     Result.ok('2'),
     Result.ok('3'),
     Result.ok('4'),
@@ -614,6 +624,7 @@ const isOK = ChangesObserver.init<string>(
 console.log(isOK);
 > false
 
+
 ```
 
 ```ts
@@ -621,12 +632,7 @@ console.log(isOK);
 import { WeightValueObject } from 'types-ddd';
 
 
-const valueObjectOrError = WeightValueObject.create(
-  {
-    value: 1000,
-    unit: "TON"
-  }
-);
+const valueObjectOrError = WeightValueObject.create({ value: 1000, unit: "TON" });
 
 const isOk = valueObjectOrError.isSuccess;
 console.log(isOK);
@@ -667,10 +673,7 @@ interface CreateUserDto {
 ```ts
 // factory method
 
-// Mapper concrete implementation: Implement TMapper
-// param: TARGET > the input param;
-// param: RESULT > the output param;
-// param: ERROR > the error value to be returned if occurs some conflict
+// Mapper concrete implementation of TMapper
 class UserToDomainMapper extends State<CreateUserDto> implements TMapper<CreateUserDto, UserEntity> {
 
   // input persistence instance
@@ -710,6 +713,8 @@ class UserToDomainFactory extends FactoryMethod<CreateUserDto, UserEntity> {
 
 ```
 
+## Build a domain entity
+
 ```ts
 // dto instance
 const dto: CreateUserDto = {
@@ -717,8 +722,11 @@ const dto: CreateUserDto = {
   name: 'Neo'
 }
 
+// Create a factory instance
+const entityFactory = new UserToDomainFactory();
+
 // Use Domain Entity to build a instance from dto > return a result of Domain Entity
-const userEntity = UserEntity.build(dto, new UserToDomainFactory()).getResult();
+const userEntity = UserEntity.build(dto, entityFactory).getResult();
 
 ```
 
@@ -728,7 +736,9 @@ const model = userEntity.toObject<UserModel>();
 
 // or you may provide your custom mapper
 
-const model = userEntity.toObject<UserModel>(new UserToModelFactory());
+const modelFactory = new UserToModelFactory();
+
+const model = userEntity.toObject<UserModel>(modelFactory);
 
 
 ```

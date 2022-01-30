@@ -1,17 +1,17 @@
 import {
-	IMapper,
 	DomainId,
 	BirthdayValueObject,
 	EmailValueObject,
 	UserNameValueObject,
 	PasswordValueObject,
 	Result,
+	TMapper,
 } from '@types-ddd';
 import { User } from './simple-user.aggregate';
 
 // ----------------------------------------------------------------------------
 // User to persist on database
-class Model {
+export class Model {
 	id!: string;
 	userName!: string;
 	userEmail!: string;
@@ -19,13 +19,14 @@ class Model {
 	userPassword!: string;
 	createdAt!: Date;
 	updatedAt!: Date;
+	isDeleted!: boolean;
 }
 
 // ----------------------------------------------------------------------------
-// Mapper to be injected on repository. Marked as deprecated. Use TMapper instead IMapper. @see user.tmapper.ts
-export class UserMapper implements IMapper<User, Model> {
+// Mapper to be injected on repository.
+export class UserModelToDomainMapper implements TMapper<Model, User> {
 	//
-	toDomain = ( model: Model ): User => {
+	map = ( model: Model ): Result<User> => {
 
 		const nameOrError = UserNameValueObject.create( model.userName );
 		const emailOrError = EmailValueObject.create( model.userEmail );
@@ -40,7 +41,7 @@ export class UserMapper implements IMapper<User, Model> {
 		] );
 
 		if ( result.isFailure ) {
-			throw new Error(`Error on UserMapper: ${result.errorValue()}`);
+			return Result.fail( result.errorValue() );
 		}
 		
 		return User.create( {
@@ -51,15 +52,30 @@ export class UserMapper implements IMapper<User, Model> {
 			userBirthDay: birthOrError.getResult(),
 			createdAt: model.createdAt,
 			updatedAt: model.updatedAt,
-		} ).getResult();
+			isDeleted: model.isDeleted
+		} );
 	}
-	toPersistence = (aggregate: User): Model => ({
-		id: aggregate.id.value.toString(),
-		userName: aggregate.userName.value,
-		userEmail: aggregate.userEmail.value,
-		userPassword: aggregate.userPassword.value,
-		userBirthDay: aggregate.userBirthDay.value,
-		createdAt: aggregate.createdAt,
-		updatedAt: aggregate.updatedAt,
-	});
+}
+
+// What about Domain to Persistence Conversion ???
+// use your domain instance toObject method. e.g: user.toObject();
+// OR 
+
+export class UserDomainToModelMapper implements TMapper<User, Model> {
+	//
+	map = ( domain: User ): Result<Model> => {
+		
+		const model: Model = {
+			id: domain.id.uid,
+			userName: domain.userName.toObject(),
+			userEmail: domain.userEmail.toObject(),
+			userPassword: domain.userPassword.toObject(),
+			userBirthDay: domain.userBirthDay.toObject(),
+			createdAt: domain.createdAt,
+			updatedAt: domain.updatedAt,
+			isDeleted: domain.isDeleted
+		};
+
+		return Result.ok( model );
+	}
 }

@@ -45,7 +45,8 @@ describe('signup.use-case', () => {
 		jest.spyOn(userRepository, 'exists').mockResolvedValueOnce(false);
 
 		const useCase = new SignupUseCase(userRepository);
-		const result = await useCase.execute(dto);
+		const result = await useCase.execute( dto );
+
 		expect(result.isFailure).toBeTruthy();
 		expect(result.errorValue()).toBe('Invalid email');
 		expect(result.statusCode).toBe('UNPROCESSABLE_ENTITY');
