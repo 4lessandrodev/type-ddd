@@ -1,17 +1,11 @@
-import { AggregateRoot, BaseDomainEntity, BirthdayValueObject, CustomStringValueObject as StringVo, Entity, PasswordValueObject, Result, ShortDomainId, State, TMapper, UnitOfWeight, UserNameValueObject, WeightValueObject } from "@types-ddd";
+import {
+	AggregateRoot, BaseDomainEntity, BirthdayValueObject, CustomStringValueObject as StringVo, Entity, PasswordValueObject, Result, ShortDomainId, State, TMapper, UnitOfWeight, UserNameValueObject, WeightValueObject
+} from "@types-ddd";
 
-// Props
+// Entity Props
 interface EntityProps extends BaseDomainEntity { 
 	password: PasswordValueObject;
 	notes: StringVo[];
-}
-
-// Props
-interface AggregateProps extends BaseDomainEntity { 
-	name: UserNameValueObject;
-	age: BirthdayValueObject;
-	weights: WeightValueObject[];
-	children: DeepEntity[];
 }
 
 // Entity
@@ -42,6 +36,25 @@ export class DeepEntity extends Entity<EntityProps> {
 
 		return Result.ok( deepEntity );
 	}
+}
+
+
+// Entity Model
+export interface DeepModelChild {
+	id: string;
+	password: string;
+	notes: string[];
+}
+
+// ----------------------------------------------
+
+
+// Aggregate Props
+interface AggregateProps extends BaseDomainEntity { 
+	name: UserNameValueObject;
+	age: BirthdayValueObject;
+	weights: WeightValueObject[];
+	children: DeepEntity[];
 }
 
 // Aggregate
@@ -81,19 +94,13 @@ export class DeepAggregate extends AggregateRoot<AggregateProps> {
 	}
 }
 
-// Model
-export interface DeepModelChild {
-	id: string;
-	password: string;
-	notes: string[];
-}
-
+// Aggregate model prop
 interface Weight {
 	unit: UnitOfWeight;
 	value: number;
 }
 
-// Model
+// Aggregate Model
 export interface DeepModel {
 	id: string;
 	name: string;
@@ -102,7 +109,10 @@ export interface DeepModel {
 	children: DeepModelChild[];
 }
 
-// Mapper
+
+// ----------------------------------------------
+
+// Mapper using state to entity. Use it to build a entity from a model
 export class ENToDomainMapper extends State<DeepModelChild> implements TMapper<DeepModelChild, DeepEntity>{
 	map ( target: DeepModelChild ): Result<DeepEntity, string>{
 		this.startState();
@@ -125,7 +135,9 @@ export class ENToDomainMapper extends State<DeepModelChild> implements TMapper<D
 	};
 }
 
-// Mapper
+// ----------------------------------------------
+
+// Mapper using state to aggregate. Use it to build an aggregate from model
 export class AGGToDomainMapper extends State<DeepModel> implements TMapper<DeepModel, DeepAggregate>{
 
 	constructor (

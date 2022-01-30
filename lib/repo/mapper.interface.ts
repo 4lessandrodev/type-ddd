@@ -9,17 +9,32 @@ import { UniqueEntityID } from '../core/unique-entity-id';
  * `DomainAggregate` as Aggregate entity from domain
  * @method toPersistence receives a `DomainAggregate` target and transform it on `TargetPersistence`
  * @method toDomain receives a `TargetPersistence` target and transform it on `DomainAggregate`
+ * 
+ * @deprecated prefer user TMapper instead IMapper. IMapper will continue working, but with no updates.
+ * 
+ * To create a model instance you may use `entityInstance.toObject()`. 
+ * To create a domain instance you may use `YourEntity.build()` providing a TMapper implementation.
  *
  */
 export default interface IMapper<DomainAggregate, Entity> {
-	toDomain: (target: Entity) => DomainAggregate;
+	/** 
+	 * @description Create a domain instance from a model
+	 * To create a model instance you may use `entityInstance.toObject()`. 
+	 * */
+	toDomain: ( target: Entity ) => DomainAggregate;
+	/** 
+	 * @description Create a model instance from a domain entity
+	 * To create a domain instance you may use `YourEntity.build()` providing a TMapper implementation. 
+	 * */
 	toPersistence: (target: DomainAggregate) => Entity;
 }
 
 
 /**
- * @description a simple interface that determines conversion method from dto to domain
- * @method toDomain
+ * @description a simple interface that determines a conversion method from `TARGET` to `RESULT`
+ * @method map
+ * 
+ * @summary your target may to be a Domain Entity or a Model Entity. If your TARGET is a model your RESULT must be a domain entity or instead.
  */
 export interface TMapper<TARGET, RESULT, ERROR = string> {
 	/**
