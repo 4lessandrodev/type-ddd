@@ -223,7 +223,7 @@ export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
 						object = Object.assign( {}, { ...object }, { [key]: subKeys } );
 
 					} else {
-						const subKeys = subTarget.map( ( obj ) => obj?.value);
+						const subKeys = subTarget.map( ( obj ) => obj?.toObject());
 						object = Object.assign( {}, { ...object }, { [key]: subKeys } );
 					}
 
@@ -242,7 +242,11 @@ export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
 			const keys = Object.keys( object );
 			const values = Object.values( object );
 			
-			object = Object.assign( {}, { ...object }, { [key]: subTarget?.value } );
+			if ( typeof subTarget?.toObject === 'function' ) {
+				object = Object.assign( {}, { ...object }, { [key]: subTarget?.toObject() } );
+			} else {
+				object = Object.assign( {}, { ...object }, { [key]: subTarget?.value } );
+			}
 			
 			keys.forEach( ( k , i) => {
 				Object.assign( object, { [k]: values[i] } );
