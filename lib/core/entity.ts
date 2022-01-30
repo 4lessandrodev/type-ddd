@@ -458,11 +458,11 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * If you do not provide a custom mapper the instance will use `auto-mapper` It is on beta
 	 * @version beta
 	 */
-	toObject<D = T & BaseModelProps, E = string> ( mapper?: TMapper<this, D, E> | FactoryMethod<this, D, E> ): Readonly<Omit<{ [K in keyof D]: unknown }, 'ID'>> {
+	toObject<D = T & BaseModelProps, E = string> ( mapper?: TMapper<this, D, E> | FactoryMethod<this, D, E> ): D extends T ? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>> : D {
 		if ( mapper ) {
-			return mapper.map( this ).getResult();
+			return mapper.map( this ).getResult() as D extends T ? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>> : D;
 		}
-		return autoConvertDomainToObject<this, D>( this );
+		return autoConvertDomainToObject<this, D>( this ) as D extends T ? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>> : D;
 	}
 
 	/**
