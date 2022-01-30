@@ -370,7 +370,7 @@ const isAllOk = result.isSuccess;
 // only execute next step if all value objects are ok
 
 const colorBlack = colorBlackOrError.getResult();
-const manufactureYear = colorBlackOrError.getResult();
+const manufactureYear = manufactureYear.getResult();
 
 const myCarOrError = Car.create({
 	ID: newID,
