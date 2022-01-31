@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "2.9.6",
+	"version": "2.9.7",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -27,7 +27,9 @@
 	"scripts": {
 		"prebuild": "rimraf ./dist && yarn check:circular-deps",
 		"build": "tsc -p tsconfig.lib.json",
-		"test": "jest --silent --runInBand",
+		"test:prod": "NODE_ENV=production jest --silent --runInBand",
+		"test:dev": "jest --silent --runInBand",
+		"test": "TYPES_DDD_LOGS=off jest --silent --runInBand",
 		"test:verbose": "jest --runInBand",
 		"check:circular-deps": "madge --circular --extensions ts ./lib",
 		"prepublish:lib": "rimraf ./dist && yarn check:circular-deps",

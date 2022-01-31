@@ -103,9 +103,6 @@ export const isValidCnpjDigit = (cnpj: string): boolean => {
 	const arrNumbers = transformCnpjInArrNumber(onlyNumbers);
 	const validDigits = calculateCnpjDigits(arrNumbers);
 
-	console.log(digits);
-	console.log(validDigits);
-
 	return (
 		digits.penultimateDigit === validDigits.penultimateDigit &&
 		digits.ultimateDigit === validDigits.ultimateDigit
