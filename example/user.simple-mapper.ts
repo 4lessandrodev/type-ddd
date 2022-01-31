@@ -25,34 +25,33 @@ class Model {
 // Mapper to be injected on repository. Marked as deprecated. Use TMapper instead IMapper. @see user.tmapper.ts
 export class UserMapper implements IMapper<User, Model> {
 	//
-	toDomain = ( model: Model ): User => {
+	toDomain = (model: Model): User => {
+		const nameOrError = UserNameValueObject.create(model.userName);
+		const emailOrError = EmailValueObject.create(model.userEmail);
+		const passOrError = PasswordValueObject.create(model.userPassword);
+		const birthOrError = BirthdayValueObject.create(model.userBirthDay);
 
-		const nameOrError = UserNameValueObject.create( model.userName );
-		const emailOrError = EmailValueObject.create( model.userEmail );
-		const passOrError = PasswordValueObject.create( model.userPassword );
-		const birthOrError = BirthdayValueObject.create( model.userBirthDay );
-		
-		const result = Result.combine<unknown>( [
+		const result = Result.combine<unknown>([
 			nameOrError,
 			emailOrError,
 			passOrError,
-			birthOrError
-		] );
+			birthOrError,
+		]);
 
-		if ( result.isFailure ) {
+		if (result.isFailure) {
 			throw new Error(`Error on UserMapper: ${result.errorValue()}`);
 		}
-		
-		return User.create( {
-			ID: DomainId.create( model.id ),
+
+		return User.create({
+			ID: DomainId.create(model.id),
 			userName: nameOrError.getResult(),
 			userEmail: emailOrError.getResult(),
 			userPassword: passOrError.getResult(),
 			userBirthDay: birthOrError.getResult(),
 			createdAt: model.createdAt,
 			updatedAt: model.updatedAt,
-		} ).getResult();
-	}
+		}).getResult();
+	};
 	toPersistence = (aggregate: User): Model => ({
 		id: aggregate.id.value.toString(),
 		userName: aggregate.userName.value,

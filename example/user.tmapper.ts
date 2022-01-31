@@ -26,45 +26,43 @@ export class Model {
 // Mapper to be injected on repository.
 export class UserModelToDomainMapper implements TMapper<Model, User> {
 	//
-	map = ( model: Model ): Result<User> => {
+	map = (model: Model): Result<User> => {
+		const nameOrError = UserNameValueObject.create(model.userName);
+		const emailOrError = EmailValueObject.create(model.userEmail);
+		const passOrError = PasswordValueObject.create(model.userPassword);
+		const birthOrError = BirthdayValueObject.create(model.userBirthDay);
 
-		const nameOrError = UserNameValueObject.create( model.userName );
-		const emailOrError = EmailValueObject.create( model.userEmail );
-		const passOrError = PasswordValueObject.create( model.userPassword );
-		const birthOrError = BirthdayValueObject.create( model.userBirthDay );
-		
-		const result = Result.combine<unknown>( [
+		const result = Result.combine<unknown>([
 			nameOrError,
 			emailOrError,
 			passOrError,
-			birthOrError
-		] );
+			birthOrError,
+		]);
 
-		if ( result.isFailure ) {
-			return Result.fail( result.errorValue() );
+		if (result.isFailure) {
+			return Result.fail(result.errorValue());
 		}
-		
-		return User.create( {
-			ID: DomainId.create( model.id ),
+
+		return User.create({
+			ID: DomainId.create(model.id),
 			userName: nameOrError.getResult(),
 			userEmail: emailOrError.getResult(),
 			userPassword: passOrError.getResult(),
 			userBirthDay: birthOrError.getResult(),
 			createdAt: model.createdAt,
 			updatedAt: model.updatedAt,
-			isDeleted: model.isDeleted
-		} );
-	}
+			isDeleted: model.isDeleted,
+		});
+	};
 }
 
 // What about Domain to Persistence Conversion ???
 // use your domain instance toObject method. e.g: user.toObject();
-// OR 
+// OR
 
 export class UserDomainToModelMapper implements TMapper<User, Model> {
 	//
-	map = ( domain: User ): Result<Model> => {
-		
+	map = (domain: User): Result<Model> => {
 		const model: Model = {
 			id: domain.id.uid,
 			userName: domain.userName.toObject(),
@@ -73,9 +71,9 @@ export class UserDomainToModelMapper implements TMapper<User, Model> {
 			userBirthDay: domain.userBirthDay.toObject(),
 			createdAt: domain.createdAt,
 			updatedAt: domain.updatedAt,
-			isDeleted: domain.isDeleted
+			isDeleted: domain.isDeleted,
 		};
 
-		return Result.ok( model );
-	}
+		return Result.ok(model);
+	};
 }

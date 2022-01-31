@@ -1,4 +1,4 @@
-export * from './auto-mapper'
+export * from './auto-mapper';
 export * from './base-connection.interface';
 export * from './base-repository.abstract';
 export * from './base-repository.interface';

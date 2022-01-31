@@ -1,4 +1,4 @@
-# Follow link bellow 
+# Follow link bellow
 
 A repository with a simple app
 

@@ -72,6 +72,8 @@ describe('entity', () => {
 			year: 2021,
 		}).getResult();
 		// short uid
-		expect(car.getHashCode().uid).toBe('@Car:143150b2-47b6-4d97-945b-289f821c7fb9');
+		expect(car.getHashCode().uid).toBe(
+			'@Car:143150b2-47b6-4d97-945b-289f821c7fb9'
+		);
 	});
 });

@@ -81,50 +81,56 @@ describe('short-domain-id', () => {
 	});
 
 	it('should generate the same short id but you ca choose size', () => {
-		const id = ShortDomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf', { length: 21 });
+		const id = ShortDomainId.create(
+			'461235de-ec04-48aa-af94-31fbfa95efcf',
+			{ length: 21 }
+		);
 		expect(id.uid).toBe('31fbb4859e3301fcfe59a');
 	});
 
 	it('should GET the same short id', () => {
-		const ID = ShortDomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf', { length: 14 });
+		const ID = ShortDomainId.create(
+			'461235de-ec04-48aa-af94-31fbfa95efcf',
+			{ length: 14 }
+		);
 		expect(ID.uid).toBe('31fbb4859e3301');
 	});
 
 	it('should GET the same id', () => {
 		const ID = ShortDomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
 		expect(ID.uid).toBe('31fbb4859e3301fc');
-	} );
-	
+	});
+
 	it('should GET the same id', () => {
 		const ID = ShortDomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
 		expect(ID.toValue()).toBe('31fbb4859e3301fc');
-	} );
-	
+	});
+
 	it('should create a new id', () => {
 		const ID = ShortDomainId.create();
-		expect( ID.isNew ).toBeTruthy();
-	} );
-	
+		expect(ID.isNew).toBeTruthy();
+	});
+
 	it('should create a new id', () => {
 		const ID = ShortDomainId.create('461235de-ec04-48aa-af94-31fbfa95efcf');
-		expect( ID.isNew ).toBeFalsy();
-	} );
-	
+		expect(ID.isNew).toBeFalsy();
+	});
+
 	it('should clone existing id as a new one', () => {
 		const ID = ShortDomainId.create('31fbb4859e3301fc');
-		expect( ID.isNew ).toBeFalsy();
+		expect(ID.isNew).toBeFalsy();
 
 		const NEW_ID = ID.clone();
-		expect( NEW_ID.isNew ).toBeTruthy();
-		expect( NEW_ID.uid ).toBe('31fbb4859e3301fc');
-	} );
-	
+		expect(NEW_ID.isNew).toBeTruthy();
+		expect(NEW_ID.uid).toBe('31fbb4859e3301fc');
+	});
+
 	it('should clone existing id as existing', () => {
 		const ID = ShortDomainId.create('31fbb4859e3301fc');
-		expect( ID.isNew ).toBeFalsy();
+		expect(ID.isNew).toBeFalsy();
 
 		const NEW_ID = ID.clone({ isNew: false });
-		expect( NEW_ID.isNew ).toBeFalsy();
-		expect( NEW_ID.uid ).toBe('31fbb4859e3301fc');
+		expect(NEW_ID.isNew).toBeFalsy();
+		expect(NEW_ID.uid).toBe('31fbb4859e3301fc');
 	});
 });

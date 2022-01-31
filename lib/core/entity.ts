@@ -6,7 +6,7 @@ import DomainId from './domain-id';
 import UniqueEntityID from './unique-entity-id';
 import { FactoryMethod, TMapper } from '../repo/mapper.interface';
 import Result from './result';
-import { ValueObject } from "../core/value-object";
+import { ValueObject } from '../core/value-object';
 import ShortDomainId from './short-domain-id';
 
 enum ValidTypes {
@@ -18,7 +18,7 @@ enum ValidTypes {
 	'number' = 'number',
 	'object' = 'object',
 	'string' = 'string',
-	'null' = 'null'
+	'null' = 'null',
 }
 
 type Type = keyof typeof ValidTypes;
@@ -169,11 +169,11 @@ const isEntity = (v: any): v is Entity<any> => {
 };
 
 interface DefaultProps extends Partial<BaseDomainEntity> {
-	ID: undefined,
+	ID: undefined;
 	id: string;
 }
 
-export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
+export const convertEntity = <T extends DefaultProps>(target: T): any => {
 	let object: DefaultProps = {
 		ID: undefined as any,
 		id: '',
@@ -183,107 +183,135 @@ export const convertEntity = <T extends DefaultProps> ( target: T ): any => {
 		isDeleted: false,
 	};
 
-	const keys = Object.keys( target?.['props'] );
+	const keys = Object.keys(target?.['props']);
 
-	keys.forEach( ( key ) => {
-
+	keys.forEach((key) => {
 		const subTarget = target?.[key];
 
-		const isId = subTarget instanceof DomainId || subTarget instanceof ShortDomainId;
+		const isId =
+			subTarget instanceof DomainId || subTarget instanceof ShortDomainId;
 
-		if ( isId ) {
-			object = Object.assign( {}, { ...object }, { [key]: subTarget?.uid } );
+		if (isId) {
+			object = Object.assign(
+				{},
+				{ ...object },
+				{ [key]: subTarget?.uid }
+			);
 		}
 
 		const isEntityOrAggregate = subTarget?.id !== undefined;
-		
-		if ( isEntityOrAggregate ) {
-			const subKeys = convertEntity( subTarget as any );
-			object = Object.assign( {}, { ...object }, { [key]: { ...subKeys } } );
+
+		if (isEntityOrAggregate) {
+			const subKeys = convertEntity(subTarget as any);
+			object = Object.assign(
+				{},
+				{ ...object },
+				{ [key]: { ...subKeys } }
+			);
 		}
 
-		const isArray = Array.isArray( subTarget );
-		
-		if ( isArray ) {
+		const isArray = Array.isArray(subTarget);
 
-			if ( subTarget.length > 0 ) {
-				const firstElement = subTarget[0]
-	
-				const isEntityOrAggregate = firstElement instanceof Entity || firstElement instanceof AggregateRoot;
+		if (isArray) {
+			if (subTarget.length > 0) {
+				const firstElement = subTarget[0];
 
-				if ( isEntityOrAggregate ) {
-					
-					const subKeys = subTarget.map( ( obj ) => convertEntity( obj ) );
-					object = Object.assign( {}, { ...object }, { [key]: subKeys } );
+				const isEntityOrAggregate =
+					firstElement instanceof Entity ||
+					firstElement instanceof AggregateRoot;
 
-				} else if ( firstElement instanceof ValueObject ) {
-					
-					if ( firstElement instanceof DomainId || ShortDomainId ) {
-						const subKeys = subTarget.map( ( obj ) => obj?.uid);
-						object = Object.assign( {}, { ...object }, { [key]: subKeys } );
-
+				if (isEntityOrAggregate) {
+					const subKeys = subTarget.map((obj) => convertEntity(obj));
+					object = Object.assign(
+						{},
+						{ ...object },
+						{ [key]: subKeys }
+					);
+				} else if (firstElement instanceof ValueObject) {
+					if (firstElement instanceof DomainId || ShortDomainId) {
+						const subKeys = subTarget.map((obj) => obj?.uid);
+						object = Object.assign(
+							{},
+							{ ...object },
+							{ [key]: subKeys }
+						);
 					} else {
-						const subKeys = subTarget.map( ( obj ) => obj?.toObject());
-						object = Object.assign( {}, { ...object }, { [key]: subKeys } );
+						const subKeys = subTarget.map((obj) => obj?.toObject());
+						object = Object.assign(
+							{},
+							{ ...object },
+							{ [key]: subKeys }
+						);
 					}
-
 				} else {
-
-					object = Object.assign( {}, { ...object }, { [key]: subTarget } );
-
+					object = Object.assign(
+						{},
+						{ ...object },
+						{ [key]: subTarget }
+					);
 				}
 			} else {
-				object = Object.assign( {}, { ...object }, { [key]: subTarget } );
+				object = Object.assign({}, { ...object }, { [key]: subTarget });
 			}
 		}
 
-		
-		if ( key !== 'ID' ) {
-			const keys = Object.keys( object );
-			const values = Object.values( object );
-			
-			if ( typeof subTarget?.toObject === 'function' ) {
-				object = Object.assign( {}, { ...object }, { [key]: subTarget?.toObject() } );
+		if (key !== 'ID') {
+			const keys = Object.keys(object);
+			const values = Object.values(object);
+
+			if (typeof subTarget?.toObject === 'function') {
+				object = Object.assign(
+					{},
+					{ ...object },
+					{ [key]: subTarget?.toObject() }
+				);
 			} else {
-				object = Object.assign( {}, { ...object }, { [key]: subTarget?.value } );
+				object = Object.assign(
+					{},
+					{ ...object },
+					{ [key]: subTarget?.value }
+				);
 			}
-			
-			keys.forEach( ( k , i) => {
-				Object.assign( object, { [k]: values[i] } );
-			})
+
+			keys.forEach((k, i) => {
+				Object.assign(object, { [k]: values[i] });
+			});
 		}
-	} );
-	
-	object.id = String( target?.id );
+	});
+
+	object.id = String(target?.id);
 	delete object.ID;
 	object.createdAt = target?.createdAt ?? new Date();
 	object.updatedAt = target?.updatedAt ?? new Date();
 	object.deletedAt = target?.deletedAt as any;
 	object.isDeleted = target?.isDeleted;
 	return object;
-}
-
+};
 
 export const autoConvertDomainToObject = <T, D>(target: T): Readonly<D> => {
-	if ( target instanceof Entity || target instanceof AggregateRoot) {
-		const obj = convertEntity( target as any );
+	if (target instanceof Entity || target instanceof AggregateRoot) {
+		const obj = convertEntity(target as any);
 		return obj as D;
 	}
-	
-	if ( target instanceof ValueObject ) {
+
+	if (target instanceof ValueObject) {
 		let valueObj = {};
 
-		const isId = target instanceof DomainId || target instanceof ShortDomainId;
+		const isId =
+			target instanceof DomainId || target instanceof ShortDomainId;
 
-		if ( isId ) {
+		if (isId) {
 			return target?.uid as unknown as D;
 		}
 
-		const keys = Object.keys( target?.['props'] );
+		const keys = Object.keys(target?.['props']);
 
-		if ( keys.length > 1 ) {
-
-			valueObj = Object.assign( {}, { ...valueObj }, { ...target?.['props'] } );
+		if (keys.length > 1) {
+			valueObj = Object.assign(
+				{},
+				{ ...valueObj },
+				{ ...target?.['props'] }
+			);
 
 			return valueObj as D;
 		}
@@ -292,8 +320,7 @@ export const autoConvertDomainToObject = <T, D>(target: T): Readonly<D> => {
 		return valueObj as D;
 	}
 	return target as unknown as D;
-}
-
+};
 
 /**
  * @extends BaseDomainEntity
@@ -310,7 +337,7 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * @param props proprieties as T
 	 * @param entityName entity name as string
 	 */
-	constructor ( props: T, entityName: string ) {
+	constructor(props: T, entityName: string) {
 		this._id = props.ID;
 		this.props = props;
 		this.entityName = entityName;
@@ -318,14 +345,14 @@ abstract class Entity<T extends BaseDomainEntity> {
 	/**
 	 * @returns Date
 	 */
-	get createdAt (): Date {
+	get createdAt(): Date {
 		return this.props.createdAt ?? new Date();
 	}
 
 	/**
 	 * @returns DomainId
 	 */
-	get id (): DomainId {
+	get id(): DomainId {
 		return this._id;
 	}
 
@@ -333,141 +360,154 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * @description combination of ClassName and instance id.shortUid
 	 * @returns hash code `[ClassName]`:`[id.shortUid]`
 	 */
-	getHashCode (): UniqueEntityID {
+	getHashCode(): UniqueEntityID {
 		const name = `@${this.entityName}`;
-		return new UniqueEntityID( `${name}:${this._id.uid}` );
+		return new UniqueEntityID(`${name}:${this._id.uid}`);
 	}
 
 	/**
 	 * @returns Date
 	 */
-	get updatedAt (): Date {
+	get updatedAt(): Date {
 		return this.props.updatedAt ?? new Date();
 	}
 
 	/**
-	 * 
+	 *
 	 * @param keys Array of entity keys
 	 * @returns methods to check
 	 */
-	checkProps ( keys: Array<keyof T> ) {
+	checkProps(keys: Array<keyof T>) {
 		type KEY = keyof Object;
 		return {
 			/**
-			 * 
+			 *
 			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` or `null` as string
 			 * @returns boolean. true if some value has type provided
 			 */
-			isSome: ( type: Type ): boolean => {
-
-				if ( type === 'null' ) {
-					const results = keys.map( ( key ) => this.props[key as KEY] !== null );
-					return results.includes( false );
+			isSome: (type: Type): boolean => {
+				if (type === 'null') {
+					const results = keys.map(
+						(key) => this.props[key as KEY] !== null
+					);
+					return results.includes(false);
 				}
-				const results = keys.map( ( key ) => typeof this.props[key as KEY] !== type );
-				return results.includes( false );
+				const results = keys.map(
+					(key) => typeof this.props[key as KEY] !== type
+				);
+				return results.includes(false);
 			},
 			/**
-			 * 
+			 *
 			 * @param type `undefined` `symbol` `bigint` `boolean` `function` `number` `object` `string` or `null` as string
 			 * @returns boolean. true if all value has type provided
 			 */
-			isAll: ( type: Type ): boolean => {
-				const results = keys.map( ( key ) => typeof this.props[key as KEY] !== type );
-				return !results.includes( true );
+			isAll: (type: Type): boolean => {
+				const results = keys.map(
+					(key) => typeof this.props[key as KEY] !== type
+				);
+				return !results.includes(true);
 			},
 			/**
-			 * 
+			 *
 			 * @param prop ValueObject or Entity class
 			 * @returns boolean. true if all values is instance of provided class
 			 */
-			isInstanceOf: ( prop: any ): boolean => {
-				const results = keys.map( ( key ) => this.props[key as KEY] instanceof prop );
-				return !results.includes( false );
+			isInstanceOf: (prop: any): boolean => {
+				const results = keys.map(
+					(key) => this.props[key as KEY] instanceof prop
+				);
+				return !results.includes(false);
 			},
 			/**
-			 * 
+			 *
 			 * @param customTypes any type you need validate
 			 * @returns boolean if type is equal returns true and false if not.
 			 */
-			hasSomeTypes: ( customTypes: CustomType[] | Type[] ): boolean => {
-
+			hasSomeTypes: (customTypes: CustomType[] | Type[]): boolean => {
 				const results: boolean[] = [];
 
-				customTypes.forEach( ( customType ) => {
-
-					if ( customType in ValidTypes ) {
-
-						if ( customType === 'null' ) {
-							
-							const typeValidationResult = keys
-								.map( ( key ) => this.props[key as KEY] !== null );
-							results.push( ...typeValidationResult );
-
+				customTypes.forEach((customType) => {
+					if (customType in ValidTypes) {
+						if (customType === 'null') {
+							const typeValidationResult = keys.map(
+								(key) => this.props[key as KEY] !== null
+							);
+							results.push(...typeValidationResult);
 						} else {
-							const typeValidationResult = keys
-								.map( ( key ) => typeof this.props[key as KEY] !== customType );
-							results.push( ...typeValidationResult );
+							const typeValidationResult = keys.map(
+								(key) =>
+									typeof this.props[key as KEY] !== customType
+							);
+							results.push(...typeValidationResult);
 						}
-
 					} else {
-						const typeValidationResult = keys
-							.map( ( key ) => this.props[key as KEY] !== customType );
-						results.push( ...typeValidationResult );
+						const typeValidationResult = keys.map(
+							(key) => this.props[key as KEY] !== customType
+						);
+						results.push(...typeValidationResult);
 					}
+				});
 
-				} )
-
-				return results.includes( false );
-			}
-		}
+				return results.includes(false);
+			},
+		};
 	}
 
 	/**
 	 * @returns Boolean
 	 */
-	get isDeleted (): boolean {
+	get isDeleted(): boolean {
 		return this.props.isDeleted ?? false;
 	}
 
 	/**
 	 * @returns Date or Undefined
 	 */
-	get deletedAt (): Date | undefined {
+	get deletedAt(): Date | undefined {
 		return this.props.deletedAt;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param target instance as domain entity or model
 	 * @param factory a mapper creator that implements FactoryMethod abstract
 	 * @returns a result with entity instance
 	 */
-	static build<TARGET, RESULT, ERROR = string> (
-		target: TARGET, factory: FactoryMethod<TARGET, RESULT, ERROR> | TMapper<TARGET, RESULT, ERROR>
+	static build<TARGET, RESULT, ERROR = string>(
+		target: TARGET,
+		factory:
+			| FactoryMethod<TARGET, RESULT, ERROR>
+			| TMapper<TARGET, RESULT, ERROR>
 	): Result<RESULT, ERROR> {
-		return factory.map( target )
+		return factory.map(target);
 	}
 
 	/**
-	 * 
+	 *
 	 * @description param T as persistence model
 	 * @param mapper as implementation of TMapper OR FactoryMethod
 	 * @returns a instance of T
-	 * 
+	 *
 	 * @requires
 	 * Entity getters must have the same name defined on props
-	 * 
+	 *
 	 * @summary
 	 * If you do not provide a custom mapper the instance will use `auto-mapper` It is on beta
 	 * @version beta
 	 * It does not support convert a value-object inside another value-object
 	 */
-	toObject<D = T & BaseModelProps, E = string> ( mapper?: TMapper<this, D, E> | FactoryMethod<this, D, E> ): D extends T ? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>> : D {
-		if ( mapper ) {
-			return mapper.map( this ).getResult() as D extends T ? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>> : D;
+	toObject<D = T & BaseModelProps, E = string>(
+		mapper?: TMapper<this, D, E> | FactoryMethod<this, D, E>
+	): D extends T ? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>> : D {
+		if (mapper) {
+			return mapper.map(this).getResult() as D extends T
+				? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>>
+				: D;
 		}
-		return autoConvertDomainToObject<this, D>( this ) as D extends T ? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>> : D;
+		return autoConvertDomainToObject<this, D>(this) as D extends T
+			? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>>
+			: D;
 	}
 
 	/**

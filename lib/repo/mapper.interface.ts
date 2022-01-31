@@ -1,6 +1,6 @@
-import { Result } from "../core/result";
+import { Result } from '../core/result';
 import { ChangesObserver } from '../core/changes-observer';
-import { Logger } from "../utils/logger.util";
+import { Logger } from '../utils/logger.util';
 import { ShortDomainId } from '../core/short-domain-id';
 import { UniqueEntityID } from '../core/unique-entity-id';
 
@@ -9,31 +9,30 @@ import { UniqueEntityID } from '../core/unique-entity-id';
  * `DomainAggregate` as Aggregate entity from domain
  * @method toPersistence receives a `DomainAggregate` target and transform it on `TargetPersistence`
  * @method toDomain receives a `TargetPersistence` target and transform it on `DomainAggregate`
- * 
+ *
  * @deprecated prefer user TMapper instead IMapper. IMapper will continue working, but with no updates.
- * 
- * To create a model instance you may use `entityInstance.toObject()`. 
+ *
+ * To create a model instance you may use `entityInstance.toObject()`.
  * To create a domain instance you may use `YourEntity.build()` providing a TMapper implementation.
  *
  */
 export default interface IMapper<DomainAggregate, Entity> {
-	/** 
+	/**
 	 * @description Create a domain instance from a model
-	 * To create a model instance you may use `entityInstance.toObject()`. 
+	 * To create a model instance you may use `entityInstance.toObject()`.
 	 * */
-	toDomain: ( target: Entity ) => DomainAggregate;
-	/** 
+	toDomain: (target: Entity) => DomainAggregate;
+	/**
 	 * @description Create a model instance from a domain entity
-	 * To create a domain instance you may use `YourEntity.build()` providing a TMapper implementation. 
+	 * To create a domain instance you may use `YourEntity.build()` providing a TMapper implementation.
 	 * */
 	toPersistence: (target: DomainAggregate) => Entity;
 }
 
-
 /**
  * @description a simple interface that determines a conversion method from `TARGET` to `RESULT`
  * @method map
- * 
+ *
  * @summary your target may to be a Domain Entity or a Model Entity. If your TARGET is a model your RESULT must be a domain entity or instead.
  */
 export interface TMapper<TARGET, RESULT, ERROR = string> {
@@ -42,7 +41,7 @@ export interface TMapper<TARGET, RESULT, ERROR = string> {
 	 * @returns result
 	 */
 	map: (target: TARGET) => Result<RESULT, ERROR>;
- }
+}
 
 /**
  * @description abstract class Mapper with some default methods.
@@ -66,7 +65,7 @@ export abstract class State<PROPS, ERROR = string> {
 	 * @description state is located on array. the size is array length.
 	 * @returns state size as number: array length
 	 */
-	protected getSize (): number {
+	protected getSize(): number {
 		return this.state.size;
 	}
 
@@ -81,57 +80,59 @@ export abstract class State<PROPS, ERROR = string> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param values Array<Result<VO, ERROR>>
 	 * @returns array of generated keys
 	 */
-	protected addManyState <VO>( values: Array<Result<VO, ERROR>> ): UniqueEntityID[] {
+	protected addManyState<VO>(
+		values: Array<Result<VO, ERROR>>
+	): UniqueEntityID[] {
 		const keys: UniqueEntityID[] = [];
-		values.forEach( ( value ) => {
+		values.forEach((value) => {
 			const key = ShortDomainId.create().value;
-			keys.push( key );
-			this.addState( key.uid as any, value );
-		} )
-		
+			keys.push(key);
+			this.addState(key.uid as any, value);
+		});
+
 		return keys;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param keys Array of UniqueEntityID
 	 * @param callback Array of Results to return if keys is not found
 	 * @returns Array of result if keys is found or provided callback if not. else returns a empty array
 	 */
-	protected getStateByKeys<VO, ALT = Result<VO, ERROR>> ( keys: UniqueEntityID[], callback?: Array<ALT> ): Array<Result<VO, ERROR>> | Array<ALT> {
-
+	protected getStateByKeys<VO, ALT = Result<VO, ERROR>>(
+		keys: UniqueEntityID[],
+		callback?: Array<ALT>
+	): Array<Result<VO, ERROR>> | Array<ALT> {
 		const values: Array<Result<VO, ERROR>> = [];
 
-		keys.forEach(
-			( key ) => {
-				if ( this.exists( key.uid as any ) ) {
-					values.push( this.getStateByKey( key.uid as any ) );
-				} 
+		keys.forEach((key) => {
+			if (this.exists(key.uid as any)) {
+				values.push(this.getStateByKey(key.uid as any));
 			}
-		);
+		});
 
-		if ( values.length < 1 && callback) {
+		if (values.length < 1 && callback) {
 			return callback;
 		}
 
-		if ( values.length < 1 && callback === undefined ) {
+		if (values.length < 1 && callback === undefined) {
 			return [];
 		}
-		
+
 		return values;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param key a key of PROPS defined as GENERIC
 	 * @returns true if key exists or false if not
 	 */
-	 protected exists (key: keyof PROPS): boolean {
-		return this.state.has( key );
+	protected exists(key: keyof PROPS): boolean {
+		return this.state.has(key);
 	}
 
 	/**
@@ -146,22 +147,23 @@ export abstract class State<PROPS, ERROR = string> {
 	 *
 	 * @param key a key of props defined on PROPS generic type
 	 * @returns a Result of instance defined as generic type by VO. if key does not exists return Result.fail
-	 * 
+	 *
 	 * @param VO is instance result
 	 * @param ALT is alternative type to return
 	 */
-	protected getStateByKey<VO, ALT = Result<VO, ERROR>> (
-		key: keyof PROPS, callback?: ALT
+	protected getStateByKey<VO, ALT = Result<VO, ERROR>>(
+		key: keyof PROPS,
+		callback?: ALT
 	): Result<VO, ERROR> | ALT {
-		const existKey = this.exists( key );
-		if ( existKey ) {
-			return this.state.get( key ) as Result<VO, ERROR>;
+		const existKey = this.exists(key);
+		if (existKey) {
+			return this.state.get(key) as Result<VO, ERROR>;
 		}
-		if ( callback ) {
+		if (callback) {
 			return callback;
 		}
-		Logger.warn( `The key: ${key} does not exists on mapper state` );
-		return Result.fail<VO, ERROR>({} as unknown as ERROR)
+		Logger.warn(`The key: ${key} does not exists on mapper state`);
+		return Result.fail<VO, ERROR>({} as unknown as ERROR);
 	}
 
 	/**
@@ -170,12 +172,12 @@ export abstract class State<PROPS, ERROR = string> {
 	protected resetState(): void {
 		this.state.clear();
 	}
-	
+
 	/**
 	 * @description reset start a new state
 	 */
-		protected startState(): void {
-			this.state.clear();
+	protected startState(): void {
+		this.state.clear();
 	}
 
 	/**
@@ -197,10 +199,10 @@ export abstract class FactoryMethod<TARGET, RESULT, ERROR = string> {
 	 * @param domain as aggregate or entity
 	 * @returns a result of model
 	 */
-	public map (domain: TARGET): Result<RESULT, ERROR> {
+	public map(domain: TARGET): Result<RESULT, ERROR> {
 		const mapper = this.create();
 		return mapper.map(domain);
-	};
+	}
 }
 
 export { IMapper };

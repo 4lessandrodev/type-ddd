@@ -12,164 +12,168 @@ import {
 	DateValueObject,
 	DomainId,
 	ValueObject,
-	CustomStringValueObject
-} from "@types-ddd";
-import { User } from "../../example/simple-user.aggregate";
+	CustomStringValueObject,
+} from '@types-ddd';
+import { User } from '../../example/simple-user.aggregate';
 
-describe( 'auto-mapper', () => {
-
-
+describe('auto-mapper', () => {
 	interface SocialInfoVOProps {
-		links: string[],
-		publicEmail?: string
+		links: string[];
+		publicEmail?: string;
 	}
-	
+
 	class SocialInfoVO extends ValueObject<SocialInfoVOProps> {
 		public static MAX_LINKS = 5;
 
-		constructor ( props: SocialInfoVOProps ) {
-			super( props )
+		constructor(props: SocialInfoVOProps) {
+			super(props);
 		}
 
-		get links () {
-			return this.props.links
+		get links() {
+			return this.props.links;
 		}
-		get publicEmail () {
-			return this.props.publicEmail
+		get publicEmail() {
+			return this.props.publicEmail;
 		}
-		
-		public static create ( props: { links: string[], publicEmail: string } ): Result<SocialInfoVO> {
+
+		public static create(props: {
+			links: string[];
+			publicEmail: string;
+		}): Result<SocialInfoVO> {
 			//... validate and do stuff
-			return Result.ok( new SocialInfoVO( props ) )
+			return Result.ok(new SocialInfoVO(props));
 		}
 	}
 
 	interface Model {
 		id: string;
 		age: number;
-		name: string,
-		password: string,
+		name: string;
+		password: string;
 		userId: string;
-		coin: number,
-		hobbies: string[],
-		children: Model[],
+		coin: number;
+		hobbies: string[];
+		children: Model[];
 		parent: Model;
-		createdAt: Date,
-		updatedAt: Date,
-		isDeleted: boolean
+		createdAt: Date;
+		updatedAt: Date;
+		isDeleted: boolean;
 	}
-	
+
 	interface IProps extends BaseDomainEntity {
 		name: UserNameValueObject;
 		age: BirthdayValueObject;
 		password: PasswordValueObject;
 		userId?: DomainId;
 		coin: CurrencyValueObject;
-		parent?: SEntity,
-		parentIds: ShortDomainId[],
-		hobbies: string[],
-		children: User[]
+		parent?: SEntity;
+		parentIds: ShortDomainId[];
+		hobbies: string[];
+		children: User[];
 	}
 
 	class SEntity extends Entity<IProps> {
-		private constructor ( props: IProps ) {
-			super(props, SEntity.name)
+		private constructor(props: IProps) {
+			super(props, SEntity.name);
 		}
 
-		get name (): UserNameValueObject {
+		get name(): UserNameValueObject {
 			return this.props.name;
 		}
 
-		get age (): BirthdayValueObject {
+		get age(): BirthdayValueObject {
 			return this.props.age;
 		}
 
-		get password (): PasswordValueObject {
+		get password(): PasswordValueObject {
 			return this.props.password;
 		}
 
-		get coin (): CurrencyValueObject {
+		get coin(): CurrencyValueObject {
 			return this.props.coin;
 		}
 
-		get parent (): SEntity | undefined {
-			return this.props.parent
+		get parent(): SEntity | undefined {
+			return this.props.parent;
 		}
 
-		get children (): User[] {
+		get children(): User[] {
 			return this.props.children;
 		}
 
-		get hobbies (): string[] {
+		get hobbies(): string[] {
 			return this.props.hobbies;
 		}
 
-		get userId (): DomainId | undefined {
-			return this.props.userId
+		get userId(): DomainId | undefined {
+			return this.props.userId;
 		}
 
-		get parentIds (): ShortDomainId[] {
+		get parentIds(): ShortDomainId[] {
 			return this.props.parentIds;
 		}
 
-		changeName (newName: UserNameValueObject): void {
+		changeName(newName: UserNameValueObject): void {
 			this.props.name = newName;
 		}
 
-		addChildren ( child: User ): void {
-			this.props.children.push( child );
+		addChildren(child: User): void {
+			this.props.children.push(child);
 		}
 
-		public static create (props: IProps): Result<SEntity>{
-			return Result.ok( new SEntity( props ) );
+		public static create(props: IProps): Result<SEntity> {
+			return Result.ok(new SEntity(props));
 		}
 	}
 
-	it( 'should get all keys from entity', () => {
-
-		const date = new Date( '2020-01-01T03:00:00.000Z' );
+	it('should get all keys from entity', () => {
+		const date = new Date('2020-01-01T03:00:00.000Z');
 		const ids = [
-			ShortDomainId.create( '10d9211bf7f6361a' ),
-			ShortDomainId.create( '20d9211bf7f6361b' ),
-			ShortDomainId.create( '30d9211bf7f6361c' ),
-			ShortDomainId.create( '40d9211bf7f6361d' ),
-		]
-		
-		const entity = SEntity.create( {
+			ShortDomainId.create('10d9211bf7f6361a'),
+			ShortDomainId.create('20d9211bf7f6361b'),
+			ShortDomainId.create('30d9211bf7f6361c'),
+			ShortDomainId.create('40d9211bf7f6361d'),
+		];
+
+		const entity = SEntity.create({
 			ID: ShortDomainId.create('40d9211bf7f6260d'),
 			age: BirthdayValueObject.create(date).getResult(),
 			name: UserNameValueObject.create('valid name').getResult(),
-			password: PasswordValueObject.create( ':4Y*3D_hhs8T' ).getResult(),
-			coin: CurrencyValueObject.create( { value: 10, currency: 'BRL' } ).getResult(),
+			password: PasswordValueObject.create(':4Y*3D_hhs8T').getResult(),
+			coin: CurrencyValueObject.create({
+				value: 10,
+				currency: 'BRL',
+			}).getResult(),
 			hobbies: ['play games', 'play the guitar', 'play soccer'],
 			children: [],
 			parentIds: ids,
 			userId: ShortDomainId.create('70d9211bf7f6361f'),
-			parent: SEntity.create(
-				{
-					ID: ShortDomainId.create('50d9211bf7f6260e'),
-					age: BirthdayValueObject.create(date).getResult(),
-					name: UserNameValueObject.create('Sub Name').getResult(),
-					password: PasswordValueObject.create( 'subPassword' ).getResult(),
-					coin: CurrencyValueObject.create( { value: 14, currency: 'BRL' } ).getResult(),
-					children: [],
-					hobbies: ['play piano', 'running'],
-					createdAt: date,
-					updatedAt: date,
-					isDeleted: false,
-					parent: undefined,
-					parentIds: []
-				}
-			).getResult(),
+			parent: SEntity.create({
+				ID: ShortDomainId.create('50d9211bf7f6260e'),
+				age: BirthdayValueObject.create(date).getResult(),
+				name: UserNameValueObject.create('Sub Name').getResult(),
+				password: PasswordValueObject.create('subPassword').getResult(),
+				coin: CurrencyValueObject.create({
+					value: 14,
+					currency: 'BRL',
+				}).getResult(),
+				children: [],
+				hobbies: ['play piano', 'running'],
+				createdAt: date,
+				updatedAt: date,
+				isDeleted: false,
+				parent: undefined,
+				parentIds: [],
+			}).getResult(),
 			createdAt: date,
 			updatedAt: date,
-			isDeleted: false
-		} ).getResult();
+			isDeleted: false,
+		}).getResult();
 
-		const modelIds = ids.map( ( id ) => id.uid );
+		const modelIds = ids.map((id) => id.uid);
 
 		const expectedResult = {
-			id: "40d9211bf7f6260d",
+			id: '40d9211bf7f6260d',
 			createdAt: date,
 			updatedAt: date,
 			isDeleted: false,
@@ -177,15 +181,15 @@ describe( 'auto-mapper', () => {
 			age: date,
 			children: [],
 			parentIds: modelIds,
-			name: "Valid Name",
+			name: 'Valid Name',
 			hobbies: ['play games', 'play the guitar', 'play soccer'],
-			password: ":4Y*3D_hhs8T",
+			password: ':4Y*3D_hhs8T',
 			coin: {
 				currency: 'BRL',
-				value: 10
+				value: 10,
 			},
 			parent: {
-				id: "50d9211bf7f6260e",
+				id: '50d9211bf7f6260e',
 				children: [],
 				parentIds: [],
 				createdAt: date,
@@ -193,33 +197,35 @@ describe( 'auto-mapper', () => {
 				isDeleted: false,
 				hobbies: ['play piano', 'running'],
 				age: date,
-				name: "Sub Name",
-				password: "subPassword",
+				name: 'Sub Name',
+				password: 'subPassword',
 				coin: {
 					currency: 'BRL',
-					value: 14 
-				}
-			}
+					value: 14,
+				},
+			},
 		};
 
 		const mapper = new AutoMapper();
 
 		const model = entity.toObject<Model>();
 
-		expect(model).toEqual(expectedResult)
+		expect(model).toEqual(expectedResult);
 
-		const result = mapper.convert( entity );
+		const result = mapper.convert(entity);
 
-		expect( result ).toEqual( expectedResult );
-		
-		const child = User.create( {
+		expect(result).toEqual(expectedResult);
+
+		const child = User.create({
 			ID: ShortDomainId.create(),
-			userBirthDay: BirthdayValueObject.create(new Date(2002)).getResult(),
-			userEmail: EmailValueObject.create( 'valid@domain.com' ).getResult(),
-			userName: UserNameValueObject.create( 'Valid' ).getResult(),
-			userPassword: PasswordValueObject.create( 'password123' ).getResult(),
+			userBirthDay: BirthdayValueObject.create(
+				new Date(2002)
+			).getResult(),
+			userEmail: EmailValueObject.create('valid@domain.com').getResult(),
+			userName: UserNameValueObject.create('Valid').getResult(),
+			userPassword: PasswordValueObject.create('password123').getResult(),
 			createdAt: date,
-			updatedAt: date
+			updatedAt: date,
 		}).getResult();
 
 		entity.addChildren(child);
@@ -227,115 +233,113 @@ describe( 'auto-mapper', () => {
 		const modelWithChild = entity.toObject();
 
 		const modelChild = child.toObject();
-		expectedResult.children.push( modelChild as never );
+		expectedResult.children.push(modelChild as never);
 
 		expect(modelWithChild).toEqual(expectedResult);
-	} );
+	});
 
-	it( 'should get a value from a value object', () => {
+	it('should get a value from a value object', () => {
 		const autoMapper = new AutoMapper();
 
-		const currency = CurrencyValueObject.create( {
+		const currency = CurrencyValueObject.create({
 			value: 200,
 			currency: 'BRL',
-		} ).getResult();
+		}).getResult();
 
-		const obj = autoMapper.convert( currency );
+		const obj = autoMapper.convert(currency);
 
-		expect( obj ).toEqual( { currency: 'BRL', value: 200 } );
+		expect(obj).toEqual({ currency: 'BRL', value: 200 });
 
-		expect( currency.toObject() ).toEqual( { currency: 'BRL', value: 200 } );
-	} );
+		expect(currency.toObject()).toEqual({ currency: 'BRL', value: 200 });
+	});
 
-	it( 'should get a value from a value object', () => {
-		
+	it('should get a value from a value object', () => {
 		const currentDate = new Date();
 
 		const autoMapper = new AutoMapper();
 
 		const dateVObj = DateValueObject.create(currentDate).getResult();
 
-		const obj = autoMapper.convert( dateVObj );
+		const obj = autoMapper.convert(dateVObj);
 
-		expect( obj ).toEqual( currentDate );
+		expect(obj).toEqual(currentDate);
 
-		expect( dateVObj.toObject() ).toEqual( currentDate );
-	} );
+		expect(dateVObj.toObject()).toEqual(currentDate);
+	});
 
-
-	it( 'should return value if provide a simple value', () => {
-		
+	it('should return value if provide a simple value', () => {
 		const autoMapper = new AutoMapper();
 
-		const obj = autoMapper.convert( 'simple string' );
+		const obj = autoMapper.convert('simple string');
 
-		expect( obj ).toBe( 'simple string' );
+		expect(obj).toBe('simple string');
+	});
 
-	} );
-
-	it( 'should return id value as string', () => {
-		
+	it('should return id value as string', () => {
 		const autoMapper = new AutoMapper();
 
-		const id = autoMapper.convert( DomainId.create('valid_id') );
+		const id = autoMapper.convert(DomainId.create('valid_id'));
 
-		expect( id ).toBe( 'valid_id' );
+		expect(id).toBe('valid_id');
+	});
 
-	} );
-
-
-	it( 'should map a complex value-object to a simple object', () => {
-		
-
+	it('should map a complex value-object to a simple object', () => {
 		const publicEmail = 'valid_email@domain.com';
-		const links = ['https://github.com/4lessandrodev/types-ddd', 'https://www.npmjs.com/package/types-ddd'];
+		const links = [
+			'https://github.com/4lessandrodev/types-ddd',
+			'https://www.npmjs.com/package/types-ddd',
+		];
 
 		const expectedResult = { publicEmail, links };
 
-		const valueObjectInstance = SocialInfoVO.create( { publicEmail, links } ).getResult();
+		const valueObjectInstance = SocialInfoVO.create({
+			publicEmail,
+			links,
+		}).getResult();
 
 		const result = valueObjectInstance.toObject();
 
-		expect( result ).toEqual( expectedResult );
+		expect(result).toEqual(expectedResult);
+	});
 
-	} );
-
-	it( 'should map a complex value-object inside an entity to a simple object', () => {
-		
+	it('should map a complex value-object inside an entity to a simple object', () => {
 		const currentDate = new Date();
 		interface Props extends BaseDomainEntity {
 			title: CustomStringValueObject;
-			author: SocialInfoVO
+			author: SocialInfoVO;
 		}
 
 		class PostEntity extends Entity<Props> {
-			private constructor (props: Props) {
-				super(props, PostEntity.name)
+			private constructor(props: Props) {
+				super(props, PostEntity.name);
 			}
 
-			get author (): SocialInfoVO {
+			get author(): SocialInfoVO {
 				return this.props.author;
 			}
 
-			get title (): CustomStringValueObject {
-				return this.props.title
+			get title(): CustomStringValueObject {
+				return this.props.title;
 			}
 
-			public static create (props: Props): Result<PostEntity> {
-				
+			public static create(props: Props): Result<PostEntity> {
 				// ... do some stuff or validation
-				return Result.ok( new PostEntity( props ) );
-
+				return Result.ok(new PostEntity(props));
 			}
 		}
 
 		// -------------
 
 		const publicEmail = 'valid_email@domain.com';
-		const links = ['https://github.com/4lessandrodev/types-ddd', 'https://www.npmjs.com/package/types-ddd'];
+		const links = [
+			'https://github.com/4lessandrodev/types-ddd',
+			'https://www.npmjs.com/package/types-ddd',
+		];
 
-		const author = SocialInfoVO.create( { publicEmail, links } ).getResult();
-		const title = CustomStringValueObject.create( 'Some simple post tile' ).getResult();
+		const author = SocialInfoVO.create({ publicEmail, links }).getResult();
+		const title = CustomStringValueObject.create(
+			'Some simple post tile'
+		).getResult();
 		const ID = DomainId.create();
 
 		const expectedResult = {
@@ -345,21 +349,19 @@ describe( 'auto-mapper', () => {
 			isDeleted: false,
 			createdAt: currentDate,
 			updatedAt: currentDate,
-			deletedAt: undefined
+			deletedAt: undefined,
 		};
 
-		const postEntity = PostEntity.create( {
+		const postEntity = PostEntity.create({
 			ID,
 			author,
 			title,
 			createdAt: currentDate,
-			updatedAt: currentDate
-		} ).getResult();
+			updatedAt: currentDate,
+		}).getResult();
 
 		const result = postEntity.toObject();
 
-		expect( result ).toEqual( expectedResult );
-		
-	} );
-
-} );
+		expect(result).toEqual(expectedResult);
+	});
+});
