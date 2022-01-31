@@ -33,7 +33,9 @@
 		"test:verbose": "jest --runInBand",
 		"check:circular-deps": "madge --circular --extensions ts ./lib",
 		"prepublish:lib": "rimraf ./dist && yarn check:circular-deps",
-		"publish:lib": "npm publish"
+		"publish:lib": "npm publish",
+		"format:all": "npx prettier --write .",
+		"prepare": "husky install"
 	},
 	"repository": {
 		"type": "git",
@@ -54,8 +56,11 @@
 		"@types/jest": "27.0.1",
 		"@types/node": "16.9.1",
 		"@types/pino": "6.3.11",
+		"husky": "^7.0.4",
 		"jest": "27.1.1",
+		"lint-staged": "^12.3.2",
 		"madge": "^5.0.1",
+		"prettier": "2.5.1",
 		"rimraf": "3.0.2",
 		"ts-jest": "27.0.5",
 		"ts-node": "10.2.1",
@@ -64,5 +69,13 @@
 	"files": [
 		"dist/*",
 		"package.json"
-	]
+	],
+	"lint-staged": {
+		"*": [
+			"npx prettier --ignore-unknown --check"
+		],
+		"*.{ts,js}": [
+			"npm run check:circullar-dep"
+		]
+	}
 }
