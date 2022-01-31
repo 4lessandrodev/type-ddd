@@ -72,7 +72,7 @@
 	],
 	"lint-staged": {
 		"*": [
-			"echo 'run formater or something'"
+			"npx prettier --ignore-unknown --check"
 		],
 		"*.{ts,js}": [
 			"npm run check:circullar-dep"
