@@ -17,6 +17,12 @@ export default abstract class ValueObject<T extends ValueObjectProps> {
 		this.props = baseProps;
 	}
 
+	/**
+	 * @description Convert value object to a simple data.
+	 * @returns string, number or object
+	 * 
+	 * @requires simple-data. It does not support a value object inside another one.
+	 */
 	toObject <D = T>(): Readonly<D[keyof D]> {
 		let valueObj = {};
 		const keys = Object.keys( this.props );

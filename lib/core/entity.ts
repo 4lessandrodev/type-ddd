@@ -461,6 +461,7 @@ abstract class Entity<T extends BaseDomainEntity> {
 	 * @summary
 	 * If you do not provide a custom mapper the instance will use `auto-mapper` It is on beta
 	 * @version beta
+	 * It does not support convert a value-object inside another value-object
 	 */
 	toObject<D = T & BaseModelProps, E = string> ( mapper?: TMapper<this, D, E> | FactoryMethod<this, D, E> ): D extends T ? Readonly<Omit<{ [K in keyof D]: any }, 'ID'>> : D {
 		if ( mapper ) {
