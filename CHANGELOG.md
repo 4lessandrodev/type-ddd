@@ -35,6 +35,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 ### Changed
 
 - update and change some documentation and examples
+- mark IMapper interface as deprecated tool. Use TMapper instead
 
 ---
 
