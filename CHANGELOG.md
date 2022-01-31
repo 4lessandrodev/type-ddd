@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
+### 2.9.7 - 2021-01-31
+
+### Added
+
+- logs deactivation: now its possible deactivate all logs;
+ If You set environment NODE_ENV = production logs will be automatically be off
+ Or set environment TYPES_DDD_LOGS = off
+
+ You also may activate logs for a specific type
+ Set environment TYPES_DDD_LOGS = error | info | warn
+
+---
 ### 2.9.6 - 2021-01-30
 
 ### Fixed

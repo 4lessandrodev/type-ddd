@@ -10,10 +10,32 @@ const config = {
 	},
 };
 
+type LogsType = 'error' | 'info' | 'warn';
+
+export const checkEnv = ( callback: Function, type?: LogsType ): void => {
+	
+	const isProduction = process.env.NODE_ENV === 'production';
+	const isLogOff = process.env.TYPES_DDD_LOGS === 'off';
+	const errorTypeMatch = process.env.TYPES_DDD_LOGS === type;
+
+	if ( (!isProduction && !isLogOff) || errorTypeMatch) {
+		callback();
+	};
+}
+
 const Logger = {
-	info: (message: string) => pino(config).info({}, message),
-	error: (message: string) => pino(config).error({}, message),
-	warn: (message: string) => pino(config).warn({}, message),
+	info: ( message: string ) => {
+		const callback = () => pino( config ).info( {}, message );
+		checkEnv( callback, 'info' );
+	},
+	error: ( message: string ) => {
+		const callback = () => pino( config ).error( {}, message );
+		checkEnv( callback, 'error' );
+	},
+	warn: ( message: string ) => {
+		const callback = () => pino( config ).warn( {}, message );
+		checkEnv( callback, 'warn' );
+	},
 };
 
 export { Logger };
