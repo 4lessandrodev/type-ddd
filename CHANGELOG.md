@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
+### 2.9.7 - 2021-01-31
+
+### Added
+
+- logs deactivation: now its possible deactivate all logs;
+```sh
+NODE_ENV=production # automatically turn off all logs
+TYPES_DDD_LOGS=off # manual turn off logs
+TYPES_DDD_LOGS=error # show only errors log
+TYPES_DDD_LOGS=info # show only info log
+TYPES_DDD_LOGS=warn # show only warn log
+```
+---
 ### 2.9.6 - 2021-01-30
 
 ### Fixed
@@ -22,6 +35,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - update and change some documentation and examples
+- mark IMapper interface as deprecated tool. Use TMapper instead
 
 ---
 
