@@ -37,12 +37,12 @@ interface ILength {
 class DomainId extends ValueObject<any> {
 	public readonly isNew: boolean;
 	private constructor(props: UniqueEntityID, isNew: boolean) {
-		super( props );
+		super(props);
 		this.isNew = isNew;
 	}
 
-	toShort ( length?: ILength ): string {
-		return ShortDomainId.create(this.uid, length).uid
+	toShort(length?: ILength): string {
+		return ShortDomainId.create(this.uid, length).uid;
 	}
 
 	toString(): string {
@@ -64,7 +64,7 @@ class DomainId extends ValueObject<any> {
 	 * @description if you do not want the clone instance as new, you must provide false on props.isNew
 	 * @returns DomainId
 	 */
-	clone (props?: CloneProps): DomainId {
+	clone(props?: CloneProps): DomainId {
 		const isNew = props ? props.isNew : true;
 		return new DomainId(new UniqueEntityID(this.props.value), isNew);
 	}
@@ -86,7 +86,7 @@ class DomainId extends ValueObject<any> {
 	 * @description param is optional
 	 * if not provided will generate a new one uuid
 	 */
-	public static create ( id?: string | number ): DomainId {
+	public static create(id?: string | number): DomainId {
 		const isNew = id !== undefined && id !== null;
 		return new DomainId(new UniqueEntityID(id), !isNew);
 	}

@@ -40,7 +40,7 @@ interface ILength {
 class ShortDomainId extends ValueObject<any> {
 	public readonly isNew: boolean;
 	private constructor(props: UniqueEntityID, isNew: boolean) {
-		super( props );
+		super(props);
 		this.isNew = isNew;
 	}
 
@@ -118,13 +118,13 @@ class ShortDomainId extends ValueObject<any> {
 	get uid(): string {
 		return new UniqueEntityID(this.props.value).uid;
 	}
-	
+
 	/**
 	 * @description this method clone the instance value as new ID
 	 * @description if you do not want the clone instance as new, you must provide false on props.isNew
 	 * @returns DomainId
 	 */
-	 clone (props?: CloneProps): ShortDomainId {
+	clone(props?: CloneProps): ShortDomainId {
 		const isNew = props ? props.isNew : true;
 		return new ShortDomainId(new UniqueEntityID(this.props.value), isNew);
 	}
@@ -134,17 +134,23 @@ class ShortDomainId extends ValueObject<any> {
 	 *
 	 * @param id UniqueEntityID
 	 * @param length as { length: 16 }
-	 * 
+	 *
 	 * @default 16
 	 * @variation 14 to 32
 	 *
 	 * @description param is optional
 	 * if not provided will generate a new one value like `31fbb4859e3301fb`
 	 */
-	public static create ( id?: string | number, length?: ILength ): ShortDomainId {
+	public static create(
+		id?: string | number,
+		length?: ILength
+	): ShortDomainId {
 		const isNew = id !== undefined && id !== null;
-		const shortUid = new ShortDomainId(new UniqueEntityID(id), !isNew).toShort( length );
-		return new ShortDomainId(new UniqueEntityID(shortUid), !isNew)
+		const shortUid = new ShortDomainId(
+			new UniqueEntityID(id),
+			!isNew
+		).toShort(length);
+		return new ShortDomainId(new UniqueEntityID(shortUid), !isNew);
 	}
 }
 

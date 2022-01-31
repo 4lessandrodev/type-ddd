@@ -1,7 +1,7 @@
-import { Result, ValueObject } from "@types-ddd";
+import { Result, ValueObject } from '@types-ddd';
 
 interface Prop {
-	value: number
+	value: number;
 }
 
 export class YearOfManufacture extends ValueObject<Prop> {
@@ -14,23 +14,19 @@ export class YearOfManufacture extends ValueObject<Prop> {
 	}
 
 	public static isValidValue(value: number): boolean {
-
 		const currentYear = new Date().getFullYear();
-		
-		return value > 1960 && value <= currentYear;
 
+		return value > 1960 && value <= currentYear;
 	}
 
 	public static create(value: number): Result<YearOfManufacture> {
-		
 		// Business Logic Validation
 		if (!YearOfManufacture.isValidValue(value)) {
-
 			const currentYear = new Date().getFullYear();
 
 			return Result.fail<YearOfManufacture>(
 				`Invalid value for a manufacture year. It must be between 1960 and ${currentYear}`
-			)
+			);
 		}
 
 		return Result.ok<YearOfManufacture>(new YearOfManufacture({ value }));

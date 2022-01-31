@@ -1,4 +1,11 @@
-import { BaseDomainEntity, DomainId, Entity, HEXColorValueObject, Result, BirthdayValueObject } from "@types-ddd";
+import {
+	BaseDomainEntity,
+	DomainId,
+	Entity,
+	HEXColorValueObject,
+	Result,
+	BirthdayValueObject,
+} from '@types-ddd';
 
 // Important extends to BaseDomainEntity
 interface Props extends BaseDomainEntity {
@@ -8,8 +15,8 @@ interface Props extends BaseDomainEntity {
 }
 
 export class Player extends Entity<Props> {
-	private constructor(prop:Props){
-		super(prop, Player.name)
+	private constructor(prop: Props) {
+		super(prop, Player.name);
 	}
 
 	get userId(): DomainId {
@@ -20,7 +27,7 @@ export class Player extends Entity<Props> {
 		return this.props.teamColor;
 	}
 
-	get age (): BirthdayValueObject | undefined {
+	get age(): BirthdayValueObject | undefined {
 		return this.props.age;
 	}
 

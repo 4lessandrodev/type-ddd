@@ -63,7 +63,7 @@ export class SignupUseCase implements IUseCase<SignupDto, Result<void>> {
 			const userBirthDay = birthDayOrError.getResult();
 
 			userPassword.encrypt();
-			
+
 			const ID = DomainId.create();
 
 			const userOrError = UserAggregate.create({
@@ -85,7 +85,10 @@ export class SignupUseCase implements IUseCase<SignupDto, Result<void>> {
 
 			return Result.success();
 		} catch (err) {
-			return Result.fail('Error on SignupUseCase', 'INTERNAL_SERVER_ERROR');
+			return Result.fail(
+				'Error on SignupUseCase',
+				'INTERNAL_SERVER_ERROR'
+			);
 		}
 	}
 }

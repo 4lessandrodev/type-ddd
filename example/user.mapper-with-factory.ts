@@ -88,7 +88,7 @@ export const ModelFactory: IModelFactory = ({
 });
 
 // ----------------------------------------------------------------------------
-// Mapper to be injected on user repository
+// Mapper to be injected on user repository. Deprecated. Use TMapper instead
 export class UserMapper implements IMapper<User, Model> {
 	constructor(
 		private readonly modelFactory: IModelFactory,

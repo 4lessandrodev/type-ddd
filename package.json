@@ -6,6 +6,12 @@
 	"types": "dist/index.d.ts",
 	"license": "ISC",
 	"author": "Alessandro Dev",
+	"contributors": [
+		{
+			"name": "Marko Zlatar",
+			"url": "https://github.com/mark01zlatar"
+		}
+	],
 	"engines": {
 		"node": ">=14"
 	},
@@ -25,17 +31,18 @@
 		"Clean Architecture"
 	],
 	"scripts": {
-		"prebuild": "rimraf ./dist && yarn check:circular-deps",
+		"prebuild": "rimraf ./dist && npm run check:circular-deps",
 		"build": "tsc -p tsconfig.lib.json",
 		"test:prod": "NODE_ENV=production jest --silent --runInBand",
 		"test:dev": "jest --silent --runInBand",
 		"test": "TYPES_DDD_LOGS=off jest --silent --runInBand",
 		"test:verbose": "jest --runInBand",
 		"check:circular-deps": "madge --circular --extensions ts ./lib",
-		"prepublish:lib": "rimraf ./dist && yarn check:circular-deps",
+		"prepublish:lib": "rimraf ./dist && npm run check:circular-deps",
 		"publish:lib": "npm publish",
 		"format:all": "npx prettier --write .",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"check:types": "tsc -p ./tsconfig.lib.json --noEmit"
 	},
 	"repository": {
 		"type": "git",
@@ -72,10 +79,11 @@
 	],
 	"lint-staged": {
 		"*": [
+			"npm run format:all",
 			"npx prettier --ignore-unknown --check"
 		],
 		"*.{ts,js}": [
-			"npm run check:circullar-dep"
+			"npm run check:circular-deps"
 		]
 	}
 }

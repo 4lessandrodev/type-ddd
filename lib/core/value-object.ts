@@ -17,13 +17,22 @@ export default abstract class ValueObject<T extends ValueObjectProps> {
 		this.props = baseProps;
 	}
 
-	toObject <D = T>(): Readonly<D[keyof D]> {
+	/**
+	 * @description Convert value object to a simple data.
+	 * @returns string, number or object
+	 *
+	 * @requires simple-data. It does not support a value object inside another one.
+	 */
+	toObject<D = T>(): Readonly<D[keyof D]> {
 		let valueObj = {};
-		const keys = Object.keys( this.props );
+		const keys = Object.keys(this.props);
 
-		if ( keys.length > 1 ) {
-
-			valueObj = Object.assign( {}, { ...valueObj }, { ...this?.['props'] } );
+		if (keys.length > 1) {
+			valueObj = Object.assign(
+				{},
+				{ ...valueObj },
+				{ ...this?.['props'] }
+			);
 
 			return valueObj as Readonly<D[keyof D]>;
 		}
