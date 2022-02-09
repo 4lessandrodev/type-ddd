@@ -8,6 +8,7 @@ import Logger from '../../lib/utils/logger.util';
 import { AggregateRoot, BaseDomainEntity } from '../../lib';
 
 describe('aggregate', () => {
+	const currentDate = new Date();
 	//
 	// Base interface props
 	//-----------------------------------------------------------
@@ -31,8 +32,10 @@ describe('aggregate', () => {
 		}
 
 		public static create(props: UserProps): Result<UserAggregate> {
-			const { ID, name } = props;
-			return Result.ok<UserAggregate>(new UserAggregate({ ID, name }));
+			const { ID, name, createdAt, updatedAt } = props;
+			return Result.ok<UserAggregate>(
+				new UserAggregate({ ID, name, createdAt, updatedAt })
+			);
 		}
 	}
 	//-----------------------------------------------------------
@@ -149,5 +152,142 @@ describe('aggregate', () => {
 		expect(user.getResult().getHashCode().uid).toBe(
 			'@UserAggregate:bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'
 		);
+	});
+
+	it('should convert a aggregate to a simple object', () => {
+		const userAggregate = UserAggregate.create({
+			ID: DomainId.create('bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'),
+			name: 'username',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+		}).getResult();
+
+		const userModel = userAggregate.toObject();
+
+		expect(userModel).toEqual({
+			id: 'bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69',
+			name: 'username',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+		});
+	});
+
+	it('should clone a aggregate with a new uuid', () => {
+		const userAggregate = UserAggregate.create({
+			ID: DomainId.create('bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'),
+			name: 'username',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+		}).getResult();
+
+		const cloned = userAggregate.clone().getResult();
+
+		expect(cloned.name).toBe(userAggregate.name);
+		expect(cloned.id).not.toBe(userAggregate.id);
+		expect(cloned.createdAt).toEqual(userAggregate.createdAt);
+		expect(cloned.updatedAt).toEqual(userAggregate.updatedAt);
+		expect(cloned.isDeleted).toBe(userAggregate.isDeleted);
+		expect(cloned.id.isNew).toBeTruthy();
+	});
+
+	it('should clone a aggregate changing name', () => {
+		const userAggregate = UserAggregate.create({
+			ID: DomainId.create('bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'),
+			name: 'username',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+		}).getResult();
+
+		const cloned = userAggregate
+			.clone({
+				idStrategy: 'uuid',
+				props: {
+					name: 'changed_name',
+				},
+			})
+			.getResult();
+
+		expect(cloned.name).toBe('changed_name');
+		expect(cloned.id).not.toBe(userAggregate.id);
+		expect(cloned.createdAt).toEqual(userAggregate.createdAt);
+		expect(cloned.updatedAt).toEqual(userAggregate.updatedAt);
+		expect(cloned.isDeleted).toBe(userAggregate.isDeleted);
+		expect(cloned.id.isNew).toBeTruthy();
+	});
+
+	it('should clone a aggregate and keep the same id', () => {
+		const userAggregate = UserAggregate.create({
+			ID: DomainId.create('bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'),
+			name: 'username',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+		}).getResult();
+
+		const cloned = userAggregate
+			.clone({
+				idStrategy: 'uuid',
+				isNew: false,
+			})
+			.getResult();
+
+		expect(cloned.name).toBe(userAggregate.name);
+		expect(cloned.id.uid).toBe(userAggregate.id.uid);
+		expect(cloned.createdAt).toEqual(userAggregate.createdAt);
+		expect(cloned.updatedAt).toEqual(userAggregate.updatedAt);
+		expect(cloned.isDeleted).toBe(userAggregate.isDeleted);
+		expect(cloned.id.isNew).toBeFalsy();
+	});
+
+	it('should clone a aggregate and transform uuid to short uuid', () => {
+		const userAggregate = UserAggregate.create({
+			ID: DomainId.create('bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'),
+			name: 'username',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+		}).getResult();
+
+		const cloned = userAggregate
+			.clone({
+				idStrategy: 'shortUid',
+				isNew: false,
+			})
+			.getResult();
+
+		expect(cloned.name).toBe(userAggregate.name);
+		expect(cloned.id.uid).toHaveLength(16);
+		expect(cloned.createdAt).toEqual(userAggregate.createdAt);
+		expect(cloned.updatedAt).toEqual(userAggregate.updatedAt);
+		expect(cloned.isDeleted).toBe(userAggregate.isDeleted);
+		expect(cloned.id.isNew).toBeFalsy();
+	});
+
+	it('should clone a aggregate and create a new short uuid', () => {
+		const userAggregate = UserAggregate.create({
+			ID: DomainId.create('bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69'),
+			name: 'username',
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+		}).getResult();
+
+		const cloned = userAggregate
+			.clone({
+				idStrategy: 'shortUid',
+				isNew: true,
+			})
+			.getResult();
+
+		expect(cloned.name).toBe(userAggregate.name);
+		expect(cloned.id.uid).toHaveLength(16);
+		expect(cloned.createdAt).toEqual(userAggregate.createdAt);
+		expect(cloned.updatedAt).toEqual(userAggregate.updatedAt);
+		expect(cloned.isDeleted).toBe(userAggregate.isDeleted);
+		expect(cloned.id.isNew).toBeTruthy();
 	});
 });

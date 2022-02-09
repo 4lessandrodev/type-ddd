@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+---
+### 2.9.8 - 2021-02-09
+
+### Fixed
+
+- toObject: fix adding support for string, boolean and numbers to domain entity attributes on call toObject method.
+- create: ensure all domain entity implements create method
+
+### Added
+
+- clone: added method to clone a domain entity
 
 ---
 ### 2.9.7 - 2021-01-31
