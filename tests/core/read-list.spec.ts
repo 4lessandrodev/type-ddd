@@ -1,6 +1,6 @@
 import WriteList from '../../lib/core/write-list';
 import ReadList from '../../lib/core/read-list';
-import { BaseDomainEntity, DomainId, Entity } from '../../lib';
+import { BaseDomainEntity, DomainId, Entity, Result } from '../../lib';
 
 describe('read-list', () => {
 	//
@@ -37,8 +37,8 @@ describe('read-list', () => {
 			return this.props.grades;
 		}
 
-		public static create(props: UserProps): User {
-			return new User(props);
+		public static create(props: UserProps): Result<User> {
+			return Result.ok(new User(props));
 		}
 	}
 
@@ -47,7 +47,7 @@ describe('read-list', () => {
 			ID: DomainId.create(),
 			grades: GradesList.create([7, 8, 6]),
 			name: 'John',
-		});
+		}).getResult();
 
 		const validate = {
 			// @ts-expect-error
