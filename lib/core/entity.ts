@@ -188,6 +188,15 @@ export const convertEntity = <T extends DefaultProps>(target: T): any => {
 	keys.forEach((key) => {
 		const subTarget = target?.[key];
 
+		/** simple values on entity getter */
+		if (
+			typeof subTarget === 'boolean' ||
+			typeof subTarget === 'number' ||
+			typeof subTarget === 'string'
+		) {
+			object = Object.assign({}, { ...object }, { [key]: subTarget });
+		}
+
 		const isId =
 			subTarget instanceof DomainId || subTarget instanceof ShortDomainId;
 
@@ -328,6 +337,8 @@ export const autoConvertDomainToObject = <T, D>(target: T): Readonly<D> => {
  * @protected props: T
  */
 abstract class Entity<T extends BaseDomainEntity> {
+	static create: (props: any) => Result<any, any> = () =>
+		Result.fail(`static method [create] not implemented for: ${this.name}`);
 	protected readonly _id: DomainId;
 	protected readonly props: T;
 	private readonly entityName: string;
@@ -511,6 +522,42 @@ abstract class Entity<T extends BaseDomainEntity> {
 	}
 
 	/**
+	 * @requires create static method. Your instance must implement create static method receiving props type T as args
+	 * @param config as object
+	 * @param config.isNew as boolean to create a new instance with a new id
+	 * @param config.props as T if you want to change any prop to new instance
+	 * @param idStrategy 'shortUid' or 'uuid'
+	 * @returns instance Result
+	 * @default config.isNew true
+	 * @default config.idStrategy 'uuid'
+	 */
+	clone(config?: {
+		isNew?: boolean;
+		props?: Partial<T>;
+		idStrategy: 'shortUid' | 'uuid';
+	}): Result<this> {
+		const isShortUid = config?.idStrategy === 'shortUid';
+		const isNewId =
+			typeof config?.isNew === 'undefined' ? true : config.isNew;
+		const isNewPropsObject = typeof config?.props === 'object';
+		const newProps = isNewPropsObject ? config.props : {};
+
+		let ID = this.id.clone({ isNew: isNewId });
+
+		if (isShortUid) {
+			ID = ShortDomainId.create().clone({ isNew: isNewId });
+		}
+
+		const props = Object.assign({}, { ...this.props }, { ...newProps, ID });
+		/**
+		 * create method exist by default
+		 * @see Entity return result.fail with not implemented message
+		 * @ts-expect-error */
+		const newInstance = this.constructor.create(props);
+		return newInstance;
+	}
+
+	/**
 	 *
 	 * @param object as Entity<T>
 	 * @returns boolean
@@ -518,10 +565,6 @@ abstract class Entity<T extends BaseDomainEntity> {
 	public equals(object?: Entity<T>): boolean {
 		if (object == null || object == undefined) {
 			return false;
-		}
-
-		if (this === object) {
-			return true;
 		}
 
 		if (!isEntity(object)) {
