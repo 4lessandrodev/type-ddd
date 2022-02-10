@@ -55,7 +55,7 @@
 	"dependencies": {
 		"bcrypt": "5.0.1",
 		"pino": "6.13.4",
-		"pino-pretty": "7.3.0"
+		"pino-pretty": "7.4.0"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "0.13.2",
