@@ -1,6 +1,6 @@
 
 # Types-ddd
----
+
 typescript domain driven design library. All resources tested
 
 <img src="./readme/snap-shot-tests.png" width=100%>
