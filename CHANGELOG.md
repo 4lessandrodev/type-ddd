@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 ---
-### 2.9.8 - 2021-02-09
+
+### 2.9.9 - 2022
+
+### Changed
+
+- update dependencies
+
+---
+### 2.9.8 - 2022-02-09
 
 ### Fixed
 
@@ -16,7 +24,7 @@ All notable changes to this project will be documented in this file.
 - clone: added method to clone a domain entity
 
 ---
-### 2.9.7 - 2021-01-31
+### 2.9.7 - 2022-01-31
 
 ### Added
 
@@ -29,7 +37,7 @@ TYPES_DDD_LOGS=info # show only info log
 TYPES_DDD_LOGS=warn # show only warn log
 ```
 ---
-### 2.9.6 - 2021-01-30
+### 2.9.6 - 2022-01-30
 
 ### Fixed
 
@@ -37,7 +45,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.5 - 2021-01-30
+### 2.9.5 - 2022-01-30
 
 ### Added 
 
@@ -50,7 +58,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.4 - 2021-01-29
+### 2.9.4 - 2022-01-29
 
 ### Added 
 
@@ -58,7 +66,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.3 - 2021-01-21
+### 2.9.3 - 2022-01-21
 
 ### Fixed 
 
@@ -66,7 +74,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.1 ~ 2.9.2 - 2021-01-21
+### 2.9.1 ~ 2.9.2 - 2022-01-21
 
 ### Changed 
 
@@ -79,7 +87,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.0 - 2021-01-21
+### 2.9.0 - 2022-01-21
 
 ### Changed 
 
