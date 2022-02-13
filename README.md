@@ -3,7 +3,7 @@
 
 typescript domain driven design lib
 
-<img src="./readme/lib-test.png" width=100%>
+<img src="./readme/snap-shot-tests.png" width=100%>
 
 ## Install
 
