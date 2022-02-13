@@ -1,3 +1,5 @@
+import './global-setup';
+
 module.exports = {
 	roots: ['<rootDir>'],
 	collectCoverage: false,

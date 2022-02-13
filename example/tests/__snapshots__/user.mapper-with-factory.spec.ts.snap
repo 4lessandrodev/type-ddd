@@ -17,12 +17,12 @@ User {
         "value": "valid_id",
       },
     },
-    "createdAt": 2022-01-01T03:00:00.000Z,
-    "updatedAt": 2022-01-01T03:00:00.000Z,
+    "createdAt": 2022-01-01T00:00:00.000Z,
+    "updatedAt": 2022-01-01T00:00:00.000Z,
     "userBirthDay": BirthdayValueObject {
       "ONE_YEAR": 31536000902,
       "props": Object {
-        "value": 2022-01-01T03:00:00.000Z,
+        "value": 2022-01-01T00:00:00.000Z,
       },
     },
     "userEmail": EmailValueObject {
@@ -46,10 +46,10 @@ User {
 
 exports[`user.mapper-with-factory should convert from domain to database with success 1`] = `
 Object {
-  "createdAt": 2022-01-01T03:00:00.000Z,
+  "createdAt": 2022-01-01T00:00:00.000Z,
   "id": "valid_id",
-  "updatedAt": 2022-01-01T03:00:00.000Z,
-  "userBirthDay": 2022-01-01T03:00:00.000Z,
+  "updatedAt": 2022-01-01T00:00:00.000Z,
+  "userBirthDay": 2022-01-01T00:00:00.000Z,
   "userEmail": "valid_email@domain.com",
   "userName": "Valid Name",
   "userPassword": "valid_pass",
