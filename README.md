@@ -1,7 +1,7 @@
 
 # Types-ddd
-
-typescript domain driven design lib
+---
+typescript domain driven design library. All resources tested
 
 <img src="./readme/snap-shot-tests.png" width=100%>
 
@@ -19,7 +19,7 @@ $ yarn add types-ddd
 [Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/) or check example folder o source code [Github example](https://github.com/4lessandrodev/types-ddd/tree/main/example)
 
 
-!["image"](./readme/ddd.jpg "image")
+<img src="./readme/ddd.jpg" alt="image" width="100%">
 
 ## DDD (Domain Driven Design)
 
@@ -217,33 +217,44 @@ Resources on this lib (Core)
 
 ### Value Object
 
+Use value object as attributes for domain entity
+
 ```ts
 import { ValueObject, Result } from "types-ddd";
 ```
 
 ```ts
 interface Prop {
-  value: number;
+    value: number;
 }
 ```
 
 ```ts
 class AgeValueObject extends ValueObject<Prop> {
+  
   private constructor(prop: Prop) {
-    super(prop);
+      super(prop);
   }
 
   get value(): number {
-    return this.props.value;
+      return this.props.value;
   }
 
-  public static create(age: number): Result<AgeValueObject> {
-    // must be positive and less than 131 years old
-    if (age < 0 || age > 130) {
-      return Result.fail<AgeValueObject>("There's no Person like Methuselah");
-    }
+  static isValidValue(value: number): boolean {
+      // Your logic to validate value
+      // must be positive and less than 131 years old
+      return value >= 0 && value <= 130
+  }
 
-    return Result.ok<AgeValueObject>(new AgeValueObject({ value: age }));
+  public static create(value: number): Result<AgeValueObject> {
+
+      const isValidValue = AgeValueObject.isValidValue(value);
+
+      if(!isValidValue) {
+          return Result.fail("Invalid value for age");
+      }
+
+      return Result.ok(new AgeValueObject({ value }));
   }
 }
 ```
@@ -252,37 +263,40 @@ class AgeValueObject extends ValueObject<Prop> {
 
 ### Aggregate
 
+Use Aggregate for a root entity on context. Every another entities on context must be embed on aggregate root. Remember there is only one aggregate root by context.
+
 ```ts
 import { AggregateRoot, BaseDomainEntity, Result } from "types-ddd";
 ```
 
 ```ts
 interface Props extends BaseDomainEntity {
-  name: NameValueObject;
-  age: AgeValueObject;
+    name: NameValueObject;
+    age: AgeValueObject;
 }
 ```
 
 ```ts
 class UserAggregate extends AggregateRoot<Props> {
+  
   private constructor(props: Props) {
-    super(props, UserAggregate.name);
+      super(props, UserAggregate.name);
   }
 
   get name(): NameValueObject {
-    return this.props.name;
+      return this.props.name;
   }
 
   get age(): AgeValueObject {
-    return this.props.age;
+      return this.props.age;
   }
 
   public addEvent(domainEvent: IDomainEvent) {
-    this.addDomainEvent(domainEvent);
+      this.addDomainEvent(domainEvent);
   }
 
   public static create(props: Props): Result<UserAggregate> {
-    return Result.ok<UserAggregate>(new UserAggregate(props));
+      return Result.ok<UserAggregate>(new UserAggregate(props));
   }
 }
 ```
@@ -291,114 +305,128 @@ class UserAggregate extends AggregateRoot<Props> {
 
 ### Entity
 
+There is a simple entity from a context. It does not dispatch events.
+
 ```ts
 import { Entity, BaseDomainEntity, DomainId, Result } from "types-ddd";
 ```
 
 ```ts
 interface Props extends BaseDomainEntity {
-  color: ColorValueObject;
-  year: YearValueObject;
-  weight?: WeightValueObject;
+    color: ColorValueObject;
+    year: YearValueObject;
+    weight?: WeightValueObject;
 }
 ```
 
 ```ts
 class Car extends Entity<Props> {
+  
   private constructor(props: Props) {
-    super(props, Car.name);
+      super(props, Car.name);
   }
 
   get color(): ColorValueObject {
-    return this.props.color;
+      return this.props.color;
   }
 
   get year(): YearValueObject {
-    return this.props.year;
+      return this.props.year;
   }
 
   get weight(): WeightValueObject | undefined {
-    return this.props.weight;
+      return this.props.weight;
   }
 
   private hasRequiredProps(): boolean {
-    return !this.checkProps(['color', 'year']).isSome('undefined');
+      return !this.checkProps(['color', 'year']).isSome('undefined');
   }
 
   private isValidYearForCar(year: YearValueObject): boolean {
-    return year.isOnRange({ min: 1920, max: 'currentYear' })
+      return year.isOnRange({ min: 1920, max: 'currentYear' })
   }
 
   public static create(props: Props): Result<Car> {
 
-    // Your business validation logic
-    // You may use rules before return a entity instance
-    const car = new Car(props);
+      // Your business validation logic
+      // You may use rules before return a entity instance
+      const car = new Car(props);
 
-    // Example: Required props must be provided 
-    const hasRequiredPros = car.hasRequiredProps();
+      // Example: Required props must be provided 
+      const hasRequiredPros = car.hasRequiredProps();
 
-    if (!hasRequiredPros) {
-      return Result.fail<Car>("Required props: year and color");
-    }
+      if (!hasRequiredPros) {
+          return Result.fail<Car>("Required props: year and color");
+      }
 
-    // Example: Year must be on range 1920 ~ currentYear
-    const isValidYearForCar = car.isValidYearForCar(props.year);
+      // Example: Year must be on range 1920 ~ currentYear
+      const isValidYearForCar = car.isValidYearForCar(props.year);
 
-    if (!isValidYearForCar) {
-      return Result.fail<Car>("The car is so wreck. Invalid year" );
-    }
+      if (!isValidYearForCar) {
+          return Result.fail<Car>("The car is so wreck. Invalid year" );
+      }
 
-    return Result.ok<Car>(car);
+      return Result.ok<Car>(car);
   }
 }
 
 ```
 
+### How to use
+
+* value-object
+* entity
+
+> Aggregate follow the same entity example
+
+If you want to see a full example check the repository [Click here](https://github.com/4lessandrodev/simple-ddd-app-example)
+
 ```ts
 
-const newID = DomainId.create();
+const clientCode = () => {
+  
+      // generate a new domain id
+      const newID = DomainId.create();
 
-// create value objects 
-const colorBlackOrError = ColorValueObject.create('BLACK');
-const manufactureYearOrError = YearValueObject.crete(2001);
 
-// important validate your value objects before use them
-const result = Result.combine([colorBlackOrError, manufactureYearOrError]);
+      // create value objects 
+      const colorBlackOrError = ColorValueObject.create('BLACK');
+      const manufactureYearOrError = YearValueObject.crete(2001);
 
-const isAllOk = result.isSuccess;
-// only execute next step if all value objects are ok
+      // important validate your value objects before use them
+      const result = Result.combine([colorBlackOrError, manufactureYearOrError]);
 
-const colorBlack = colorBlackOrError.getResult();
-const manufactureYear = manufactureYear.getResult();
+      const isValueObjectsOk = result.isSuccess;
+      // only execute next step if all value objects are ok
 
-const myCarOrError = Car.create({
-	ID: newID,
-	color: colorBlack,
-	year: manufactureYear
-});
+      const colorBlack = colorBlackOrError.getResult();
+      const manufactureYear = manufactureYear.getResult();
 
-console.log(myCarOrError.isSuccess);
-> true
+      const myCarOrError = Car.create({
+          ID: newID,
+          color: colorBlack,
+          year: manufactureYear
+      });
 
-const myCar = myCarOrError.getResult();
+      const isMyCarOk = myCarOrError.isSuccess;
+      // only execute next step if car entity is ok
 
-console.log(myCar.id.value);
-> "143150b2-47b6-4d97-945b-289f821c7fb9"
+      const myCar = myCarOrError.getResult();
 
-console.log(myCar.color.value);
-> "BLACK"
+      // Get a persistence object from domain instance to save on database
+      const carModel = myCar.toObject();
 
-console.log(myCar.year.value);
-> 2001
+      console.log(carModel);
+      `{ 
+          id: "143150b2-47b6-4d97-945b-289f821c7fb9", 
+          color: "BLACK", 
+          year: 2001,
+          isDeleted: false,
+          createdAt: "2022-02-13T05:41:32.652Z",
+          updatedAt: "2022-02-13T05:41:32.652Z"
+      }`
 
-// Get an object from domain instance
-console.log(myCar.toObject());
-> { 
-    id: "143150b2-47b6-4d97-945b-289f821c7fb9", 
-    color: "BLACK", 
-    year: 2001 
-  }
+}
 
 ```
 
@@ -415,6 +443,8 @@ A project is available on link below
 [Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/)
 
 ## Utils
+
+We understand that it's a little repetitive to create some "value-objects" and that's why we provide some "value-objects" that are usually always default
 #### Ready to use
 
 - ✔ EmailValueObject
@@ -449,7 +479,7 @@ A project is available on link below
 
 > If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
 
-### Just import and use it
+### Just import and use it - Password
 
 ```ts
 
@@ -480,8 +510,8 @@ console.log(PasswordValueObject.generateRandomPassword(12));
 
 ```
 
-### Generate short or normal uid from domain
-> repeating a value is unlikely with 14 characters or more
+### Generate short or normal uid from domain - uuid v4
+> repeating a value is unlikely with 16 characters or more
 
 Has been tested to create 90,000 short ids per second and no repeats were generated.
 
@@ -514,7 +544,7 @@ console.log(SID.uid)
 ```
 
 
-### Just import and use it
+### Just import and use it - Date
 
 
 > Easy date manipulation
@@ -552,6 +582,7 @@ console.log(isAfter);
 
 ```
 
+### Just import and use it - Currency
 
 > Safe value object to calculate finance values.
 > Each operation return an instance of Result cause It validate safe number
@@ -561,8 +592,8 @@ console.log(isAfter);
 import { CurrencyValueObject } from 'types-ddd';
 
 const myCurrency = CurrencyValueObject.create({
-   currency: 'BRL', 
-   value: 0.50 
+    currency: 'BRL', 
+    value: 0.50 
 }).getResult();
 
 console.log(myCurrency.value);
@@ -585,9 +616,12 @@ console.log(myCurrency.getCurrencyString());
 
 ```
 
+### Just import and use it - Result Observer
 
 > You may combine CurrencyValueObject to ChangesObserver
 > Observer check all received Results. If some "Result" is failure It returns false.
+
+Imagine an use case where you have to execute a lot of steps that return a result and you have to check result step by step. you probably thought to use a lot of if condition, but "changes observer" may help you with that.
 
 ```ts
 
@@ -598,11 +632,8 @@ const observer = ChangesObserver.init<string>();
 const isAllSuccess = observer
 	.add(Result.ok('1'))
 	.add(Result.ok('2'))
-	.add(Result.ok('3'))
-	.add(Result.ok('4'))
-	.add(Result.ok('5'))
 	.add(Result.fail('fail'))
-	.add(Result.ok('7'))
+	.add(Result.ok('4'))
 	.isAllResultsSuccess();
 
 console.log(isAllSuccess);
@@ -610,22 +641,20 @@ console.log(isAllSuccess);
 
 // OR 
 
-const isOK = ChangesObserver.init<string>(
-  [ Result.ok('1'),
+const isOK = ChangesObserver.init<string>([ 
+    Result.ok('1'),
     Result.ok('2'),
-    Result.ok('3'),
-    Result.ok('4'),
-    Result.ok('5'),
     Result.fail('fail'),
-    Result.ok('7')
-  ]
-).isAllResultsSuccess();;
+    Result.ok('4')
+]).isAllResultsSuccess();;
 
 console.log(isOK);
 > false
 
 
 ```
+
+### Just import and use it - Weight units
 
 ```ts
 
@@ -659,55 +688,58 @@ console.log(valueObject.weight.value);
 
 ## Mappers with Factory Method 
 
+Basically the mapper receives a dto and returns a result of an aggregate
+
 ```ts
 
 import { State, TMapper, FactoryMethod, Result, DomainId } from 'types-ddd';
 
 // Dto interface
 interface CreateUserDto {
-  name: string;
-  age: number;
+    name: string;
+    age: number;
 }
 ```
 
 ```ts
 // factory method
 
-// Mapper concrete implementation of TMapper
+// Mapper concrete implementation of TMapper (Adapter)
 class UserToDomainMapper extends State<CreateUserDto> implements TMapper<CreateUserDto, UserEntity> {
 
-  // input persistence instance
-  map ( dto: CreateUserDto ): Result<UserEntity> {
+    // input persistence instance
+    map ( dto: CreateUserDto ): Result<UserEntity> {
 
-    // start a new state
-    this.startState();
+        // start a new state
+        this.startState();
 
-    // add value objects on state
-    this.addState( 'age', AgeValueObject.create( dto.age ) );
-    this.addState( 'name', NameValueObject.create( dto.name ) );
+        // add value objects on state
+        this.addState( 'age', AgeValueObject.create( dto.age ) );
+        this.addState( 'name', NameValueObject.create( dto.name ) );
 
-    // check if has errors
-    const result = this.checkState();
-    if ( result.isFailure ) {
-      return Result.fail( result.error );
+        // check if has errors
+        const result = this.checkState();
+        if ( result.isFailure ) {
+          return Result.fail( result.error );
+        }
+
+      // output domain entity instance
+        return UserEntity.create( {
+            ID: DomainId.create(),
+            age: this.getStateByKey<AgeValueObject>('age').getResult(),
+            name: this.getStateByKey<NameValueObject>('name').getResult()
+        })
     }
-
-  // output domain entity instance
-    return UserEntity.create( {
-      ID: DomainId.create(),
-      age: this.getStateByKey<AgeValueObject>('age').getResult(),
-      name: this.getStateByKey<NameValueObject>('name').getResult()
-    })
-  }
 }
 
 ```
 
 ```ts
+// Optionally you may use Factory Method
 // Mapper creator: Factory to create a mapper instance
 class UserToDomainFactory extends FactoryMethod<CreateUserDto, UserEntity> {
   protected create (): TMapper<CreateUserDto, UserDomainEntity> {
-    return new UserToDomainMapper();
+      return new UserToDomainMapper();
   }
 }
 
@@ -718,8 +750,8 @@ class UserToDomainFactory extends FactoryMethod<CreateUserDto, UserEntity> {
 ```ts
 // dto instance
 const dto: CreateUserDto = {
-  age: 18,
-  name: 'Neo'
+    age: 18,
+    name: 'Neo'
 }
 
 // Create a factory instance
@@ -727,6 +759,12 @@ const entityFactory = new UserToDomainFactory();
 
 // Use Domain Entity to build a instance from dto > return a result of Domain Entity
 const userEntity = UserEntity.build(dto, entityFactory).getResult();
+
+// OR
+
+// Optionally you also may provide a mapper instance instead factory method one
+const userMapper = new UserToDomainMapper();
+const userEntity = UserEntity.build(dto, userMapper).getResult();
 
 ```
 
