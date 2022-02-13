@@ -28,16 +28,54 @@ export default abstract class ValueObject<T extends ValueObjectProps> {
 		const keys = Object.keys(this.props);
 
 		if (keys.length > 1) {
-			valueObj = Object.assign(
-				{},
-				{ ...valueObj },
-				{ ...this?.['props'] }
-			);
+			keys.map((key) => {
+				if (this[key] instanceof ValueObject) {
+					const props = this?.[key].toObject();
+					valueObj = Object.assign(
+						{},
+						{ ...valueObj },
+						{ [key]: props }
+					);
+				} else {
+					if (Array.isArray(this[key])) {
+						const isValueObject =
+							this[key][0] instanceof ValueObject;
+
+						if (isValueObject) {
+							const props = this[key].map(
+								(vo: ValueObject<any>) => vo?.toObject()
+							);
+							valueObj = Object.assign(
+								{},
+								{ ...valueObj },
+								{ [key]: props }
+							);
+						} else {
+							valueObj = Object.assign(
+								{},
+								{ ...valueObj },
+								{ [key]: this.props[key] }
+							);
+						}
+					} else {
+						valueObj = Object.assign(
+							{},
+							{ ...valueObj },
+							{ [key]: this.props[key] }
+						);
+					}
+				}
+			});
 
 			return valueObj as Readonly<D[keyof D]>;
 		}
 
 		valueObj = this?.[keys[0]];
+
+		if (valueObj instanceof ValueObject) {
+			valueObj = valueObj.toObject();
+		}
+
 		return valueObj as Readonly<D[keyof D]>;
 	}
 
