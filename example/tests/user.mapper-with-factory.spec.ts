@@ -13,10 +13,8 @@ import {
 	UserNameValueObject,
 } from '@types-ddd';
 
-const currentDate = new Date();
-const lastYear = new Date(
-	new Date().setFullYear(currentDate.getFullYear() - 1)
-);
+const currentDate = new Date('2022-01-01 00:00:00');
+const lastYear = new Date('2022-01-01 00:00:00');
 
 const model: Model = {
 	id: 'valid_id',
@@ -94,6 +92,8 @@ describe('user.mapper-with-factory', () => {
 		expect(generatedAggregate).toBeInstanceOf(User);
 		expect(generatedAggregate.userEmail.value).toBe(model.userEmail);
 		expect(generatedAggregate.id.value.toString()).toBe(model.id);
+
+		expect(generatedAggregate).toMatchSnapshot();
 	});
 
 	it('should convert from domain to database with success', () => {
@@ -102,5 +102,7 @@ describe('user.mapper-with-factory', () => {
 		expect(generatedModel).toEqual(model);
 		expect(generatedModel.userEmail).toBe(aggregate.userEmail.value);
 		expect(generatedModel.id).toBe(aggregate.id.value.toString());
+
+		expect(generatedModel).toMatchSnapshot();
 	});
 });

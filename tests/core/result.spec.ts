@@ -316,4 +316,77 @@ describe('result', () => {
 
 		expect(isSomeFail.isFailure).toBeFalsy();
 	});
+
+	it('should success keep with no changes', () => {
+		const result = new Result<string, string>(
+			true,
+			null,
+			'ACCEPTED',
+			'this is success'
+		);
+
+		expect(result).toMatchInlineSnapshot(`
+		Result {
+		  "_value": "this is success",
+		  "error": null,
+		  "isFailure": false,
+		  "isSuccess": true,
+		  "statusCode": "ACCEPTED",
+		  "statusCodeNumber": 202,
+		}
+	`);
+	});
+
+	it('should error keep with no changes', () => {
+		const result = new Result<string, string>(
+			false,
+			'this is an error',
+			'INTERNAL_SERVER_ERROR',
+			null
+		);
+
+		expect(result).toMatchInlineSnapshot(`
+		Result {
+		  "_value": null,
+		  "error": "this is an error",
+		  "isFailure": true,
+		  "isSuccess": false,
+		  "statusCode": "INTERNAL_SERVER_ERROR",
+		  "statusCodeNumber": 500,
+		}
+	`);
+	});
+
+	it('should success keep with no changes', () => {
+		const result = Result.ok<string, string>('success value', 'OK');
+
+		expect(result).toMatchInlineSnapshot(`
+		Result {
+		  "_value": "success value",
+		  "error": null,
+		  "isFailure": false,
+		  "isSuccess": true,
+		  "statusCode": "OK",
+		  "statusCodeNumber": 200,
+		}
+	`);
+	});
+
+	it('should error keep with no changes', () => {
+		const result = Result.fail<string, string>(
+			'this is an error',
+			'BAD_REQUEST'
+		);
+
+		expect(result).toMatchInlineSnapshot(`
+		Result {
+		  "_value": null,
+		  "error": "this is an error",
+		  "isFailure": true,
+		  "isSuccess": false,
+		  "statusCode": "BAD_REQUEST",
+		  "statusCodeNumber": 400,
+		}
+	`);
+	});
 });

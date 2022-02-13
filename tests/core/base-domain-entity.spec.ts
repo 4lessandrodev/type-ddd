@@ -34,4 +34,21 @@ describe('base-domain-entity', () => {
 		expect(classTest.isDeleted).toBe(true);
 		expect(classTest.updatedAt).toBe(currentDate);
 	});
+
+	it('should keep immutable', () => {
+		expect(classTest).toMatchInlineSnapshot(`
+		ClassTest {
+		  "ID": DomainId {
+		    "isNew": true,
+		    "props": Object {
+		      "value": "${id.uid}",
+		    },
+		  },
+		  "createdAt": ${currentDate.toISOString()},
+		  "deletedAt": ${currentDate.toISOString()},
+		  "isDeleted": true,
+		  "updatedAt": ${currentDate.toISOString()},
+		}
+	`);
+	});
 });

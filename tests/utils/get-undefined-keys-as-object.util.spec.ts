@@ -228,6 +228,18 @@ describe('get-undefined-keys-as-array.util', () => {
 			father: '',
 			profile: { series: '', child: { age: '' } },
 		});
+
+		expect(keys).toMatchInlineSnapshot(`
+		Object {
+		  "father": "",
+		  "profile": Object {
+		    "child": Object {
+		      "age": "",
+		    },
+		    "series": "",
+		  },
+		}
+	`);
 	});
 
 	it('should get undefined keys not included subObject ', () => {
@@ -260,6 +272,13 @@ describe('get-undefined-keys-as-array.util', () => {
 			father: '',
 			uncle: '',
 		});
+
+		expect(keys).toMatchInlineSnapshot(`
+		Object {
+		  "father": "",
+		  "uncle": "",
+		}
+	`);
 	});
 
 	it('should return object as string path', () => {
@@ -297,5 +316,38 @@ describe('get-undefined-keys-as-array.util', () => {
 			'profile.child.note': '',
 			'profile.child.age': '',
 		});
+
+		expect(object).toMatchInlineSnapshot(`
+		Object {
+		  "father": undefined,
+		  "mother": "Lane",
+		  "name": "Andres",
+		  "profile": Object {
+		    "age": 21,
+		    "child": Object {
+		      "age": undefined,
+		      "grades": Array [
+		        5,
+		        8,
+		        9,
+		      ],
+		      "name": "Luck",
+		      "note": null,
+		    },
+		    "grades": Array [
+		      5,
+		      8,
+		      9,
+		    ],
+		    "isMarried": false,
+		    "movies": Array [
+		      "matrix",
+		    ],
+		    "note": null,
+		    "series": undefined,
+		  },
+		  "uncle": null,
+		}
+	`);
 	});
 });

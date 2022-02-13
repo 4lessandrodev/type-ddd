@@ -1,5 +1,7 @@
 # Ignore everything:
 /*
+/__snapshots__/*
+*.ts.snap
 
 # Except:
 !/lib
@@ -10,3 +12,4 @@
 !tsconfig.json
 !tsconfig.lib.json
 !webpack.config.ts
+

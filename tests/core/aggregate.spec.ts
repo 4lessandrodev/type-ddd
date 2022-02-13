@@ -241,6 +241,30 @@ describe('aggregate', () => {
 		expect(cloned.updatedAt).toEqual(userAggregate.updatedAt);
 		expect(cloned.isDeleted).toBe(userAggregate.isDeleted);
 		expect(cloned.id.isNew).toBeFalsy();
+
+		expect(cloned).toMatchInlineSnapshot(`
+		UserAggregate {
+		  "_domainEvents": Array [],
+		  "_id": DomainId {
+		    "isNew": false,
+		    "props": Object {
+		      "value": "bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69",
+		    },
+		  },
+		  "entityName": "UserAggregate",
+		  "props": Object {
+		    "ID": DomainId {
+		      "isNew": false,
+		      "props": Object {
+		        "value": "bd2ad9fa-864d-4962-a7d5-dbb0f9c0ed69",
+		      },
+		    },
+		    "createdAt": ${currentDate.toISOString()},
+		    "name": "username",
+		    "updatedAt": ${currentDate.toISOString()},
+		  },
+		}
+	`);
 	});
 
 	it('should clone a aggregate and transform uuid to short uuid', () => {
