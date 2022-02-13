@@ -508,4 +508,85 @@ describe('auto-mapper', () => {
 		}
 	`);
 	});
+
+	it('should convert complex value object from an entity', () => {
+		const userName = UserNameValueObject.create('Jane Austin').getResult();
+		const currentDate = new Date('2020-01-01 00:00:00');
+
+		interface Props extends BaseDomainEntity {
+			name: UserNameValueObject;
+			complexVo: ComplexValueObject[];
+		}
+
+		class User extends Entity<Props> {
+			private constructor(props: Props) {
+				super(props, User.name);
+			}
+
+			get complexVo(): ComplexValueObject[] {
+				return this.props.complexVo;
+			}
+
+			get name(): UserNameValueObject {
+				return this.props.name;
+			}
+
+			public static create(props: Props): Result<User> {
+				// ... do some stuff or validation
+				return Result.ok(new User(props));
+			}
+		}
+
+		const user = User.create({
+			ID: DomainId.create('valid_id'),
+			complexVo: [complexValueObject],
+			name: userName,
+			createdAt: currentDate,
+			updatedAt: currentDate,
+		}).getResult();
+
+		const obj = user.toObject();
+
+		Logger.warn(obj as any);
+
+		expect(obj.complexVo).toEqual([
+			{
+				coin: {
+					currency: 'USD',
+					value: 1000,
+				},
+				emails: [
+					'valid1@domain.com',
+					'valid2@domain.com',
+					'valid3@domain.com',
+				],
+				password: 'eb6@18#R7&',
+			},
+		]);
+
+		expect(obj).toMatchInlineSnapshot(`
+		Object {
+		  "complexVo": Array [
+		    Object {
+		      "coin": Object {
+		        "currency": "USD",
+		        "value": 1000,
+		      },
+		      "emails": Array [
+		        "valid1@domain.com",
+		        "valid2@domain.com",
+		        "valid3@domain.com",
+		      ],
+		      "password": "eb6@18#R7&",
+		    },
+		  ],
+		  "createdAt": 2020-01-01T00:00:00.000Z,
+		  "deletedAt": undefined,
+		  "id": "valid_id",
+		  "isDeleted": false,
+		  "name": "Jane Austin",
+		  "updatedAt": 2020-01-01T00:00:00.000Z,
+		}
+	`);
+	});
 });

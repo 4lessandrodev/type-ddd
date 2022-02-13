@@ -237,7 +237,11 @@ export const convertEntity = <T extends DefaultProps>(target: T): any => {
 						{ [key]: subKeys }
 					);
 				} else if (firstElement instanceof ValueObject) {
-					if (firstElement instanceof DomainId || ShortDomainId) {
+					if (
+						(firstElement instanceof DomainId ||
+							firstElement instanceof ShortDomainId) &&
+						firstElement?.uid !== undefined
+					) {
 						const subKeys = subTarget.map((obj) => obj?.uid);
 						object = Object.assign(
 							{},
@@ -246,6 +250,7 @@ export const convertEntity = <T extends DefaultProps>(target: T): any => {
 						);
 					} else {
 						const subKeys = subTarget.map((obj) => obj?.toObject());
+						Logger.warn(subKeys as any);
 						object = Object.assign(
 							{},
 							{ ...object },
