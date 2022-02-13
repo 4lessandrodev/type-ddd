@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 ---
 
+### 2.9.11 - 2022-02-13
+
+### Changed
+
+- toObject: added support to convert a value object inside another one
+
+---
+
 ### 2.9.9 ~2.9.10 - 2022-02-13
 
 ### Changed
