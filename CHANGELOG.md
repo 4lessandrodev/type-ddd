@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 ---
 
-### 2.9.11 - 2022-02-13
+### 2.9.11 ~ 2.9.12 - 2022-02-13
 
 ### Changed
 
