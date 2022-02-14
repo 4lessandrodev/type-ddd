@@ -13,7 +13,6 @@ import {
 	DomainId,
 	ValueObject,
 	CustomStringValueObject,
-	Logger,
 } from '@types-ddd';
 import { User } from '../../example/simple-user.aggregate';
 
@@ -173,6 +172,43 @@ describe('auto-mapper', () => {
 		emails: emailsVo,
 		password: passwordVo,
 	}).getResult();
+
+	interface IAddress {
+		streetNumber: number;
+	}
+	interface ComplexEntityProps extends BaseDomainEntity {
+		password: PasswordValueObject;
+		coin: CurrencyValueObject;
+		emails: EmailValueObject[];
+		isPublic: boolean;
+		address?: IAddress;
+	}
+
+	class ComplexEntity extends Entity<ComplexEntityProps> {
+		private constructor(props: ComplexEntityProps) {
+			super(props, ComplexEntity.name);
+		}
+
+		get password(): PasswordValueObject {
+			return this.props.password;
+		}
+		get coin(): CurrencyValueObject {
+			return this.props.coin;
+		}
+		get emails(): EmailValueObject[] {
+			return this.props.emails;
+		}
+		get isPublic(): boolean {
+			return this.props.isPublic;
+		}
+		get address(): IAddress | undefined {
+			return this.props.address;
+		}
+
+		public static create(props: ComplexEntityProps): Result<ComplexEntity> {
+			return Result.ok<ComplexEntity>(new ComplexEntity(props));
+		}
+	}
 
 	it('should get all keys from entity', () => {
 		const date = new Date('2020-01-01T03:00:00.000Z');
@@ -416,7 +452,6 @@ describe('auto-mapper', () => {
 	it('should convert sub-value object in a value object', () => {
 		const result = complexValueObject.toObject();
 
-		Logger.warn(result as any);
 		expect(result).toBeDefined();
 		expect(result).toMatchInlineSnapshot(`
 		Object {
@@ -547,8 +582,6 @@ describe('auto-mapper', () => {
 
 		const obj = user.toObject();
 
-		Logger.warn(obj as any);
-
 		expect(obj.complexVo).toEqual([
 			{
 				coin: {
@@ -586,6 +619,56 @@ describe('auto-mapper', () => {
 		  "isDeleted": false,
 		  "name": "Jane Austin",
 		  "updatedAt": 2020-01-01T00:00:00.000Z,
+		}
+	`);
+	});
+
+	it('should convert a complex entity to simple object', () => {
+		const ID = DomainId.create('some_valid_id');
+		const currentDate = new Date('2022-01-01 00:00:00');
+
+		const complexEntity = ComplexEntity.create({
+			ID,
+			emails: [
+				EmailValueObject.create('valid_email@domain.com').getResult(),
+			],
+			coin: CurrencyValueObject.create({
+				currency: 'BRL',
+				value: 1000,
+			}).getResult(),
+			password: PasswordValueObject.create('123@#abcABC').getResult(),
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+			deletedAt: currentDate,
+			isPublic: false,
+			address: { streetNumber: 20 },
+		}).getResult();
+
+		const object = complexEntity.toObject();
+
+		expect(object.address).toEqual({ streetNumber: 20 });
+		expect(object.isPublic).toBe(false);
+
+		expect(object).toMatchInlineSnapshot(`
+		Object {
+		  "address": Object {
+		    "streetNumber": 20,
+		  },
+		  "coin": Object {
+		    "currency": "BRL",
+		    "value": 1000,
+		  },
+		  "createdAt": 2022-01-01T00:00:00.000Z,
+		  "deletedAt": 2022-01-01T00:00:00.000Z,
+		  "emails": Array [
+		    "valid_email@domain.com",
+		  ],
+		  "id": "some_valid_id",
+		  "isDeleted": false,
+		  "isPublic": false,
+		  "password": "123@#abcABC",
+		  "updatedAt": 2022-01-01T00:00:00.000Z,
 		}
 	`);
 	});

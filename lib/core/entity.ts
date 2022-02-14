@@ -192,7 +192,8 @@ export const convertEntity = <T extends DefaultProps>(target: T): any => {
 		if (
 			typeof subTarget === 'boolean' ||
 			typeof subTarget === 'number' ||
-			typeof subTarget === 'string'
+			typeof subTarget === 'string' ||
+			subTarget instanceof Date
 		) {
 			object = Object.assign({}, { ...object }, { [key]: subTarget });
 		}
@@ -250,7 +251,7 @@ export const convertEntity = <T extends DefaultProps>(target: T): any => {
 						);
 					} else {
 						const subKeys = subTarget.map((obj) => obj?.toObject());
-						Logger.warn(subKeys as any);
+
 						object = Object.assign(
 							{},
 							{ ...object },
@@ -265,6 +266,14 @@ export const convertEntity = <T extends DefaultProps>(target: T): any => {
 					);
 				}
 			} else {
+				object = Object.assign({}, { ...object }, { [key]: subTarget });
+			}
+		}
+
+		const isObject = typeof subTarget === 'object';
+
+		if (isObject && !isArray && !(subTarget instanceof Date)) {
+			if (subTarget?.['props'] === undefined) {
 				object = Object.assign({}, { ...object }, { [key]: subTarget });
 			}
 		}
