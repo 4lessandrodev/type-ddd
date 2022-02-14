@@ -672,4 +672,52 @@ describe('auto-mapper', () => {
 		}
 	`);
 	});
+
+	it('should convert a complex entity to simple object and get undefined if not provided value', () => {
+		const ID = DomainId.create('some_valid_id');
+		const currentDate = new Date('2022-01-01 00:00:00');
+
+		const complexEntity = ComplexEntity.create({
+			ID,
+			emails: [
+				EmailValueObject.create('valid_email@domain.com').getResult(),
+			],
+			coin: CurrencyValueObject.create({
+				currency: 'BRL',
+				value: 1000,
+			}).getResult(),
+			password: PasswordValueObject.create('123@#abcABC').getResult(),
+			createdAt: currentDate,
+			updatedAt: currentDate,
+			isDeleted: false,
+			deletedAt: currentDate,
+			isPublic: false,
+			address: undefined,
+		}).getResult();
+
+		const object = complexEntity.toObject();
+
+		expect(object.address).toBeUndefined();
+		expect(object.isPublic).toBe(false);
+
+		expect(object).toMatchInlineSnapshot(`
+		Object {
+		  "address": undefined,
+		  "coin": Object {
+		    "currency": "BRL",
+		    "value": 1000,
+		  },
+		  "createdAt": 2022-01-01T00:00:00.000Z,
+		  "deletedAt": 2022-01-01T00:00:00.000Z,
+		  "emails": Array [
+		    "valid_email@domain.com",
+		  ],
+		  "id": "some_valid_id",
+		  "isDeleted": false,
+		  "isPublic": false,
+		  "password": "123@#abcABC",
+		  "updatedAt": 2022-01-01T00:00:00.000Z,
+		}
+	`);
+	});
 });
