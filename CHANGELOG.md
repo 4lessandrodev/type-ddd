@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 ---
 
+### 2.9.13 - 2022-02-14
+
+### Fixed
+
+- toObject: added support to convert a simple object on entity
+
+---
+
 ### 2.9.11 ~ 2.9.12 - 2022-02-13
 
 ### Changed
