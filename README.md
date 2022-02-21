@@ -184,7 +184,7 @@ Divided by
 
 you might also like this tool.
 
-[Module Generator](https://github.com/4lessandrodev/types-generator)
+[Types-ddd CLI](https://www.npmjs.com/package/types-ddd-cli)
 ## 14. Available resources
 
 Resources on this lib (Core)
