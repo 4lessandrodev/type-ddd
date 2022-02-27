@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 ---
 
+### 2.10.0 - 2022-02-27
+
+### Fixed
+
+- toObject: return string when there is a domainId as value-object attribute
+
+---
 ### 2.9.13 - 2022-02-14
 
 ### Fixed
