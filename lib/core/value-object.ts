@@ -30,12 +30,20 @@ export default abstract class ValueObject<T extends ValueObjectProps> {
 		if (keys.length > 1) {
 			keys.map((key) => {
 				if (this[key] instanceof ValueObject) {
-					const props = this?.[key].toObject();
-					valueObj = Object.assign(
-						{},
-						{ ...valueObj },
-						{ [key]: props }
-					);
+					if (this[key]?.uid !== undefined) {
+						valueObj = Object.assign(
+							{},
+							{ ...valueObj },
+							{ [key]: this[key]?.uid }
+						);
+					} else {
+						const props = this?.[key].toObject();
+						valueObj = Object.assign(
+							{},
+							{ ...valueObj },
+							{ [key]: props }
+						);
+					}
 				} else {
 					if (Array.isArray(this[key])) {
 						const isValueObject =

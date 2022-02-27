@@ -720,4 +720,46 @@ describe('auto-mapper', () => {
 		}
 	`);
 	});
+
+	it('should convert a domain id to string', () => {
+		interface Props {
+			budgetBoxId: DomainId;
+			currency: CurrencyValueObject;
+		}
+
+		class ExampleValueObject extends ValueObject<Props> {
+			private constructor(props: Props) {
+				super(props);
+			}
+
+			get budgetBoxId(): DomainId {
+				return this.props.budgetBoxId;
+			}
+
+			get currency(): CurrencyValueObject {
+				return this.props.currency;
+			}
+
+			public static create(props: Props): Result<ExampleValueObject> {
+				return Result.ok<ExampleValueObject>(
+					new ExampleValueObject({ ...props })
+				);
+			}
+		}
+
+		const vo = ExampleValueObject.create({
+			budgetBoxId: DomainId.create('valid_budgetId'),
+			currency: CurrencyValueObject.create({
+				value: 200,
+				currency: 'BRL',
+			}).getResult(),
+		}).getResult();
+
+		const result = vo.toObject();
+
+		expect(result).toEqual({
+			budgetBoxId: 'valid_budgetId',
+			currency: { currency: 'BRL', value: 200 },
+		});
+	});
 });

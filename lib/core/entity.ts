@@ -318,29 +318,10 @@ export const autoConvertDomainToObject = <T, D>(target: T): Readonly<D> => {
 	}
 
 	if (target instanceof ValueObject) {
-		let valueObj = {};
-
-		const isId =
-			target instanceof DomainId || target instanceof ShortDomainId;
-
-		if (isId) {
-			return target?.uid as unknown as D;
+		if (target && target?.['uid'] !== undefined) {
+			return target?.['uid'];
 		}
-
-		const keys = Object.keys(target?.['props']);
-
-		if (keys.length > 1) {
-			valueObj = Object.assign(
-				{},
-				{ ...valueObj },
-				{ ...target?.['props'] }
-			);
-
-			return valueObj as D;
-		}
-
-		valueObj = target?.[keys[0]];
-		return valueObj as D;
+		return target.toObject();
 	}
 	return target as unknown as D;
 };
