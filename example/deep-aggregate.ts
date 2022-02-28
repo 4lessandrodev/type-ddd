@@ -190,10 +190,10 @@ export class AGGToDomainMapper
 		const nameVo =
 			this.getStateByKey<UserNameValueObject>('name').getResult();
 		const weightVo = this.getStateByKeys<WeightValueObject>(weightKeys).map(
-			({ getResult }) => getResult()
+			(weight) => weight.getResult()
 		);
 		const childrenVo = this.getStateByKeys<DeepEntity>(childrenKeys).map(
-			({ getResult }) => getResult()
+			(child) => child.getResult()
 		);
 
 		return DeepAggregate.create({
