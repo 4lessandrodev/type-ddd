@@ -10,6 +10,10 @@ import {
 } from '@types-ddd';
 import { User } from './simple-user.aggregate';
 
+// interfaces
+type IAggregateFactory = (model: Model) => Result<User>;
+type IModelFactory = (aggregate: User) => Model;
+
 // ----------------------------------------------------------------------------
 // User to persist on database
 export class Model {
@@ -23,68 +27,53 @@ export class Model {
 }
 
 // ----------------------------------------------------------------------------
-type IAggregateFactory = (model: Model) => Result<User>;
 
 // Factory function turn a model obj on domain obj
 // This is util to use on your use-cases
-export const AggregateFactory: IAggregateFactory = ({
-	id,
-	userPassword,
-	userName,
-	userEmail,
-	userBirthDay,
-	updatedAt,
-	createdAt,
-}: Model): Result<User> => {
-	const userNameOrError = UserNameValueObject.create(userName);
-	const userEmailOrError = EmailValueObject.create(userEmail);
-	const userPasswordOrError = PasswordValueObject.create(userPassword);
-	const userBirthDayOrError = BirthdayValueObject.create(userBirthDay);
+export const AggregateFactory: IAggregateFactory = (
+	target: Model
+): Result<User> => {
+	const userNameOrError = UserNameValueObject.create(target.userName);
+	const userEmailOrError = EmailValueObject.create(target.userEmail);
+	const userPasswordOrError = PasswordValueObject.create(target.userPassword);
+	const userBirthDayOrError = BirthdayValueObject.create(target.userBirthDay);
 
-	const changes = ChangesObserver.init<unknown>([
-		userNameOrError,
-		userEmailOrError,
-		userPasswordOrError,
-		userBirthDayOrError,
-	]).getResult();
+	const changes = ChangesObserver.init<unknown>();
 
-	const isAllResultsOk = changes.isSuccess;
+	changes.add(userNameOrError);
+	changes.add(userEmailOrError);
+	changes.add(userPasswordOrError);
+	changes.add(userBirthDayOrError);
+
+	const result = changes.getResult();
+	const isAllResultsOk = result.isSuccess;
 
 	if (!isAllResultsOk) {
-		return Result.fail(changes.errorValue());
+		return Result.fail(result.errorValue());
 	}
 
 	return User.create({
-		ID: DomainId.create(id),
+		ID: DomainId.create(target.id),
 		userName: userNameOrError.getResult(),
 		userEmail: userEmailOrError.getResult(),
 		userPassword: userPasswordOrError.getResult(),
 		userBirthDay: userBirthDayOrError.getResult(),
-		createdAt: createdAt,
-		updatedAt: updatedAt,
+		createdAt: target.createdAt,
+		updatedAt: target.updatedAt,
 	});
 };
 
 // ----------------------------------------------------------------------------
-type IModelFactory = (aggregate: User) => Model;
 
 // Factory function turn a domain obj on database obj
-export const ModelFactory: IModelFactory = ({
-	id,
-	createdAt,
-	userPassword: password,
-	userName: name,
-	userEmail: email,
-	userBirthDay: birthDay,
-	updatedAt,
-}: User): Model => ({
-	id: id.value.toString(),
-	userName: name.value,
-	userEmail: email.value,
-	userPassword: password.value,
-	userBirthDay: birthDay.value,
-	createdAt: createdAt,
-	updatedAt: updatedAt,
+export const ModelFactory: IModelFactory = (target: User): Model => ({
+	id: target.id.uid,
+	userName: target.userName.value,
+	userEmail: target.userEmail.value,
+	userPassword: target.userPassword.value,
+	userBirthDay: target.userBirthDay.value,
+	createdAt: target.createdAt,
+	updatedAt: target.updatedAt,
 });
 
 // ----------------------------------------------------------------------------

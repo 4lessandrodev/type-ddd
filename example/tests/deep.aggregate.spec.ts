@@ -12,7 +12,7 @@ describe('deep-aggregate', () => {
 		const result = DeepAggregate.build(
 			{
 				id: 'valid_id',
-				age: new Date('2000-01-01 00:00'),
+				age: new Date('2000-01-01 00:00:00'),
 				children: [
 					{
 						id: 'valid_id1',

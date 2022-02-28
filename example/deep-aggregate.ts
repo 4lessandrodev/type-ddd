@@ -141,13 +141,16 @@ export class ENToDomainMapper
 			return Result.fail(result.error);
 		}
 
+		const notesVo = this.getStateByKeys<StringVo>(noteKeys).map((note) =>
+			note.getResult()
+		);
+		const passVo =
+			this.getStateByKey<PasswordValueObject>('password').getResult();
+
 		return DeepEntity.create({
 			ID: ShortDomainId.create(),
-			notes: this.getStateByKeys<StringVo>(noteKeys).map((note) =>
-				note.getResult()
-			),
-			password:
-				this.getStateByKey<PasswordValueObject>('password').getResult(),
+			notes: notesVo,
+			password: passVo,
 		});
 	}
 }
@@ -182,16 +185,23 @@ export class AGGToDomainMapper
 			return Result.fail(result.error);
 		}
 
+		const ageVo =
+			this.getStateByKey<BirthdayValueObject>('age').getResult();
+		const nameVo =
+			this.getStateByKey<UserNameValueObject>('name').getResult();
+		const weightVo = this.getStateByKeys<WeightValueObject>(weightKeys).map(
+			({ getResult }) => getResult()
+		);
+		const childrenVo = this.getStateByKeys<DeepEntity>(childrenKeys).map(
+			({ getResult }) => getResult()
+		);
+
 		return DeepAggregate.create({
 			ID: ShortDomainId.create(),
-			children: this.getStateByKeys<DeepEntity>(childrenKeys).map(
-				(child) => child.getResult()
-			),
-			age: this.getStateByKey<BirthdayValueObject>('age').getResult(),
-			name: this.getStateByKey<UserNameValueObject>('name').getResult(),
-			weights: this.getStateByKeys<WeightValueObject>(weightKeys).map(
-				(weight) => weight.getResult()
-			),
+			children: childrenVo,
+			age: ageVo,
+			name: nameVo,
+			weights: weightVo,
 		});
 	}
 }

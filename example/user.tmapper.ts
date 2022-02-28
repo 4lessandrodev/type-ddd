@@ -6,6 +6,7 @@ import {
 	PasswordValueObject,
 	Result,
 	TMapper,
+	ChangesObserver,
 } from '@types-ddd';
 import { User } from './simple-user.aggregate';
 
@@ -26,18 +27,20 @@ export class Model {
 // Mapper to be injected on repository.
 export class UserModelToDomainMapper implements TMapper<Model, User> {
 	//
-	map = (model: Model): Result<User> => {
+	map(model: Model): Result<User> {
 		const nameOrError = UserNameValueObject.create(model.userName);
 		const emailOrError = EmailValueObject.create(model.userEmail);
 		const passOrError = PasswordValueObject.create(model.userPassword);
 		const birthOrError = BirthdayValueObject.create(model.userBirthDay);
 
-		const result = Result.combine<unknown>([
-			nameOrError,
-			emailOrError,
-			passOrError,
-			birthOrError,
-		]);
+		const observer = ChangesObserver.init<unknown>();
+
+		observer.add(nameOrError);
+		observer.add(emailOrError);
+		observer.add(passOrError);
+		observer.add(birthOrError);
+
+		const result = observer.getResult();
 
 		if (result.isFailure) {
 			return Result.fail(result.errorValue());
@@ -53,7 +56,7 @@ export class UserModelToDomainMapper implements TMapper<Model, User> {
 			updatedAt: model.updatedAt,
 			isDeleted: model.isDeleted,
 		});
-	};
+	}
 }
 
 // What about Domain to Persistence Conversion ???
@@ -62,7 +65,7 @@ export class UserModelToDomainMapper implements TMapper<Model, User> {
 
 export class UserDomainToModelMapper implements TMapper<User, Model> {
 	//
-	map = (domain: User): Result<Model> => {
+	map(domain: User): Result<Model> {
 		const model: Model = {
 			id: domain.id.uid,
 			userName: domain.userName.toObject(),
@@ -75,5 +78,5 @@ export class UserDomainToModelMapper implements TMapper<User, Model> {
 		};
 
 		return Result.ok(model);
-	};
+	}
 }
