@@ -54,7 +54,7 @@
 	"homepage": "https://alessandroadm.gitbook.io/types-ddd/",
 	"dependencies": {
 		"bcrypt": "5.0.1",
-		"pino": "6.13.4",
+		"pino": "6.14.0",
 		"pino-pretty": "7.5.1"
 	},
 	"devDependencies": {
