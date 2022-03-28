@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+
+---
+
+### 2.10.3 - 2022-03-28
+
+### Changes
+
+- logger: make instance a singleton
+
 ---
 
 ### 2.10.2 - 2022-03-28

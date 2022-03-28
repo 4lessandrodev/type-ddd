@@ -1,19 +1,30 @@
-import pino, { LoggerOptions } from 'pino';
+import pino from 'pino';
+import { LoggerOptions } from 'pino';
 
-const config: LoggerOptions = {
-	transport: {
-		target: 'pino-pretty',
-		options: {
-			translateTime: 'HH:MM:ss',
-			messageFormat: '{levelLabel} {pid} {msg}',
-			ignore: 'pid,hostname',
-			prettyPrint: {
-				colorize: true,
-				levelFirst: true,
+class DefaultLogger {
+	protected static pino: any;
+	protected static config: LoggerOptions = {
+		transport: {
+			target: 'pino-pretty',
+			options: {
+				translateTime: 'HH:MM:ss',
+				messageFormat: '{levelLabel} {pid} {msg}',
+				ignore: 'pid,hostname',
+				prettyPrint: {
+					colorize: true,
+					levelFirst: true,
+				},
 			},
 		},
-	},
-};
+	};
+
+	public static init() {
+		if (!DefaultLogger.pino) {
+			this.pino = pino(DefaultLogger.config);
+		}
+		return this.pino;
+	}
+}
 
 type LogsType = 'error' | 'info' | 'warn';
 
@@ -26,18 +37,18 @@ export const checkEnv = (callback: Function, type?: LogsType): void => {
 		callback();
 	}
 };
-pino();
+
 const Logger = {
 	info: (message: string) => {
-		const callback = () => pino(config).info({}, message);
+		const callback = () => DefaultLogger.init().info({}, message);
 		checkEnv(callback, 'info');
 	},
 	error: (message: string) => {
-		const callback = () => pino(config).error({}, message);
+		const callback = () => DefaultLogger.init().error({}, message);
 		checkEnv(callback, 'error');
 	},
 	warn: (message: string) => {
-		const callback = () => pino(config).warn({}, message);
+		const callback = () => DefaultLogger.init().warn({}, message);
 		checkEnv(callback, 'warn');
 	},
 };
