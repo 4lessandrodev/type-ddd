@@ -1,15 +1,15 @@
-import pino from 'pino';
+import pino, { LoggerOptions } from 'pino';
 
-const config = {
+const config: LoggerOptions = {
 	transport: {
 		target: 'pino-pretty',
 		options: {
+			translateTime: 'HH:MM:ss',
+			messageFormat: '{levelLabel} {pid} {msg}',
+			ignore: 'pid,hostname',
 			prettyPrint: {
 				colorize: true,
 				levelFirst: true,
-				messageFormat: '{levelLabel} {pid} {msg}',
-				translateTime: 'HH:MM:ss',
-				ignore: 'pid,hostname',
 			},
 		},
 	},
@@ -26,7 +26,7 @@ export const checkEnv = (callback: Function, type?: LogsType): void => {
 		callback();
 	}
 };
-
+pino();
 const Logger = {
 	info: (message: string) => {
 		const callback = () => pino(config).info({}, message);
