@@ -1,12 +1,17 @@
 import pino from 'pino';
 
 const config = {
-	prettyPrint: {
-		colorize: true,
-		levelFirst: true,
-		messageFormat: '{levelLabel} {pid} {msg}',
-		translateTime: 'HH:MM:ss',
-		ignore: 'pid,hostname',
+	transport: {
+		target: 'pino-pretty',
+		options: {
+			prettyPrint: {
+				colorize: true,
+				levelFirst: true,
+				messageFormat: '{levelLabel} {pid} {msg}',
+				translateTime: 'HH:MM:ss',
+				ignore: 'pid,hostname',
+			},
+		},
 	},
 };
 
