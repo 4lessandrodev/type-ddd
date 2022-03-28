@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 ---
 
+### 2.10.2 - 2022-03-28
+
+### Changes
+
+- logger: update configs
+### Update
+
+- deps: update dependencies
+
+---
+
 ### 2.10.1 - 2022-03-23
 
 ### Update
