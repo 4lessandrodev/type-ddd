@@ -1,0 +1,326 @@
+import {
+	IUseCase,
+	Result,
+	IBeforeHookProxy,
+	IAfterHookProxy,
+	ICanExecuteProxy,
+	ProxyPattern,
+} from '@types-ddd';
+
+describe('proxy.pattern', () => {
+	interface DataDto {
+		email: string;
+	}
+	let useCase: IUseCase<DataDto, Result<string>>;
+	let beforeExecuteHook: IBeforeHookProxy<DataDto, string>;
+	let afterExecuteHook: IAfterHookProxy<string, string>;
+	let canExecuteProxy: ICanExecuteProxy<DataDto, string>;
+
+	beforeEach(() => {
+		useCase = {
+			execute: async (data: DataDto): Promise<Result<string>> =>
+				Result.ok(data.email),
+		};
+
+		beforeExecuteHook = async (data: DataDto): Promise<Result<DataDto>> =>
+			Result.ok({
+				email: data.email.toLowerCase(),
+			});
+
+		afterExecuteHook = async (
+			data: Result<string>
+		): Promise<Result<string>> => data;
+
+		canExecuteProxy = async (data: DataDto): Promise<Result<boolean>> => {
+			const isValidEmail = data.email === 'valid_email@domain.com';
+
+			if (isValidEmail) return Result.ok(true);
+
+			return Result.fail('invalid email');
+		};
+	});
+
+	it('should run execute with success', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+
+		const proxy = new OnlyExecute({ execute: useCase });
+
+		const result = await proxy.execute({ email: 'valid_email@domain.com' });
+
+		expect(result.isSuccess).toBeTruthy();
+		expect(result.getResult()).toBe('valid_email@domain.com');
+	});
+
+	it('should can execute if provide a valid email', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		const validateFn = { canExecuteProxy };
+		const validateSpy = jest.spyOn(validateFn, 'canExecuteProxy');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: validateFn.canExecuteProxy,
+		});
+
+		const result = await proxy.execute({ email: 'valid_email@domain.com' });
+
+		expect(validateSpy).toHaveBeenCalledWith({
+			email: 'valid_email@domain.com',
+		});
+		expect(result.isSuccess).toBeTruthy();
+		expect(result.getResult()).toBe('valid_email@domain.com');
+	});
+
+	it('should cannot execute if provide an invalid email', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		const validateFn = { canExecuteProxy };
+		const validateSpy = jest.spyOn(validateFn, 'canExecuteProxy');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: validateFn.canExecuteProxy,
+		});
+
+		const result = await proxy.execute({
+			email: 'invalid_email@domain.com',
+		});
+
+		expect(validateSpy).toHaveBeenCalledWith({
+			email: 'invalid_email@domain.com',
+		});
+		expect(result.isFailure).toBeTruthy();
+		expect(result.error).toBe('invalid email');
+	});
+
+	it('should run before hook if provide one', async () => {
+		/** This hook transform email to lowerCase */
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		const beforeFn = { beforeExecuteHook };
+		const validateSpy = jest.spyOn(beforeFn, 'beforeExecuteHook');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: canExecuteProxy,
+			beforeExecute: beforeFn.beforeExecuteHook,
+		});
+
+		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
+
+		expect(validateSpy).toHaveBeenCalledWith({
+			email: 'VALID_EMAIL@DOMAIN.COM',
+		});
+
+		expect(result.isSuccess).toBeTruthy();
+		expect(result.getResult()).toBe('valid_email@domain.com');
+	});
+
+	it('should run after hook if provide one', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		const afterFn = { afterExecuteHook };
+		const validateSpy = jest.spyOn(afterFn, 'afterExecuteHook');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: canExecuteProxy,
+			beforeExecute: beforeExecuteHook,
+			afterExecute: afterFn.afterExecuteHook,
+		});
+
+		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
+
+		expect(validateSpy).toHaveBeenCalledWith(
+			Result.ok('valid_email@domain.com')
+		);
+
+		expect(result.isSuccess).toBeTruthy();
+		expect(result.getResult()).toBe('valid_email@domain.com');
+	});
+
+	it('should run after hook if provide one', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		const afterFn = {
+			afterExecuteHook: async (
+				data: Result<string>
+			): Promise<Result<string>> => {
+				return Result.ok(data.getResult() + '@AFTER-HOOK');
+			},
+		};
+		const validateSpy = jest.spyOn(afterFn, 'afterExecuteHook');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: canExecuteProxy,
+			beforeExecute: beforeExecuteHook,
+			afterExecute: afterFn.afterExecuteHook,
+		});
+
+		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
+
+		expect(validateSpy).toHaveBeenCalledWith(
+			Result.ok('valid_email@domain.com')
+		);
+
+		expect(result.isSuccess).toBeTruthy();
+		expect(result.getResult()).toBe('valid_email@domain.com@AFTER-HOOK');
+	});
+
+	it('should do not call canExecute if beforeExecute fails', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+
+		const hooks = {
+			canExecute: canExecuteProxy,
+			beforeExecute: beforeExecuteHook,
+			afterExecute: afterExecuteHook,
+		};
+
+		const beforeExecuteSpy = jest
+			.spyOn(hooks, 'beforeExecute')
+			.mockImplementationOnce(async () =>
+				Result.fail('@hook:before:fails')
+			);
+
+		const canExecuteSpy = jest.spyOn(hooks, 'canExecute');
+		const afterExecuteSpy = jest.spyOn(hooks, 'afterExecute');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: hooks.canExecute,
+			beforeExecute: hooks.beforeExecute,
+			afterExecute: hooks.afterExecute,
+		});
+
+		const result = await proxy.execute({
+			email: 'invalid_value@domain.com',
+		});
+
+		expect(beforeExecuteSpy).toHaveBeenCalledWith({
+			email: 'invalid_value@domain.com',
+		});
+		expect(canExecuteSpy).not.toHaveBeenCalled();
+		expect(afterExecuteSpy).not.toHaveBeenCalled();
+		expect(result.isFailure).toBeTruthy();
+		expect(result.error).toBe('@hook:before:fails');
+	});
+
+	it('should do not call execute if canExecute fails', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+
+		const hooks = {
+			canExecute: canExecuteProxy,
+			beforeExecute: beforeExecuteHook,
+			afterExecute: afterExecuteHook,
+		};
+
+		const canExecuteSpy = jest
+			.spyOn(hooks, 'canExecute')
+			.mockImplementationOnce(async () =>
+				Result.fail('@hook:canExecute:fails')
+			);
+
+		const useCaseSpy = jest.spyOn(useCase, 'execute');
+		const beforeExecuteSpy = jest.spyOn(hooks, 'beforeExecute');
+		const afterExecuteSpy = jest.spyOn(hooks, 'afterExecute');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: hooks.canExecute,
+			beforeExecute: hooks.beforeExecute,
+			afterExecute: hooks.afterExecute,
+		});
+
+		const result = await proxy.execute({
+			email: 'invalid_value@domain.com',
+		});
+
+		expect(canExecuteSpy).toHaveBeenCalledWith({
+			email: 'invalid_value@domain.com',
+		});
+		expect(beforeExecuteSpy).toHaveBeenCalledWith({
+			email: 'invalid_value@domain.com',
+		});
+		expect(afterExecuteSpy).not.toHaveBeenCalled();
+		expect(useCaseSpy).not.toHaveBeenCalled();
+		expect(result.isFailure).toBeTruthy();
+		expect(result.error).toBe('@hook:canExecute:fails');
+	});
+
+	it('should do not call afterExecute if execute fails', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+
+		const hooks = {
+			canExecute: canExecuteProxy,
+			beforeExecute: beforeExecuteHook,
+			afterExecute: afterExecuteHook,
+		};
+
+		const useCaseSpy = jest
+			.spyOn(useCase, 'execute')
+			.mockImplementationOnce(async () =>
+				Result.fail('@hook:execute:fails')
+			);
+
+		const canExecuteSpy = jest.spyOn(hooks, 'canExecute');
+		const beforeExecuteSpy = jest.spyOn(hooks, 'beforeExecute');
+		const afterExecuteSpy = jest.spyOn(hooks, 'afterExecute');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: hooks.canExecute,
+			beforeExecute: hooks.beforeExecute,
+			afterExecute: hooks.afterExecute,
+		});
+
+		const result = await proxy.execute({ email: 'valid_email@domain.com' });
+
+		expect(useCaseSpy).toHaveBeenCalledWith({
+			email: 'valid_email@domain.com',
+		});
+		expect(canExecuteSpy).toHaveBeenCalledWith({
+			email: 'valid_email@domain.com',
+		});
+		expect(beforeExecuteSpy).toHaveBeenCalledWith({
+			email: 'valid_email@domain.com',
+		});
+		expect(afterExecuteSpy).not.toHaveBeenCalled();
+		expect(result.isFailure).toBeTruthy();
+		expect(result.error).toBe('@hook:execute:fails');
+	});
+
+	it('should return fails if afterExecute hook fails', async () => {
+		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+
+		const hooks = {
+			canExecute: canExecuteProxy,
+			beforeExecute: beforeExecuteHook,
+			afterExecute: afterExecuteHook,
+		};
+
+		jest.spyOn(hooks, 'afterExecute').mockImplementationOnce(async () =>
+			Result.fail('@hook:after:fails')
+		);
+
+		const useCaseSpy = jest.spyOn(useCase, 'execute');
+		const canExecuteSpy = jest.spyOn(hooks, 'canExecute');
+		const beforeExecuteSpy = jest.spyOn(hooks, 'beforeExecute');
+
+		const proxy = new OnlyExecute({
+			execute: useCase,
+			canExecute: hooks.canExecute,
+			beforeExecute: hooks.beforeExecute,
+			afterExecute: hooks.afterExecute,
+		});
+
+		const result = await proxy.execute({ email: 'valid_email@domain.com' });
+
+		expect(useCaseSpy).toHaveBeenCalledWith({
+			email: 'valid_email@domain.com',
+		});
+		expect(canExecuteSpy).toHaveBeenCalledWith({
+			email: 'valid_email@domain.com',
+		});
+		expect(beforeExecuteSpy).toHaveBeenCalledWith({
+			email: 'valid_email@domain.com',
+		});
+		expect(result.isFailure).toBeTruthy();
+		expect(result.error).toBe('@hook:after:fails');
+	});
+});

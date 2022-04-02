@@ -3,7 +3,7 @@
 
 typescript domain driven design library. All resources tested
 
-<img src="./readme/snap-shot-tests.png" width=100%>
+<img src="./readme/testing.png" width=100%>
 
 ## Install
 
