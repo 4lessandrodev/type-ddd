@@ -90,7 +90,7 @@ export type IBeforeHookProxy<Data, Error> = (
  *
  *
  */
-export interface IContext<Data, Payload, Error> {
+export interface IProxyContext<Data, Payload, Error> {
 	execute: IUseCase<Data, Result<Payload, Error>>;
 	canExecute?: ICanExecuteProxy<Data, Error>;
 	afterExecute?: IAfterHookProxy<Payload, Error>;
