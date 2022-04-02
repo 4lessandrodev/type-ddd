@@ -1,5 +1,5 @@
 import { ErrorStatus, Result } from '../../core';
-import { IContext } from '../../types/types';
+import { IProxyContext } from '../../types/types';
 
 /**
  *
@@ -88,7 +88,9 @@ import { IContext } from '../../types/types';
  *
  */
 export abstract class TSProxy<Data, Payload, Error = string> {
-	constructor(private readonly context: IContext<Data, Payload, Error>) {}
+	constructor(
+		private readonly context: IProxyContext<Data, Payload, Error>
+	) {}
 
 	private async canExecute(data: Data): Promise<Result<boolean, Error>> {
 		if (!this.context.canExecute) {
