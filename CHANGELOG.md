@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- TSProxy: added abstract class as proxy implementation
+- TSProxy: added abstract class as proxy implementation [pull request](https://github.com/4lessandrodev/types-ddd/pull/142)
 
 ---
 
