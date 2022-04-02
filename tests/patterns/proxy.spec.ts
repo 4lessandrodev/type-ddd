@@ -4,7 +4,7 @@ import {
 	IBeforeHookProxy,
 	IAfterHookProxy,
 	ICanExecuteProxy,
-	ProxyPattern,
+	TSProxy,
 } from '@types-ddd';
 
 describe('proxy.pattern', () => {
@@ -41,7 +41,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should run execute with success', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 
 		const proxy = new OnlyExecute({ execute: useCase });
 
@@ -52,7 +52,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should can execute if provide a valid email', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 		const validateFn = { canExecuteProxy };
 		const validateSpy = jest.spyOn(validateFn, 'canExecuteProxy');
 
@@ -71,7 +71,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should cannot execute if provide an invalid email', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 		const validateFn = { canExecuteProxy };
 		const validateSpy = jest.spyOn(validateFn, 'canExecuteProxy');
 
@@ -93,7 +93,7 @@ describe('proxy.pattern', () => {
 
 	it('should run before hook if provide one', async () => {
 		/** This hook transform email to lowerCase */
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 		const beforeFn = { beforeExecuteHook };
 		const validateSpy = jest.spyOn(beforeFn, 'beforeExecuteHook');
 
@@ -114,7 +114,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should run after hook if provide one', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 		const afterFn = { afterExecuteHook };
 		const validateSpy = jest.spyOn(afterFn, 'afterExecuteHook');
 
@@ -136,7 +136,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should run after hook if provide one', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 		const afterFn = {
 			afterExecuteHook: async (
 				data: Result<string>
@@ -164,7 +164,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should do not call canExecute if beforeExecute fails', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 
 		const hooks = {
 			canExecute: canExecuteProxy,
@@ -202,7 +202,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should do not call execute if canExecute fails', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 
 		const hooks = {
 			canExecute: canExecuteProxy,
@@ -244,7 +244,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should do not call afterExecute if execute fails', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 
 		const hooks = {
 			canExecute: canExecuteProxy,
@@ -286,7 +286,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should return fails if afterExecute hook fails', async () => {
-		class OnlyExecute extends ProxyPattern<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string> {}
 
 		const hooks = {
 			canExecute: canExecuteProxy,

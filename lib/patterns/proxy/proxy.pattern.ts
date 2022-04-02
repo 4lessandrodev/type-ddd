@@ -87,7 +87,7 @@ import { IContext } from '../../types/types';
  *
  *
  */
-export abstract class ProxyPattern<Data, Payload, Error = string> {
+export abstract class TSProxy<Data, Payload, Error = string> {
 	constructor(private readonly context: IContext<Data, Payload, Error>) {}
 
 	private async canExecute(data: Data): Promise<Result<boolean, Error>> {
@@ -166,4 +166,4 @@ export abstract class ProxyPattern<Data, Payload, Error = string> {
 	}
 }
 
-export default ProxyPattern;
+export default TSProxy;

@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 2.11.0 - 2022-04-02
+
+### Added
+
+- TSProxy: added abstract class as proxy implementation
+
+---
+
 ### 2.10.3 - 2022-03-28
 
 ### Changes

@@ -476,6 +476,7 @@ We understand that it's a little repetitive to create some "value-objects" and t
 - ✔ SpecificationComposite
 - ✔ State
 - ✔ FactoryMethod
+- ✔ TSProxy
 
 > If you have some value object suggestion todo, open an issue on [Github](https://github.com/4lessandrodev/types-ddd/issues)
 
