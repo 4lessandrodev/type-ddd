@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 2.12.0 - 2022-04-18
+
+### Changes
+
+- TSProxy: change context param from function to instance of class
+
+---
+
 ### 2.11.0 - 2022-04-02
 
 ### Added
