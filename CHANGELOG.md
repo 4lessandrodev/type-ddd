@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changes
 
 - TSProxy: change context param from function to instance of class
+- deps: update dependencies
 
 ---
 
