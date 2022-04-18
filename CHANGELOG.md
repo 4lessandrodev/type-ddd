@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changes
 
-- TSProxy: change context param from function to instance of class
+- TSProxy: change context param from function to instance of class [pull request](https://github.com/4lessandrodev/types-ddd/pull/144)
 - deps: update dependencies
 
 ---
