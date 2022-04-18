@@ -19,14 +19,15 @@ export interface CloneProps {
  * @argument Error generic type for Error returns if something fails in the process
  * @returns Result instance with boolean value. true if can execute and false if not.
  *
- * type ICanExecuteProxy<Data, Error> = ( data: Data ) => Promise<Result<boolean, Error>>;
+ * type ICanExecuteProxy<Data, Error> = IUseCase<Data, Result<boolean, Error>>;
  * //...
- * const canExecute = async (data: SignInDto) => Result.ok<boolean>(true);
+ * const canExecute = { execute: async (data: SignInDto) => Result.ok<boolean>(true) };
  * // ...
  */
-export type ICanExecuteProxy<Data, Error> = (
-	data: Data
-) => Promise<Result<boolean, Error>>;
+export type ICanExecuteProxy<Data, Error> = IUseCase<
+	Data,
+	Result<boolean, Error>
+>;
 /**
  * @description Method responsible for do something you want after run `execute` method
  *
@@ -36,14 +37,15 @@ export type ICanExecuteProxy<Data, Error> = (
  * @returns Result instance with payload value.
  *
  * @example
- * type IAfterHookProxy<Payload, Error> = ( data?: Result<Payload, Error> ) => Promise<Result<Payload, Error>>;
+ * type IAfterHookProxy<Payload, Error> = IUseCase<Result<Payload, Error>, Result<Payload, Error>>;
  * //...
- * const afterExecute = async (data: Result<UserAggregate>) => data;
+ * const afterExecute = { execute: async (data: Result<UserAggregate>) => data };
  * // ...
  */
-export type IAfterHookProxy<Payload, Error> = (
-	data: Result<Payload, Error>
-) => Promise<Result<Payload, Error>>;
+export type IAfterHookProxy<Payload, Error> = IUseCase<
+	Result<Payload, Error>,
+	Result<Payload, Error>
+>;
 /**
  * @description Method responsible for do something you want before run `execute` method.
  *
@@ -52,18 +54,18 @@ export type IAfterHookProxy<Payload, Error> = (
  * @returns Result instance with data value. The `execute` method will use data returned from this method.
  *
  * @example
- * type IBeforeHookProxy<Data, Error> = ( data?: Data ) => Promise<Result<Data, Error>>;
+ * type IBeforeHookProxy<Data, Error> = IUseCase<Data, Result<Data, Error>>;
  * //...
- * const beforeExecute = async (data: { email: string, password: string }) => ({
- *   email: data.email.toLowerCase(),
- *   password: data.password
- * });
+ * const beforeExecute = {
+ *   execute: async (data: { email: string, password: string }) => ({
+ *     email: data.email.toLowerCase(),
+ *     password: data.password
+ *   });
+ * }
  * // ...
  *
  */
-export type IBeforeHookProxy<Data, Error> = (
-	data: Data
-) => Promise<Result<Data, Error>>;
+export type IBeforeHookProxy<Data, Error> = IUseCase<Data, Result<Data, Error>>;
 
 /**
  * @description Context parameters for a proxy class instance.
@@ -83,9 +85,9 @@ export type IBeforeHookProxy<Data, Error> = (
  * // context param
  * {
  *   execute: new SignInUseCase(), // returns a Result<UserAggregate>
- *   canExecute: async (data: SignInDto) => Result.ok<boolean>(true),
- *   beforeExecute: async (data: SignInDto) => Result.ok(data),
- *   afterExecute: async (data: Result<UserAggregate>) => data
+ *   canExecute: { execute: async (data: SignInDto) => Result.ok<boolean>(true) },
+ *   beforeExecute: { execute: async (data: SignInDto) => Result.ok(data) },
+ *   afterExecute: { execute: async (data: Result<UserAggregate>) => data }
  * }
  *
  *

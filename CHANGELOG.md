@@ -6,6 +6,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 2.12.0 - 2022-04-18
+
+### Changes
+
+- TSProxy: change context param from function to instance of class [pull request](https://github.com/4lessandrodev/types-ddd/pull/144)
+- deps: update dependencies
+
+---
+
 ### 2.11.0 - 2022-04-02
 
 ### Added

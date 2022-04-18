@@ -28,9 +28,9 @@ import { IProxyContext } from '../../types/types';
  *
  * @description Method responsible for blocking or allowing the function to run
  * @example
- * type ICanExecuteProxy<Data, Error> = ( data: Data ) => Promise<Result<boolean, Error>>;
+ * type ICanExecuteProxy<Data, Error> = IUseCase<Data, Result<boolean, Error>>;
  * //...
- * const canExecute = async (data: SignInDto) => Result.ok<boolean>(true);
+ * const canExecute = { execute: async (data: SignInDto) => Result.ok<boolean>(true) };
  * // ...
  *
  * @summary afterExecute method.
@@ -42,9 +42,9 @@ import { IProxyContext } from '../../types/types';
  * @returns Result instance with payload value.
  *
  * @example
- * type IAfterHookProxy<Payload, Error> = ( data?: Result<Payload, Error> ) => Promise<Result<Payload, Error>>;
+ * type IAfterHookProxy<Payload, Error> = IUseCase<Result<Payload, Error>, Result<Payload, Error>>;
  * //...
- * const afterExecute = async (data: Result<UserAggregate>) => data;
+ * const afterExecute = { execute: async (data: Result<UserAggregate>) => data };
  * // ...
  *
  * @summary beforeExecute method.
@@ -55,12 +55,14 @@ import { IProxyContext } from '../../types/types';
  * @returns Result instance with data value. The `execute` method will use data returned from this method.
  *
  * @example
- * type IBeforeHookProxy<Data, Error> = ( data?: Data ) => Promise<Result<Data, Error>>;
+ * type IBeforeHookProxy<Data, Error> = IUseCase<Data, Result<Data, Error>>;
  * //...
- * const beforeExecute = async (data: { email: string, password: string }) => ({
- *   email: data.email.toLowerCase(),
- *   password: data.password
- * });
+ * const beforeExecute = {
+ *   execute: async (data: { email: string, password: string }) => ({
+ *     email: data.email.toLowerCase(),
+ *     password: data.password
+ *   })
+ * };
  * // ...
  *
  * @description Context parameters for a proxy class instance.
@@ -80,9 +82,9 @@ import { IProxyContext } from '../../types/types';
  * // context param
  * {
  *   execute: new SignInUseCase(), // returns a Result<UserAggregate>
- *   canExecute: async (data: SignInDto) => Result.ok<boolean>(true),
- *   beforeExecute: async (data: SignInDto) => Result.ok(data),
- *   afterExecute: async (data: Result<UserAggregate>) => data
+ *   canExecute: { execute: async (data: SignInDto) => Result.ok<boolean>(true) },
+ *   beforeExecute:{ execute: async (data: SignInDto) => Result.ok(data) },
+ *   afterExecute: { execute: async (data: Result<UserAggregate>) => data }
  * }
  *
  *
@@ -96,31 +98,35 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		if (!this.context.canExecute) {
 			return Result.ok(true);
 		}
-		return this.context.canExecute(data);
+		return this.context.canExecute.execute(data);
 	}
 
 	private async beforeExecute(data: Data): Promise<Result<Data, Error>> {
 		if (!this.context.beforeExecute) {
-			return Result.success();
+			return Result.ok(data);
 		}
-		return this.context.beforeExecute(data);
+		return this.context.beforeExecute.execute(data);
 	}
 
 	private async afterExecute(
 		data: Result<Payload, Error>
 	): Promise<Result<Payload, Error>> {
 		if (!this.context.afterExecute) {
-			return Result.success();
+			return Result.ok(data.getResult());
 		}
-		return this.context.afterExecute(data);
+
+		return this.context.afterExecute.execute(Result.ok(data.getResult()));
 	}
 
 	async execute(data: Data): Promise<Result<Payload, Error>> {
 		const beforePayload = await this.beforeExecute(data);
 
 		if (beforePayload.isFailure) {
+			const error =
+				beforePayload?.error ??
+				'blocked by beforePayload hook on proxy';
 			return Result.fail<Payload, Error>(
-				beforePayload.error,
+				error as Error,
 				beforePayload.statusCode as ErrorStatus
 			);
 		}
@@ -131,9 +137,11 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 			? await this.canExecute(hasBeforeData)
 			: await this.canExecute(data);
 
-		if (canExecute.isFailure || !canExecute.getResult()) {
+		if (canExecute.isFailure || !canExecute?.getResult()) {
+			const error =
+				canExecute?.error ?? 'blocked by canExecute hook on proxy';
 			return Result.fail<Payload, Error>(
-				canExecute.error,
+				error as Error,
 				canExecute.statusCode as ErrorStatus
 			);
 		}
@@ -145,8 +153,9 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		const executeResult = await this.context.execute.execute(param);
 
 		if (executeResult.isFailure) {
+			const error = executeResult?.error ?? 'error on execute proxy';
 			return Result.fail<Payload, Error>(
-				executeResult.error,
+				error as Error,
 				executeResult.statusCode as ErrorStatus
 			);
 		}
@@ -154,8 +163,10 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		const afterExecutePayload = await this.afterExecute(executeResult);
 
 		if (afterExecutePayload.isFailure) {
+			const error =
+				afterExecutePayload?.error ?? 'error on after execute proxy';
 			return Result.fail<Payload, Error>(
-				afterExecutePayload.error,
+				error as Error,
 				afterExecutePayload.statusCode as ErrorStatus
 			);
 		}
