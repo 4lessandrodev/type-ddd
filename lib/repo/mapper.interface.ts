@@ -162,7 +162,7 @@ export abstract class State<PROPS, ERROR = string> {
 		if (callback) {
 			return callback;
 		}
-		Logger.warn(`The key: ${key} does not exists on mapper state`);
+		Logger.warn(`The key: ${String(key)} does not exists on mapper state`);
 		return Result.fail<VO, ERROR>({} as unknown as ERROR);
 	}
 
