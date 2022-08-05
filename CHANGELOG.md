@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Change
 
-- change core. using now rich-domain lib [npm rich-domain](https://www.npmjs.com/package/rich-domain)
+- change core (**breaking changes**). using now rich-domain lib [npm rich-domain](https://www.npmjs.com/package/rich-domain)
 
 
 ---

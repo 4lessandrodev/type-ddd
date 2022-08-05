@@ -1,7 +1,12 @@
 
-# Types-ddd
+# Types-ddd v3
+
+> Now version 3.0.0-beta available
 
 typescript domain driven design library. All resources tested
+
+---
+
 
 ## Install
 
@@ -215,7 +220,7 @@ export class HumanAge extends ValueObject<Props> {
 
 ```
 
-### Value Object methods
+### Value Objects methods
 
 Success methods
 
@@ -789,7 +794,7 @@ We understand that it's a little repetitive to create some "value-objects" and t
 import { PasswordValueObject } from 'types-ddd';
 
 const passOrError = PasswordValueObject.create('my-strength-pass');
-const isValid = passOrError.isSuccess;
+const isValid = passOrError.isSuccess();
 
 console.log(isValid);
 > true
@@ -797,7 +802,7 @@ console.log(isValid);
 const pass = passOrError.value();
 pass.encrypt();
 
-console.log(pass.value);
+console.log(pass.value());
 > "$2a$12$AdLoTarjC5wnc1tAUc3j1.RczGxxImH0mG6dZkS5zPaGrTi/EmPWG"
 
 console.log(pass.isEncrypted());
@@ -808,7 +813,7 @@ const passMatch = pass.compare('my-strength-pass');
 console.log(passMatch);
 > true
 
-console.log(PasswordValueObject.generateRandomPassword(12));
+console.log(PasswordValueObject.random(12).value());
 > "WtS65$@!A6by"
 
 ```
@@ -826,7 +831,7 @@ const currentDate = new Date();
 
 const myDate = DateValueObject.create(currentDate).value();
 
-console.log(myDate.value);
+console.log(myDate.value());
 > "2021-10-11T14:45:04.758Z"
 
 console.log(myDate.format("DD-MM-YYYY"));
@@ -834,7 +839,7 @@ console.log(myDate.format("DD-MM-YYYY"));
 
 myDate.addDays(3);
 
-console.log(myDate.value);
+console.log(myDate.value());
 > "2021-10-14T14:45:04.758Z"
 
 const isWeekend = myDate.isWeekend();
@@ -865,7 +870,7 @@ const myCurrency = CurrencyValueObject.create({
     value: 0.50 
 }).value();
 
-console.log(myCurrency.value);
+console.log(myCurrency.value());
 > 0.5
 
 myCurrency.add(0.50); // 1
