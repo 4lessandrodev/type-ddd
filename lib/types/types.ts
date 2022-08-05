@@ -1,12 +1,38 @@
+import {
+	IUseCase,
+	IResultHook,
+	EntityMapperPayload,
+	IAdapter,
+	IAggregate,
+	IAutoMapper,
+} from 'rich-domain/types';
 import { Result } from '../core';
-import { IUseCase } from '../core/use-case.interface';
-
-/**
- * Auto mapper. Automatically convert one target class to other
- */
-export interface IAutoMapper<T, R> {
-	convert: (target: T) => R;
-}
+import {
+	UID,
+	OBJ,
+	IValueObject,
+	ITeratorConfig,
+	ISettings,
+	IResultOptions,
+	IResultObject,
+} from 'rich-domain/types';
+import {
+	IResultExecute,
+	IResult,
+	IReplaceOptions,
+	IPublicHistory,
+	ICommand,
+} from 'rich-domain/types';
+import {
+	IDispatchOptions,
+	IProxy,
+	IIterator,
+	IEvent,
+	IHandle,
+	IHistory,
+	IEntityHistory,
+} from 'rich-domain/types';
+import { IGettersAndSetters, IParentName } from 'rich-domain/types';
 
 export interface CloneProps {
 	isNew: boolean;
@@ -98,3 +124,48 @@ export interface IProxyContext<Data, Payload, Error> {
 	afterExecute?: IAfterHookProxy<Payload, Error>;
 	beforeExecute?: IBeforeHookProxy<Data, Error>;
 }
+
+/**
+ * Object search filter
+ * @argument key: value
+ *
+ * @description you may use key as string with number or string value
+ *
+ * @example { email: "some_email@domain.com" }
+ * { id: 1 }
+ * { name: "Alessandro" }
+ */
+type Filter<T = {}> = {
+	[K in keyof T]: T[K];
+};
+
+export default Filter;
+export {
+	Filter,
+	IResultHook,
+	EntityMapperPayload,
+	IAdapter,
+	IAggregate,
+	IAutoMapper,
+	UID,
+	OBJ,
+	IValueObject,
+	ITeratorConfig,
+	ISettings,
+	IResultOptions,
+	IResultObject,
+	IResultExecute,
+	IResult,
+	IReplaceOptions,
+	IPublicHistory,
+	ICommand,
+	IDispatchOptions,
+	IProxy,
+	IIterator,
+	IEvent,
+	IHandle,
+	IHistory,
+	IEntityHistory,
+	IGettersAndSetters,
+	IParentName,
+};

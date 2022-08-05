@@ -11,15 +11,15 @@ describe('currency.value-object', () => {
 			currency: 'BRL',
 			value: 10,
 		});
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should get value and currency', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 10,
-		}).getResult();
-		expect(valueObject.value).toBe(10);
+		}).value();
+		expect(valueObject.value()).toBe(10);
 		expect(valueObject.currency).toBe('BRL');
 	});
 
@@ -27,7 +27,7 @@ describe('currency.value-object', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 10,
-		}).getResult();
+		}).value();
 		expect(valueObject.isPositive()).toBeTruthy();
 	});
 
@@ -35,7 +35,7 @@ describe('currency.value-object', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: -10,
-		}).getResult();
+		}).value();
 		expect(valueObject.isPositive()).toBeFalsy();
 	});
 
@@ -79,220 +79,176 @@ describe('currency.value-object', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 10,
-		}).getResult();
-		expect(valueObject.getCurrencyString()).toBe('R$\xa010,00');
+		}).value();
+		expect(valueObject.getCoin()).toBe('R$\xa010,00');
 	});
 
 	it('should return a formatted currency as EUR', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'EUR',
 			value: 10,
-		}).getResult();
-		expect(valueObject.getCurrencyString()).toBe('10,00\xa0€');
+		}).value();
+		expect(valueObject.getCoin()).toBe('10,00\xa0€');
 	});
 
 	it('should return a formatted currency as JPY', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'JPY',
 			value: 10,
-		}).getResult();
-		expect(valueObject.getCurrencyString()).toBe('￥10');
+		}).value();
+		expect(valueObject.getCoin()).toBe('￥10');
 	});
 
 	it('should return a formatted currency as USD', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'USD',
 			value: 10,
-		}).getResult();
-		expect(valueObject.getCurrencyString()).toBe('$10.00');
+		}).value();
+		expect(valueObject.getCoin()).toBe('$10.00');
 	});
 
 	it('should sum a thousand value with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 2500,
-		}).getResult();
+		}).value();
 		valueObject.add(1999);
-		expect(valueObject.value).toBe(4499);
+		expect(valueObject.value()).toBe(4499);
 	});
 
 	it('should sum a cents value with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.08,
-		}).getResult();
+		}).value();
 		valueObject.add(0.02);
-		expect(valueObject.value).toBe(0.1);
+		expect(valueObject.value()).toBe(0.1);
 	});
 
 	it('should sum a cents value with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.01,
-		}).getResult();
+		}).value();
 		valueObject.add(0.02);
-		expect(valueObject.value).toBe(0.03);
+		expect(valueObject.value()).toBe(0.03);
 	});
 
 	it('should sum a cents value with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 900719924474,
-		}).getResult();
+		}).value();
 		valueObject.add(0.02);
-		expect(valueObject.value).toBe(900719924474.02);
+		expect(valueObject.value()).toBe(900719924474.02);
 	});
 
 	it('should sum a cents value with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.01,
-		}).getResult();
+		}).value();
 		valueObject.add(3);
-		expect(valueObject.value).toBe(3.01);
+		expect(valueObject.value()).toBe(3.01);
 	});
 
 	it('should multiply a cent value with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.03,
-		}).getResult();
+		}).value();
 		valueObject.multiplyBy(0.5);
-		expect(valueObject.value).toBe(0.015);
+		expect(valueObject.value()).toBe(0.015);
 	});
 
 	it('should multiply a cent value with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.03,
-		}).getResult();
+		}).value();
 		valueObject.multiplyBy(3);
-		expect(valueObject.value).toBe(0.09);
+		expect(valueObject.value()).toBe(0.09);
 	});
 
 	it('should multiply a thousand value with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 1200,
-		}).getResult();
+		}).value();
 		valueObject.multiplyBy(2);
-		expect(valueObject.value).toBe(2400);
-	});
-
-	it('should not multiply an unsafe thousand value', () => {
-		const valueObject = CurrencyValueObject.create({
-			currency: 'BRL',
-			value: 999999999999,
-		}).getResult();
-		valueObject.multiplyBy(9999999999999);
-		expect(valueObject.value).toBe(999999999999);
+		expect(valueObject.value()).toBe(2400);
 	});
 
 	it('should multiply a safe thousand value', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 999999999,
-		}).getResult();
+		}).value();
 		valueObject.multiplyBy(70);
-		expect(valueObject.value).toBe(69999999930);
+		expect(valueObject.value()).toBe(69999999930);
 	});
 
 	it('should subtract 200 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 1200,
-		}).getResult();
+		}).value();
 		valueObject.subtractBy(200);
-		expect(valueObject.value).toBe(1000);
+		expect(valueObject.value()).toBe(1000);
 	});
 
 	it('should subtract 0.90 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 99,
-		}).getResult();
+		}).value();
 		valueObject.subtractBy(0.9);
-		expect(valueObject.value).toBe(98.1);
+		expect(valueObject.value()).toBe(98.1);
 	});
 
 	it('should subtract 0.2 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.7,
-		}).getResult();
+		}).value();
 		valueObject.subtractBy(0.2);
-		expect(valueObject.value).toBe(0.5);
+		expect(valueObject.value()).toBe(0.5);
 	});
 
 	it('should subtract 1.7 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.7,
-		}).getResult();
+		}).value();
 		valueObject.subtractBy(1.7);
-		expect(valueObject.value).toBe(-1);
+		expect(valueObject.value()).toBe(-1);
 	});
 
 	it('should divide for 0.9 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 100,
-		}).getResult();
+		}).value();
 		valueObject.divideBy(0.9);
-		expect(valueObject.value).toBe(111.111);
+		expect(valueObject.value()).toBe(111.111);
 	});
 
 	it('should divide for 2 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 100,
-		}).getResult();
+		}).value();
 		valueObject.divideBy(2);
-		expect(valueObject.value).toBe(50);
+		expect(valueObject.value()).toBe(50);
 	});
 
 	it('should divide for 0.5 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.9,
-		}).getResult();
+		}).value();
 		valueObject.divideBy(0.5);
-		expect(valueObject.value).toBe(1.8);
-	});
-
-	it('should fails if try sum an unsafe value', () => {
-		const valueObject = CurrencyValueObject.create({
-			currency: 'BRL',
-			value: 0.9,
-		}).getResult();
-		const result = valueObject.add(Number.MAX_SAFE_INTEGER);
-		expect(result.isFailure).toBe(true);
-	});
-
-	it('should fails if try sum and already has an unsafe value', () => {
-		const valueObject = CurrencyValueObject.create({
-			currency: 'BRL',
-			value: 9999999999999,
-		}).getResult();
-		const result = valueObject.add(9);
-		expect(result.isFailure).toBe(true);
-	});
-
-	it('should fails if result sum is unsafe value', () => {
-		const valueObject = CurrencyValueObject.create({
-			currency: 'BRL',
-			value: 999999999999,
-		}).getResult();
-		const result = valueObject.add(999999999999999);
-		expect(result.isFailure).toBe(true);
-	});
-
-	it('should fails if try create a currency with unsafe value', () => {
-		const valueObject = CurrencyValueObject.create({
-			currency: 'BRL',
-			value: 999999999999999,
-		});
-		expect(valueObject.isFailure).toBe(true);
+		expect(valueObject.value()).toBe(1.8);
 	});
 
 	it('should not validate unsafe value', () => {
@@ -305,7 +261,7 @@ describe('currency.value-object', () => {
 			value: '999' as any,
 			currency: 'USD',
 		});
-		expect(valueObject.isSuccess).toBe(false);
+		expect(valueObject.isSuccess()).toBe(false);
 	});
 
 	it('should fails if provide an invalid currency', () => {
@@ -313,50 +269,50 @@ describe('currency.value-object', () => {
 			value: 20,
 			currency: 'INVALID' as any,
 		});
-		expect(valueObject.isSuccess).toBe(false);
+		expect(valueObject.isSuccess()).toBe(false);
 	});
 
 	it('should add percentage for 50 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 50,
-		}).getResult();
+		}).value();
 		valueObject.addPercent(10);
-		expect(valueObject.value).toBe(55);
+		expect(valueObject.value()).toBe(55);
 	});
 
 	it('should add percentage for 0.50 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.5,
-		}).getResult();
+		}).value();
 		valueObject.addPercent(10);
-		expect(valueObject.value).toBe(0.55);
+		expect(valueObject.value()).toBe(0.55);
 	});
 
 	it('should subtract percentage for 50 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 50,
-		}).getResult();
+		}).value();
 		valueObject.subtractPercent(10);
-		expect(valueObject.value).toBe(45);
+		expect(valueObject.value()).toBe(45);
 	});
 
 	it('should subtract percentage for 0.50 with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.5,
-		}).getResult();
+		}).value();
 		valueObject.subtractPercent(10);
-		expect(valueObject.value).toBe(0.45);
+		expect(valueObject.value()).toBe(0.45);
 	});
 
 	it('should made many operation with success', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.5,
-		}).getResult();
+		}).value();
 		valueObject.add(0.5); // 1
 		valueObject.multiplyBy(50); // 50
 		valueObject.divideBy(2); // 25
@@ -365,7 +321,7 @@ describe('currency.value-object', () => {
 		valueObject.addPercent(2); // 102
 		valueObject.subtractBy(2); // 100
 		valueObject.subtractPercent(30); // 70
-		expect(valueObject.value).toBe(70);
+		expect(valueObject.value()).toBe(70);
 	});
 
 	it('should return total result on each calculation', () => {
@@ -373,30 +329,30 @@ describe('currency.value-object', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 0.5,
-		}).getResult();
+		}).value();
 
-		total = valueObject.add(0.5).getResult().value; // 1
+		total = valueObject.add(0.5).value(); // 1
 		expect(total).toBe(1);
 
-		total = valueObject.multiplyBy(50).getResult().value; // 50
+		total = valueObject.multiplyBy(50).value(); // 50
 		expect(total).toBe(50);
 
-		total = valueObject.divideBy(2).getResult().value; // 25
+		total = valueObject.divideBy(2).value(); // 25
 		expect(total).toBe(25);
 
-		total = valueObject.subtractBy(5).getResult().value; // 20
+		total = valueObject.subtractBy(5).value(); // 20
 		expect(total).toBe(20);
 
-		total = valueObject.add(80).getResult().value; // 100
+		total = valueObject.add(80).value(); // 100
 		expect(total).toBe(100);
 
-		total = valueObject.addPercent(2).getResult().value; // 102
+		total = valueObject.addPercent(2).value(); // 102
 		expect(total).toBe(102);
 
-		total = valueObject.subtractBy(2).getResult().value; // 100
+		total = valueObject.subtractBy(2).value(); // 100
 		expect(total).toBe(100);
 
-		total = valueObject.subtractPercent(30).getResult().value; // 70
+		total = valueObject.subtractPercent(30).value(); // 70
 		expect(total).toBe(70);
 	});
 
@@ -404,7 +360,7 @@ describe('currency.value-object', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 1,
-		}).getResult();
+		}).value();
 		const isEqual = valueObject.isEqualTo(1);
 		expect(isEqual).toBeTruthy();
 	});
@@ -413,7 +369,7 @@ describe('currency.value-object', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 3,
-		}).getResult();
+		}).value();
 		const isGreater = valueObject.isGreaterThan(1);
 		expect(isGreater).toBeTruthy();
 	});
@@ -422,7 +378,7 @@ describe('currency.value-object', () => {
 		const valueObject = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 3,
-		}).getResult();
+		}).value();
 		const isLessThan = valueObject.isLessThan(7);
 		expect(isLessThan).toBeTruthy();
 	});

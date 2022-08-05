@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 import generateRandomTracking from './generate-random-tracking-code.util';
 const regexHash = /^[0-9|A-Z]{3}-[\w]{1}[0-9]{5}-[0-9]{4}$/;
 
@@ -15,7 +15,7 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	/**
 	 * @returns value as string
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -34,8 +34,12 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	 * @pattern
 	 * XXX-A99999-9999
 	 */
-	public static isValidValue(code: string): boolean {
-		return regexHash.test(code);
+	public static isValidProps(code: string): boolean {
+		return this.validator.string(code).match(regexHash);
+	}
+
+	validation(_key: any, _value: any): boolean {
+		return this.validator.string(_value).match(regexHash);
 	}
 
 	/**
@@ -49,15 +53,11 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	public static create(code?: string): Result<TrackingCodeValueObject> {
 		const value = code ?? TrackingCodeValueObject.generate();
 		if (code) {
-			if (!TrackingCodeValueObject.isValidValue(code)) {
-				return Result.fail<TrackingCodeValueObject>(
-					'Invalid value for Tracking code'
-				);
+			if (!TrackingCodeValueObject.isValidProps(code)) {
+				return Result.fail('Invalid value for Tracking code');
 			}
 		}
-		return Result.ok<TrackingCodeValueObject>(
-			new TrackingCodeValueObject({ value })
-		);
+		return Result.success(new TrackingCodeValueObject({ value }));
 	}
 }
 

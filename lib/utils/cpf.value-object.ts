@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 import isValidCpfDigit, {
 	formatValueToCpfPattern,
 	removeSpecialCharsFromCpf,
@@ -22,7 +22,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example example "52734865211".
 	 * @summary If you want cpf as pattern use `formatToCpfPattern` before get value.
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -66,9 +66,22 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example "527.348.652-11"
 	 * @example "72725477824"
 	 */
-	public static isValidValue(value: string): boolean {
+	public static isValidProps(value: string): boolean {
 		const isValidPattern = regexCpf.test(value);
 		const isValidDigits = isValidCpfDigit(value);
+		return isValidDigits && isValidPattern;
+	}
+
+	/**
+	 * @description check if cpf value is a valid pattern and has a valid digit sum.
+	 * @param value cpf as string
+	 * @returns true if value is valid and false if not.
+	 * @example "527.348.652-11"
+	 * @example "72725477824"
+	 */
+	validation(_key: any, _value: string): boolean {
+		const isValidPattern = regexCpf.test(_value);
+		const isValidDigits = isValidCpfDigit(_value);
 		return isValidDigits && isValidPattern;
 	}
 
@@ -81,13 +94,13 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @summary fails if provide an invalid pattern or a cpf with invalid digit sum
 	 */
 	public static create(value: string): Result<CPFValueObject> {
-		const isValidValue = CPFValueObject.isValidValue(value);
+		const isValidValue = CPFValueObject.isValidProps(value);
 
 		if (!isValidValue) {
 			return Result.fail('Invalid value for cpf');
 		}
 
-		return Result.ok(new CPFValueObject({ value }));
+		return Result.success(new CPFValueObject({ value }));
 	}
 }
 

@@ -9,7 +9,7 @@ const colorConverter = {
 	 * @returns rgb(255, 255, 255)
 	 */
 	HEXToRGB(color: string) {
-		const isValid = HEXColorValueObject.isValidValue(color);
+		const isValid = HEXColorValueObject.isValidProps(color);
 
 		if (!isValid) {
 			return color;
@@ -33,7 +33,7 @@ const colorConverter = {
 	 * @returns hex color #ffffff
 	 */
 	RGBToHEX(color: string) {
-		const isValid = RGBColorValueObject.isValidValue(color);
+		const isValid = RGBColorValueObject.isValidProps(color);
 
 		if (!isValid) {
 			return color;

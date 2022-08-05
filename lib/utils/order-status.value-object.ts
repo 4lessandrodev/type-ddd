@@ -1,21 +1,21 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 
 enum AvailableOrderStatus {
-	'PENDING',
-	'IN_PREPARATION',
-	'OUT_FOR_DELIVERY',
-	'AWAITING_PAYMENT',
-	'AWAITING_FULFILLMENT',
-	'AWAITING_SHIPMENT',
-	'AWAITING_PICKUP',
-	'PARTIALLY_SHIPPED',
-	'COMPLETED',
-	'CANCELLED',
-	'DECLINED',
-	'REFUNDED',
-	'MANUAL_VERIFICATION_REQUIRED',
-	'PARTIALLY_REFUNDED',
+	'PENDING' = 'PENDING',
+	'IN_PREPARATION' = 'IN_PREPARATION',
+	'OUT_FOR_DELIVERY' = 'OUT_FOR_DELIVERY',
+	'AWAITING_PAYMENT' = 'AWAITING_PAYMENT',
+	'AWAITING_FULFILLMENT' = 'AWAITING_FULFILLMENT',
+	'AWAITING_SHIPMENT' = 'AWAITING_SHIPMENT',
+	'AWAITING_PICKUP' = 'AWAITING_PICKUP',
+	'PARTIALLY_SHIPPED' = 'PARTIALLY_SHIPPED',
+	'COMPLETED' = 'COMPLETED',
+	'CANCELLED' = 'CANCELLED',
+	'DECLINED' = 'DECLINED',
+	'REFUNDED' = 'REFUNDED',
+	'MANUAL_VERIFICATION_REQUIRED' = 'MANUAL_VERIFICATION_REQUIRED',
+	'PARTIALLY_REFUNDED' = 'PARTIALLY_REFUNDED',
 }
 
 export type AvailableOrderStatusType = keyof typeof AvailableOrderStatus;
@@ -121,7 +121,7 @@ class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 	/**
 	 * @returns status
 	 */
-	get value(): AvailableOrderStatusType {
+	value(): AvailableOrderStatusType {
 		return this.props.value;
 	}
 
@@ -134,21 +134,21 @@ class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 		return this.props.value === status;
 	}
 
-	public static isValidValue = (status: AvailableOrderStatusType) =>
+	validation(_key: any, _value: any): boolean {
+		return _value in AvailableOrderStatus;
+	}
+
+	public static isValidProps = (status: AvailableOrderStatusType) =>
 		status in AvailableOrderStatus;
 
 	public static create(
 		value: AvailableOrderStatusType
 	): Result<OrderStatusValueObject> {
-		if (!OrderStatusValueObject.isValidValue(value)) {
-			return Result.fail<OrderStatusValueObject>(
-				'Invalid status value for an order'
-			);
+		if (!OrderStatusValueObject.isValidProps(value)) {
+			return Result.fail('Invalid status value for an order');
 		}
 
-		return Result.ok<OrderStatusValueObject>(
-			new OrderStatusValueObject({ value })
-		);
+		return Result.success(new OrderStatusValueObject({ value }));
 	}
 }
 

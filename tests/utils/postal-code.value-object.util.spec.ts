@@ -8,23 +8,21 @@ describe('postal-code.value-object', () => {
 
 	it('should create a valid zip code', () => {
 		const valueObject = PostalCodeValueObject.create('75520140');
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should get value', () => {
-		const valueObject =
-			PostalCodeValueObject.create('75520140').getResult();
-		expect(valueObject.value).toBe('75520140');
+		const valueObject = PostalCodeValueObject.create('75520140').value();
+		expect(valueObject.value()).toBe('75520140');
 	});
 
 	it('should get value without hyphen', () => {
-		const valueObject =
-			PostalCodeValueObject.create('75520-140').getResult();
-		expect(valueObject.value).toBe('75520140');
+		const valueObject = PostalCodeValueObject.create('75520-140').value();
+		expect(valueObject.value()).toBe('75520140');
 	});
 
 	it('should fail if provide an invalid postal code', () => {
 		const valueObject = PostalCodeValueObject.create('invalid');
-		expect(valueObject.isSuccess).toBe(false);
+		expect(valueObject.isSuccess()).toBe(false);
 	});
 });

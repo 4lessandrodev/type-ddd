@@ -1,5 +1,5 @@
-import { Result } from '../core/result';
-import ValueObject from '../core/value-object';
+import { Result } from '../core';
+import { ValueObject } from '../core';
 
 enum DateFormats {
 	'DD-MM-YYYY' = 'DD-MM-YYYY',
@@ -49,7 +49,7 @@ export class DateValueObject extends ValueObject<Prop> {
 	/**
 	 * @returns instance value as Date
 	 */
-	get value(): Date {
+	value(): Date {
 		return this.props.value;
 	}
 
@@ -354,8 +354,8 @@ export class DateValueObject extends ValueObject<Prop> {
 		return `${fullYear}-${month}-${date} ${hours}:${minutes}:${sec}`;
 	}
 
-	public static isValidDate(value: Date): boolean {
-		return value instanceof Date;
+	public static isValidProps(value: Date): boolean {
+		return this.validator.isDate(value);
 	}
 
 	/**
@@ -388,7 +388,7 @@ export class DateValueObject extends ValueObject<Prop> {
 	 *
 	 * const date = new Date("1989-05-31 11:42:00");
 	 *
-	 * const valueObj = DateValueObject.create(date).getResult();
+	 * const valueObj = DateValueObject.create(date).value();
 	 *
 	 * const isAfter = valueObj.isAfter(new Date());
 	 *
@@ -412,7 +412,7 @@ export class DateValueObject extends ValueObject<Prop> {
 	 *
 	 * const date = new Date("1989-05-31 11:42:00");
 	 *
-	 * const valueObj = DateValueObject.create(date).getResult();
+	 * const valueObj = DateValueObject.create(date).value();
 	 *
 	 * const isBefore = valueObj.isBefore(new Date());
 	 *
@@ -428,6 +428,10 @@ export class DateValueObject extends ValueObject<Prop> {
 		return instanceTime < time;
 	}
 
+	validation(_key: any, _value: any): boolean {
+		return this.validator.isDate(_value);
+	}
+
 	/**
 	 *
 	 * @param date as Date
@@ -441,11 +445,11 @@ export class DateValueObject extends ValueObject<Prop> {
 
 	public static create(date?: Date): Result<DateValueObject> {
 		const value = date ?? new Date();
-		const isValid = DateValueObject.isValidDate(value);
+		const isValid = DateValueObject.isValidProps(value);
 		if (!isValid) {
 			return Result.fail('Invalid Date Value');
 		}
 
-		return Result.ok(new DateValueObject({ value }));
+		return Result.success(new DateValueObject({ value }));
 	}
 }

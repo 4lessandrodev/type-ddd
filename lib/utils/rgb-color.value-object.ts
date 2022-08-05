@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 import colorConverter from './color-converter.util';
 import colorGenerator from './color-generator.util';
 const regexHash =
@@ -14,8 +14,12 @@ class RGBColorValueObject extends ValueObject<Prop> {
 		super(prop);
 	}
 
-	get value(): string {
+	value(): string {
 		return this.props.value;
+	}
+
+	validation(_key: any, _value: any): boolean {
+		return this.validator.string(_value).match(regexHash);
 	}
 
 	/**
@@ -24,8 +28,8 @@ class RGBColorValueObject extends ValueObject<Prop> {
 	 * @example rgb(255, 255, 255)
 	 * @returns true if pattern match else return false
 	 */
-	public static isValidValue(value: string): boolean {
-		return regexHash.test(value);
+	public static isValidProps(value: string): boolean {
+		return this.validator.string(value).match(regexHash);
 	}
 
 	/**
@@ -53,14 +57,12 @@ class RGBColorValueObject extends ValueObject<Prop> {
 	 * @returns Result with instance of RGBColorValueObject
 	 */
 	public static create(value: string): Result<RGBColorValueObject> {
-		if (!RGBColorValueObject.isValidValue(value)) {
-			return Result.fail<RGBColorValueObject>(
+		if (!RGBColorValueObject.isValidProps(value)) {
+			return Result.fail(
 				'Invalid rgb value. It must match with pattern rgb(255, 255, 255)'
 			);
 		}
-		return Result.ok<RGBColorValueObject>(
-			new RGBColorValueObject({ value })
-		);
+		return Result.success(new RGBColorValueObject({ value }));
 	}
 }
 

@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 const regexHash =
 	/^\([1-9]{2}\)\s[9](?!\d(?:(\d)\1{2})-(\d)\1{3})[5-9][0-9]{3}\-[0-9]{4}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;
@@ -22,14 +22,18 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	 * @param value Phone number (XX) 9XXXX-XXXX
 	 * @returns true if pattern match and false if not.
 	 */
-	public static isValidValue(value: string): boolean {
-		return regexHash.test(value);
+	public static isValidProps(value: string): boolean {
+		return this.validator.string(value).match(regexHash);
+	}
+
+	validation(_key: any, _value: any): boolean {
+		return this.validator.string(_value).match(regexHash);
 	}
 
 	/**
 	 * @returns value (XX) 9XXXX-XXXX as string
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -62,14 +66,10 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	 * @returns Result of MobilePhoneValueObject
 	 */
 	public static create(value: string): Result<MobilePhoneValueObject> {
-		if (!MobilePhoneValueObject.isValidValue(value)) {
-			return Result.fail<MobilePhoneValueObject>(
-				'Invalid Mobile Phone Number'
-			);
+		if (!MobilePhoneValueObject.isValidProps(value)) {
+			return Result.fail('Invalid Mobile Phone Number');
 		}
-		return Result.ok<MobilePhoneValueObject>(
-			new MobilePhoneValueObject({ value })
-		);
+		return Result.success(new MobilePhoneValueObject({ value }));
 	}
 }
 

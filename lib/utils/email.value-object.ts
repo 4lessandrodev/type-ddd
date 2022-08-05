@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 const regexHash = /^\w+-?\.?\w+[0-9]??\@\w+[0-9]?\.\w{1,5}(\.\w{2})?(?!.)/;
 
 interface Prop {
@@ -10,7 +10,7 @@ export class EmailValueObject extends ValueObject<Prop> {
 		super(props);
 	}
 
-	get value(): string {
+	value(): string {
 		return this.props.value.toLowerCase();
 	}
 
@@ -24,16 +24,20 @@ export class EmailValueObject extends ValueObject<Prop> {
 			.toLowerCase();
 	}
 
-	public static isValidValue(email: string): boolean {
+	validation(_key: any, _value: any): boolean {
+		return this.validator.string(_value).match(regexHash);
+	}
+
+	public static isValidProps(email: string): boolean {
 		const isValidEmail = regexHash.test(email);
 		return isValidEmail;
 	}
 
 	public static create(value: string): Result<EmailValueObject> {
-		if (!EmailValueObject.isValidValue(value)) {
-			return Result.fail<EmailValueObject>('Invalid email');
+		if (!EmailValueObject.isValidProps(value)) {
+			return Result.fail('Invalid email');
 		}
-		return Result.ok<EmailValueObject>(new EmailValueObject({ value }));
+		return Result.success(new EmailValueObject({ value }));
 	}
 }
 

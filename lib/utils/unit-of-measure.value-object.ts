@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 
 export enum UnitsOfMeasure {
 	'CM' = 'CM',
@@ -30,7 +30,7 @@ export class UnitOfMeasureValueObject extends ValueObject<Prop> {
 		super(props);
 	}
 
-	get value(): UnitOfMeasure {
+	value(): UnitOfMeasure {
 		return this.props.value;
 	}
 
@@ -38,20 +38,24 @@ export class UnitOfMeasureValueObject extends ValueObject<Prop> {
 		return UnitsDescription[this.props.value];
 	}
 
-	public static isValidValue(value: UnitOfMeasure): boolean {
+	validation(_key: any, _value: any): boolean {
+		return _value in UnitsOfMeasure;
+	}
+
+	public static isValidProps(value: UnitOfMeasure): boolean {
 		return value in UnitsOfMeasure;
 	}
 
 	public static create(
 		value: UnitOfMeasure
 	): Result<UnitOfMeasureValueObject> {
-		const isValid = UnitOfMeasureValueObject.isValidValue(value);
+		const isValid = UnitOfMeasureValueObject.isValidProps(value);
 
 		if (!isValid) {
 			return Result.fail('Invalid unit of measure value');
 		}
 
-		return Result.ok(new UnitOfMeasureValueObject({ value }));
+		return Result.success(new UnitOfMeasureValueObject({ value }));
 	}
 }
 

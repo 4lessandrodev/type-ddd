@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 
 interface Prop {
 	value: string;
@@ -14,7 +14,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	/**
 	 * @returns capitalized full name
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -90,25 +90,33 @@ export class UserNameValueObject extends ValueObject<Prop> {
 		return initials;
 	}
 
+	validation(_key: any, _value: any): boolean {
+		const maxLength = 41;
+		const minLength = 1;
+		const { string } = this.validator;
+		return string(_value).hasLengthBetween(minLength, maxLength);
+	}
+
 	/**
 	 * @description check name length min(2) max(40)
 	 * @param value name as string
 	 * @returns true if provided value is valid and false if not
 	 */
-	public static isValidValue(value: string): boolean {
-		return value.length >= 2 && value.length <= 40;
+	public static isValidProps(value: string): boolean {
+		const maxLength = 41;
+		const minLength = 2;
+		const { string } = this.validator;
+		return string(value).hasLengthBetween(minLength, maxLength);
 	}
 
 	public static create(value: string): Result<UserNameValueObject> {
-		const isValidValue = UserNameValueObject.isValidValue(value);
+		const isValidValue = UserNameValueObject.isValidProps(value);
 		if (!isValidValue) {
-			return Result.fail<UserNameValueObject>(
+			return Result.fail(
 				'Invalid name length. Must has min 2 and max 40 chars'
 			);
 		}
-		return Result.ok<UserNameValueObject>(
-			new UserNameValueObject({ value })
-		);
+		return Result.success(new UserNameValueObject({ value }));
 	}
 }
 

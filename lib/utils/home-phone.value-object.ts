@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 const regexHash = /^\([1-9]{2}\)\s[2-5][0-9]{3}\-[0-9]{4}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;
 
@@ -16,19 +16,23 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 		super(prop);
 	}
 
+	validation(_key: any, _value: any): boolean {
+		return this.validator.string(_value).match(regexHash);
+	}
+
 	/**
 	 *
 	 * @param value Phone number (XX) XXXX-XXXX
 	 * @returns true if pattern match and false if not.
 	 */
-	public static isValidValue(value: string): boolean {
-		return regexHash.test(value);
+	public static isValidProps(value: string): boolean {
+		return this.validator.string(value).match(regexHash);
 	}
 
 	/**
 	 * @returns value (XX) XXXX-XXXX as string
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -61,14 +65,10 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	 * @returns Result of HomePhoneValueObject
 	 */
 	public static create(value: string): Result<HomePhoneValueObject> {
-		if (!HomePhoneValueObject.isValidValue(value)) {
-			return Result.fail<HomePhoneValueObject>(
-				'Invalid Home Phone Number'
-			);
+		if (!HomePhoneValueObject.isValidProps(value)) {
+			return Result.fail('Invalid Home Phone Number');
 		}
-		return Result.ok<HomePhoneValueObject>(
-			new HomePhoneValueObject({ value })
-		);
+		return Result.success(new HomePhoneValueObject({ value }));
 	}
 }
 

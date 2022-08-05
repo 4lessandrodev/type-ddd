@@ -22,30 +22,30 @@ describe('custom-string.value-object', () => {
 
 	it('should create a valid string without custom validator', () => {
 		const valueObject = CustomStringValueObject.create('valid string');
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should get original string', () => {
 		const valueObject =
-			CustomStringValueObject.create('valid string').getResult();
-		expect(valueObject.value).toBe('valid string');
+			CustomStringValueObject.create('valid string').value();
+		expect(valueObject.value()).toBe('valid string');
 	});
 
 	it('should get uppercase value', () => {
 		const valueObject =
-			CustomStringValueObject.create('valid string').getResult();
+			CustomStringValueObject.create('valid string').value();
 		expect(valueObject.upperCaseValue).toBe('VALID STRING');
 	});
 
 	it('should get lowercase value', () => {
 		const valueObject =
-			CustomStringValueObject.create('Valid String').getResult();
+			CustomStringValueObject.create('Valid String').value();
 		expect(valueObject.lowerCaseValue).toBe('valid string');
 	});
 
 	it('should get capitalize value', () => {
 		const valueObject =
-			CustomStringValueObject.create('valid String').getResult();
+			CustomStringValueObject.create('valid String').value();
 		expect(valueObject.capitalizeValue).toBe('Valid string');
 	});
 
@@ -90,7 +90,7 @@ describe('custom-string.value-object', () => {
 			'123-abcd',
 			customValidation
 		);
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
@@ -98,14 +98,14 @@ describe('custom-string.value-object', () => {
 			'123-abcd',
 			customValidation
 		);
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should get custom validation from instance', () => {
 		const valueObject = CustomStringValueObject.create(
 			'123-abcd',
 			customValidation
-		).getResult();
+		).value();
 		const validation = valueObject.customValidation;
 		expect(validation.VALIDATOR).toBeDefined();
 		expect(validation.LENGTH.MAX).toBeDefined();
@@ -113,8 +113,7 @@ describe('custom-string.value-object', () => {
 	});
 
 	it('should get default custom validation from instance', () => {
-		const valueObject =
-			CustomStringValueObject.create('123-abcd').getResult();
+		const valueObject = CustomStringValueObject.create('123-abcd').value();
 		const validation = valueObject.customValidation;
 		expect(validation.VALIDATOR).toBeDefined();
 		expect(validation.LENGTH.MAX).toBeDefined();

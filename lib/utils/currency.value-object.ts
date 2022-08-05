@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 import calculatePercent from './calculate-percentage.util';
 import convertValueToCent from './convert-value-to-cent.util';
 import convertCentToFloat from './convert-cent-to-float.util';
@@ -61,7 +61,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 		this.cents = convertValueToCent(props.value);
 	}
 
-	get value(): number {
+	value(): number {
 		return this.props.value;
 	}
 
@@ -88,7 +88,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	 *
 	 * @returns a formatted currency as string `R$ 12,00`
 	 */
-	getCurrencyString(): string {
+	getCoin(): string {
 		return new Intl.NumberFormat(currency[this.currency], {
 			style: 'currency',
 			currency: this.currency,
@@ -127,85 +127,38 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description add instance value with provided value
 	 * @param value number to add
-	 * @returns instance of Result type number with calculation result
+	 * @returns instance of CurrencyValueObject
 	 */
-	add(value: number): Result<CurrencyValueObject> {
-		if (!CurrencyValueObject.isSafeValue(value)) {
-			return Result.fail<CurrencyValueObject>(
-				`${value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
-			);
-		}
-		if (this.cents >= maxSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
+	add(value: number): CurrencyValueObject {
 		const valueAsCent = convertValueToCent(value);
-		if (this.cents + valueAsCent >= maxSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
-
 		this.cents = this.cents + valueAsCent;
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok<CurrencyValueObject>(this);
+		return this;
 	}
 
 	/**
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description subtract instance value with provided value
 	 * @param value number to subtract
-	 * @returns instance of Result type number with calculation result
+	 * @returns instance of CurrencyValueObject
 	 */
-	subtractBy(value: number): Result<CurrencyValueObject> {
-		if (!CurrencyValueObject.isSafeValue(value)) {
-			return Result.fail<CurrencyValueObject>(
-				`${value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
-			);
-		}
-		if (this.cents <= minSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
+	subtractBy(value: number): CurrencyValueObject {
 		const valueAsCent = convertValueToCent(value);
-		if (this.cents - valueAsCent <= minSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
-
 		this.cents = this.cents - valueAsCent;
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok<CurrencyValueObject>(this);
+		return this;
 	}
 
 	/**
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description divide instance value with provided value
 	 * @param value number to divide
-	 * @returns instance of Result type number with calculation result
+	 * @returns instance of CurrencyValueObject
 	 */
-	divideBy(value: number): Result<CurrencyValueObject> {
-		if (!CurrencyValueObject.isSafeValue(value)) {
-			return Result.fail<CurrencyValueObject>(
-				`${value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
-			);
-		}
-		if (this.cents <= minSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so small for calculate'
-			);
-		}
-		if (this.cents / value <= minSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so small for calculate'
-			);
-		}
+	divideBy(value: number): CurrencyValueObject {
 		this.cents = this.cents / value;
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok<CurrencyValueObject>(this);
+		return this;
 	}
 
 	/**
@@ -213,32 +166,12 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description receives a value and multiply with instance value
 	 * @param value number to multiply
-	 * @returns instance of Result type number with calculation result
+	 * @returns instance of CurrencyValueObject
 	 */
-	multiplyBy(value: number): Result<CurrencyValueObject> {
-		if (value < 0.1 && value > -0.1) {
-			return Result.fail<CurrencyValueObject>(
-				'Invalid value to calculate. Value must be greater than 0.1'
-			);
-		}
-		if (!CurrencyValueObject.isSafeValue(value)) {
-			return Result.fail<CurrencyValueObject>(
-				`${value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
-			);
-		}
-		if (this.cents >= maxSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
-		if (this.cents * value >= maxSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
+	multiplyBy(value: number): CurrencyValueObject {
 		this.cents = this.cents * value;
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok<CurrencyValueObject>(this);
+		return this;
 	}
 
 	/**
@@ -246,56 +179,26 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description receives a percentage value and add on instance value
 	 * @param percent number as percentage to add on instance value
-	 * @returns instance of Result type number with calculation result
+	 * @returns instance of CurrencyValueObject
 	 */
-	addPercent(percent: number): Result<CurrencyValueObject> {
-		if (!CurrencyValueObject.isSafeValue(percent)) {
-			return Result.fail<CurrencyValueObject>(
-				`${percent} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
-			);
-		}
-		if (this.cents >= maxSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
+	addPercent(percent: number): CurrencyValueObject {
 		const percentage = calculatePercent(this.cents, percent);
-		if (percentage + this.cents >= maxSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
 		this.cents = this.cents + percentage;
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok<CurrencyValueObject>(this);
+		return this;
 	}
 
 	/**
 	 * @event `update` this method may not has effect on the instance value. always check the returned result.
 	 * @description subtract a percentage from instance value
 	 * @param percent number as percentage
-	 * @returns instance of Result type number with calculation result
+	 * @returns instance of CurrencyValueObject
 	 */
-	subtractPercent(percent: number): Result<CurrencyValueObject> {
-		if (!CurrencyValueObject.isSafeValue(percent)) {
-			return Result.fail<CurrencyValueObject>(
-				`${percent} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
-			);
-		}
-		if (this.cents <= minSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
+	subtractPercent(percent: number): CurrencyValueObject {
 		const percentage = calculatePercent(this.cents, percent);
-		if (this.cents - percentage <= minSafeValue) {
-			return Result.fail<CurrencyValueObject>(
-				'The result is so large for calculate'
-			);
-		}
 		this.cents = this.cents - percentage;
 		this.props.value = convertCentToFloat(this.cents);
-		return Result.ok<CurrencyValueObject>(this);
+		return this;
 	}
 
 	/**
@@ -304,6 +207,19 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	 */
 	isPositive(): boolean {
 		return this.cents >= 0;
+	}
+
+	validation(_key: any, _value: any): boolean {
+		const { isNumber, number, isString } = this.validator;
+
+		const option = {
+			value: (_val: any) =>
+				isNumber(_val) && number(_val).isSafeInteger(),
+			currency: (_val: any) =>
+				isString(_val) && Object.keys(currency).includes(_val),
+		};
+
+		return option[_key](_value);
 	}
 
 	/**
@@ -315,21 +231,17 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	public static create(props: Prop): Result<CurrencyValueObject> {
 		const isValidCurrency = Object.keys(currency).includes(props.currency);
 		if (!isValidCurrency) {
-			return Result.fail<CurrencyValueObject>(
-				`${props.currency} is an invalid currency`
-			);
+			return Result.fail(`${props.currency} is an invalid currency`);
 		}
 		if (typeof props.value !== 'number') {
-			return Result.fail<CurrencyValueObject>(
-				`${props.value} is not a number`
-			);
+			return Result.fail(`${props.value} is not a number`);
 		}
 		if (!CurrencyValueObject.isSafeValue(props.value)) {
-			return Result.fail<CurrencyValueObject>(
+			return Result.fail(
 				`${props.value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
 			);
 		}
-		return Result.ok<CurrencyValueObject>(new CurrencyValueObject(props));
+		return Result.success(new CurrencyValueObject(props));
 	}
 }
 

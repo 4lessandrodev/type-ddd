@@ -1,11 +1,11 @@
 import {
-	IUseCase,
 	Result,
 	IBeforeHookProxy,
 	IAfterHookProxy,
 	ICanExecuteProxy,
 	TSProxy,
 } from '@types-ddd';
+import { IUseCase } from 'rich-domain';
 
 describe('proxy.pattern', () => {
 	interface DataDto {
@@ -19,12 +19,12 @@ describe('proxy.pattern', () => {
 	beforeEach(() => {
 		useCase = {
 			execute: async (data: DataDto): Promise<Result<string>> =>
-				Result.ok(data.email),
+				Result.success(data.email),
 		};
 
 		beforeExecuteHook = {
 			execute: async (data: DataDto): Promise<Result<DataDto>> =>
-				Result.ok({
+				Result.success({
 					email: data.email.toLowerCase(),
 				}),
 		};
@@ -38,7 +38,7 @@ describe('proxy.pattern', () => {
 			execute: async (data: DataDto): Promise<Result<boolean>> => {
 				const isValidEmail = data.email === 'valid_email@domain.com';
 
-				if (isValidEmail) return Result.ok(true);
+				if (isValidEmail) return Result.success(true);
 
 				return Result.fail('invalid email');
 			},
@@ -52,8 +52,8 @@ describe('proxy.pattern', () => {
 
 		const result = await proxy.execute({ email: 'valid_email@domain.com' });
 
-		expect(result.isSuccess).toBeTruthy();
-		expect(result.getResult()).toBe('valid_email@domain.com');
+		expect(result.isSuccess()).toBeTruthy();
+		expect(result.value()).toBe('valid_email@domain.com');
 	});
 
 	it('should fail next step if execute fails', async () => {
@@ -66,8 +66,8 @@ describe('proxy.pattern', () => {
 
 		const result = await proxy.execute({ email: 'valid_email@domain.com' });
 
-		expect(result.isFailure).toBeTruthy();
-		expect(result.error).toBe('fails');
+		expect(result.isFailure()).toBeTruthy();
+		expect(result.error()).toBe('fails');
 	});
 
 	it('should can execute if provide a valid email', async () => {
@@ -85,8 +85,8 @@ describe('proxy.pattern', () => {
 		expect(validateSpy).toHaveBeenCalledWith({
 			email: 'valid_email@domain.com',
 		});
-		expect(result.isSuccess).toBeTruthy();
-		expect(result.getResult()).toBe('valid_email@domain.com');
+		expect(result.isSuccess()).toBeTruthy();
+		expect(result.value()).toBe('valid_email@domain.com');
 	});
 
 	it('should cannot execute if provide an invalid email', async () => {
@@ -105,8 +105,8 @@ describe('proxy.pattern', () => {
 		expect(validateSpy).toHaveBeenCalledWith({
 			email: 'invalid_email@domain.com',
 		});
-		expect(result.isFailure).toBeTruthy();
-		expect(result.error).toBe('invalid email');
+		expect(result.isFailure()).toBeTruthy();
+		expect(result.error()).toBe('invalid email');
 	});
 
 	it('should cannot execute if result has a false value', async () => {
@@ -114,7 +114,7 @@ describe('proxy.pattern', () => {
 		const validateSpy = jest.spyOn(canExecuteProxy, 'execute');
 
 		jest.spyOn(canExecuteProxy, 'execute').mockImplementationOnce(
-			async () => Result.ok(false)
+			async () => Result.success(false)
 		);
 
 		const proxy = new OnlyExecute({
@@ -129,8 +129,8 @@ describe('proxy.pattern', () => {
 		expect(validateSpy).toHaveBeenCalledWith({
 			email: 'invalid_email@domain.com',
 		});
-		expect(result.isFailure).toBeTruthy();
-		expect(result.error).toBe('blocked by canExecute hook on proxy');
+		expect(result.isFailure()).toBeTruthy();
+		expect(result.error()).toBe('blocked by canExecute hook on proxy');
 	});
 
 	it('should run before hook if provide one', async () => {
@@ -150,8 +150,8 @@ describe('proxy.pattern', () => {
 			email: 'VALID_EMAIL@DOMAIN.COM',
 		});
 
-		expect(result.isSuccess).toBeTruthy();
-		expect(result.getResult()).toBe('valid_email@domain.com');
+		expect(result.isSuccess()).toBeTruthy();
+		expect(result.value()).toBe('valid_email@domain.com');
 	});
 
 	it('should run after hook if provide one', async () => {
@@ -168,17 +168,17 @@ describe('proxy.pattern', () => {
 		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
 
 		expect(validateSpy).toHaveBeenCalledWith(
-			Result.ok('valid_email@domain.com')
+			Result.success('valid_email@domain.com')
 		);
 
-		expect(result.isSuccess).toBeTruthy();
-		expect(result.getResult()).toBe('valid_email@domain.com');
+		expect(result.isSuccess()).toBeTruthy();
+		expect(result.value()).toBe('valid_email@domain.com');
 	});
 
 	it('should run after hook if provide one', async () => {
 		const afterMock = {
 			execute: async (data: Result<string>): Promise<Result<string>> => {
-				return Result.ok(data.getResult() + '@AFTER-HOOK');
+				return Result.success(data.value() + '@AFTER-HOOK');
 			},
 		};
 		const validateSpy = jest.spyOn(afterMock, 'execute');
@@ -195,17 +195,17 @@ describe('proxy.pattern', () => {
 		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
 
 		expect(validateSpy).toHaveBeenCalledWith(
-			Result.ok('valid_email@domain.com')
+			Result.success('valid_email@domain.com')
 		);
 
-		expect(result.isSuccess).toBeTruthy();
-		expect(result.getResult()).toBe('valid_email@domain.com@AFTER-HOOK');
+		expect(result.isSuccess()).toBeTruthy();
+		expect(result.value()).toBe('valid_email@domain.com@AFTER-HOOK');
 	});
 
 	it('should get error if after hook step fails', async () => {
 		const afterMock = {
 			execute: async (data: Result<string>): Promise<Result<string>> => {
-				return Result.fail(data.getResult() + '@fail' + '@AFTER-HOOK');
+				return Result.fail(data.value() + '@fail' + '@AFTER-HOOK');
 			},
 		};
 		const validateSpy = jest.spyOn(afterMock, 'execute');
@@ -222,13 +222,11 @@ describe('proxy.pattern', () => {
 		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
 
 		expect(validateSpy).toHaveBeenCalledWith(
-			Result.ok('valid_email@domain.com')
+			Result.success('valid_email@domain.com')
 		);
 
-		expect(result.isFailure).toBeTruthy();
-		expect(result.errorValue()).toBe(
-			'valid_email@domain.com@fail@AFTER-HOOK'
-		);
+		expect(result.isFailure()).toBeTruthy();
+		expect(result.error()).toBe('valid_email@domain.com@fail@AFTER-HOOK');
 	});
 
 	it('should do not call canExecute if beforeExecute fails', async () => {
@@ -265,8 +263,8 @@ describe('proxy.pattern', () => {
 		});
 		expect(canExecuteSpy).not.toHaveBeenCalled();
 		expect(afterExecuteSpy).not.toHaveBeenCalled();
-		expect(result.isFailure).toBeTruthy();
-		expect(result.error).toBe('@hook:before:fails');
+		expect(result.isFailure()).toBeTruthy();
+		expect(result.error()).toBe('@hook:before:fails');
 	});
 
 	it('should do not call execute if canExecute fails', async () => {
@@ -307,8 +305,8 @@ describe('proxy.pattern', () => {
 		});
 		expect(afterExecuteSpy).not.toHaveBeenCalled();
 		expect(useCaseSpy).not.toHaveBeenCalled();
-		expect(result.isFailure).toBeTruthy();
-		expect(result.error).toBe('@hook:canExecute:fails');
+		expect(result.isFailure()).toBeTruthy();
+		expect(result.error()).toBe('@hook:canExecute:fails');
 	});
 
 	it('should do not call afterExecute if execute fails', async () => {
@@ -349,8 +347,8 @@ describe('proxy.pattern', () => {
 			email: 'valid_email@domain.com',
 		});
 		expect(afterExecuteSpy).not.toHaveBeenCalled();
-		expect(result.isFailure).toBeTruthy();
-		expect(result.error).toBe('@hook:execute:fails');
+		expect(result.isFailure()).toBeTruthy();
+		expect(result.error()).toBe('@hook:execute:fails');
 	});
 
 	it('should return fails if afterExecute hook fails', async () => {
@@ -388,7 +386,7 @@ describe('proxy.pattern', () => {
 		expect(beforeExecuteSpy).toHaveBeenCalledWith({
 			email: 'valid_email@domain.com',
 		});
-		expect(result.isFailure).toBeTruthy();
-		expect(result.error).toBe('@hook:after:fails');
+		expect(result.isFailure()).toBeTruthy();
+		expect(result.error()).toBe('@hook:after:fails');
 	});
 });
