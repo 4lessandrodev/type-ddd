@@ -31,18 +31,18 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		});
 
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should getters be defined', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'CM',
-		}).getResult();
+		}).value();
 
 		expect(valueObject.dimension).toBeDefined();
 		expect(valueObject.unit).toBeDefined();
-		expect(valueObject.dimension.value).toBe(1000);
+		expect(valueObject.dimension.value()).toBe(1000);
 		expect(valueObject.unit).toBe('CM');
 	});
 
@@ -50,18 +50,18 @@ describe('dimension.value-object', () => {
 		const dimension = DimensionValueObject.create({
 			unit: 'MT',
 			value: 100,
-		}).getResult();
-		dimension.changeValue(CustomNumberValueObject.create(500).getResult());
-		expect(dimension.dimension.value).toBe(500);
+		}).value();
+		dimension.changeValue(CustomNumberValueObject.create(500).value());
+		expect(dimension.dimension.value()).toBe(500);
 	});
 
 	it('should change unit', () => {
 		const dimension = DimensionValueObject.create({
 			unit: 'MT',
 			value: 100,
-		}).getResult();
+		}).value();
 		dimension.changeDimensionUnit('YARD');
-		expect(dimension.dimension.value).toBe(100);
+		expect(dimension.dimension.value()).toBe(100);
 		expect(dimension.unit).toBe('YARD');
 	});
 	// ************************
@@ -70,10 +70,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'CM',
-		}).getResult();
+		}).value();
 
 		valueObject.toFOOT();
-		expect(valueObject.dimension.value).toBe(32.808);
+		expect(valueObject.dimension.value()).toBe(32.808);
 		expect(valueObject.unit).toBe('FOOT');
 	});
 
@@ -81,10 +81,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'CM',
-		}).getResult();
+		}).value();
 
 		valueObject.toINCH();
-		expect(valueObject.dimension.value).toBe(393.701);
+		expect(valueObject.dimension.value()).toBe(393.701);
 		expect(valueObject.unit).toBe('INCH');
 	});
 
@@ -92,10 +92,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'CM',
-		}).getResult();
+		}).value();
 
 		valueObject.toMM();
-		expect(valueObject.dimension.value).toBe(10000);
+		expect(valueObject.dimension.value()).toBe(10000);
 		expect(valueObject.unit).toBe('MM');
 	});
 
@@ -103,10 +103,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'CM',
-		}).getResult();
+		}).value();
 
 		valueObject.toMT();
-		expect(valueObject.dimension.value).toBe(10);
+		expect(valueObject.dimension.value()).toBe(10);
 		expect(valueObject.unit).toBe('MT');
 	});
 
@@ -114,10 +114,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'CM',
-		}).getResult();
+		}).value();
 
 		valueObject.toYARD();
-		expect(valueObject.dimension.value).toBe(10.936);
+		expect(valueObject.dimension.value()).toBe(10.936);
 		expect(valueObject.unit).toBe('YARD');
 	});
 
@@ -127,10 +127,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MM',
-		}).getResult();
+		}).value();
 
 		valueObject.toYARD();
-		expect(valueObject.dimension.value).toBe(1.094);
+		expect(valueObject.dimension.value()).toBe(1.094);
 		expect(valueObject.unit).toBe('YARD');
 	});
 
@@ -138,10 +138,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MM',
-		}).getResult();
+		}).value();
 
 		valueObject.toCM();
-		expect(valueObject.dimension.value).toBe(100);
+		expect(valueObject.dimension.value()).toBe(100);
 		expect(valueObject.unit).toBe('CM');
 	});
 
@@ -149,10 +149,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MM',
-		}).getResult();
+		}).value();
 
 		valueObject.toFOOT();
-		expect(valueObject.dimension.value).toBe(3.279);
+		expect(valueObject.dimension.value()).toBe(3.279);
 		expect(valueObject.unit).toBe('FOOT');
 	});
 
@@ -160,10 +160,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MM',
-		}).getResult();
+		}).value();
 
 		valueObject.toINCH();
-		expect(valueObject.dimension.value).toBe(39.37);
+		expect(valueObject.dimension.value()).toBe(39.37);
 		expect(valueObject.unit).toBe('INCH');
 	});
 
@@ -171,10 +171,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MM',
-		}).getResult();
+		}).value();
 
 		valueObject.toMT();
-		expect(valueObject.dimension.value).toBe(1);
+		expect(valueObject.dimension.value()).toBe(1);
 		expect(valueObject.unit).toBe('MT');
 	});
 
@@ -184,10 +184,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'INCH',
-		}).getResult();
+		}).value();
 
 		valueObject.toCM();
-		expect(valueObject.dimension.value).toBe(2540);
+		expect(valueObject.dimension.value()).toBe(2540);
 		expect(valueObject.unit).toBe('CM');
 	});
 
@@ -195,10 +195,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'INCH',
-		}).getResult();
+		}).value();
 
 		valueObject.toMM();
-		expect(valueObject.dimension.value).toBe(25400);
+		expect(valueObject.dimension.value()).toBe(25400);
 		expect(valueObject.unit).toBe('MM');
 	});
 
@@ -206,10 +206,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'INCH',
-		}).getResult();
+		}).value();
 
 		valueObject.toFOOT();
-		expect(valueObject.dimension.value).toBe(83.333);
+		expect(valueObject.dimension.value()).toBe(83.333);
 		expect(valueObject.unit).toBe('FOOT');
 	});
 
@@ -217,10 +217,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'INCH',
-		}).getResult();
+		}).value();
 
 		valueObject.toMT();
-		expect(valueObject.dimension.value).toBe(25.4);
+		expect(valueObject.dimension.value()).toBe(25.4);
 		expect(valueObject.unit).toBe('MT');
 	});
 
@@ -228,10 +228,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'INCH',
-		}).getResult();
+		}).value();
 
 		valueObject.toYARD();
-		expect(valueObject.dimension.value).toBe(27.778);
+		expect(valueObject.dimension.value()).toBe(27.778);
 		expect(valueObject.unit).toBe('YARD');
 	});
 
@@ -241,10 +241,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'FOOT',
-		}).getResult();
+		}).value();
 
 		valueObject.toYARD();
-		expect(valueObject.dimension.value).toBe(333.333);
+		expect(valueObject.dimension.value()).toBe(333.333);
 		expect(valueObject.unit).toBe('YARD');
 	});
 
@@ -252,10 +252,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'FOOT',
-		}).getResult();
+		}).value();
 
 		valueObject.toCM();
-		expect(valueObject.dimension.value).toBe(30480);
+		expect(valueObject.dimension.value()).toBe(30480);
 		expect(valueObject.unit).toBe('CM');
 	});
 
@@ -263,10 +263,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'FOOT',
-		}).getResult();
+		}).value();
 
 		valueObject.toINCH();
-		expect(valueObject.dimension.value).toBe(12000);
+		expect(valueObject.dimension.value()).toBe(12000);
 		expect(valueObject.unit).toBe('INCH');
 	});
 
@@ -274,10 +274,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'FOOT',
-		}).getResult();
+		}).value();
 
 		valueObject.toMM();
-		expect(valueObject.dimension.value).toBe(305000);
+		expect(valueObject.dimension.value()).toBe(305000);
 		expect(valueObject.unit).toBe('MM');
 	});
 
@@ -285,10 +285,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'FOOT',
-		}).getResult();
+		}).value();
 
 		valueObject.toMT();
-		expect(valueObject.dimension.value).toBe(304.044);
+		expect(valueObject.dimension.value()).toBe(304.044);
 		expect(valueObject.unit).toBe('MT');
 	});
 
@@ -298,10 +298,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MT',
-		}).getResult();
+		}).value();
 
 		valueObject.toYARD();
-		expect(valueObject.dimension.value).toBe(1094);
+		expect(valueObject.dimension.value()).toBe(1094);
 		expect(valueObject.unit).toBe('YARD');
 	});
 
@@ -309,10 +309,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MT',
-		}).getResult();
+		}).value();
 
 		valueObject.toCM();
-		expect(valueObject.dimension.value).toBe(100000);
+		expect(valueObject.dimension.value()).toBe(100000);
 		expect(valueObject.unit).toBe('CM');
 	});
 
@@ -320,10 +320,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MT',
-		}).getResult();
+		}).value();
 
 		valueObject.toMM();
-		expect(valueObject.dimension.value).toBe(1e6);
+		expect(valueObject.dimension.value()).toBe(1e6);
 		expect(valueObject.unit).toBe('MM');
 	});
 
@@ -331,10 +331,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MT',
-		}).getResult();
+		}).value();
 
 		valueObject.toINCH();
-		expect(valueObject.dimension.value).toBe(39370);
+		expect(valueObject.dimension.value()).toBe(39370);
 		expect(valueObject.unit).toBe('INCH');
 	});
 
@@ -342,10 +342,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MT',
-		}).getResult();
+		}).value();
 
 		valueObject.toFOOT();
-		expect(valueObject.dimension.value).toBe(3281);
+		expect(valueObject.dimension.value()).toBe(3281);
 		expect(valueObject.unit).toBe('FOOT');
 	});
 
@@ -355,10 +355,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'YARD',
-		}).getResult();
+		}).value();
 
 		valueObject.toCM();
-		expect(valueObject.dimension.value).toBe(91440);
+		expect(valueObject.dimension.value()).toBe(91440);
 		expect(valueObject.unit).toBe('CM');
 	});
 
@@ -366,10 +366,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'YARD',
-		}).getResult();
+		}).value();
 
 		valueObject.toFOOT();
-		expect(valueObject.dimension.value).toBe(3000);
+		expect(valueObject.dimension.value()).toBe(3000);
 		expect(valueObject.unit).toBe('FOOT');
 	});
 
@@ -377,10 +377,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'YARD',
-		}).getResult();
+		}).value();
 
 		valueObject.toMM();
-		expect(valueObject.dimension.value).toBe(914000);
+		expect(valueObject.dimension.value()).toBe(914000);
 		expect(valueObject.unit).toBe('MM');
 	});
 
@@ -388,10 +388,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'YARD',
-		}).getResult();
+		}).value();
 
 		valueObject.toMT();
-		expect(valueObject.dimension.value).toBe(914.077);
+		expect(valueObject.dimension.value()).toBe(914.077);
 		expect(valueObject.unit).toBe('MT');
 	});
 
@@ -399,10 +399,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'YARD',
-		}).getResult();
+		}).value();
 
 		valueObject.toINCH();
-		expect(valueObject.dimension.value).toBe(36000);
+		expect(valueObject.dimension.value()).toBe(36000);
 		expect(valueObject.unit).toBe('INCH');
 	});
 
@@ -412,10 +412,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'YARD',
-		}).getResult();
+		}).value();
 
 		valueObject.toYARD();
-		expect(valueObject.dimension.value).toBe(1000);
+		expect(valueObject.dimension.value()).toBe(1000);
 		expect(valueObject.unit).toBe('YARD');
 	});
 
@@ -423,10 +423,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'CM',
-		}).getResult();
+		}).value();
 
 		valueObject.toCM();
-		expect(valueObject.dimension.value).toBe(1000);
+		expect(valueObject.dimension.value()).toBe(1000);
 		expect(valueObject.unit).toBe('CM');
 	});
 
@@ -434,10 +434,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MM',
-		}).getResult();
+		}).value();
 
 		valueObject.toMM();
-		expect(valueObject.dimension.value).toBe(1000);
+		expect(valueObject.dimension.value()).toBe(1000);
 		expect(valueObject.unit).toBe('MM');
 	});
 
@@ -445,10 +445,10 @@ describe('dimension.value-object', () => {
 		const valueObject = DimensionValueObject.create({
 			value: dimension,
 			unit: 'MT',
-		}).getResult();
+		}).value();
 
 		valueObject.toMT();
-		expect(valueObject.dimension.value).toBe(1000);
+		expect(valueObject.dimension.value()).toBe(1000);
 		expect(valueObject.unit).toBe('MT');
 	});
 

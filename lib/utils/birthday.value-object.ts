@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 
 interface Prop {
 	value: Date;
@@ -14,7 +14,7 @@ export class BirthdayValueObject extends ValueObject<Prop> {
 	/**
 	 * @returns the birthday date
 	 */
-	get value(): Date {
+	value(): Date {
 		return this.props.value;
 	}
 
@@ -64,13 +64,11 @@ export class BirthdayValueObject extends ValueObject<Prop> {
 
 	public static create(value: Date): Result<BirthdayValueObject> {
 		if (!BirthdayValueObject.isValidValue(value)) {
-			return Result.fail<BirthdayValueObject>(
+			return Result.fail(
 				'Invalid age for a human. Must has less than 121 years old and birth not in future'
 			);
 		}
-		return Result.ok<BirthdayValueObject>(
-			new BirthdayValueObject({ value })
-		);
+		return Result.success(new BirthdayValueObject({ value }));
 	}
 }
 

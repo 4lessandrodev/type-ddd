@@ -11,9 +11,9 @@ describe('unit-of-measure.value-object', () => {
 
 	it('should create a valid unit of measure', () => {
 		const unit = UnitOfMeasureValueObject.create('CM');
-		expect(unit.isSuccess).toBeTruthy();
-		expect(unit.getResult().value).toBe('CM');
-		expect(unit.getResult().description).toBe('CENTIMETER');
+		expect(unit.isSuccess()).toBeTruthy();
+		expect(unit.value().value()).toBe('CM');
+		expect(unit.value().description).toBe('CENTIMETER');
 	});
 
 	it('should fail if provide an invalid value', () => {

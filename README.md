@@ -3,8 +3,6 @@
 
 typescript domain driven design library. All resources tested
 
-<img src="./readme/testing.png" width=100%>
-
 ## Install
 
 ```sh
@@ -15,9 +13,6 @@ $ npm i types-ddd
 $ yarn add types-ddd
 
 ```
-
-[Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/) or check example folder o source code [Github example](https://github.com/4lessandrodev/types-ddd/tree/main/example)
-
 
 <img src="./readme/ddd.jpg" alt="image" width="100%">
 
@@ -180,267 +175,574 @@ Divided by
 
 ```
 
-### Module generator
-
-you might also like this tool.
-
-[Types-ddd CLI](https://www.npmjs.com/package/types-ddd-cli)
-## 14. Available resources
-
-Resources on this lib (Core)
-
-- AggregateRoot
-- BaseDomainEntity
-- Entity
-- ReadList
-- Result
-- UniqueEntityID
-- IUseCase
-- ValueObject
-- WriteList
-- IBaseConnection
-- IBaseRepository
-- BaseRepository
-- IRepository
-- Filter
-- IMapper
-- TMapper
-- IDomainEvent
-- DomainEvents
-- IHandle
-- DomainId
-- ShortDomainId
-- ChangesObserver
-- AutoMapper
-
----
 
 ### Value Object
 
-Use value object as attributes for domain entity
+Use value-object as attributes for your entities and aggregates.
+Can be used to measure or describe things (name, description, amount, height, date, time, range, address, etc.)
+
+Example:
+
+Use Case: I need a property as number that represents a human age.
+The business case: It must be greater than 0 and less than 130.
 
 ```ts
-import { ValueObject, Result } from "types-ddd";
-```
 
-```ts
-interface Prop {
-    value: number;
+import { ValueObject, Result, IResult } from 'types-ddd';
+
+interface Props { value: number };
+
+export class HumanAge extends ValueObject<Props> {
+	private constructor(props){
+		super(props);
+	}
+
+	public static isValidProps({ value }: Props): boolean {
+		// validator instance is available on value object instance
+		return this.validator.number(value).isBetween(0, 130);
+	}
+
+	public static create(props: Props): IResult<ValueObject<Props>> {
+		
+		const message = `${props.value} is an invalid value`;
+
+		// your business validation
+		if(!this.isValidProps(props)) return Result.fail(message);
+
+		return Result.success(new HumanAge(props));
+	}
 }
+
 ```
+
+### Value Object methods
+
+Success methods
 
 ```ts
-class AgeValueObject extends ValueObject<Prop> {
-  
-  private constructor(prop: Prop) {
-      super(prop);
-  }
 
-  get value(): number {
-      return this.props.value;
-  }
+const result = HumanAge.create({ value: 21 });
 
-  static isValidValue(value: number): boolean {
-      // Your logic to validate value
-      // must be positive and less than 131 years old
-      return value >= 0 && value <= 130
-  }
+console.log(result.isSuccess());
 
-  public static create(value: number): Result<AgeValueObject> {
+> true
 
-      const isValidValue = AgeValueObject.isValidValue(value);
+const age = result.value();
 
-      if(!isValidValue) {
-          return Result.fail("Invalid value for age");
-      }
+console.log(age.get('value'));
 
-      return Result.ok(new AgeValueObject({ value }));
-  }
-}
+> 21
+
+age.set('value').to(18);
+
+console.log(age.get('value'));
+
+> 18
+
+console.log(age.history().count());
+
+> 2
+
+// back to old value on history
+age.history().back();
+
+console.log(age.get('value'));
+
+> 21
+
 ```
 
----
-
-### Aggregate
-
-Use Aggregate for a root entity on context. Every another entities on context must be embed on aggregate root. Remember there is only one aggregate root by context.
+Failure methods
 
 ```ts
-import { AggregateRoot, BaseDomainEntity, Result } from "types-ddd";
+
+const result = HumanAge.create({ value: 1000 });
+
+console.log(result.isSuccess());
+
+> false
+
+console.log(result.isFailure());
+
+> true
+
+console.log(result.value());
+
+> null 
+
+console.log(result.error());
+
+> "1000 is an invalid value"
+
 ```
-
-```ts
-interface Props extends BaseDomainEntity {
-    name: NameValueObject;
-    age: AgeValueObject;
-}
-```
-
-```ts
-class UserAggregate extends AggregateRoot<Props> {
-  
-  private constructor(props: Props) {
-      super(props, UserAggregate.name);
-  }
-
-  get name(): NameValueObject {
-      return this.props.name;
-  }
-
-  get age(): AgeValueObject {
-      return this.props.age;
-  }
-
-  public addEvent(domainEvent: IDomainEvent) {
-      this.addDomainEvent(domainEvent);
-  }
-
-  public static create(props: Props): Result<UserAggregate> {
-      return Result.ok<UserAggregate>(new UserAggregate(props));
-  }
-}
-```
-
----
 
 ### Entity
 
-There is a simple entity from a context. It does not dispatch events.
+Have an id (preferably a GUID rather than a DB generated int because business transactions do not rely on
 
 ```ts
-import { Entity, BaseDomainEntity, DomainId, Result } from "types-ddd";
-```
 
-```ts
-interface Props extends BaseDomainEntity {
-    color: ColorValueObject;
-    year: YearValueObject;
-    weight?: WeightValueObject;
-}
-```
+import { Entity, Result, IResult, UID } from 'types-ddd';
 
-```ts
-class Car extends Entity<Props> {
-  
-  private constructor(props: Props) {
-      super(props, Car.name);
-  }
+// id must be defined on props as optional string or UID. 
+// If not provided a new one will be generated.
+interface Props { id?: UID; name: Name; age: Age; };
 
-  get color(): ColorValueObject {
-      return this.props.color;
-  }
+export class User extends Entity<Props> {
+	private constructor(props: Props){
+		super(props);
+	}
 
-  get year(): YearValueObject {
-      return this.props.year;
-  }
-
-  get weight(): WeightValueObject | undefined {
-      return this.props.weight;
-  }
-
-  private hasRequiredProps(): boolean {
-      return !this.checkProps(['color', 'year']).isSome('undefined');
-  }
-
-  private isValidYearForCar(year: YearValueObject): boolean {
-      return year.isOnRange({ min: 1920, max: 'currentYear' })
-  }
-
-  public static create(props: Props): Result<Car> {
-
-      // Your business validation logic
-      // You may use rules before return a entity instance
-      const car = new Car(props);
-
-      // Example: Required props must be provided 
-      const hasRequiredPros = car.hasRequiredProps();
-
-      if (!hasRequiredPros) {
-          return Result.fail<Car>("Required props: year and color");
-      }
-
-      // Example: Year must be on range 1920 ~ currentYear
-      const isValidYearForCar = car.isValidYearForCar(props.year);
-
-      if (!isValidYearForCar) {
-          return Result.fail<Car>("The car is so wreck. Invalid year" );
-      }
-
-      return Result.ok<Car>(car);
-  }
+	public static create(props: Props): Result<User> {
+		
+		// your business validation
+		return Result.success(new User(props));
+	}
 }
 
 ```
 
-### How to use
-
-* value-object
-* entity
-
-> Aggregate follow the same entity example
-
-If you want to see a full example check the repository [Click here](https://github.com/4lessandrodev/simple-ddd-app-example)
+How to instantiate an entity
 
 ```ts
 
-const clientCode = () => {
-  
-      // generate a new domain id
-      const newID = DomainId.create();
+// create entity attributes
 
+const attrAge = Age.create({ value: 21 });
+const attrName = Name.create({ value: 'Jane Doe' });
 
-      // create value objects 
-      const colorBlackOrError = ColorValueObject.create('BLACK');
-      const manufactureYearOrError = YearValueObject.crete(2001);
+// validate attributes for all value objects
+const result = Result.combine([ attrAge, attrName ]);
 
-      // important validate your value objects before use them
-      const result = Result.combine([colorBlackOrError, manufactureYearOrError]);
+console.log(result.isSuccess());
 
-      const isValueObjectsOk = result.isSuccess;
-      // only execute next step if all value objects are ok
+> true
 
-      const colorBlack = colorBlackOrError.getResult();
-      const manufactureYear = manufactureYear.getResult();
+const age = attrAge.value();
+const name = attrName.value();
 
-      const myCarOrError = Car.create({
-          ID: newID,
-          color: colorBlack,
-          year: manufactureYear
-      });
+const user = User.create({ age, name });
 
-      const isMyCarOk = myCarOrError.isSuccess;
-      // only execute next step if car entity is ok
+console.log(user.value().toObject());
 
-      const myCar = myCarOrError.getResult();
-
-      // Get a persistence object from domain instance to save on database
-      const carModel = myCar.toObject();
-
-      console.log(carModel);
-      `{ 
-          id: "143150b2-47b6-4d97-945b-289f821c7fb9", 
-          color: "BLACK", 
-          year: 2001,
-          isDeleted: false,
-          createdAt: "2022-02-13T05:41:32.652Z",
-          updatedAt: "2022-02-13T05:41:32.652Z"
-      }`
-
+> Object
+{ 
+	age: 21 ,
+	name: "Jane Doe", 
+	createdAt: "2022-07-17T18:06:35.986Z",
+	updatedAt: "2022-07-17T18:06:35.986Z",
+	id: "51ac507e-78e3-433e-8c72-c807d4ee6c4c"
 }
 
 ```
 
----
+### Aggregate
 
-### Check a full example 
+Encapsulate and are composed of entity classes and value objects that change together in a business transaction.
 
-A project is available on link below
+```ts
 
-[Project App Example](https://github.com/4lessandrodev/simple-ddd-app-example)
+import { Aggregate, Result, IResult, UID } from 'types-ddd';
 
-### Documentation
+// id must be defined on props as optional string or UID. 
+// If not provided a new one will be generated.
+interface Props { id?: UID; name: Name; price: Currency }
 
-[Full documentation on gitbook.io/types-ddd/](https://alessandroadm.gitbook.io/types-ddd/)
+export class Product extends Aggregate<Props> {
+	private constructor(props: Props){
+		super(props);
+	}
+
+	public static create(props: Props): IResult<Product> {
+		
+		// your business validation
+		return Result.success(new Product(props));
+	}
+}
+
+```
+
+### Domain Events
+
+You can add event to the aggregates.
+Events are stored in memory and deleted after dispatch.
+
+```ts
+
+import { DomainEvents, IHandle } from 'types-ddd';
+
+class ProductCreated implements IHandle<Product> {
+	// optional custom name. default is the className
+	eventName: string = 'CustomEventName';
+
+	async dispatch(event: IDomainEvent<Product>): Promise<void> {
+
+		// logic goes here. do something important
+		console.log(event);
+	}
+}
+
+const result = Product.create({ name, price });
+
+const product = result.value();
+
+const event = new ProductCreated();
+
+product.addEvent(event);
+
+// dispatch event
+DomainEvents.dispatch({ eventName: 'CustomEventName', id: product.id });
+
+```
+
+### Result
+
+Ensure application never throws
+
+Return success
+
+```ts
+
+Result<Payload, Error, MetaData>
+
+let result: Result<string, string, { foo: string }>;
+
+result = Result.success("hello world", { foo: 'bar' });
+
+// Check status
+console.log(result.isSuccess());
+
+> true
+
+console.log(result.value());
+
+> "hello world"
+
+console.log(result.metaData());
+
+> Object { foo: "bar" }
+
+// if success, the error will be null
+
+console.log(result.error());
+
+> null
+
+```
+
+Return failure
+
+```ts
+
+
+result = Result.fail("something went wrong!", { foo: 'bar' });
+
+// Check status
+console.log(result.isFailure());
+
+> true
+
+console.log(result.metaData());
+
+> Object { foo: "bar" }
+
+console.log(result.error());
+
+> "something went wrong!"
+
+// if failure, the payload data will be null
+
+console.log(result.value());
+
+> null
+
+
+```
+
+
+Hooks on fail or success:
+
+```ts
+
+import { ICommand, Result } from 'types-ddd';
+
+class Logger implements ICommand<string, void> {
+	execute(message: string): void {
+		console.log(message);
+	}
+}
+
+const logger = new Logger();
+
+const result = Result.fail('Something went wrong!');
+
+result.execute(logger).withData(result.error()).on('fail');
+
+> "Something went wrong!"
+
+
+```
+
+### ID
+
+Id use uuid or short uuid. the type of ID is UID
+
+```ts
+
+const id = ID.create();
+
+console.log(id.value());
+
+> "8fbe674f-d31f-4769-850f-2815f485fe89"
+
+// If you provide a value a id will be generated with
+
+const id2 = ID.create(id.value());
+
+console.log(id2.value());
+
+> "8fbe674f-d31f-4769-850f-2815f485fe89"
+
+// Compare
+
+console.log(id.equal(id2))
+
+> true
+
+```
+
+### Short ID
+
+16bytes based on uuid. the type of Short ID is UID
+
+```ts
+
+const id = ID.createShort();
+
+console.log(id.value());
+
+> "LO123RE3MID0193T"
+
+```
+
+### Adapter
+
+How to adapt the data from persistence to domain or from domain to persistence.
+
+```ts
+
+import { IAdapter, Result } from 'types-ddd';
+
+// from domain to data layer
+class MyAdapterA implements IAdapter<DomainUser, DataUser>{
+	build(target: DomainUser): Result<DataUser> {
+		// ...
+	}
+}
+
+// from data layer to domain
+class MyAdapterB implements IAdapter<DataUser, DomainUser>{
+	build(target: DataUser): Result<DomainUser> {
+		// ...
+	}
+}
+
+// you also may use adapter in toObject function.
+
+const myAdapter = new MyAdapterA();
+
+domainUser.toObject<Model>(myAdapter);
+
+```
+
+### Advanced concepts
+
+How to validate props on set value.
+
+```ts
+
+import { ValueObject, IPropsValidation, Result } from 'types-ddd';
+
+interface Props { value: number };
+
+// Here we have a super smart value object
+class HumanAge extends ValueObject<Props> {
+	private constructor(props: Props){
+		super(props);
+	}
+
+	// the "set" function automatically will use this method to validate value before set it.
+	validation<Key extends keyof Props>(key: Key, value: Props[Key]): boolean {
+
+		// validator instance is available on value object instance
+		const { isNumber, number } = this.validator;
+
+		const options: IPropsValidation<Props> = {
+			value: (value: number) => isNumber(value) && number.isBetween(0, 130),
+		} 
+
+		return options[key](value);
+	};
+
+	// the "create" function must use this method to validate props before instantiate.
+	public static isValidProps({ value }: Props): boolean {
+
+		// validator instance is available on value object instance
+		const { isNumber, number } = this.validator;
+
+		return isNumber(value) && number.isBetween(0, 130),
+	}
+
+	public static create(props: Props): IResult<ValueObject<Props>> {
+		
+		const message = `${props.value} is an invalid value`;
+
+		// your business validation
+		if(!this.isValidProps(props)) return Result.fail(message);
+
+		return Result.success(new HumanAge(props));
+	}
+}
+
+```
+
+Using value objects with advanced validations
+
+```ts
+
+// example how to use.
+
+const failExample = HumanAge.create({ value: 1000 });
+
+console.log(failExample.isFailure());
+
+> true
+
+console.log(failExample.value());
+
+> null
+
+const successExample = HumanAge.create({ value: 21 });
+
+console.log(successExample.isSuccess());
+
+> true
+
+const age = successExample.value();
+
+console.log(age.get('value'));
+
+> 21
+
+// do nothing on try set an invalid value
+
+age.set('value').to(720);
+
+console.log(age.get('value'));
+
+> 21
+
+// change if provide a valid value
+
+age.set('value').to(72);
+
+console.log(age.get('value'));
+
+> 72
+
+```
+
+### How to disable getters and setters
+
+Disable getters for all keys on instance.
+On try to get a value for any key the value will be null.
+
+```ts
+
+import { ISettings, ValueObject } from 'types-ddd';
+
+const options: ISettings = {
+	disableGetters: true, 
+	disableSetters: true
+}
+
+class HumanAge extends ValueObject<Props> {
+	private constructor(props: Props){
+		super(props, options);
+	}
+}
+
+```
+
+How to disable setter for a specific key.
+Just provide false for prop you want to disable on `validation`
+
+```ts
+
+import { IPropsValidation, ValueObject } from 'types-ddd';
+
+interface Props { value: number; birthDay: Date };
+
+class HumanAge extends ValueObject<Props> {
+	private constructor(props: Props){
+		super(props);
+	}
+
+	// the "set" function automatically will use this method to validate value before set it.
+	validation<Key extends keyof Props>(key: Key, value: Props[Key]): boolean {
+
+		const { isDate } = this.validator;
+
+		const options: IPropsValidation<Props> = {
+			// on define false to the prop, It never will be set.
+			value: _ => false,
+			birthDay: (date) => isDate(date)
+		} 
+
+		return options[key](value);
+	};
+
+	public static create(props: Props): IResult<ValueObject<Props>> {			
+		return Result.success(new HumanAge(props));
+	}
+}
+
+```
+
+Example
+
+```ts
+
+const result = HumanAge.create({ value: 21, birthDay: new Date('2001-07-24T14:46:35.808Z') });
+
+const age = result.value();
+
+console.log(age.get('value'));
+
+> 21
+
+console.log(age.get('birthDay'));
+
+> "2001-07-24T14:46:35.808Z"
+
+// if try to change value...
+
+age.set('value').to(55);
+
+console.log(age.get('value'));
+
+> 21 // no changes
+
+// but if you try to change the birthDay attribute...
+
+age.set('birthDay').to(new Date());
+
+console.log(age.get('birthDay'));
+
+> "2022-07-24T14:46:35.808Z" // changes
+
+```
+
 
 ## Utils
 
@@ -492,7 +794,7 @@ const isValid = passOrError.isSuccess;
 console.log(isValid);
 > true
 
-const pass = passOrError.getResult();
+const pass = passOrError.value();
 pass.encrypt();
 
 console.log(pass.value);
@@ -511,40 +813,6 @@ console.log(PasswordValueObject.generateRandomPassword(12));
 
 ```
 
-### Generate short or normal uid from domain - uuid v4
-> repeating a value is unlikely with 16 characters or more
-
-Has been tested to create 90,000 short ids per second and no repeats were generated.
-
-```ts
-
-import { DomainId, ShortDomainId } from 'types-ddd';
-
-const ID = DomainId.create(); // 3x faster than uuid lib
-
-// Do you want to know if a new id was created?
-
-console.log(ID.isNew);
-> true
-
-console.log(ID.uid);
-> "461235de-ec04-48aa-af94-31fbfa95efcf"
-
-console.log(ID.toShort());
-> "31fbb4859e3301fg"
-
-console.log(ID.toShort(18));
-> "31fbb4859e3301fcfe"
-
-// Short id. default 16 bytes
-const SID = ShortDomainId.create();
-
-console.log(SID.uid)
-> "4859eec0123595ef"
-
-```
-
-
 ### Just import and use it - Date
 
 
@@ -556,7 +824,7 @@ import { DateValueObject } from 'types-ddd';
 
 const currentDate = new Date();
 
-const myDate = DateValueObject.create(currentDate).getResult();
+const myDate = DateValueObject.create(currentDate).value();
 
 console.log(myDate.value);
 > "2021-10-11T14:45:04.758Z"
@@ -595,7 +863,7 @@ import { CurrencyValueObject } from 'types-ddd';
 const myCurrency = CurrencyValueObject.create({
     currency: 'BRL', 
     value: 0.50 
-}).getResult();
+}).value();
 
 console.log(myCurrency.value);
 > 0.5
@@ -609,51 +877,14 @@ myCurrency.addPercent(2); // 102
 myCurrency.subtractBy(2); // 100
 myCurrency.subtractPercent(30); // 70
 
-console.log(myCurrency.value);
+console.log(myCurrency.value());
 > 70
 
-console.log(myCurrency.getCurrencyString());
+console.log(myCurrency.getCoin());
 > "R$ 70.00"
 
 ```
 
-### Just import and use it - Result Observer
-
-> You may combine CurrencyValueObject to ChangesObserver
-> Observer check all received Results. If some "Result" is failure It returns false.
-
-Imagine an use case where you have to execute a lot of steps that return a result and you have to check result step by step. you probably thought to use a lot of if condition, but "changes observer" may help you with that.
-
-```ts
-
-import { ChangesObserver, Result } from 'types-ddd';
-
-const observer = ChangesObserver.init<string>();
-
-const isAllSuccess = observer
-	.add(Result.ok('1'))
-	.add(Result.ok('2'))
-	.add(Result.fail('fail'))
-	.add(Result.ok('4'))
-	.isAllResultsSuccess();
-
-console.log(isAllSuccess);
-> false
-
-// OR 
-
-const isOK = ChangesObserver.init<string>([ 
-    Result.ok('1'),
-    Result.ok('2'),
-    Result.fail('fail'),
-    Result.ok('4')
-]).isAllResultsSuccess();;
-
-console.log(isOK);
-> false
-
-
-```
 
 ### Just import and use it - Weight units
 
@@ -664,16 +895,16 @@ import { WeightValueObject } from 'types-ddd';
 
 const valueObjectOrError = WeightValueObject.create({ value: 1000, unit: "TON" });
 
-const isOk = valueObjectOrError.isSuccess;
+const isOk = valueObjectOrError.isSuccess();
 console.log(isOK);
 > true
 
-const valueObject = valueObjectOrError.getResult();
+const valueObject = valueObjectOrError.value();
 
 console.log(valueObject.unit);
 > "TON"
 
-console.log(valueObject.weight.value);
+console.log(valueObject.weight.value());
 > 1000
 
 // Convert instance value and unit to KG
@@ -682,102 +913,7 @@ valueObject.toKG();
 console.log(valueObject.unit);
 > "KG"
 
-console.log(valueObject.weight.value);
+console.log(valueObject.weight.value());
 > 1
-
-```
-
-## Mappers with Factory Method 
-
-Basically the mapper receives a dto and returns a result of an aggregate
-
-```ts
-
-import { State, TMapper, FactoryMethod, Result, DomainId } from 'types-ddd';
-
-// Dto interface
-interface CreateUserDto {
-    name: string;
-    age: number;
-}
-```
-
-```ts
-// factory method
-
-// Mapper concrete implementation of TMapper (Adapter)
-class UserToDomainMapper extends State<CreateUserDto> implements TMapper<CreateUserDto, UserEntity> {
-
-    // input persistence instance
-    map ( dto: CreateUserDto ): Result<UserEntity> {
-
-        // start a new state
-        this.startState();
-
-        // add value objects on state
-        this.addState( 'age', AgeValueObject.create( dto.age ) );
-        this.addState( 'name', NameValueObject.create( dto.name ) );
-
-        // check if has errors
-        const result = this.checkState();
-        if ( result.isFailure ) {
-          return Result.fail( result.error );
-        }
-
-      // output domain entity instance
-        return UserEntity.create( {
-            ID: DomainId.create(),
-            age: this.getStateByKey<AgeValueObject>('age').getResult(),
-            name: this.getStateByKey<NameValueObject>('name').getResult()
-        })
-    }
-}
-
-```
-
-```ts
-// Optionally you may use Factory Method
-// Mapper creator: Factory to create a mapper instance
-class UserToDomainFactory extends FactoryMethod<CreateUserDto, UserEntity> {
-  protected create (): TMapper<CreateUserDto, UserDomainEntity> {
-      return new UserToDomainMapper();
-  }
-}
-
-```
-
-## Build a domain entity
-
-```ts
-// dto instance
-const dto: CreateUserDto = {
-    age: 18,
-    name: 'Neo'
-}
-
-// Create a factory instance
-const entityFactory = new UserToDomainFactory();
-
-// Use Domain Entity to build a instance from dto > return a result of Domain Entity
-const userEntity = UserEntity.build(dto, entityFactory).getResult();
-
-// OR
-
-// Optionally you also may provide a mapper instance instead factory method one
-const userMapper = new UserToDomainMapper();
-const userEntity = UserEntity.build(dto, userMapper).getResult();
-
-```
-
-```ts
-// Inverse from domain instance to model > returns a object as model
-const model = userEntity.toObject<UserModel>();
-
-// or you may provide your custom mapper
-
-const modelFactory = new UserToModelFactory();
-
-const model = userEntity.toObject<UserModel>(modelFactory);
-
 
 ```

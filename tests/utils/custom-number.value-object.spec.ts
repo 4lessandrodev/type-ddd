@@ -18,36 +18,36 @@ describe('custom-number.value-object', () => {
 
 	it('should create a valid number without custom validator', () => {
 		const valueObject = CustomNumberValueObject.create(400);
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should get original number', () => {
-		const valueObject = CustomNumberValueObject.create(600).getResult();
-		expect(valueObject.value).toBe(600);
+		const valueObject = CustomNumberValueObject.create(600).value();
+		expect(valueObject.value()).toBe(600);
 	});
 
 	it('should check if is positive value', () => {
-		const valueObject = CustomNumberValueObject.create(2).getResult();
+		const valueObject = CustomNumberValueObject.create(2).value();
 		expect(valueObject.isPositive).toBeTruthy();
 	});
 
 	it('should check if is positive value', () => {
-		const valueObject = CustomNumberValueObject.create(-2).getResult();
+		const valueObject = CustomNumberValueObject.create(-2).value();
 		expect(valueObject.isPositive).toBeFalsy();
 	});
 
 	it('should check if a value is greater than', () => {
-		const valueObject = CustomNumberValueObject.create(-10).getResult();
+		const valueObject = CustomNumberValueObject.create(-10).value();
 		expect(valueObject.isGreaterThan(9)).toBeFalsy();
 	});
 
 	it('should fail if number is not equal', () => {
-		const valueObject = CustomNumberValueObject.create(1230).getResult();
+		const valueObject = CustomNumberValueObject.create(1230).value();
 		expect(valueObject.isEqualTo(10)).toBeFalsy();
 	});
 
 	it('should be equal', () => {
-		const valueObject = CustomNumberValueObject.create(1230).getResult();
+		const valueObject = CustomNumberValueObject.create(1230).value();
 		expect(valueObject.isEqualTo(1230)).toBeTruthy();
 	});
 
@@ -81,7 +81,7 @@ describe('custom-number.value-object', () => {
 			40,
 			customValidation
 		);
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
@@ -89,14 +89,14 @@ describe('custom-number.value-object', () => {
 			80,
 			customValidation
 		);
-		expect(valueObject.isSuccess).toBeTruthy();
+		expect(valueObject.isSuccess()).toBeTruthy();
 	});
 
 	it('should get custom validation from instance', () => {
 		const valueObject = CustomNumberValueObject.create(
 			2,
 			customValidation
-		).getResult();
+		).value();
 		const validation = valueObject.customValidation;
 		expect(validation.VALIDATOR).toBeDefined();
 		expect(validation.MAX).toBeDefined();
@@ -104,7 +104,7 @@ describe('custom-number.value-object', () => {
 	});
 
 	it('should get default custom validation from instance', () => {
-		const valueObject = CustomNumberValueObject.create(20).getResult();
+		const valueObject = CustomNumberValueObject.create(20).value();
 		const validation = valueObject.customValidation;
 		expect(validation.VALIDATOR).toBeDefined();
 		expect(validation.MAX).toBeDefined();

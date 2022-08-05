@@ -18,13 +18,13 @@ describe('color-generator', () => {
 
 	it('should generate a random valid RGB color', () => {
 		const randomRGB = colorGenerator.randomRGB();
-		const isValid = RGBColorValueObject.isValidValue(randomRGB);
+		const isValid = RGBColorValueObject.isValidProps(randomRGB);
 		expect(isValid).toBeTruthy();
 	});
 
 	it('should generate a random valid HEX color', () => {
 		const randomHEX = colorGenerator.randomHEX();
-		const isValid = HEXColorValueObject.isValidValue(randomHEX);
+		const isValid = HEXColorValueObject.isValidProps(randomHEX);
 		expect(isValid).toBeTruthy();
 	});
 

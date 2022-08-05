@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 const regexHash = /^\w{3,5}:\/{1,}\w{1,}\.\w*\.?\w{2,}/;
 
 interface Prop {
@@ -14,7 +14,7 @@ class UrlValueObject extends ValueObject<Prop> {
 	/**
 	 * @returns url value as string
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -24,10 +24,13 @@ class UrlValueObject extends ValueObject<Prop> {
 	 * @example https://google.com
 	 * @returns true if value is a valid url and false if does not
 	 */
-	public static isValidValue(value: string): boolean {
-		return regexHash.test(value);
+	public static isValidProps(value: string): boolean {
+		return this.validator.string(value).match(regexHash);
 	}
 
+	validation(_key: any, _value: any): boolean {
+		return this.validator.string(_value).match(regexHash);
+	}
 	/**
 	 *
 	 * @param value url as string
@@ -35,10 +38,10 @@ class UrlValueObject extends ValueObject<Prop> {
 	 * @returns Result with instance of UrlValueObject
 	 */
 	public static create(value: string): Result<UrlValueObject> {
-		if (!UrlValueObject.isValidValue(value)) {
-			return Result.fail<UrlValueObject>('Invalid url value');
+		if (!UrlValueObject.isValidProps(value)) {
+			return Result.fail('Invalid url value');
 		}
-		return Result.ok<UrlValueObject>(new UrlValueObject({ value }));
+		return Result.success(new UrlValueObject({ value }));
 	}
 }
 

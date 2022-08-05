@@ -1,4 +1,4 @@
-import { ErrorStatus, Result } from '../../core';
+import { Result } from '../../core';
 import { IProxyContext } from '../../types/types';
 
 /**
@@ -96,14 +96,14 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 
 	private async canExecute(data: Data): Promise<Result<boolean, Error>> {
 		if (!this.context.canExecute) {
-			return Result.ok(true);
+			return Result.success(true);
 		}
 		return this.context.canExecute.execute(data);
 	}
 
 	private async beforeExecute(data: Data): Promise<Result<Data, Error>> {
 		if (!this.context.beforeExecute) {
-			return Result.ok(data);
+			return Result.success(data);
 		}
 		return this.context.beforeExecute.execute(data);
 	}
@@ -112,66 +112,52 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		data: Result<Payload, Error>
 	): Promise<Result<Payload, Error>> {
 		if (!this.context.afterExecute) {
-			return Result.ok(data.getResult());
+			return Result.success(data.value());
 		}
 
-		return this.context.afterExecute.execute(Result.ok(data.getResult()));
+		return this.context.afterExecute.execute(Result.success(data.value()));
 	}
 
 	async execute(data: Data): Promise<Result<Payload, Error>> {
 		const beforePayload = await this.beforeExecute(data);
 
-		if (beforePayload.isFailure) {
+		if (beforePayload.isFailure()) {
 			const error =
-				beforePayload?.error ??
+				beforePayload?.error() ??
 				'blocked by beforePayload hook on proxy';
-			return Result.fail<Payload, Error>(
-				error as Error,
-				beforePayload.statusCode as ErrorStatus
-			);
+			return Result.fail<Payload, Error, any>(error as Error);
 		}
 
-		const hasBeforeData = beforePayload.getResult();
+		const hasBeforeData = beforePayload.value();
 
 		const canExecute = hasBeforeData
 			? await this.canExecute(hasBeforeData)
 			: await this.canExecute(data);
 
-		if (canExecute.isFailure || !canExecute?.getResult()) {
+		if (canExecute.isFailure() || !canExecute?.value()) {
 			const error =
-				canExecute?.error ?? 'blocked by canExecute hook on proxy';
-			return Result.fail<Payload, Error>(
-				error as Error,
-				canExecute.statusCode as ErrorStatus
-			);
+				canExecute?.error() ?? 'blocked by canExecute hook on proxy';
+			return Result.fail<Payload, Error, any>(error as Error);
 		}
 
-		const param = beforePayload?.getResult()
-			? beforePayload?.getResult()
-			: data;
+		const param = beforePayload?.value() ? beforePayload?.value() : data;
 
 		const executeResult = await this.context.execute.execute(param);
 
-		if (executeResult.isFailure) {
-			const error = executeResult?.error ?? 'error on execute proxy';
-			return Result.fail<Payload, Error>(
-				error as Error,
-				executeResult.statusCode as ErrorStatus
-			);
+		if (executeResult.isFailure()) {
+			const error = executeResult?.error() ?? 'error on execute proxy';
+			return Result.fail<Payload, Error, any>(error as Error);
 		}
 
 		const afterExecutePayload = await this.afterExecute(executeResult);
 
-		if (afterExecutePayload.isFailure) {
+		if (afterExecutePayload.isFailure()) {
 			const error =
-				afterExecutePayload?.error ?? 'error on after execute proxy';
-			return Result.fail<Payload, Error>(
-				error as Error,
-				afterExecutePayload.statusCode as ErrorStatus
-			);
+				afterExecutePayload?.error() ?? 'error on after execute proxy';
+			return Result.fail<Payload, Error, any>(error as Error);
 		}
 
-		const result = afterExecutePayload.getResult()
+		const result = afterExecutePayload.value()
 			? afterExecutePayload
 			: executeResult;
 

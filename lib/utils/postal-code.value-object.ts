@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 const regexHash = /^[0-9]{5}-[0-9]{3}$|^[0-9]{8}$/;
 
 interface Prop {
@@ -15,8 +15,12 @@ class PostalCodeValueObject extends ValueObject<Prop> {
 	 * @returns value as string. always only numbers
 	 * @example 75520140
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value.replace(/-/g, '');
+	}
+
+	validation(_key: any, _value: any): boolean {
+		return this.validator.string(_value).match(regexHash);
 	}
 
 	/**
@@ -25,16 +29,14 @@ class PostalCodeValueObject extends ValueObject<Prop> {
 	 * @returns true if value match with pattern and false if do not.
 	 */
 	public static isValidValue(value: string): boolean {
-		return regexHash.test(value);
+		return this.validator.string(value).match(regexHash);
 	}
 
 	public static create(value: string): Result<PostalCodeValueObject> {
 		if (!PostalCodeValueObject.isValidValue(value)) {
-			return Result.fail<PostalCodeValueObject>('Invalid postal code');
+			return Result.fail('Invalid postal code');
 		}
-		return Result.ok<PostalCodeValueObject>(
-			new PostalCodeValueObject({ value })
-		);
+		return Result.success(new PostalCodeValueObject({ value }));
 	}
 }
 

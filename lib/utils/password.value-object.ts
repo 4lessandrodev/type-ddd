@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 import { genSaltSync, hashSync, compareSync } from 'bcrypt';
 import passwordGenerator, { ILength } from './password-generator.util';
 const regexHash = /^\$2b\$10\$.{53}$/;
@@ -16,7 +16,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 	/**
 	 * @returns value as string
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -38,7 +38,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 * @returns true if instance value is encrypted else false
 	 */
 	public isEncrypted(): boolean {
-		return regexHash.test(this.props.value);
+		return this.validator.string(this.props.value).match(regexHash);
 	}
 
 	/**
@@ -46,7 +46,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 * @returns true if provided value is encrypted else false
 	 */
 	public static isEncrypted(value: string): boolean {
-		return regexHash.test(value);
+		return this.validator.string(value).match(regexHash);
 	}
 
 	/**
@@ -59,7 +59,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 		length?: ILength
 	): PasswordValueObject {
 		const pass = passwordGenerator(length ?? 12);
-		return PasswordValueObject.create(pass).getResult();
+		return PasswordValueObject.create(pass).value();
 	}
 
 	/**
@@ -77,17 +77,34 @@ class PasswordValueObject extends ValueObject<Prop> {
 		return this;
 	}
 
+	validation(_key: any, _value: any): boolean {
+		const maxLength = 22;
+		const minLength = 4;
+		const { string } = this.validator;
+		if (!PasswordValueObject.isEncrypted(_value)) {
+			const passwordHasRequiredLength = string(_value).hasLengthBetween(
+				minLength,
+				maxLength
+			);
+			return passwordHasRequiredLength;
+		}
+		return true;
+	}
+
 	/**
 	 *
 	 * @param value check if password has a valid value length
 	 * @returns true if is all ok or false else not
 	 */
-	public static isValidValue(value: string): boolean {
-		const maxLength = 21;
+	public static isValidProps(value: string): boolean {
+		const maxLength = 22;
 		const minLength = 5;
+		const { string } = this.validator;
 		if (!PasswordValueObject.isEncrypted(value)) {
-			const passwordHasRequiredLength =
-				value.length >= minLength && value.length <= maxLength;
+			const passwordHasRequiredLength = string(value).hasLengthBetween(
+				minLength,
+				maxLength
+			);
 			return passwordHasRequiredLength;
 		}
 		return true;
@@ -99,14 +116,10 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 * @returns Result of PasswordValueObject
 	 */
 	static create(value: string): Result<PasswordValueObject> {
-		if (!PasswordValueObject.isValidValue(value)) {
-			return Result.fail<PasswordValueObject>(
-				'Password must has min 5 and max 21 chars'
-			);
+		if (!PasswordValueObject.isValidProps(value)) {
+			return Result.fail('Password must has min 5 and max 21 chars');
 		}
-		return Result.ok<PasswordValueObject>(
-			new PasswordValueObject({ value })
-		);
+		return Result.success(new PasswordValueObject({ value }));
 	}
 }
 

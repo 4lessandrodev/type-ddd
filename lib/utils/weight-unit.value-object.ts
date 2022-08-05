@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 
 export enum UnitsOfWeight {
 	'KG' = 'KG',
@@ -30,7 +30,7 @@ export class WeightUnitValueObject extends ValueObject<Prop> {
 		super(props);
 	}
 
-	get value(): UnitOfWeight {
+	value(): UnitOfWeight {
 		return this.props.value;
 	}
 
@@ -38,18 +38,22 @@ export class WeightUnitValueObject extends ValueObject<Prop> {
 		return UnitsOfWeightDescription[this.props.value];
 	}
 
-	public static isValidValue(value: UnitOfWeight): boolean {
+	validation(_key: any, _value: any): boolean {
+		return _value in UnitsOfWeight;
+	}
+
+	public static isValidProps(value: UnitOfWeight): boolean {
 		return value in UnitsOfWeight;
 	}
 
 	public static create(value: UnitOfWeight): Result<WeightUnitValueObject> {
-		const isValid = WeightUnitValueObject.isValidValue(value);
+		const isValid = WeightUnitValueObject.isValidProps(value);
 
 		if (!isValid) {
 			return Result.fail('Invalid weight unit value');
 		}
 
-		return Result.ok(new WeightUnitValueObject({ value }));
+		return Result.success(new WeightUnitValueObject({ value }));
 	}
 }
 

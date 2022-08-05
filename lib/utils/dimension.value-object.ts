@@ -1,5 +1,5 @@
-import ValueObject from '../core/value-object';
-import { Result } from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 import CustomNumberValueObject from './custom-number.value-object';
 import { UnitOfMeasure, UnitsOfMeasure } from './unit-of-measure.value-object';
 import { CustomNmbProps } from './custom-number.value-object';
@@ -56,8 +56,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 		unit: UnitOfMeasure
 	): DimensionValueObject {
 		const float = (value = parseFloat(value.toFixed(3)));
-		this.props.dimension =
-			CustomNumberValueObject.create(float).getResult();
+		this.props.dimension = CustomNumberValueObject.create(float).value();
 		this.changeDimensionUnit(unit);
 		return this;
 	}
@@ -68,7 +67,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 	 */
 	toCM(): DimensionValueObject {
 		let unit = this.props.unit;
-		let value: number = this.props.dimension.value;
+		let value: number = this.props.dimension.value();
 		switch (unit.length > 0) {
 			case unit === 'FOOT':
 				value = (value * 100 * 30.48) / 100;
@@ -96,7 +95,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 	 */
 	toMM(): DimensionValueObject {
 		let unit = this.props.unit;
-		let value: number = this.props.dimension.value;
+		let value: number = this.props.dimension.value();
 		switch (unit.length > 0) {
 			case unit === 'CM':
 				value = (value * 100 * 10) / 100;
@@ -124,7 +123,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 	 */
 	toMT(): DimensionValueObject {
 		let unit = this.props.unit;
-		let value: number = this.props.dimension.value;
+		let value: number = this.props.dimension.value();
 		switch (unit.length > 0) {
 			case unit === 'CM':
 				value = (value * 100) / 100 / 100;
@@ -152,7 +151,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 	 */
 	toINCH(): DimensionValueObject {
 		let unit = this.props.unit;
-		let value: number = this.props.dimension.value;
+		let value: number = this.props.dimension.value();
 		switch (unit.length > 0) {
 			case unit === 'CM':
 				value = (value * 100) / 2.54 / 100;
@@ -180,7 +179,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 	 */
 	toFOOT(): DimensionValueObject {
 		let unit = this.props.unit;
-		let value: number = this.props.dimension.value;
+		let value: number = this.props.dimension.value();
 		switch (unit.length > 0) {
 			case unit === 'CM':
 				value = (value * 100) / 30.48 / 100;
@@ -208,7 +207,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 	 */
 	toYARD(): DimensionValueObject {
 		let unit = this.props.unit;
-		let value: number = this.props.dimension.value;
+		let value: number = this.props.dimension.value();
 		switch (unit.length > 0) {
 			case unit === 'CM':
 				value = (value * 100) / 91.44 / 100;
@@ -244,14 +243,14 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 			parseFloat(value.toFixed(3)),
 			customValidation
 		);
-		if (customNumber.isFailure) {
-			return Result.fail(customNumber.errorValue());
+		if (customNumber.isFailure()) {
+			return Result.fail(customNumber.error());
 		}
 
-		return Result.ok(
+		return Result.success(
 			new DimensionValueObject({
 				unit,
-				dimension: customNumber.getResult(),
+				dimension: customNumber.value(),
 			})
 		);
 	}

@@ -6,6 +6,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 3.0.0-beta - 2022-08-04
+
+### Change
+
+- change core. using now rich-domain lib [npm rich-domain](https://www.npmjs.com/package/rich-domain)
+
+
+---
+
 ### 2.12.1 - 2022-07-18
 
 ### Update

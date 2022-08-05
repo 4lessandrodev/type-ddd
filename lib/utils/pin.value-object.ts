@@ -1,6 +1,6 @@
-import ValueObject from '../core/value-object';
+import { ValueObject } from '../core';
 import pinGenerator, { PinProps } from './pin-generator.util';
-import { Result } from '../core/result';
+import { Result } from '../core';
 
 interface Prop {
 	value: string;
@@ -22,7 +22,7 @@ export class PinValueObject extends ValueObject<Prop> {
 	 * @example CTF-8723
 	 * @example 52155
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -45,8 +45,18 @@ export class PinValueObject extends ValueObject<Prop> {
 	 * @param value pin as string
 	 * @returns true if pin has a valid pattern and false if not
 	 */
-	public static isValidValue(value: string): boolean {
-		return value.length >= 3 && value.length <= 15;
+	public static isValidProps(value: string): boolean {
+		const minLength = 2;
+		const maxLength = 16;
+		const { string } = this.validator;
+		return string(value).hasLengthBetween(minLength, maxLength);
+	}
+
+	validation(_key: any, _value: any): boolean {
+		const minLength = 2;
+		const maxLength = 16;
+		const { string } = this.validator;
+		return string(_value).hasLengthBetween(minLength, maxLength);
 	}
 
 	/**
@@ -69,12 +79,12 @@ export class PinValueObject extends ValueObject<Prop> {
 	public static create(pin?: string): Result<PinValueObject> {
 		let value: string = pin ?? pinGenerator();
 
-		const isValidValue = PinValueObject.isValidValue(value);
+		const isValidValue = PinValueObject.isValidProps(value);
 		if (!isValidValue) {
 			return Result.fail('Invalid value for a pin');
 		}
 
-		return Result.ok(new PinValueObject({ value }));
+		return Result.success(new PinValueObject({ value }));
 	}
 }
 

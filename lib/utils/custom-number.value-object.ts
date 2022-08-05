@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 
 export interface ICustomNmbValidator {
 	(value: number): boolean;
@@ -33,7 +33,7 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 	/**
 	 * @returns original value as number
 	 */
-	get value(): number {
+	value(): number {
 		return this.props.value;
 	}
 
@@ -111,7 +111,9 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid value for a custom number');
 		}
 
-		return Result.ok(new CustomNumberValueObject({ value }, customProps));
+		return Result.success(
+			new CustomNumberValueObject({ value }, customProps)
+		);
 	}
 }
 

@@ -1,5 +1,5 @@
-import { ValueObject } from '../core/value-object';
-import Result from '../core/result';
+import { ValueObject } from '../core';
+import { Result } from '../core';
 
 interface ICustomStringLength {
 	MAX: number;
@@ -39,7 +39,7 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 	/**
 	 * @returns original value as string
 	 */
-	get value(): string {
+	value(): string {
 		return this.props.value;
 	}
 
@@ -84,7 +84,7 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 		return this.customProps;
 	}
 
-	public static isValidValue(
+	public static isValidProps(
 		value: string,
 		customProps?: CustomStrProps
 	): boolean {
@@ -105,7 +105,7 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 		value: string,
 		customProps?: CustomStrProps
 	): Result<CustomStringValueObject> {
-		const isValidValue = CustomStringValueObject.isValidValue(
+		const isValidValue = CustomStringValueObject.isValidProps(
 			value,
 			customProps
 		);
@@ -114,7 +114,9 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid value for a custom string');
 		}
 
-		return Result.ok(new CustomStringValueObject({ value }, customProps));
+		return Result.success(
+			new CustomStringValueObject({ value }, customProps)
+		);
 	}
 }
 
