@@ -24,7 +24,7 @@ describe('weight.value-object', () => {
 			unit: 'TON',
 			value: Number.MAX_SAFE_INTEGER + 1,
 		});
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide a unsafe value', () => {
@@ -49,7 +49,7 @@ describe('weight.value-object', () => {
 			unit: 'TON',
 			value: Number.MIN_SAFE_INTEGER - 1,
 		});
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should getters be defined', () => {
@@ -357,6 +357,6 @@ describe('weight.value-object', () => {
 			unit: 'KGS' as UnitOfWeight,
 			value: 100,
 		});
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 });

@@ -10,7 +10,7 @@ describe('birthday.value-object', () => {
 		const date = new Date();
 		date.setFullYear(2000, 1, 1);
 		const valueObject = BirthdayValueObject.create(date);
-		expect(valueObject.isSuccess()).toBe(true);
+		expect(valueObject.isOK()).toBe(true);
 	});
 
 	it('should get value with success', () => {
@@ -24,7 +24,7 @@ describe('birthday.value-object', () => {
 		const date = new Date();
 		date.setFullYear(1900);
 		const valueObject = BirthdayValueObject.create(date);
-		expect(valueObject.isFailure()).toBe(true);
+		expect(valueObject.isFail()).toBe(true);
 	});
 
 	it('should return age', () => {

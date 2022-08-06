@@ -11,13 +11,13 @@ describe('weight-unit.value-object', () => {
 
 	it('should create a valid unit', () => {
 		const unit = WeightUnitValueObject.create('TON');
-		expect(unit.isSuccess()).toBeTruthy();
+		expect(unit.isOK()).toBeTruthy();
 		expect(unit.value().value()).toBe('TON');
 		expect(unit.value().description).toBe('TONNE');
 	});
 
 	it('should fail if provide an invalid value', () => {
 		const unit = WeightUnitValueObject.create('CMS' as UnitOfWeight);
-		expect(unit.isFailure).toBeTruthy();
+		expect(unit.isFail()).toBeTruthy();
 	});
 });

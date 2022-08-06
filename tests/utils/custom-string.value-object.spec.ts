@@ -22,7 +22,7 @@ describe('custom-string.value-object', () => {
 
 	it('should create a valid string without custom validator', () => {
 		const valueObject = CustomStringValueObject.create('valid string');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should get original string', () => {
@@ -51,14 +51,14 @@ describe('custom-string.value-object', () => {
 
 	it('should fail if string is empty', () => {
 		const valueObject = CustomStringValueObject.create('');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if string is greater than 255 chars', () => {
 		const valueObject = CustomStringValueObject.create(
 			'invalid_string_length'.repeat(25)
 		);
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if custom validation fails', () => {
@@ -66,7 +66,7 @@ describe('custom-string.value-object', () => {
 			'invalid',
 			customValidation
 		);
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if custom validation fails', () => {
@@ -74,7 +74,7 @@ describe('custom-string.value-object', () => {
 			'000-abcde',
 			customValidation
 		);
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if custom validation fails', () => {
@@ -82,7 +82,7 @@ describe('custom-string.value-object', () => {
 			'1234-abcd',
 			customValidation
 		);
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
@@ -90,7 +90,7 @@ describe('custom-string.value-object', () => {
 			'123-abcd',
 			customValidation
 		);
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
@@ -98,7 +98,7 @@ describe('custom-string.value-object', () => {
 			'123-abcd',
 			customValidation
 		);
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should get custom validation from instance', () => {

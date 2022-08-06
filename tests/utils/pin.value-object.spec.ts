@@ -7,24 +7,24 @@ describe('pin.value-object', () => {
 
 	it('should fail if provide an invalid length', () => {
 		const errorPin = PinValueObject.create('0');
-		expect(errorPin.isFailure).toBeTruthy();
+		expect(errorPin.isFail()).toBeTruthy();
 	});
 
 	it('should create a valid pin if provide an valid length', () => {
 		const pin = PinValueObject.create('AB-123');
-		expect(pin.isSuccess()).toBeTruthy();
+		expect(pin.isOK()).toBeTruthy();
 		expect(pin.value().value()).toHaveLength(6);
 	});
 
 	it('should create a valid pin if not provide value', () => {
 		const pin = PinValueObject.create();
-		expect(pin.isSuccess()).toBeTruthy();
+		expect(pin.isOK()).toBeTruthy();
 		expect(pin.value().value()).toHaveLength(5);
 	});
 
 	it('should generate default a valid pin', () => {
 		const pin = PinValueObject.generatePin();
-		expect(pin.isSuccess()).toBeTruthy();
+		expect(pin.isOK()).toBeTruthy();
 		expect(pin.value().value()).toHaveLength(5);
 	});
 
@@ -33,7 +33,7 @@ describe('pin.value-object', () => {
 			lettersLength: 0,
 			numbersLength: 3,
 		});
-		expect(pin.isSuccess()).toBeTruthy();
+		expect(pin.isOK()).toBeTruthy();
 		expect(pin.value().value()).toHaveLength(3);
 	});
 
@@ -42,7 +42,7 @@ describe('pin.value-object', () => {
 			lettersLength: 7,
 			numbersLength: 7,
 		});
-		expect(pin.isSuccess()).toBeTruthy();
+		expect(pin.isOK()).toBeTruthy();
 		expect(pin.value().value()).toHaveLength(15);
 	});
 });

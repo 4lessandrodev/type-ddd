@@ -207,20 +207,20 @@ export class HumanAge extends ValueObject<Props> {
 		return this.validator.number(value).isBetween(0, 130);
 	}
 
-	public static create(props: Props): IResult<ValueObject<Props>> {
+	public static create(props: Props): IResult<HumanAge> {
 		
 		const message = `${props.value} is an invalid value`;
 
 		// your business validation
 		if(!this.isValidProps(props)) return Result.fail(message);
 
-		return Result.success(new HumanAge(props));
+		return Result.OK(new HumanAge(props));
 	}
 }
 
 ```
 
-### Value Objects methods
+### Value Object methods
 
 Success methods
 
@@ -228,7 +228,7 @@ Success methods
 
 const result = HumanAge.create({ value: 21 });
 
-console.log(result.isSuccess());
+console.log(result.isOK());
 
 > true
 
@@ -263,11 +263,11 @@ Failure methods
 
 const result = HumanAge.create({ value: 1000 });
 
-console.log(result.isSuccess());
+console.log(result.isOK());
 
 > false
 
-console.log(result.isFailure());
+console.log(result.isFail());
 
 > true
 
@@ -301,7 +301,7 @@ export class User extends Entity<Props> {
 	public static create(props: Props): Result<User> {
 		
 		// your business validation
-		return Result.success(new User(props));
+		return Result.OK(new User(props));
 	}
 }
 
@@ -319,7 +319,7 @@ const attrName = Name.create({ value: 'Jane Doe' });
 // validate attributes for all value objects
 const result = Result.combine([ attrAge, attrName ]);
 
-console.log(result.isSuccess());
+console.log(result.isOK());
 
 > true
 
@@ -361,7 +361,7 @@ export class Product extends Aggregate<Props> {
 	public static create(props: Props): IResult<Product> {
 		
 		// your business validation
-		return Result.success(new Product(props));
+		return Result.OK(new Product(props));
 	}
 }
 
@@ -412,10 +412,10 @@ Result<Payload, Error, MetaData>
 
 let result: Result<string, string, { foo: string }>;
 
-result = Result.success("hello world", { foo: 'bar' });
+result = Result.OK("hello world", { foo: 'bar' });
 
 // Check status
-console.log(result.isSuccess());
+console.log(result.isOK());
 
 > true
 
@@ -433,6 +433,15 @@ console.log(result.error());
 
 > null
 
+// You also may return Result void
+
+const voidResult: Result<void> = Result.OK();
+
+// Check status
+console.log(voidResult.isOK());
+
+> true
+
 ```
 
 Return failure
@@ -440,10 +449,10 @@ Return failure
 ```ts
 
 
-const result = Result.fail("something went wrong!", { foo: 'bar' });
+result = Result.fail("something went wrong!", { foo: 'bar' });
 
 // Check status
-console.log(result.isFailure());
+console.log(result.isFail());
 
 > true
 
@@ -522,7 +531,7 @@ console.log(id.equal(id2))
 
 ```ts
 
-const id = ID.createShort();
+const id = ID.short();
 
 console.log(id.value());
 
@@ -598,14 +607,14 @@ class HumanAge extends ValueObject<Props> {
 		return isNumber(value) && number.isBetween(0, 130),
 	}
 
-	public static create(props: Props): IResult<ValueObject<Props>> {
+	public static create(props: Props): IResult<HumanAge> {
 		
 		const message = `${props.value} is an invalid value`;
 
 		// your business validation
 		if(!this.isValidProps(props)) return Result.fail(message);
 
-		return Result.success(new HumanAge(props));
+		return Result.OK(new HumanAge(props));
 	}
 }
 
@@ -619,7 +628,7 @@ Using value objects with advanced validations
 
 const failExample = HumanAge.create({ value: 1000 });
 
-console.log(failExample.isFailure());
+console.log(failExample.isFail());
 
 > true
 
@@ -629,7 +638,7 @@ console.log(failExample.value());
 
 const successExample = HumanAge.create({ value: 21 });
 
-console.log(successExample.isSuccess());
+console.log(successExample.isOK());
 
 > true
 
@@ -707,8 +716,8 @@ class HumanAge extends ValueObject<Props> {
 		return options[key](value);
 	};
 
-	public static create(props: Props): IResult<ValueObject<Props>> {			
-		return Result.success(new HumanAge(props));
+	public static create(props: Props): IResult<HumanAge> {			
+		return Result.OK(new HumanAge(props));
 	}
 }
 
@@ -747,6 +756,7 @@ console.log(age.get('birthDay'));
 > "2022-07-24T14:46:35.808Z" // changes
 
 ```
+
 
 
 ## Utils
@@ -794,7 +804,7 @@ We understand that it's a little repetitive to create some "value-objects" and t
 import { PasswordValueObject } from 'types-ddd';
 
 const passOrError = PasswordValueObject.create('my-strength-pass');
-const isValid = passOrError.isSuccess();
+const isValid = passOrError.isOK();
 
 console.log(isValid);
 > true
@@ -898,7 +908,7 @@ import { WeightValueObject } from 'types-ddd';
 
 const voOrErr = WeightValueObject.create({ value: 1000, unit: "TON" });
 
-const isOk = voOrErr.isSuccess();
+const isOk = voOrErr.isOK();
 console.log(isOK);
 > true
 

@@ -8,7 +8,7 @@ describe('email-value-object.util', () => {
 
 	it('should create a valid email with success', () => {
 		const valueObject = EmailValueObject.create('valid_email@domain.com');
-		expect(valueObject.isSuccess()).toBe(true);
+		expect(valueObject.isOK()).toBe(true);
 	});
 
 	it('should transform value to lower on create', () => {
@@ -27,7 +27,7 @@ describe('email-value-object.util', () => {
 
 	it('should fail if provide an invalid value', () => {
 		const valueObject = EmailValueObject.create('invalid_email');
-		expect(valueObject.isFailure()).toBe(true);
+		expect(valueObject.isFail()).toBe(true);
 		expect(valueObject.error()).toBe('Invalid email');
 	});
 
@@ -49,7 +49,7 @@ describe('email-value-object.util', () => {
 		const valueObject = EmailValueObject.create(
 			'username.nickname@domain.com'
 		);
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe(
 			'username.nickname@domain.com'
 		);
@@ -57,49 +57,49 @@ describe('email-value-object.util', () => {
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('rocio65@gmail.com');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rocio65@gmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('user_nick2.0@hotmail.com');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('user_nick2.0@hotmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('rocio_65@gmail.com');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rocio_65@gmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('4you@gmail.com');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('4you@gmail.com');
 	});
 
 	it('should fails if not provide a domain', () => {
 		const valueObject = EmailValueObject.create('4you@gmail');
-		expect(valueObject.isFailure()).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fails if provide two dots', () => {
 		const valueObject = EmailValueObject.create(
 			'my-email8950@hotmail..com'
 		);
-		expect(valueObject.isFailure()).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fails if provide an invalid domain', () => {
 		const valueObject = EmailValueObject.create(
 			'inVaLLiD_Email@MYDomain.longInvalid.br'
 		);
-		expect(valueObject.isFailure()).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fails if provide an space', () => {
 		const valueObject = EmailValueObject.create('invalid email@domain.com');
-		expect(valueObject.isFailure()).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 });

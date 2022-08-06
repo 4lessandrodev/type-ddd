@@ -8,43 +8,43 @@ describe('cnpj.value-object', () => {
 
 	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
 		const valueObject = CNPJValueObject.create('43.909.299/0001-04');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('43909299000104');
 	});
 
 	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
 		const valueObject = CNPJValueObject.create('80.676.573/0001-79');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('80676573000179');
 	});
 
 	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
 		const valueObject = CNPJValueObject.create('38331478000177');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('38331478000177');
 	});
 
 	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
 		const valueObject = CNPJValueObject.create('38.331.478/0001-77');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('38331478000177');
 	});
 
 	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
 		const valueObject = CNPJValueObject.create('24.050.723/0001-63');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('24050723000163');
 	});
 
 	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
 		const valueObject = CNPJValueObject.create('93.853.653/0001-02');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('93853653000102');
 	});
 
 	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
 		const valueObject = CNPJValueObject.create('99.410.207/0001-00');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('99410207000100');
 	});
 
@@ -109,38 +109,38 @@ describe('cnpj.value-object', () => {
 
 	it('should create a valid cnpj only numbers', () => {
 		const valueObject = CNPJValueObject.create('60105617000101');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('60105617000101');
 	});
 
 	it('should fail if provide an invalid value', () => {
 		const valueObject = CNPJValueObject.create('53.462.048/0000-99');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value (digit sum)', () => {
 		const valueObject = CNPJValueObject.create('93.118.559/0001-1');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value (digit sum)', () => {
 		const valueObject = CNPJValueObject.create('93.118.559/0001-100');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value (digit sum)', () => {
 		const valueObject = CNPJValueObject.create('76954860000135');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value (digit sum) and length', () => {
 		const valueObject = CNPJValueObject.create('769548600001350');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should create a valid cnpj only numbers', () => {
 		const valueObject = CNPJValueObject.create('27729251000168');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('27729251000168');
 	});
 });

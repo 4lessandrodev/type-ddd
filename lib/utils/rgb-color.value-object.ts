@@ -62,7 +62,7 @@ class RGBColorValueObject extends ValueObject<Prop> {
 				'Invalid rgb value. It must match with pattern rgb(255, 255, 255)'
 			);
 		}
-		return Result.success(new RGBColorValueObject({ value }));
+		return Result.OK(new RGBColorValueObject({ value }));
 	}
 }
 

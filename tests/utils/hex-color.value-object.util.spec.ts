@@ -7,45 +7,45 @@ describe('hex-color.value-object', () => {
 
 	it('should fails if try create a rgb as hex color', () => {
 		const valueObject = HEXColorValueObject.create('rgb(255, 255, 255)');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should create a valid hex color', () => {
 		const valueObject = HEXColorValueObject.create('#ffffff');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#ffffff');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('#ffffff');
 	});
 
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#4eb7ac');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('#4eb7ac');
 	});
 
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#a78090');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('#a78090');
 	});
 
 	it('should fails if try to create an invalid rgb color', () => {
 		const valueObject = HEXColorValueObject.create('#invalid');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fails if try to create an invalid hex color', () => {
 		const valueObject = HEXColorValueObject.create('$fff');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fails if try to create an invalid hex color', () => {
 		const valueObject = HEXColorValueObject.create('fff');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should get rgb as hex color', () => {

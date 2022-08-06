@@ -255,11 +255,11 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 			return Result.fail('Invalid unit for weight');
 		}
 
-		if (customNumber.isFailure()) {
+		if (customNumber.isFail()) {
 			return Result.fail(customNumber.error());
 		}
 
-		return Result.success(
+		return Result.OK(
 			new WeightValueObject({
 				unit,
 				weight: customNumber.value(),

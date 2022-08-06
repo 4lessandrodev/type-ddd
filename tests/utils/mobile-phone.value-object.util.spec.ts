@@ -8,32 +8,32 @@ describe('home-phone.value-object', () => {
 
 	it('should create mobile phone number with success', () => {
 		const valueObject = MobilePhoneValueObject.create('(11) 99604-1111');
-		expect(valueObject.isSuccess()).toBe(true);
+		expect(valueObject.isOK()).toBe(true);
 	});
 
 	it('should fail if try to create an invalid home phone number', () => {
 		const valueObject = MobilePhoneValueObject.create('(11) 99999-9999');
-		expect(valueObject.isSuccess()).toBe(false);
+		expect(valueObject.isOK()).toBe(false);
 	});
 
 	it('should fail if try to create an invalid home phone number', () => {
 		const valueObject = MobilePhoneValueObject.create('(11) 11111111');
-		expect(valueObject.isSuccess()).toBe(false);
+		expect(valueObject.isOK()).toBe(false);
 	});
 
 	it('should fail if try to create an invalid home phone number', () => {
 		const valueObject = MobilePhoneValueObject.create('(01) 99061-1111');
-		expect(valueObject.isSuccess()).toBe(false);
+		expect(valueObject.isOK()).toBe(false);
 	});
 
 	it('should fail if try to create an invalid home phone number', () => {
 		const valueObject = MobilePhoneValueObject.create('01 99620-1111');
-		expect(valueObject.isSuccess()).toBe(false);
+		expect(valueObject.isOK()).toBe(false);
 	});
 
 	it('should fail if try to create an invalid home phone number', () => {
 		const valueObject = MobilePhoneValueObject.create('99201-1111');
-		expect(valueObject.isSuccess()).toBe(false);
+		expect(valueObject.isOK()).toBe(false);
 	});
 
 	it('should get value', () => {

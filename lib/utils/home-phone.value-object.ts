@@ -68,7 +68,7 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 		if (!HomePhoneValueObject.isValidProps(value)) {
 			return Result.fail('Invalid Home Phone Number');
 		}
-		return Result.success(new HomePhoneValueObject({ value }));
+		return Result.OK(new HomePhoneValueObject({ value }));
 	}
 }
 

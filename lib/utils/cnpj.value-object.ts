@@ -99,7 +99,7 @@ export class CNPJValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid value for cnpj');
 		}
 
-		return Result.success(new CNPJValueObject({ value }));
+		return Result.OK(new CNPJValueObject({ value }));
 	}
 }
 
