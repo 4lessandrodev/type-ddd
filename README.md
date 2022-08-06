@@ -440,7 +440,7 @@ Return failure
 ```ts
 
 
-result = Result.fail("something went wrong!", { foo: 'bar' });
+const result = Result.fail("something went wrong!", { foo: 'bar' });
 
 // Check status
 console.log(result.isFailure());
@@ -865,10 +865,9 @@ console.log(isAfter);
 
 import { CurrencyValueObject } from 'types-ddd';
 
-const myCurrency = CurrencyValueObject.create({
-    currency: 'BRL', 
-    value: 0.50 
-}).value();
+const voOrErr = CurrencyValueObject.create({ currency: 'BRL', value: 0.50 });
+
+const myCurrency = voOrErr.value();
 
 console.log(myCurrency.value());
 > 0.5
@@ -897,14 +896,13 @@ console.log(myCurrency.getCoin());
 
 import { WeightValueObject } from 'types-ddd';
 
+const voOrErr = WeightValueObject.create({ value: 1000, unit: "TON" });
 
-const valueObjectOrError = WeightValueObject.create({ value: 1000, unit: "TON" });
-
-const isOk = valueObjectOrError.isSuccess();
+const isOk = voOrErr.isSuccess();
 console.log(isOK);
 > true
 
-const valueObject = valueObjectOrError.value();
+const valueObject = voOrErr.value();
 
 console.log(valueObject.unit);
 > "TON"
