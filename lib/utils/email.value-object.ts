@@ -37,7 +37,7 @@ export class EmailValueObject extends ValueObject<Prop> {
 		if (!EmailValueObject.isValidProps(value)) {
 			return Result.fail('Invalid email');
 		}
-		return Result.success(new EmailValueObject({ value }));
+		return Result.OK(new EmailValueObject({ value }));
 	}
 }
 

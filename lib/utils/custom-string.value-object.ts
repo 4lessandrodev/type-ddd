@@ -114,9 +114,7 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid value for a custom string');
 		}
 
-		return Result.success(
-			new CustomStringValueObject({ value }, customProps)
-		);
+		return Result.OK(new CustomStringValueObject({ value }, customProps));
 	}
 }
 

@@ -100,7 +100,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid value for cpf');
 		}
 
-		return Result.success(new CPFValueObject({ value }));
+		return Result.OK(new CPFValueObject({ value }));
 	}
 }
 

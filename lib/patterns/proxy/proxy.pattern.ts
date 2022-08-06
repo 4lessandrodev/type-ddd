@@ -96,14 +96,14 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 
 	private async canExecute(data: Data): Promise<Result<boolean, Error>> {
 		if (!this.context.canExecute) {
-			return Result.success(true);
+			return Result.OK(true);
 		}
 		return this.context.canExecute.execute(data);
 	}
 
 	private async beforeExecute(data: Data): Promise<Result<Data, Error>> {
 		if (!this.context.beforeExecute) {
-			return Result.success(data);
+			return Result.OK(data);
 		}
 		return this.context.beforeExecute.execute(data);
 	}
@@ -112,16 +112,16 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		data: Result<Payload, Error>
 	): Promise<Result<Payload, Error>> {
 		if (!this.context.afterExecute) {
-			return Result.success(data.value());
+			return Result.OK(data.value());
 		}
 
-		return this.context.afterExecute.execute(Result.success(data.value()));
+		return this.context.afterExecute.execute(Result.OK(data.value()));
 	}
 
 	async execute(data: Data): Promise<Result<Payload, Error>> {
 		const beforePayload = await this.beforeExecute(data);
 
-		if (beforePayload.isFailure()) {
+		if (beforePayload.isFail()) {
 			const error =
 				beforePayload?.error() ??
 				'blocked by beforePayload hook on proxy';
@@ -134,7 +134,7 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 			? await this.canExecute(hasBeforeData)
 			: await this.canExecute(data);
 
-		if (canExecute.isFailure() || !canExecute?.value()) {
+		if (canExecute.isFail() || !canExecute?.value()) {
 			const error =
 				canExecute?.error() ?? 'blocked by canExecute hook on proxy';
 			return Result.fail<Payload, Error, any>(error as Error);
@@ -144,14 +144,14 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 
 		const executeResult = await this.context.execute.execute(param);
 
-		if (executeResult.isFailure()) {
+		if (executeResult.isFail()) {
 			const error = executeResult?.error() ?? 'error on execute proxy';
 			return Result.fail<Payload, Error, any>(error as Error);
 		}
 
 		const afterExecutePayload = await this.afterExecute(executeResult);
 
-		if (afterExecutePayload.isFailure()) {
+		if (afterExecutePayload.isFail()) {
 			const error =
 				afterExecutePayload?.error() ?? 'error on after execute proxy';
 			return Result.fail<Payload, Error, any>(error as Error);

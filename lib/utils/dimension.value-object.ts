@@ -243,11 +243,11 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 			parseFloat(value.toFixed(3)),
 			customValidation
 		);
-		if (customNumber.isFailure()) {
+		if (customNumber.isFail()) {
 			return Result.fail(customNumber.error());
 		}
 
-		return Result.success(
+		return Result.OK(
 			new DimensionValueObject({
 				unit,
 				dimension: customNumber.value(),

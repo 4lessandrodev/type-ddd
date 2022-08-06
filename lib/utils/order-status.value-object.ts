@@ -148,7 +148,7 @@ class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 			return Result.fail('Invalid status value for an order');
 		}
 
-		return Result.success(new OrderStatusValueObject({ value }));
+		return Result.OK(new OrderStatusValueObject({ value }));
 	}
 }
 

@@ -57,7 +57,7 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 				return Result.fail('Invalid value for Tracking code');
 			}
 		}
-		return Result.success(new TrackingCodeValueObject({ value }));
+		return Result.OK(new TrackingCodeValueObject({ value }));
 	}
 }
 

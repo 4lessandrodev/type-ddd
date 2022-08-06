@@ -8,43 +8,43 @@ describe('cpf.value-object', () => {
 
 	it('should create a valid cpf with special chars and remove special chars on get value', () => {
 		const valueObject = CPFValueObject.create('667.324.914-58');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('66732491458');
 	});
 
 	it('should create a valid cpf with special chars and remove special chars on get value', () => {
 		const valueObject = CPFValueObject.create('934.665.143-12');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('93466514312');
 	});
 
 	it('should create a valid cpf with special chars and remove special chars on get value', () => {
 		const valueObject = CPFValueObject.create('690.574.738-60');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('69057473860');
 	});
 
 	it('should create a valid cpf with special chars and remove special chars on get value', () => {
 		const valueObject = CPFValueObject.create('324.123.359-66');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('32412335966');
 	});
 
 	it('should create a valid cpf with special chars and remove special chars on get value', () => {
 		const valueObject = CPFValueObject.create('673.761.543-02');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('67376154302');
 	});
 
 	it('should create a valid cpf with special chars and remove special chars on get value', () => {
 		const valueObject = CPFValueObject.create('024.815.901-12');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('02481590112');
 	});
 
 	it('should create a valid cpf with special chars and remove special chars on get value', () => {
 		const valueObject = CPFValueObject.create('754.179.880-06');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('75417988006');
 	});
 
@@ -104,34 +104,34 @@ describe('cpf.value-object', () => {
 
 	it('should create a valid cpf only numbers', () => {
 		const valueObject = CPFValueObject.create('53534317661');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('53534317661');
 	});
 
 	it('should fail if provide an invalid value', () => {
 		const valueObject = CPFValueObject.create('754.466.282-920');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value (digit sum)', () => {
 		const valueObject = CPFValueObject.create('754.466.282-01');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value (digit sum)', () => {
 		const valueObject = CPFValueObject.create('75446628201');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should create a valid cpf only numbers', () => {
 		const valueObject = CPFValueObject.create('53534317661');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('53534317661');
 	});
 
 	it('should create a valid cpf only numbers', () => {
 		const valueObject = CPFValueObject.create('02481590112');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('02481590112');
 	});
 });

@@ -84,7 +84,7 @@ export class PinValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid value for a pin');
 		}
 
-		return Result.success(new PinValueObject({ value }));
+		return Result.OK(new PinValueObject({ value }));
 	}
 }
 

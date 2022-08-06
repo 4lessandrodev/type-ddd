@@ -31,7 +31,7 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		});
 
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should getters be defined', () => {
@@ -457,6 +457,6 @@ describe('dimension.value-object', () => {
 			value: dimension,
 			unit: 'MTS' as UnitsOfMeasure,
 		});
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 });

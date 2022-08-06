@@ -8,7 +8,7 @@ describe('user-name.value-object', () => {
 
 	it('should create a valid user name', () => {
 		const username = UserNameValueObject.create('valid username');
-		expect(username.isSuccess()).toBeTruthy();
+		expect(username.isOK()).toBeTruthy();
 	});
 
 	it('should get value', () => {
@@ -20,12 +20,12 @@ describe('user-name.value-object', () => {
 		const username = UserNameValueObject.create(
 			'invalid_username'.repeat(3)
 		);
-		expect(username.isFailure()).toBe(true);
+		expect(username.isFail()).toBe(true);
 	});
 
 	it('should fail if provide a small name (1) char', () => {
 		const username = UserNameValueObject.create('i');
-		expect(username.isFailure()).toBe(true);
+		expect(username.isFail()).toBe(true);
 	});
 
 	it('should get first name with success', () => {

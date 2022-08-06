@@ -8,45 +8,45 @@ describe('rgb-color.value-object', () => {
 
 	it('should fails if try create a hex as rgb color', () => {
 		const valueObject = RGBColorValueObject.create('#ffffff');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should create a valid rgb color', () => {
 		const valueObject = RGBColorValueObject.create('rgb(255, 255, 255)');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should create a valid rgb color and get value', () => {
 		const valueObject = RGBColorValueObject.create('rgb(255, 255, 255)');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rgb(255, 255, 255)');
 	});
 
 	it('should create a valid rgb color and get value', () => {
 		const valueObject = RGBColorValueObject.create('rgb(0, 0, 0)');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rgb(0, 0, 0)');
 	});
 
 	it('should create a valid rgb color and get value', () => {
 		const valueObject = RGBColorValueObject.create('rgb(120, 70, 90)');
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rgb(120, 70, 90)');
 	});
 
 	it('should fails if try to create an invalid rgb color', () => {
 		const valueObject = RGBColorValueObject.create('#invalid');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fails if try to create an invalid rgb color', () => {
 		const valueObject = RGBColorValueObject.create('rgb(300, 255, 2)');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fails if try to create an invalid rgb color', () => {
 		const valueObject = RGBColorValueObject.create('rgb(255, 255)');
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should get color as hex', () => {

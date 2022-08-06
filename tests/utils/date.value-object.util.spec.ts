@@ -14,22 +14,22 @@ describe('date.value-object', () => {
 
 	it('should fail if provide an invalid value', () => {
 		const date = DateValueObject.create('invalid' as any);
-		expect(date.isFailure).toBeTruthy();
+		expect(date.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value', () => {
 		const date = DateValueObject.create(Object as any);
-		expect(date.isFailure).toBeTruthy();
+		expect(date.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value', () => {
 		const date = DateValueObject.create({} as any);
-		expect(date.isFailure).toBeTruthy();
+		expect(date.isFail()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value', () => {
 		const date = DateValueObject.create(Function as any);
-		expect(date.isFailure).toBeTruthy();
+		expect(date.isFail()).toBeTruthy();
 	});
 
 	it('should create a date with success', () => {

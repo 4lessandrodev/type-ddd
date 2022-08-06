@@ -18,7 +18,7 @@ describe('custom-number.value-object', () => {
 
 	it('should create a valid number without custom validator', () => {
 		const valueObject = CustomNumberValueObject.create(400);
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should get original number', () => {
@@ -55,7 +55,7 @@ describe('custom-number.value-object', () => {
 		const valueObject = CustomNumberValueObject.create(
 			Number.MAX_SAFE_INTEGER + 2
 		);
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if custom validation fails', () => {
@@ -63,17 +63,17 @@ describe('custom-number.value-object', () => {
 			-1200,
 			customValidation
 		);
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if custom validation fails', () => {
 		const valueObject = CustomNumberValueObject.create(3, customValidation);
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should fail if custom validation fails', () => {
 		const valueObject = CustomNumberValueObject.create(3, customValidation);
-		expect(valueObject.isFailure).toBeTruthy();
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
@@ -81,7 +81,7 @@ describe('custom-number.value-object', () => {
 			40,
 			customValidation
 		);
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
@@ -89,7 +89,7 @@ describe('custom-number.value-object', () => {
 			80,
 			customValidation
 		);
-		expect(valueObject.isSuccess()).toBeTruthy();
+		expect(valueObject.isOK()).toBeTruthy();
 	});
 
 	it('should get custom validation from instance', () => {

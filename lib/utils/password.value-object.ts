@@ -117,7 +117,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 		if (!PasswordValueObject.isValidProps(value)) {
 			return Result.fail('Password must has min 5 and max 21 chars');
 		}
-		return Result.success(new PasswordValueObject({ value }));
+		return Result.OK(new PasswordValueObject({ value }));
 	}
 }
 
