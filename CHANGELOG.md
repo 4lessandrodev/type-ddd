@@ -6,6 +6,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 3.0.0-beta.0 - 2022-08-05
+
+### Update
+
+- deps: update dependencies
+
+
+---
+
 ### 3.0.0-beta - 2022-08-04
 
 ### Change
