@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 2.12.2 - 2022-08-05
+
+### Update
+
+- deps: update dependencies
+
+---
+
 ### 2.12.1 - 2022-07-18
 
 ### Update
