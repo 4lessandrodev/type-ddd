@@ -214,7 +214,7 @@ export class HumanAge extends ValueObject<Props> {
 		// your business validation
 		if(!this.isValidProps(props)) return Result.fail(message);
 
-		return Result.OK(new HumanAge(props));
+		return Result.Ok(new HumanAge(props));
 	}
 }
 
@@ -228,7 +228,7 @@ Success methods
 
 const result = HumanAge.create({ value: 21 });
 
-console.log(result.isOK());
+console.log(result.isOk());
 
 > true
 
@@ -263,7 +263,7 @@ Failure methods
 
 const result = HumanAge.create({ value: 1000 });
 
-console.log(result.isOK());
+console.log(result.isOk());
 
 > false
 
@@ -301,7 +301,7 @@ export class User extends Entity<Props> {
 	public static create(props: Props): Result<User> {
 		
 		// your business validation
-		return Result.OK(new User(props));
+		return Result.Ok(new User(props));
 	}
 }
 
@@ -319,7 +319,7 @@ const attrName = Name.create({ value: 'Jane Doe' });
 // validate attributes for all value objects
 const result = Result.combine([ attrAge, attrName ]);
 
-console.log(result.isOK());
+console.log(result.isOk());
 
 > true
 
@@ -361,7 +361,7 @@ export class Product extends Aggregate<Props> {
 	public static create(props: Props): IResult<Product> {
 		
 		// your business validation
-		return Result.OK(new Product(props));
+		return Result.Ok(new Product(props));
 	}
 }
 
@@ -412,10 +412,10 @@ Result<Payload, Error, MetaData>
 
 let result: Result<string, string, { foo: string }>;
 
-result = Result.OK("hello world", { foo: 'bar' });
+result = Result.Ok("hello world", { foo: 'bar' });
 
 // Check status
-console.log(result.isOK());
+console.log(result.isOk());
 
 > true
 
@@ -435,10 +435,10 @@ console.log(result.error());
 
 // You also may return Result void
 
-const voidResult: Result<void> = Result.OK();
+const voidResult: Result<void> = Result.Ok();
 
 // Check status
-console.log(voidResult.isOK());
+console.log(voidResult.isOk());
 
 > true
 
@@ -614,7 +614,7 @@ class HumanAge extends ValueObject<Props> {
 		// your business validation
 		if(!this.isValidProps(props)) return Result.fail(message);
 
-		return Result.OK(new HumanAge(props));
+		return Result.Ok(new HumanAge(props));
 	}
 }
 
@@ -638,7 +638,7 @@ console.log(failExample.value());
 
 const successExample = HumanAge.create({ value: 21 });
 
-console.log(successExample.isOK());
+console.log(successExample.isOk());
 
 > true
 
@@ -717,7 +717,7 @@ class HumanAge extends ValueObject<Props> {
 	};
 
 	public static create(props: Props): IResult<HumanAge> {			
-		return Result.OK(new HumanAge(props));
+		return Result.Ok(new HumanAge(props));
 	}
 }
 
@@ -804,7 +804,7 @@ We understand that it's a little repetitive to create some "value-objects" and t
 import { PasswordValueObject } from 'types-ddd';
 
 const passOrError = PasswordValueObject.create('my-strength-pass');
-const isValid = passOrError.isOK();
+const isValid = passOrError.isOk();
 
 console.log(isValid);
 > true
@@ -908,7 +908,7 @@ import { WeightValueObject } from 'types-ddd';
 
 const voOrErr = WeightValueObject.create({ value: 1000, unit: "TON" });
 
-const isOk = voOrErr.isOK();
+const isOk = voOrErr.isOk();
 console.log(isOK);
 > true
 

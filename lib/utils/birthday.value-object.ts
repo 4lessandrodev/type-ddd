@@ -68,7 +68,7 @@ export class BirthdayValueObject extends ValueObject<Prop> {
 				'Invalid age for a human. Must has less than 121 years old and birth not in future'
 			);
 		}
-		return Result.OK(new BirthdayValueObject({ value }));
+		return Result.Ok(new BirthdayValueObject({ value }));
 	}
 }
 

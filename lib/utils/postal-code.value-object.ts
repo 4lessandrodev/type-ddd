@@ -36,7 +36,7 @@ class PostalCodeValueObject extends ValueObject<Prop> {
 		if (!PostalCodeValueObject.isValidValue(value)) {
 			return Result.fail('Invalid postal code');
 		}
-		return Result.OK(new PostalCodeValueObject({ value }));
+		return Result.Ok(new PostalCodeValueObject({ value }));
 	}
 }
 

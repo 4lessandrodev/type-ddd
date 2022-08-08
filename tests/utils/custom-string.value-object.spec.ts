@@ -22,7 +22,7 @@ describe('custom-string.value-object', () => {
 
 	it('should create a valid string without custom validator', () => {
 		const valueObject = CustomStringValueObject.create('valid string');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should get original string', () => {
@@ -90,7 +90,7 @@ describe('custom-string.value-object', () => {
 			'123-abcd',
 			customValidation
 		);
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
@@ -98,7 +98,7 @@ describe('custom-string.value-object', () => {
 			'123-abcd',
 			customValidation
 		);
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should get custom validation from instance', () => {

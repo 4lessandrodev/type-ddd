@@ -18,7 +18,7 @@ describe('custom-number.value-object', () => {
 
 	it('should create a valid number without custom validator', () => {
 		const valueObject = CustomNumberValueObject.create(400);
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should get original number', () => {
@@ -81,7 +81,7 @@ describe('custom-number.value-object', () => {
 			40,
 			customValidation
 		);
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
@@ -89,7 +89,7 @@ describe('custom-number.value-object', () => {
 			80,
 			customValidation
 		);
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should get custom validation from instance', () => {

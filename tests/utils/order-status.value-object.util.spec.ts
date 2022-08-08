@@ -11,7 +11,7 @@ describe('order-status.value-object', () => {
 
 	it('should create a valid status', () => {
 		const status = OrderStatusValueObject.create('IN_PREPARATION');
-		expect(status.isOK()).toBe(true);
+		expect(status.isOk()).toBe(true);
 		expect(status.value().value()).toBe('IN_PREPARATION');
 	});
 
@@ -25,7 +25,7 @@ describe('order-status.value-object', () => {
 		const status = OrderStatusValueObject.create(
 			'INVALID' as AvailableOrderStatusType
 		);
-		expect(status.isOK()).toBe(false);
+		expect(status.isOk()).toBe(false);
 	});
 
 	it('should validate an status', () => {

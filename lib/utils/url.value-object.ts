@@ -41,7 +41,7 @@ class UrlValueObject extends ValueObject<Prop> {
 		if (!UrlValueObject.isValidProps(value)) {
 			return Result.fail('Invalid url value');
 		}
-		return Result.OK(new UrlValueObject({ value }));
+		return Result.Ok(new UrlValueObject({ value }));
 	}
 }
 

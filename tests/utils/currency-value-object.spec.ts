@@ -11,7 +11,7 @@ describe('currency.value-object', () => {
 			currency: 'BRL',
 			value: 10,
 		});
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should get value and currency', () => {
@@ -71,7 +71,7 @@ describe('currency.value-object', () => {
 		const isSafeNumber = CurrencyValueObject.create({
 			currency: 'BRL',
 			value: 90071992537570,
-		}).isOK();
+		}).isOk();
 		expect(isSafeNumber).toBeTruthy();
 	});
 
@@ -261,7 +261,7 @@ describe('currency.value-object', () => {
 			value: '999' as any,
 			currency: 'USD',
 		});
-		expect(valueObject.isOK()).toBe(false);
+		expect(valueObject.isOk()).toBe(false);
 	});
 
 	it('should fails if provide an invalid currency', () => {
@@ -269,7 +269,7 @@ describe('currency.value-object', () => {
 			value: 20,
 			currency: 'INVALID' as any,
 		});
-		expect(valueObject.isOK()).toBe(false);
+		expect(valueObject.isOk()).toBe(false);
 	});
 
 	it('should add percentage for 50 with success', () => {

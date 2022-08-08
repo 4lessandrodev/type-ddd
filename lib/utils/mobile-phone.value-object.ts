@@ -69,7 +69,7 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 		if (!MobilePhoneValueObject.isValidProps(value)) {
 			return Result.fail('Invalid Mobile Phone Number');
 		}
-		return Result.OK(new MobilePhoneValueObject({ value }));
+		return Result.Ok(new MobilePhoneValueObject({ value }));
 	}
 }
 

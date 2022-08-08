@@ -83,7 +83,7 @@ import { IProxyContext } from '../../types/types';
  * {
  *   execute: new SignInUseCase(), // returns a Result<UserAggregate>
  *   canExecute: { execute: async (data: SignInDto) => Result.ok<boolean>(true) },
- *   beforeExecute:{ execute: async (data: SignInDto) => Result.ok(data) },
+ *   beforeExecute:{ execute: async (data: SignInDto) => Result.Ok(data) },
  *   afterExecute: { execute: async (data: Result<UserAggregate>) => data }
  * }
  *
@@ -96,14 +96,14 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 
 	private async canExecute(data: Data): Promise<Result<boolean, Error>> {
 		if (!this.context.canExecute) {
-			return Result.OK(true);
+			return Result.Ok(true);
 		}
 		return this.context.canExecute.execute(data);
 	}
 
 	private async beforeExecute(data: Data): Promise<Result<Data, Error>> {
 		if (!this.context.beforeExecute) {
-			return Result.OK(data);
+			return Result.Ok(data);
 		}
 		return this.context.beforeExecute.execute(data);
 	}
@@ -112,10 +112,10 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		data: Result<Payload, Error>
 	): Promise<Result<Payload, Error>> {
 		if (!this.context.afterExecute) {
-			return Result.OK(data.value());
+			return Result.Ok(data.value());
 		}
 
-		return this.context.afterExecute.execute(Result.OK(data.value()));
+		return this.context.afterExecute.execute(Result.Ok(data.value()));
 	}
 
 	async execute(data: Data): Promise<Result<Payload, Error>> {

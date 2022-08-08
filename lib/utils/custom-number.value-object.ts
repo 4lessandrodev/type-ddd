@@ -111,7 +111,7 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid value for a custom number');
 		}
 
-		return Result.OK(new CustomNumberValueObject({ value }, customProps));
+		return Result.Ok(new CustomNumberValueObject({ value }, customProps));
 	}
 }
 

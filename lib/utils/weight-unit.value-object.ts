@@ -53,7 +53,7 @@ export class WeightUnitValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid weight unit value');
 		}
 
-		return Result.OK(new WeightUnitValueObject({ value }));
+		return Result.Ok(new WeightUnitValueObject({ value }));
 	}
 }
 

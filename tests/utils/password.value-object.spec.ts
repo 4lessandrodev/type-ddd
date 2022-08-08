@@ -8,12 +8,12 @@ describe('password.value-object', () => {
 
 	it('should create a not encrypted pass', () => {
 		const valueObject = PasswordValueObject.create('12345');
-		expect(valueObject.isOK()).toBe(true);
+		expect(valueObject.isOk()).toBe(true);
 	});
 
 	it('should fail if try to create a password less than 5 char', () => {
 		const valueObject = PasswordValueObject.create('1234');
-		expect(valueObject.isOK()).toBe(false);
+		expect(valueObject.isOk()).toBe(false);
 		expect(valueObject.error()).toBe(
 			'Password must has min 5 and max 21 chars'
 		);
@@ -23,7 +23,7 @@ describe('password.value-object', () => {
 		const valueObject = PasswordValueObject.create(
 			'123456789101112131415161718'
 		);
-		expect(valueObject.isOK()).toBe(false);
+		expect(valueObject.isOk()).toBe(false);
 		expect(valueObject.error()).toBe(
 			'Password must has min 5 and max 21 chars'
 		);

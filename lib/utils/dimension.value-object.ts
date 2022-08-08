@@ -247,7 +247,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 			return Result.fail(customNumber.error());
 		}
 
-		return Result.OK(
+		return Result.Ok(
 			new DimensionValueObject({
 				unit,
 				dimension: customNumber.value(),

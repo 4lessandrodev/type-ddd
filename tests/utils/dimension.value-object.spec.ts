@@ -31,7 +31,7 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		});
 
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should getters be defined', () => {

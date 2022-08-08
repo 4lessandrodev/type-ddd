@@ -116,7 +116,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 				'Invalid name length. Must has min 2 and max 40 chars'
 			);
 		}
-		return Result.OK(new UserNameValueObject({ value }));
+		return Result.Ok(new UserNameValueObject({ value }));
 	}
 }
 

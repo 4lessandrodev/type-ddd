@@ -55,7 +55,7 @@ export class UnitOfMeasureValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid unit of measure value');
 		}
 
-		return Result.OK(new UnitOfMeasureValueObject({ value }));
+		return Result.Ok(new UnitOfMeasureValueObject({ value }));
 	}
 }
 

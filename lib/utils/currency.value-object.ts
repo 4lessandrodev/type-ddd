@@ -241,7 +241,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 				`${props.value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
 			);
 		}
-		return Result.OK(new CurrencyValueObject(props));
+		return Result.Ok(new CurrencyValueObject(props));
 	}
 }
 

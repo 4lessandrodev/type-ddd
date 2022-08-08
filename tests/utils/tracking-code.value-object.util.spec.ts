@@ -8,7 +8,7 @@ describe('tracking.value-object', () => {
 
 	it('should generate a new track if not provide value', () => {
 		const track = TrackingCodeValueObject.create();
-		expect(track.isOK()).toBeTruthy();
+		expect(track.isOk()).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value', () => {
@@ -18,7 +18,7 @@ describe('tracking.value-object', () => {
 
 	it('should create with provided value', () => {
 		const track = TrackingCodeValueObject.create('B4V-X17423-3710');
-		expect(track.isOK()).toBeTruthy();
+		expect(track.isOk()).toBeTruthy();
 	});
 
 	it('should generate a random code', () => {

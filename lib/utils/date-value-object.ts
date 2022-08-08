@@ -450,6 +450,6 @@ export class DateValueObject extends ValueObject<Prop> {
 			return Result.fail('Invalid Date Value');
 		}
 
-		return Result.OK(new DateValueObject({ value }));
+		return Result.Ok(new DateValueObject({ value }));
 	}
 }

@@ -259,7 +259,7 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 			return Result.fail(customNumber.error());
 		}
 
-		return Result.OK(
+		return Result.Ok(
 			new WeightValueObject({
 				unit,
 				weight: customNumber.value(),

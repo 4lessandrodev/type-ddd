@@ -8,7 +8,7 @@ describe('postal-code.value-object', () => {
 
 	it('should create a valid zip code', () => {
 		const valueObject = PostalCodeValueObject.create('75520140');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should get value', () => {
@@ -23,6 +23,6 @@ describe('postal-code.value-object', () => {
 
 	it('should fail if provide an invalid postal code', () => {
 		const valueObject = PostalCodeValueObject.create('invalid');
-		expect(valueObject.isOK()).toBe(false);
+		expect(valueObject.isOk()).toBe(false);
 	});
 });

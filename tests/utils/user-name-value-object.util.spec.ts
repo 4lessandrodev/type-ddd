@@ -8,7 +8,7 @@ describe('user-name.value-object', () => {
 
 	it('should create a valid user name', () => {
 		const username = UserNameValueObject.create('valid username');
-		expect(username.isOK()).toBeTruthy();
+		expect(username.isOk()).toBeTruthy();
 	});
 
 	it('should get value', () => {

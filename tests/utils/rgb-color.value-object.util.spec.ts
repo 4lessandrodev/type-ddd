@@ -13,24 +13,24 @@ describe('rgb-color.value-object', () => {
 
 	it('should create a valid rgb color', () => {
 		const valueObject = RGBColorValueObject.create('rgb(255, 255, 255)');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should create a valid rgb color and get value', () => {
 		const valueObject = RGBColorValueObject.create('rgb(255, 255, 255)');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rgb(255, 255, 255)');
 	});
 
 	it('should create a valid rgb color and get value', () => {
 		const valueObject = RGBColorValueObject.create('rgb(0, 0, 0)');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rgb(0, 0, 0)');
 	});
 
 	it('should create a valid rgb color and get value', () => {
 		const valueObject = RGBColorValueObject.create('rgb(120, 70, 90)');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rgb(120, 70, 90)');
 	});
 

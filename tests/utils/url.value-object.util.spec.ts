@@ -8,7 +8,7 @@ describe('url.value-object', () => {
 
 	it('should create a valid url', () => {
 		const valueObject = UrlValueObject.create('https://google.com');
-		expect(valueObject.isOK()).toBe(true);
+		expect(valueObject.isOk()).toBe(true);
 	});
 
 	it('should create a valid url and get the value', () => {

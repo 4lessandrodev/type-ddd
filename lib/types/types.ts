@@ -112,7 +112,7 @@ export type IBeforeHookProxy<Data, Error> = IUseCase<Data, Result<Data, Error>>;
  * {
  *   execute: new SignInUseCase(), // returns a Result<UserAggregate>
  *   canExecute: { execute: async (data: SignInDto) => Result.ok<boolean>(true) },
- *   beforeExecute: { execute: async (data: SignInDto) => Result.ok(data) },
+ *   beforeExecute: { execute: async (data: SignInDto) => Result.Ok(data) },
  *   afterExecute: { execute: async (data: Result<UserAggregate>) => data }
  * }
  *

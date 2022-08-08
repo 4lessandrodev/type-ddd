@@ -8,7 +8,7 @@ describe('email-value-object.util', () => {
 
 	it('should create a valid email with success', () => {
 		const valueObject = EmailValueObject.create('valid_email@domain.com');
-		expect(valueObject.isOK()).toBe(true);
+		expect(valueObject.isOk()).toBe(true);
 	});
 
 	it('should transform value to lower on create', () => {
@@ -49,7 +49,7 @@ describe('email-value-object.util', () => {
 		const valueObject = EmailValueObject.create(
 			'username.nickname@domain.com'
 		);
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe(
 			'username.nickname@domain.com'
 		);
@@ -57,25 +57,25 @@ describe('email-value-object.util', () => {
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('rocio65@gmail.com');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rocio65@gmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('user_nick2.0@hotmail.com');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('user_nick2.0@hotmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('rocio_65@gmail.com');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('rocio_65@gmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('4you@gmail.com');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('4you@gmail.com');
 	});
 

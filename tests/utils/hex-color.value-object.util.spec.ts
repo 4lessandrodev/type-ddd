@@ -12,24 +12,24 @@ describe('hex-color.value-object', () => {
 
 	it('should create a valid hex color', () => {
 		const valueObject = HEXColorValueObject.create('#ffffff');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#ffffff');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('#ffffff');
 	});
 
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#4eb7ac');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('#4eb7ac');
 	});
 
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#a78090');
-		expect(valueObject.isOK()).toBeTruthy();
+		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('#a78090');
 	});
 

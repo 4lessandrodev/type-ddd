@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 3.0.2 - 2022-08-07
+
+### Update
+
+- deps: update dependencies rich-domain to version 1.10.0
+
+---
+
 ### 3.0.1-beta.0 - 2022-08-05
 
 ### Update
