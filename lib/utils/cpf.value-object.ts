@@ -79,10 +79,8 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example "527.348.652-11"
 	 * @example "72725477824"
 	 */
-	validation(_key: any, _value: string): boolean {
-		const isValidPattern = regexCpf.test(_value);
-		const isValidDigits = isValidCpfDigit(_value);
-		return isValidDigits && isValidPattern;
+	validation(value: string): boolean {
+		return CPFValueObject.isValidProps(value);
 	}
 
 	/**

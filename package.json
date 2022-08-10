@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "3.0.2",
+	"version": "3.1.0",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -52,12 +52,12 @@
 	"bugs": {
 		"url": "https://github.com/4lessandrodev/types-ddd/issues"
 	},
-	"homepage": "https://alessandroadm.gitbook.io/types-ddd/",
+	"homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs",
 	"dependencies": {
 		"bcrypt": "^5.0.1",
 		"pino": "^7.11.0",
 		"pino-pretty": "^7.6.1",
-		"rich-domain": "^1.10.0"
+		"rich-domain": "^1.11.0"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.13.2",

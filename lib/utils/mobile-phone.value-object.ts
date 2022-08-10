@@ -26,8 +26,8 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 		return this.validator.string(value).match(regexHash);
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return this.validator.string(_value).match(regexHash);
+	validation(value: string): boolean {
+		return MobilePhoneValueObject.isValidProps(value);
 	}
 
 	/**

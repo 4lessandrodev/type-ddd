@@ -209,14 +209,12 @@ class CurrencyValueObject extends ValueObject<Prop> {
 		return this.cents >= 0;
 	}
 
-	validation(_key: any, _value: any): boolean {
-		const { isNumber, number, isString } = this.validator;
+	validation(_value: any, _key: any): boolean {
+		const { number } = this.validator;
 
 		const option = {
-			value: (_val: any) =>
-				isNumber(_val) && number(_val).isSafeInteger(),
-			currency: (_val: any) =>
-				isString(_val) && Object.keys(currency).includes(_val),
+			value: (_val: any) => number(_val).isSafeInteger(),
+			currency: (_val: any) => Object.keys(currency).includes(_val),
 		};
 
 		return option[_key](_value);

@@ -38,8 +38,8 @@ export class UnitOfMeasureValueObject extends ValueObject<Prop> {
 		return UnitsDescription[this.props.value];
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return _value in UnitsOfMeasure;
+	validation(value: UnitOfMeasure): boolean {
+		return UnitOfMeasureValueObject.isValidProps(value);
 	}
 
 	public static isValidProps(value: UnitOfMeasure): boolean {

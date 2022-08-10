@@ -90,11 +90,8 @@ export class UserNameValueObject extends ValueObject<Prop> {
 		return initials;
 	}
 
-	validation(_key: any, _value: any): boolean {
-		const maxLength = 41;
-		const minLength = 1;
-		const { string } = this.validator;
-		return string(_value).hasLengthBetween(minLength, maxLength);
+	validation(value: string): boolean {
+		return UserNameValueObject.isValidProps(value);
 	}
 
 	/**

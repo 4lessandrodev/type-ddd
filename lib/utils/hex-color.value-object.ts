@@ -17,8 +17,8 @@ class HEXColorValueObject extends ValueObject<Prop> {
 		return this.props.value.toLowerCase();
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return this.validator.string(_value).match(regexHash);
+	validation(value: string): boolean {
+		return HEXColorValueObject.isValidProps(value);
 	}
 
 	/**
@@ -37,8 +37,8 @@ class HEXColorValueObject extends ValueObject<Prop> {
 	 * @returns true if pattern match else return false
 	 */
 	public static isValidProps(value: string): boolean {
-		const upper = value.toLowerCase();
-		return regexHash.test(upper);
+		const lower = value.toLowerCase();
+		return this.validator.string(lower).match(regexHash);
 	}
 
 	/**

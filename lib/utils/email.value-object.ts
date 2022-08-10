@@ -24,13 +24,12 @@ export class EmailValueObject extends ValueObject<Prop> {
 			.toLowerCase();
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return this.validator.string(_value).match(regexHash);
+	validation(value: string): boolean {
+		return EmailValueObject.isValidProps(value);
 	}
 
 	public static isValidProps(email: string): boolean {
-		const isValidEmail = regexHash.test(email);
-		return isValidEmail;
+		return this.validator.string(email).match(regexHash);
 	}
 
 	public static create(value: string): Result<EmailValueObject> {

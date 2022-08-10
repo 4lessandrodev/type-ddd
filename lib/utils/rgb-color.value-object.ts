@@ -18,8 +18,8 @@ class RGBColorValueObject extends ValueObject<Prop> {
 		return this.props.value;
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return this.validator.string(_value).match(regexHash);
+	validation(value: string): boolean {
+		return RGBColorValueObject.isValidProps(value);
 	}
 
 	/**

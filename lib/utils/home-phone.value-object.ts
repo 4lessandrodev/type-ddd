@@ -16,8 +16,8 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 		super(prop);
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return this.validator.string(_value).match(regexHash);
+	validation(value: string): boolean {
+		return HomePhoneValueObject.isValidProps(value);
 	}
 
 	/**
