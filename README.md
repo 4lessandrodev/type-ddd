@@ -1,7 +1,7 @@
 
 # Types-ddd v3
 
-> Now version 3.0.0-beta available
+> Now version 3.2.0 available
 
 typescript domain driven design library. All resources tested
 

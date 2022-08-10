@@ -209,7 +209,7 @@ So when calling the `set` or `change` function, this method will be called autom
 
 ```ts
 
-	validation<Key extends keyof Props>(key: Key, value: Props[Key]): boolean {
+	validation<Key extends keyof Props>(value: Props[Key], key: Key): boolean {
 		
 		const { number } = this.validator;
 
@@ -222,6 +222,7 @@ So when calling the `set` or `change` function, this method will be called autom
 
 ```
 
+In case your value object has only one attribute you can simply use the already created static validation method.
 Let's see a complete example as below
 
 ```ts
@@ -237,9 +238,8 @@ export class Name extends ValueObject<NameProps>{
 		super(props);
 	}
 
-	validation(_key: 'value', value: string): boolean {
-		const { string } = this.validator;
-		return string(value).hasLengthBetween(3, 30);
+	validation(value: string): boolean {
+		return Name.isValidProps({ value });
 	}
 
 	public static isValidProps({ value }: NameProps): boolean {
