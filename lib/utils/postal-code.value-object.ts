@@ -19,8 +19,8 @@ class PostalCodeValueObject extends ValueObject<Prop> {
 		return this.props.value.replace(/-/g, '');
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return this.validator.string(_value).match(regexHash);
+	validation(value: string): boolean {
+		return PostalCodeValueObject.isValidProps(value);
 	}
 
 	/**

@@ -38,8 +38,8 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 		return this.validator.string(code).match(regexHash);
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return this.validator.string(_value).match(regexHash);
+	validation(value: string): boolean {
+		return TrackingCodeValueObject.isValidProps(value);
 	}
 
 	/**

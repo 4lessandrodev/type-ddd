@@ -79,10 +79,8 @@ export class CNPJValueObject extends ValueObject<Prop> {
 	 * @example "22.398.345/0001-88"
 	 * @example "22398345000188"
 	 */
-	validation(_key: any, _value: string): boolean {
-		const isValidPattern = regexCnpj.test(_value);
-		const isValidDigits = isValidCnpjDigit(_value);
-		return isValidDigits && isValidPattern;
+	validation(value: string): boolean {
+		return CNPJValueObject.isValidProps(value);
 	}
 	/**
 	 * @description create a cnpj value object

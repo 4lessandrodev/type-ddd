@@ -610,7 +610,7 @@ class HumanAge extends ValueObject<Props> {
 	}
 
 	// the "set" function automatically will use this method to validate value before set it.
-	validation<Key extends keyof Props>(key: Key, value: Props[Key]): boolean {
+	validation<Key extends keyof Props>(value: Props[Key], key: Key): boolean {
 
 		// validator instance is available on value object instance
 		const { isNumber, number } = this.validator;
@@ -727,7 +727,7 @@ class HumanAge extends ValueObject<Props> {
 	}
 
 	// the "set" function automatically will use this method to validate value before set it.
-	validation<Key extends keyof Props>(key: Key, value: Props[Key]): boolean {
+	validation<Key extends keyof Props>(value: Props[Key], key: Key): boolean {
 
 		const { isDate } = this.validator;
 

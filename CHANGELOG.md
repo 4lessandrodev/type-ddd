@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
+### 3.1.0 - 2022-08-10
+
+### Changed
+
+- deps: update dependencies rich-domain to version 1.11.0
+
+Change order validation args in value objects
+
+```ts
+
+  // from
+  validation<Key extends keyof Props>(key: Key, value: Props[Key]): boolean {};
+
+  // to
+  validation<Key extends keyof Props>(value: Props[Key], key: Key): boolean {};
+
+```
+
+---
 
 ### 3.0.2 - 2022-08-07
 

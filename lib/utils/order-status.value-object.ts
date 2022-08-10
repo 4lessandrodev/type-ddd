@@ -134,8 +134,8 @@ class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 		return this.props.value === status;
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return _value in AvailableOrderStatus;
+	validation(value: keyof typeof AvailableOrderStatus): boolean {
+		return value in AvailableOrderStatus;
 	}
 
 	public static isValidProps = (status: AvailableOrderStatusType) =>

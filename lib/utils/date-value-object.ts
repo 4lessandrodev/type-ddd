@@ -428,8 +428,8 @@ export class DateValueObject extends ValueObject<Prop> {
 		return instanceTime < time;
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return this.validator.isDate(_value);
+	validation(value: Date): boolean {
+		return this.validator.isDate(value);
 	}
 
 	/**
@@ -446,9 +446,7 @@ export class DateValueObject extends ValueObject<Prop> {
 	public static create(date?: Date): Result<DateValueObject> {
 		const value = date ?? new Date();
 		const isValid = DateValueObject.isValidProps(value);
-		if (!isValid) {
-			return Result.fail('Invalid Date Value');
-		}
+		if (!isValid) return Result.fail('Invalid Date Value');
 
 		return Result.Ok(new DateValueObject({ value }));
 	}

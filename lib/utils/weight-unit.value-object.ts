@@ -38,8 +38,8 @@ export class WeightUnitValueObject extends ValueObject<Prop> {
 		return UnitsOfWeightDescription[this.props.value];
 	}
 
-	validation(_key: any, _value: any): boolean {
-		return _value in UnitsOfWeight;
+	validation(value: UnitOfWeight): boolean {
+		return WeightUnitValueObject.isValidProps(value);
 	}
 
 	public static isValidProps(value: UnitOfWeight): boolean {

@@ -52,11 +52,8 @@ export class PinValueObject extends ValueObject<Prop> {
 		return string(value).hasLengthBetween(minLength, maxLength);
 	}
 
-	validation(_key: any, _value: any): boolean {
-		const minLength = 2;
-		const maxLength = 16;
-		const { string } = this.validator;
-		return string(_value).hasLengthBetween(minLength, maxLength);
+	validation(value: string): boolean {
+		return PinValueObject.isValidProps(value);
 	}
 
 	/**
