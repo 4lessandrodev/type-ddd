@@ -5,6 +5,7 @@ import {
 	IAdapter,
 	IAggregate,
 	IAutoMapper,
+	IPropsValidation,
 } from 'rich-domain/types';
 import { Result } from '../core';
 import {
@@ -168,4 +169,6 @@ export {
 	IEntityHistory,
 	IGettersAndSetters,
 	IParentName,
+	IUseCase,
+	IPropsValidation,
 };

@@ -238,6 +238,25 @@ console.log(age.get('value'));
 
 > 21
 
+```
+
+I don't advise you to use state change of a value object. Create a new one instead of changing its state.
+however the library will leave that up to you to decide.
+
+To disable the setters of a value object use the parameters below in the super.
+
+```ts
+
+	constructor(props: Props){
+		super(props, { disableSetters: true })
+	}
+
+```
+
+By default setters are enabled
+
+```ts
+
 age.set('value').to(18);
 
 console.log(age.get('value'));
@@ -378,7 +397,12 @@ import { DomainEvents, IHandle } from 'types-ddd';
 
 class ProductCreated implements IHandle<Product> {
 	// optional custom name. default is the className
-	eventName: string = 'CustomEventName';
+
+	public eventName: string;
+
+	constructor(){
+		this.eventName = 'CustomEventName';
+	}
 
 	async dispatch(event: IDomainEvent<Product>): Promise<void> {
 
