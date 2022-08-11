@@ -5,7 +5,7 @@
 The library was created to support developers in developing domain-rich applications.
 
 Full documentation.
-Version 3.0.2
+Version 3.x
 
 This lib use as core [rich-domain](https://www.npmjs.com/package/rich-domain)
 
@@ -13,9 +13,303 @@ This lib use as core [rich-domain](https://www.npmjs.com/package/rich-domain)
 
 ### Result
 
-Result info here ...
+What is Result:
+
+`Result` is a class that encapsulates the result of an operation and stores the success or failure state without throws the application.
+
+#### Interface and Generic Types
+
+- A = `Payload` optional default `void`
+- B = `Error` optional default `string`
+- C = `MetaData` optional default `{}`
+
+```ts
+
+IResult<A, B, C>
+
+```
+
+Example how to use generic types.
+First let's create our interfaces to use as generic type.
+- The type of data to be retrieved can be any type you want.
+
+
+```tS
+
+interface IData {
+	data: string;
+}
+
+interface IError {
+	message: string;
+}
+
+interface IMeta {
+	arg: number;
+}
+
+```
+
+Now let's implement a function that return the result below
+
+```ts
+
+IResult<IData, IError, IMeta>
+
+```
+So let's implement that on a simple function.
+
+```ts
+
+const isPair = (value: number):IResult<IData, IError, IMeta> => {
+
+	const isPairValue = value % 2 === 0;
+	const metaData = { arg: value };
+	
+	if (isPairValue) {
+		
+		// success payload 
+		const payload = { data: `${value} is pair` };
+
+		// return success
+		return Result.Ok(payload, metaData);
+	}
+
+	// failure payload 
+	const error = { message: `${value} is not pair` };
+
+	// return failure
+	return Result.fail(error, metaData);
+};
+
+
+```
+Here we have a function that returns success if the value informed is even and returns failure if it is odd.
+
+Success Case
+
+```ts
+
+const result = isPair(42);
+
+console.log(result.isOk());
+
+> true
+
+console.log(result.value());
+
+> 'Object { data: "42 is pair" }'
+
+console.log(result.metaData());
+
+> 'Object { arg: 42 }'
+
+console.log(result.error());
+
+> null
+
+```
+Failure Case
+
+```ts
+
+const result = isPair(43);
+
+console.log(result.isFail());
+
+> true
+
+console.log(result.error());
+
+> 'Object { message: "43 is not pair" }'
+
+console.log(result.metaData());
+
+> 'Object { arg: 43 }'
+
+console.log(result.value());
+
+> null
+
+```
+
+#### Void
+
+The most simple void success example.
+
+Let's see the same example using void.
+
+```ts
+
+const checkPair = (value: number): Result<void> => {
+
+	const isPair = value % 2 === 0;
+
+	// success case
+	if(isPair) return Result.Ok(); 
+	
+	// failure case
+	return Result.fail('not pair');
+}
+
+```
+Using the function as success example
+
+```ts
+
+const result: IResult<void> = checkPair(42);
+
+console.log(result.isOk());
+
+> true
+
+console.log(result.isFail());
+
+> false
+
+console.log(result.error());
+
+> null
+
+console.log(result.value());
+
+> null
+
+console.log(result.metaData());
+
+> 'Object {}'
+
+```
+
+Fail example
+
+```ts
+
+const result: IResult<void> = checkPair(43);
+
+console.log(result.isFail());
+
+> true
+
+console.log(result.isOk());
+
+> false
+
+console.log(result.error());
+
+> "not pair"
+
+console.log(result.value());
+
+> null
+
+console.log(result.metaData());
+
+> 'Object {}'
+
+```
+
+#### toObject method
+you can get a summarized object with the properties of an instance of a `Result`
+
+```ts
+
+console.log(result.toObject())
+
+> Object
+`{
+	"data": null, 
+	"error": "not pair", 
+	"isFail": true, 
+	"isOk": false, 
+	"metaData": Object {}
+ }`
+
+```
+
+#### Hooks
+
+In the instances of a Result there are two hooks that allow the execution of a command according to the state.
+
+```ts
+
+class Command implements ICommand<void, void> {
+	execute(): void {
+		console.log("running command ...");
+	}
+}
+
+const myCommand = new Command();
+
+const result = Result.Ok();
+
+result.execute(myCommand).on('Ok');
+
+> "running command ..."
+
+```
+
+You might also want to pass arguments to the command
+
+```ts
+
+class Command implements ICommand<string, void> {
+	execute(error: string): void {
+		console.log(error);
+	}
+}
+
+const myCommand = new Command();
+
+const result = Result.fail('something went wrong');
+
+result.execute(myCommand).withData(result.error()).on('fail');
+
+> "something went wrong"
+
+```
+
+#### Combine
+
+You can use the static `combine` function of `Result` to check many instances if any are failed it will return the instance with error state.
+
+Success example 
+
+```ts
+
+const resultA = Result.Ok();
+const resultB = Result.Ok();
+const resultC = Result.Ok();
+
+const result = Result.combine([resultA, resultB, resultC]);
+
+console.log(result.isOk());
+
+> true
+
+```
+Failure example 
+
+```ts
+
+const resultA = Result.Ok();
+const resultB = Result.Fail('oops err');
+const resultC = Result.Ok();
+
+const result = Result.combine([resultA, resultB, resultC]);
+
+console.log(result.isOk());
+
+> false
+
+console.log(result.error());
+
+> 'oops err'
+
+```
 
 ---
+
 
 ### ValueObject
 
@@ -110,10 +404,10 @@ console.log(name.get('value'));
 
 ```
 
-I don't advise you to use state change of a value object. Create a new one instead of changing its state.
-however the library will leave that up to you to decide.
+> **I don't advise you to use state change of a value object. Create a new one instead of changing its state. However the library will leave that up to you to decide.**
 
 To disable the setters of a value object use the parameters below in the super.
+This property disables the set function of the value object.
 
 ```ts
 
@@ -209,7 +503,7 @@ So when calling the `set` or `change` function, this method will be called autom
 
 ```ts
 
-	validation<Key extends keyof Props>(key: Key, value: Props[Key]): boolean {
+	validation<Key extends keyof Props>(value: Props[Key], key: Key): boolean {
 		
 		const { number } = this.validator;
 
@@ -222,6 +516,7 @@ So when calling the `set` or `change` function, this method will be called autom
 
 ```
 
+In case your value object has only one attribute you can simply use the already created static validation method.
 Let's see a complete example as below
 
 ```ts
@@ -237,9 +532,8 @@ export class Name extends ValueObject<NameProps>{
 		super(props);
 	}
 
-	validation(_key: 'value', value: string): boolean {
-		const { string } = this.validator;
-		return string(value).hasLengthBetween(3, 30);
+	validation(value: string): boolean {
+		return Name.isValidProps({ value });
 	}
 
 	public static isValidProps({ value }: NameProps): boolean {
