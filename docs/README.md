@@ -7,8 +7,14 @@ The library was created to support developers in developing domain-rich applicat
 Full documentation.
 Version 3.x
 
+
 This lib use as core [rich-domain](https://www.npmjs.com/package/rich-domain)
 
+### Simple App Example
+
+A simple app example available on [link](https://github.com/4lessandrodev/ddd-app)
+
+---
 ## Documentation
 
 ### Result
@@ -680,6 +686,73 @@ name.set('value').to("Jack");
 console.log(name.get('value'));
 
 > "Jack"
+
+```
+
+#### toObject
+This method transforms a complex object into a simple object or value.
+This method is useful for cases where you have value objects inside other value objects
+
+```ts
+
+const street = Street.create({ value: 'Dom Juan' }).value();
+
+const number = Number.create({ value: 42 }).value();
+
+const result = Address.create({ street, number });
+
+const address = result.value();
+
+console.log(address.toObject());
+
+> Object 
+`{
+	"street": "Dom Juan", 
+	"number": 42,
+ }`
+
+```
+
+#### Clone
+This method creates a new instance with the same properties as the current value object.
+
+```ts
+
+const result = Name.create({ value: 'Sammy' });
+
+const originalName = result.value();
+
+console.log(originalName.value());
+
+> "Sammy"
+
+const clone = originalName.clone();
+
+console.log(clone.isOk());
+
+> true
+
+const clonedName = clone.value();
+
+console.log(clonedName.value());
+
+> "Sammy"
+
+```
+
+Clone being a new instance does not change the properties of the original value object
+
+```ts
+
+clonedName.change('value', 'Jones');
+
+console.log(clonedName.value());
+
+> "Jones"
+
+console.log(originalName.value());
+
+> "Sammy"
 
 ```
 
