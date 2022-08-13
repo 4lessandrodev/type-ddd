@@ -756,12 +756,373 @@ console.log(originalName.value());
 
 ```
 
+#### createMany
+
+Sometimes you will need to create many instances of different value objects and for that there is static method available `createMany` on value objects, entity and aggregate.
+
+```ts
+
+const { data, result } = ValueObject.createMany([
+	Class<PriceProps>(ProductPrice, { value: price }),
+	Class<NameProps>(ProductName, { value: name }),
+	Class<QtdProps>(ProductQtd, { value: qtd })
+]);
+
+// you check if all value objects are ok
+if (result.isFail()) return Result.fail(result.error());
+
+// you can get instances from iterator data
+const price = data.next().value() as ProductPrice; // index 0
+const name = data.next().value() as ProductName; // index 1
+const quantity = data.next().value() as ProductQtd; // index 2
+
+const product = Product.create({ name, price, quantity });
+
+```
+
 ---
 
 ### Entity
 
-Info here ...
+What is value object:
 
+- Live longer than the application, should endure restarts, and are persisted and read from data sources (DB, file system, network, etc.)
+- Have an id (preferably a GUID rather than a DB generated int because business transactions do not rely on persistence, can be persisted after other operations carried out in model's behavior)
+- Have entity semantics (equality and `GetHashCode()` defined by class name + id)
+- Behavior in an entity mostly orchestrates value objects for a use case
+- Entity class should not have public property setters, setting a property should be a behavior method
+- Entities should not have bidirectional relations (depending on the bounded context, either an egg can have a chicken or a chicken can have eggs, but not both)
+- Entity relations should not reflect the complete set of DB foreign key relationships, should be bare down to the minimum for performing the behavior inside the bounded context
+- Entity relations should not hold a reference to another entity class, it can only keep the id of another entity
+- If a business transaction needs a reference to other entities in relation, aggregates should be used instead (aggregates can hold a reference to other aggregate roots, which are entity classes by definition)
+
+#### Simple Entity
+
+Entities extend to `Entity` class, have private constructor and public static method called `create`.
+The `create` method receives the props which by default is an object with the key `id`.
+
+the entity below is a base example without any kind of validation
+
+```ts
+
+interface UserProps { id: UID, name: Name, age: Age };
+
+export class User extends Entity<UserProps>{
+	private constructor(props: UserProps){
+		super(props)
+	}
+
+	public static create(props: UserProps): IResult<User> {
+		return Result.Ok(new User(props));
+	}
+}
+
+export default User;
+
+```
+
+`id` is a reserved word and must have the type `UID` or `string`.
+
+All attributes for an entity must be value object except id.
+
+```ts
+
+const nameAttr = Name.create({ value: 'James' });
+const ageAttr = Name.create({ value: 21 });
+
+// always check if value objects are success
+const voResult = Result.combine([nameAttr, ageAttr])
+
+console.log(voResult.isOk());
+
+> true
+
+const name = nameAttr.value();
+
+const age = ageAttr.value();
+
+// if you don't provide a value for the id it will be generated automatically
+const result = User.create({ name, age });
+
+console.log(result.isOk());
+
+> true
+
+```
+
+#### toObject
+
+when you extend entity class you get some methods from domain class, one of them is `toObject` method.
+In the entity, this method aims to transform a domain class into a simple object, that is, all value objects are transformed into simple attributes.
+
+```ts
+
+const user = result.value();
+
+console.log(user.toObject());
+
+> Object
+`{
+	age: 21,
+	name: "James",
+	createdAt: "2022-08-13T03:51:25.738Z",
+	updatedAt: "2022-08-13T03:51:25.738Z"
+	id: "0709220f-7c2f-41e2-b535-151926286893",
+ }`
+
+```
+
+#### with id value
+
+you can create an instance by entering an id
+
+```ts
+
+const name = nameAttr.value();
+
+const id = ID.create('my-id-value-01');
+
+const result = User.create({ id, age, name });
+
+console.log(result.isOk());
+
+> true 
+
+const user = result.value();
+
+console.log(user.toObject());
+
+> Object
+`{
+	age: 21,
+	name: "James",
+	id: "my-id-value-01",
+	createdAt: "2022-08-13T03:51:25.738Z",
+	updatedAt: "2022-08-13T03:51:25.738Z"
+ }`
+
+```
+
+#### isNew
+
+Check if instance is a new entity. if you provide do not provide an id the entity will be considered as a new created entity instance.
+
+```ts
+
+// no id provided
+const newUserResult = User.create({ name, age });
+
+cons newUser = newUserResult.value();
+
+console.log(newUser.isNew());
+
+> true
+
+// id provided
+const userResult = User.create({ id, name, age });
+
+cons user = userResult.value();
+
+console.log(user.isNew());
+
+> false
+
+```
+
+#### isValidProps
+
+Validating props before create an instance. Here you can apply your business validation.
+
+```ts
+
+public static isValidProps({ name, age }: UserProps): boolean {
+	
+	// your business validation 
+	const isValidName = doSomeBusinessValidation(name);
+	const isValidAge = doSomeBusinessValidation(age);
+
+	return isValidName && isValidAge;
+}
+
+```
+
+Let's apply our props validation method to our entity class
+
+```ts
+
+interface UserProps { id: UID, name: Name, age: Age };
+
+export class User extends Entity<UserProps>{
+	private constructor(props: UserProps){
+		super(props)
+	}
+
+	public static isValidProps({ name, age }: UserProps): boolean {
+		// your business validation 
+		const isValidName = doSomeBusinessValidation(name);
+		const isValidAge = doSomeBusinessValidation(age);
+
+		return isValidName && isValidAge;
+	}
+
+	public static create(props: UserProps): IResult<User> {
+
+		const isValidRules = User.isValidProps(props);
+		if(!isValidRules) return Result.fail('invalid props');
+
+		return Result.Ok(new User(props));
+	}
+}
+
+export default User;
+
+```
+
+#### change
+
+in entities you can easily change an attribute with `change` or `set` method
+
+```ts
+
+const result = Name.create({ value: 'Larry' });
+
+const newName = result.value();
+
+user.change("name", newName);
+
+console.log(user.get("name").value());
+
+> "Larry"
+
+```
+
+#### Validation before change
+
+The `isValidProps` Method validates properties when creating a new instance, but which method validates before modifying a value?
+For this there is the method `validation`
+
+The validation method takes two arguments, the first the `key` of props and the second the `value`.
+So when calling the `set` or `change` function, this method will be called automatically to validate the value, if it doesn't pass the validation, the value is not changed.
+
+> There must be a validation for each "props" key
+
+```ts
+
+	validation<Key extends keyof Props>(value: Props[Key], key: Key): boolean {
+
+		const options: IPropsValidation<Props> = {
+			name: (value: Name) => doSomeBusinessValidation(value),
+			age: (value: Age) => doSomeBusinessValidation(value)
+		} 
+
+		return options[key](value);
+	};
+
+```
+
+Let's apply our validation method to our entity. Now if the validation does not pass the value will not be changed.
+
+```ts
+
+interface UserProps { id: UID, name: Name, age: Age };
+
+export class User extends Entity<UserProps>{
+	private constructor(props: UserProps){
+		super(props)
+	}
+
+	validation<Key extends keyof Props>(value: Props[Key], key: Key): boolean {
+		const options: IPropsValidation<Props> = {
+			name: (value: Name) => doSomeBusinessValidation(value),
+			age: (value: Age) => doSomeBusinessValidation(value)
+		} 
+		return options[key](value);
+	};
+
+	public static isValidProps({ name, age }: UserProps): boolean {
+		// your business validation 
+		const isValidName = doSomeBusinessValidation(name);
+		const isValidAge = doSomeBusinessValidation(age);
+		return isValidName && isValidAge;
+	}
+
+	public static create(props: UserProps): IResult<User> {
+
+		const isValidRules = User.isValidProps(props);
+		if(!isValidRules) return Result.fail('invalid props');
+
+		return Result.Ok(new User(props));
+	}
+}
+
+export default User;
+
+```
+
+#### disableSetters
+
+To disable the setters of an entity use the parameters below in the super.
+This property disables the set function of the entity.
+
+```ts
+
+	constructor(props: NameProps){
+		super(props, { disableSetters: true })
+	}
+
+```
+
+#### clone entity
+
+you can clone an entity and get a new instance
+
+```ts
+
+const result = User.create({ id, age, name });
+
+console.log(result.isOk());
+
+> true 
+
+const user = result.value();
+
+ const clonedUser = user.clone();
+
+ const newUser = clonedUser.value();
+
+ const newNameResult = Name.create({ value: 'Luke' });
+
+ const newName = newNameResult.value();
+
+ clonedUser.set('name').to(newName);
+
+ console.log(user.get('name').value());
+
+ > "James"
+
+ console.log(clonedUser.get('name').value());
+
+ > "Luke"
+
+```
+
+#### compare entities
+
+You can compare two entities.
+
+`compare` just check props values and id value. `deepEqual` check props values, id, types and history.
+
+```ts
+
+const isEqual = user1.equal(user2);
+
+> false
+
+const isDeepEqual = user1.deepEqual(user2);
+
+> false
+
+```
 ---
 
 ### Aggregate
