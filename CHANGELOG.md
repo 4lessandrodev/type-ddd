@@ -10,6 +10,11 @@ All notable changes to this project will be documented in this file.
 ### Update
 
 docs: update readme and documentation
+deps: update dependencies 
+
+### Added
+
+ci: install dependabot to check deps
 
 ---
 ### 3.1.1 - 2022-08-14
