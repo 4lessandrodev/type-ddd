@@ -55,7 +55,7 @@
 	"homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs",
 	"dependencies": {
 		"bcrypt": "^5.0.1",
-		"pino": "^7.11.0",
+		"pino": "^8.4.1",
 		"pino-pretty": "^9.0.0",
 		"rich-domain": "^1.11.0"
 	},
