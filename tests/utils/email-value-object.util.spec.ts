@@ -102,4 +102,15 @@ describe('email-value-object.util', () => {
 		const valueObject = EmailValueObject.create('invalid email@domain.com');
 		expect(valueObject.isFail()).toBeTruthy();
 	});
+
+	it('should get domain with success', () => {
+		const vo = EmailValueObject.create('my-email@domain.com').value();
+		expect(vo.getDomain()).toBe('domain.com');
+	});
+
+	it('should get nick with success', () => {
+		const vo = EmailValueObject.create('my-email@domain.com').value();
+		expect(vo.get('value')).toBe('my-email@domain.com');
+		expect(vo.getNick()).toBe('my-email');
+	});
 });
