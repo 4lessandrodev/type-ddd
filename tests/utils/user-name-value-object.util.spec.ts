@@ -108,6 +108,7 @@ describe('user-name.value-object', () => {
 		const username =
 			UserNameValueObject.create('FIRST MIDDLE LAST').value();
 		expect(username.value()).toBe('First Middle Last');
+		expect(username.get('value')).toBe('First Middle Last');
 	});
 
 	it('should get initials', () => {

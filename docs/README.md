@@ -1401,26 +1401,31 @@ Just import and use
 ```ts
 
 const passOrError = PasswordValueObject.create('my-strength-pass');
-const isValid = passOrError.isOk();
 
-console.log(isValid);
+console.log(passOrError.isOk());
+
 > true
 
 const pass = passOrError.value();
+
 pass.encrypt();
 
 console.log(pass.value());
+
 > "$2a$12$AdLoTarjC5wnc1tAUc3j1.RczGxxImH0mG6dZkS5zPaGrTi/EmPWG"
 
 console.log(pass.isEncrypted());
+
 > true
 
 const passMatch = pass.compare('my-strength-pass');
 
 console.log(passMatch);
+
 > true
 
 console.log(PasswordValueObject.random(12).value());
+
 > "WtS65$@!A6by"
 
 ```
@@ -1436,19 +1441,23 @@ const currentDate = new Date();
 const myDate = DateValueObject.create(currentDate).value();
 
 console.log(myDate.value());
+
 > "2021-10-11T14:45:04.758Z"
 
 console.log(myDate.format("DD-MM-YYYY"));
+
 > "11-10-2021"
 
 myDate.addDays(3);
 
 console.log(myDate.value());
+
 > "2021-10-14T14:45:04.758Z"
 
 const isWeekend = myDate.isWeekend();
 
 console.log(isWeekend);
+
 > false
 
 myDate.addHours(7);
@@ -1456,6 +1465,7 @@ myDate.addHours(7);
 const isAfter = myDate.isAfter(currentDate);
 
 console.log(isAfter);
+
 > true
 
 ```
@@ -1471,6 +1481,7 @@ const voOrErr = CurrencyValueObject.create({ currency: 'BRL', value: 0.50 });
 const myCurrency = voOrErr.value();
 
 console.log(myCurrency.value());
+
 > 0.5
 
 myCurrency.add(0.50); // 1
@@ -1483,10 +1494,16 @@ myCurrency.subtractBy(2); // 100
 myCurrency.subtractPercent(30); // 70
 
 console.log(myCurrency.value());
+
 > 70
 
 console.log(myCurrency.getCoin());
+
 > "R$ 70.00"
+
+// OR chain
+
+const result = myCurrency.add(10).addPercent(21).multiplyBy(3).subtractBy(50);
 
 ```
 
@@ -1497,27 +1514,127 @@ Just import and use
 
 ```ts
 
-const voOrErr = WeightValueObject.create({ value: 1000, unit: "TON" });
+const result = WeightValueObject.create({ value: 1000, unit: "TON" });
 
-const isOk = voOrErr.isOk();
-console.log(isOK);
+console.log(result.isOk());
+
 > true
 
-const valueObject = voOrErr.value();
+const weight = result.value();
 
-console.log(valueObject.unit);
+console.log(weight.unit);
+
 > "TON"
 
-console.log(valueObject.weight.value());
+console.log(weight.weight.value());
+
 > 1000
 
 // Convert instance value and unit to KG
-valueObject.toKG();
+weight.toKG();
 
-console.log(valueObject.unit);
+console.log(weight.unit);
+
 > "KG"
 
-console.log(valueObject.weight.value());
+console.log(weight.weight.value());
 > 1
+
+```
+
+#### Email
+
+Just import and use
+
+```ts
+
+const result = EmailValueObject.create('dany@mailer.com');
+
+console.log(result.isOk());
+
+> true
+
+const email = result.value();
+
+console.log(email.value());
+
+> "dany@mailer.com"
+
+console.log(email.getNick());
+
+> "dany"
+
+console.log(email.getDomain());
+
+> "mailer.com"
+
+
+```
+
+#### Name
+
+Just import and use
+
+```ts
+
+const result = UserNameValueObject.create('jannie lan spark');
+
+console.log(result.isOk());
+
+> true
+
+const name = result.value();
+
+console.log(name.value());
+
+> "Jannie Lan Spark"
+
+console.log(name.getLastName());
+
+> "Spark"
+
+console.log(name.getMiddleName());
+
+> "Lan"
+
+console.log(name.getFirstName());
+
+> "Jannie"
+
+console.log(name.getInitials());
+
+> "J.L.S"
+
+```
+
+
+#### BirthDay
+
+Just import and use
+
+```ts
+
+const year2000 = new Date(2000, 1, 1);
+
+const result = BirthdayValueObject.create(year2000);
+
+console.log(result.isOk());
+
+> true
+
+const birthDay = result.value();
+
+console.log(birthDay.value());
+
+> "2000-02-01T02:00:00.000Z"
+
+console.log(birthDay.isAgeGreaterThan(18));
+
+> true
+
+console.log(birthDay.getAgeAsYearsOld());
+
+> 22
+
 
 ```
