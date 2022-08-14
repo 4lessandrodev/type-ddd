@@ -806,18 +806,18 @@ Sometimes you will need to create many instances of different value objects and 
 
 ```ts
 
-const item1 = Class<PriceProps>(ProductPrice, { value: price });
-const item2 = Class<NameProps>(ProductName, { value: name });
-const item3 = Class<QtdProps>(ProductQtd, { value: qtd });
+const itemPrice = Class<PriceProps>(ProductPrice, { value: price });
+const itemName = Class<NameProps>(ProductName, { value: name });
+const itemQtd = Class<QtdProps>(ProductQtd, { value: qtd });
 
-const { data, result } = ValueObject.createMany([item1, item2, item3]);
+const { data, result } = ValueObject.createMany([ itemPrice, itemName, itemQtd ]);
 
 // you check if all value objects are ok
 if (result.isFail()) return Result.fail(result.error());
 
-// you can get instances from iterator data
-const price = data.next().value() as ProductPrice; // index 0
-const name = data.next().value() as ProductName; // index 1
+// you can get instances from iterator data. In the same order as the array
+const price = data.next().value() as ProductPrice;  // index 0
+const name = data.next().value() as ProductName;    // index 1
 const quantity = data.next().value() as ProductQtd; // index 2
 
 const product = Product.create({ name, price, quantity });
@@ -1323,5 +1323,201 @@ Now we can dispatch the event whenever we want.
 DomainEvents.dispatch({ id: product.id, eventName: "ProductCreated" });
 
 > "EVENT DISPATCH: [Aggregate@Product]:6039756f-d3bc-452e-932a-ec89ff536dda"
+
+```
+---
+### Adapter
+
+How to adapt the data from persistence to domain or from domain to persistence.
+
+```ts
+
+// from domain to data layer
+class MyAdapterToInfra implements IAdapter<DomainUser, DataUser>{
+	build(target: DomainUser): Result<DataUser> {
+		// ...
+	}
+}
+
+// from data layer to domain
+class MyAdapterToDomain implements IAdapter<DataUser, DomainUser>{
+	build(target: DataUser): Result<DomainUser> {
+		// ...
+	}
+}
+
+// You can use adapter instance in toObject function
+const myAdapter = new MyAdapterToInfra();
+
+const dataUser = domainUser.toObject<DataUser>(myAdapter);
+
+```
+
+---
+
+### Utils
+
+Some util tools available
+
+#### Ready to use
+
+- ✔ EmailValueObject
+- ✔ UserNameValueObject
+- ✔ BirthdayValueObject
+- ✔ CurrencyValueObject
+- ✔ PasswordValueObject
+- ✔ HomePhoneValueObject
+- ✔ MobilePhoneValueObject
+- ✔ TrackingCodeValueObject
+- ✔ RGBColorValueObject
+- ✔ HEXColorValueObject
+- ✔ PostalCodeValueObject
+- ✔ UrlValueObject
+- ✔ OrderStatusValueObject
+- ✔ PinValueObject
+- ✔ CPFValueObject
+- ✔ CNPJValueObject
+- ✔ CustomStringValueObject
+- ✔ CustomNumberValueObject
+- ✔ WeightUnitValueObject
+- ✔ UnitOfMeasureValueObject
+- ✔ DimensionValueObject
+- ✔ WeightValueObject
+- ✔ DateValueObject
+- ✔ getUndefinedKeysAsArray
+- ✔ getUndefinedKeysAsObject
+- ✔ removeUndefinedKeysFromObject
+- ✔ SpecificationComposite
+- ✔ FactoryMethod
+- ✔ TSProxy
+
+---
+
+
+#### Password
+
+Just import and use
+
+```ts
+
+const passOrError = PasswordValueObject.create('my-strength-pass');
+const isValid = passOrError.isOk();
+
+console.log(isValid);
+> true
+
+const pass = passOrError.value();
+pass.encrypt();
+
+console.log(pass.value());
+> "$2a$12$AdLoTarjC5wnc1tAUc3j1.RczGxxImH0mG6dZkS5zPaGrTi/EmPWG"
+
+console.log(pass.isEncrypted());
+> true
+
+const passMatch = pass.compare('my-strength-pass');
+
+console.log(passMatch);
+> true
+
+console.log(PasswordValueObject.random(12).value());
+> "WtS65$@!A6by"
+
+```
+
+#### Date
+
+Just import and use
+
+```ts
+
+const currentDate = new Date();
+
+const myDate = DateValueObject.create(currentDate).value();
+
+console.log(myDate.value());
+> "2021-10-11T14:45:04.758Z"
+
+console.log(myDate.format("DD-MM-YYYY"));
+> "11-10-2021"
+
+myDate.addDays(3);
+
+console.log(myDate.value());
+> "2021-10-14T14:45:04.758Z"
+
+const isWeekend = myDate.isWeekend();
+
+console.log(isWeekend);
+> false
+
+myDate.addHours(7);
+
+const isAfter = myDate.isAfter(currentDate);
+
+console.log(isAfter);
+> true
+
+```
+
+#### Currency
+
+Just import and use
+
+```ts
+
+const voOrErr = CurrencyValueObject.create({ currency: 'BRL', value: 0.50 });
+
+const myCurrency = voOrErr.value();
+
+console.log(myCurrency.value());
+> 0.5
+
+myCurrency.add(0.50); // 1
+myCurrency.multiplyBy(50); // 50
+myCurrency.divideBy(2); // 25
+myCurrency.subtractBy(5); // 20
+myCurrency.add(80); // 100
+myCurrency.addPercent(2); // 102
+myCurrency.subtractBy(2); // 100
+myCurrency.subtractPercent(30); // 70
+
+console.log(myCurrency.value());
+> 70
+
+console.log(myCurrency.getCoin());
+> "R$ 70.00"
+
+```
+
+
+#### Weight units
+
+Just import and use
+
+```ts
+
+const voOrErr = WeightValueObject.create({ value: 1000, unit: "TON" });
+
+const isOk = voOrErr.isOk();
+console.log(isOK);
+> true
+
+const valueObject = voOrErr.value();
+
+console.log(valueObject.unit);
+> "TON"
+
+console.log(valueObject.weight.value());
+> 1000
+
+// Convert instance value and unit to KG
+valueObject.toKG();
+
+console.log(valueObject.unit);
+> "KG"
+
+console.log(valueObject.weight.value());
+> 1
 
 ```
