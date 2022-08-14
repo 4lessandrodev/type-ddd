@@ -2,11 +2,52 @@
 # types-ddd
 > Now version 3.x available
 
-typescript domain driven design library. All resources tested
+This package provide utils file and interfaces to assistant build a complex application as domain driving design and nodeJS with typescript.
 
 ---
 
+<a href="https://www.npmjs.com/package/types-ddd" rel="nofollow" class="keychainify-checked">
+ <img src="https://badgen.net/github/checks/4lessandrodev/types-ddd/main" 
+ alt="checks" 
+ style="max-width: 100%;">
+</a>
+<a href="https://www.npmjs.com/package/types-ddd" rel="nofollow" class="keychainify-checked">
+ <img src="https://badgen.net/github/stars/4lessandrodev/types-ddd" 
+ alt="stars" 
+ style="max-width: 100%;">
+</a>
+<a href="https://www.npmjs.com/package/types-ddd" rel="nofollow" class="keychainify-checked">
+ <img src="https://badgen.net/github/commits/4lessandrodev/types-ddd/main" 
+ alt="commits" 
+ style="max-width: 100%;">
+</a>
+<a href="https://www.npmjs.com/package/types-ddd" rel="nofollow" class="keychainify-checked">
+ <img src="https://badgen.net/github/last-commit/4lessandrodev/types-ddd/main" 
+ alt="last commit" 
+ style="max-width: 100%;">
+</a>
+<a href="https://www.npmjs.com/package/types-ddd" rel="nofollow" class="keychainify-checked">
+ <img src="https://badgen.net/github/license/4lessandrodev/types-ddd" 
+ alt="license" 
+ style="max-width: 100%;">
+</a>
+<a href="https://www.npmjs.com/package/types-ddd" rel="nofollow" class="keychainify-checked">
+ <img src="https://badgen.net/github/dependabot/4lessandrodev/types-ddd" 
+ alt="dependabot" 
+ style="max-width: 100%;">
+</a>
+<a href="https://www.npmjs.com/package/types-ddd" rel="nofollow" class="keychainify-checked">
+ <img src="https://badgen.net/github/tag/4lessandrodev/types-ddd" 
+ alt="tags" 
+ style="max-width: 100%;">
+</a>
+<a href="https://www.npmjs.com/package/types-ddd" rel="nofollow" class="keychainify-checked">
+ <img src="https://badgen.net/github/closed-issues/4lessandrodev/types-ddd" 
+ alt="issues" 
+ style="max-width: 100%;">
+</a>
 
+---
 ## Install
 
 ```sh
@@ -17,6 +58,13 @@ $ npm i types-ddd
 $ yarn add types-ddd
 
 ```
+---
+
+## Lib Documentation
+
+Check lib documentation on link [Here](https://github.com/4lessandrodev/types-ddd/tree/main/docs)
+
+---
 
 <img src="./readme/ddd.jpg" alt="image" width="100%">
 
@@ -137,8 +185,3 @@ $ yarn add types-ddd
 - Used to translate models from outside systems or legacy apps to models inside the bounded context and vice versa, and also to ease the communication with legacy services
 - Can use service facades and model adapters
 
----
-
-## Lib Documentation
-
-Check lib documentation on link [Here](https://github.com/4lessandrodev/types-ddd/tree/main/docs)
