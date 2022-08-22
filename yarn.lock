@@ -3102,9 +3102,9 @@ pino-abstract-transport@v0.5.0:
     split2 "^4.0.0"
 
 pino-pretty@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-9.0.0.tgz#729e7b272a2326f4e7e50fdf669f211f7d6a5f2c"
-  integrity sha512-WcojVUw8aJQz0in90xj7nQo5g14d9bLkBnE80P/Sk8JxNilbtyXp9mNjRcF07uOBEoNMrdkBniv8Tu1Lale7Kw==
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-9.0.1.tgz#25711c49a874950a894f5953929da11b9845cce6"
+  integrity sha512-5gFIIeDu1niFlL0pBACerwDR8Ts+i4gO0W9S0jRoHVvaQluvGOW4cUaDmC+/dSTCoG4VqfOQhP0dwuDLd0qJ6A==
   dependencies:
     colorette "^2.0.7"
     dateformat "^4.6.3"
