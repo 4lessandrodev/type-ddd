@@ -78,7 +78,9 @@ interface Params<T> {
  *
  * ...
  */
-const getUndefinedKeysAsObject = <T = {}>(params: Params<T>): Partial<T> => {
+const getUndefinedKeysAsObject = <T extends {} = {}>(
+	params: Params<T>
+): Partial<T> => {
 	let objResult = {};
 	const keys: string[] = getUndefinedKeysAsArray(params);
 	if (keys.length < 1) {

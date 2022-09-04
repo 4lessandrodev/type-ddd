@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
+### 3.1.3 - 2022-09-03
+
+### Update
+
+deps: update dependencies
+
+- rich-domain to v1.11.2
+- typescript to 4.8.2
+
+---
 ### 3.1.2 - 2022-08-14
 
 ### Update
