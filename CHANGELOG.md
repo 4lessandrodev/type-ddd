@@ -11,6 +11,15 @@ All notable changes to this project will be documented in this file.
 
 deps: update dependencies
 
+- rich-domain to v1.12.0
+
+---
+### 3.1.3 - 2022-09-03
+
+### Update
+
+deps: update dependencies
+
 - rich-domain to v1.11.2
 - typescript to 4.8.2
 
