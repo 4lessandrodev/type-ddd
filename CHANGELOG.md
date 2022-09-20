@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
-### 3.1.3 - 2022-09-03
+### 3.1.4 - 2022-09-20
 
 ### Update
 
