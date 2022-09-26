@@ -25,8 +25,74 @@ describe('email-value-object.util', () => {
 		expect(valueObject.value()).toBe('valid_email@domain.com');
 	});
 
+	it('should to be a valid email', () => {
+		const valueObject = EmailValueObject.create(
+			'test-email-124@domain.com'
+		);
+		expect(valueObject.isOk()).toBe(true);
+		expect(valueObject.value().value()).toBe('test-email-124@domain.com');
+	});
+
+	it('should to be a valid email', () => {
+		const valueObject = EmailValueObject.create(
+			'test-some-value-12@domain.name'
+		);
+		expect(valueObject.isOk()).toBe(true);
+		expect(valueObject.value().value()).toBe(
+			'test-some-value-12@domain.name'
+		);
+	});
+
 	it('should fail if provide an invalid value', () => {
 		const valueObject = EmailValueObject.create('invalid_email');
+		expect(valueObject.isFail()).toBe(true);
+		expect(valueObject.error()).toBe('Invalid email');
+	});
+
+	it('should fail if provide an invalid value', () => {
+		const valueObject = EmailValueObject.create(
+			'invalid_email@domain.long-subdomain.br'
+		);
+		expect(valueObject.isFail()).toBe(true);
+		expect(valueObject.error()).toBe('Invalid email');
+	});
+
+	it('should fail if provide an invalid value', () => {
+		const valueObject = EmailValueObject.create(
+			'invalid_email@domain.net.long-country'
+		);
+		expect(valueObject.isFail()).toBe(true);
+		expect(valueObject.error()).toBe('Invalid email');
+	});
+
+	it('should fail if provide an invalid value', () => {
+		const valueObject = EmailValueObject.create(
+			'invalid_email@-domain.net.tz'
+		);
+		expect(valueObject.isFail()).toBe(true);
+		expect(valueObject.error()).toBe('Invalid email');
+	});
+
+	it('should fail if provide an invalid value', () => {
+		const valueObject = EmailValueObject.create(
+			'-invalid_email@domain.net.tz'
+		);
+		expect(valueObject.isFail()).toBe(true);
+		expect(valueObject.error()).toBe('Invalid email');
+	});
+
+	it('should fail if provide an invalid value', () => {
+		const valueObject = EmailValueObject.create(
+			'invalid_email@domain.net.tz-'
+		);
+		expect(valueObject.isFail()).toBe(true);
+		expect(valueObject.error()).toBe('Invalid email');
+	});
+
+	it('should fail if provide an invalid value', () => {
+		const valueObject = EmailValueObject.create(
+			'invalid_email@domain.net.br8'
+		);
 		expect(valueObject.isFail()).toBe(true);
 		expect(valueObject.error()).toBe('Invalid email');
 	});

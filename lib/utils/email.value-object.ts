@@ -1,6 +1,6 @@
 import { ValueObject } from '../core';
 import { Result } from '../core';
-const regexHash = /^\w+-?\.?\w+[0-9]??\@\w+[0-9]?\.\w{1,5}(\.\w{2})?(?!.)/;
+import { IsValidEmail } from './email.validator.util';
 
 interface Prop {
 	value: string;
@@ -28,8 +28,20 @@ export class EmailValueObject extends ValueObject<Prop> {
 		return EmailValueObject.isValidProps(value);
 	}
 
+	/**
+	 * @description validate email value
+	 * @param email string
+	 * @returns true if email value is valid and returns false if not.
+	 *
+	 * @requires email not greater than 256 char.
+	 * @requires contain symbol @
+	 * @requires contain [domain].[org].[optional country]
+	 * @requires contain [nick letters] with [hifen or numbers]
+	 * @requires starts [a-z]
+	 * @requires ends [a-z]
+	 */
 	public static isValidProps(email: string): boolean {
-		return this.validator.string(email).match(regexHash);
+		return IsValidEmail(email);
 	}
 
 	public static create(value: string): Result<EmailValueObject> {
