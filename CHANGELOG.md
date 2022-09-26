@@ -6,6 +6,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 2.12.3 - 2022-09-26
+
+### Update
+
+- deps: update dependencies
+- EmailValueObject: remove regex and added function validation
+
+---
+
 ### 2.12.2 - 2022-08-05
 
 ### Update

@@ -18,7 +18,7 @@ export interface SignupDto {
 }
 
 export interface IUserRepo {
-	exists: ({ email: string }) => Promise<boolean>;
+	exists: ({ email }: { email: string }) => Promise<boolean>;
 	save: (user: UserAggregate) => Promise<void>;
 }
 
