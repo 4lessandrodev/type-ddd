@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
+### 3.1.5 - 2022-09-26
+
+### Fixed
+
+- EmailValueObject: remove regex and added function validation
+
+---
 ### 3.1.4 - 2022-09-20
 
 ### Update
