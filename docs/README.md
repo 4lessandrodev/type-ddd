@@ -81,6 +81,22 @@ IResult<A, B, C>;
 
 ```
 
+Alternative shortcuts
+
+```ts
+
+import { Ok, Fail } from 'types-ddd';
+
+// Success use case
+
+return Ok<string>('success message');
+
+// Failure use case
+
+return Fail('error message here');
+
+```
+
 Example how to use generic types.
 First let's create our interfaces to use as generic type.
 - The type of data to be retrieved can be any type you want.

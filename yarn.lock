@@ -688,10 +688,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.18.tgz#633184f55c322e4fb08612307c274ee6d5ed3154"
   integrity sha512-m+6nTEOadJZuTPkKR/SYK3A2d7FZrgElol9UP1Kae90VVU4a6mxnPuLiIW1m4Cq4gZ/nWb9GrdVXJCoCazDAbg==
 
-"@types/node@^18.7.14":
-  version "18.7.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.22.tgz#76f7401362ad63d9d7eefa7dcdfa5fcd9baddff3"
-  integrity sha512-TsmoXYd4zrkkKjJB0URF/mTIKPl+kVcbqClB2F/ykU7vil1BfWZVndOnpEIozPv4fURD28gyPFeIkW2G+KXOvw==
+"@types/node@^18.7.22":
+  version "18.7.23"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.23.tgz#75c580983846181ebe5f4abc40fe9dfb2d65665f"
+  integrity sha512-DWNcCHolDq0ZKGizjx2DZjR/PqsYwAcYUJmfMWqtVU2MBMG5Mo+xFZrhGId5r/O5HOuMPyQEcM6KUBp5lBZZBg==
 
 "@types/pino@^7.0.5":
   version "7.0.5"
@@ -3120,7 +3120,7 @@ pino@*:
     sonic-boom "^3.1.0"
     thread-stream "^2.0.0"
 
-pino@^8.4.2:
+pino@^8.6.0:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/pino/-/pino-8.6.0.tgz#b82132965b1549d617b02b7d4e29da7c68ae0361"
   integrity sha512-gCEOs6XpgiM8mSFjiLXQejDJ1PZww8AUmHowQ16QpqpXQDIm3mFwn/29+Y6CJxd6i+x3uXduuerjq+IqWoABbA==
@@ -3384,9 +3384,9 @@ rfdc@^1.3.0:
   integrity sha512-V2hovdzFbOi77/WajaSMXk2OLm+xNIeQdMMuB7icj7bk6zi2F8GGAxigcnDFpJHbNyNcgyJDiP+8nOrY5cZGrA==
 
 rich-domain@^1.12.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/rich-domain/-/rich-domain-1.12.0.tgz#03de7bd25b15f2c6abb869fdfc33a91a88276242"
-  integrity sha512-cBPvJYXK5iGGvYXiHi5m4ANIQrQf9/wYZhNn6VHer8c6no0YmHjxsUYoICFbNz4ztNA7Erd9enLP6THFMRAeXg==
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/rich-domain/-/rich-domain-1.13.0.tgz#0f4691e9a65822714eb06d1818409f0dd5a4cfac"
+  integrity sha512-H77TRkgEpnoV79kLLmdspH9VHR5ydf5cEJt3SjUTL0VIPUPb9IR1zSizC0ZOxhWbc5AgIw/v87gz7dLjWnGTaQ==
 
 rimraf@^3.0.0, rimraf@^3.0.2:
   version "3.0.2"
