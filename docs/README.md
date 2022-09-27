@@ -89,6 +89,10 @@ import { Ok, Fail } from 'types-ddd';
 
 // Success use case
 
+return Ok();
+
+// OR 
+
 return Ok<string>('success message');
 
 // Failure use case
