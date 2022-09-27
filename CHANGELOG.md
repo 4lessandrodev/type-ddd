@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
+### 3.2.0 - 2022-09-26
+
+### Added
+
+- update deps: rich-domain
+- feat: implement function Fail 
+- feat: implement function Ok
+
+---
 ### 3.1.5 - 2022-09-26
 
 ### Fixed
