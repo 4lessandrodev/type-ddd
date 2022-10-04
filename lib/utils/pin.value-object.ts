@@ -14,7 +14,7 @@ interface Prop {
  */
 export class PinValueObject extends ValueObject<Prop> {
 	private constructor(prop: Prop) {
-		super(prop);
+		super(prop, { disableSetters: true });
 	}
 
 	/**

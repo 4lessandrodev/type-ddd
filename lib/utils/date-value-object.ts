@@ -43,7 +43,7 @@ export class DateValueObject extends ValueObject<Prop> {
 	private readonly ONE_YEAR: number = 31622400000;
 
 	private constructor(props: Prop) {
-		super(props);
+		super(props, { disableSetters: true });
 	}
 
 	/**

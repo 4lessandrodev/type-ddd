@@ -9,7 +9,7 @@ interface OrderIdProps {
 
 class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	private constructor(props: OrderIdProps) {
-		super(props);
+		super(props, { disableSetters: true });
 	}
 
 	/**

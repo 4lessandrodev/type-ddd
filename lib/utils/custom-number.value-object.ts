@@ -26,7 +26,7 @@ const defaultCustomProps: CustomNmbProps = {
 export class CustomNumberValueObject extends ValueObject<Prop> {
 	private readonly customProps: CustomNmbProps;
 	private constructor(props: Prop, customProps?: CustomNmbProps) {
-		super(props);
+		super(props, { disableSetters: true });
 		this.customProps = customProps ?? defaultCustomProps;
 	}
 

@@ -9,8 +9,12 @@ interface Prop {
 }
 
 class PasswordValueObject extends ValueObject<Prop> {
-	constructor(props: Prop) {
-		super(props);
+	protected static readonly MAX_LENGTH = 22;
+	protected static readonly MIN_LENGTH = 5;
+	private constructor(props: Prop) {
+		super(props, {
+			disableSetters: true,
+		});
 	}
 
 	/**
@@ -85,13 +89,11 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 * @returns true if is all ok or false else not
 	 */
 	public static isValidProps(value: string): boolean {
-		const maxLength = 22;
-		const minLength = 5;
 		const { string } = this.validator;
 		if (!PasswordValueObject.isEncrypted(value)) {
 			const passwordHasRequiredLength = string(value).hasLengthBetween(
-				minLength,
-				maxLength
+				PasswordValueObject.MIN_LENGTH,
+				PasswordValueObject.MAX_LENGTH
 			);
 			return passwordHasRequiredLength;
 		}

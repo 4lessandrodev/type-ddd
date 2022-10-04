@@ -8,7 +8,7 @@ interface Prop {
 export class BirthdayValueObject extends ValueObject<Prop> {
 	private readonly ONE_YEAR: number = 31536000902;
 	private constructor(prop: Prop) {
-		super(prop);
+		super(prop, { disableSetters: true });
 	}
 
 	/**
