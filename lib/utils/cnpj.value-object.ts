@@ -13,7 +13,7 @@ interface Prop {
 
 export class CNPJValueObject extends ValueObject<Prop> {
 	private constructor(props: Prop) {
-		super(props);
+		super(props, { disableSetters: true });
 		this.removeSpecialChars();
 	}
 

@@ -14,7 +14,7 @@ interface Prop {
  */
 class MobilePhoneValueObject extends ValueObject<Prop> {
 	private constructor(prop: Prop) {
-		super(prop);
+		super(prop, { disableSetters: true });
 	}
 
 	/**

@@ -16,7 +16,7 @@ interface Props {
 
 export class DimensionValueObject extends ValueObject<DimensionValueObjectProps> {
 	private constructor(props: DimensionValueObjectProps) {
-		super(props);
+		super(props, { disableSetters: true });
 	}
 
 	get dimension(): CustomNumberValueObject {

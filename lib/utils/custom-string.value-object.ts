@@ -32,7 +32,7 @@ const defaultCustomProps: CustomStrProps = {
 export class CustomStringValueObject extends ValueObject<Prop> {
 	private readonly customProps: CustomStrProps;
 	private constructor(props: Prop, customProps?: CustomStrProps) {
-		super(props);
+		super(props, { disableSetters: true });
 		this.customProps = customProps ?? defaultCustomProps;
 	}
 

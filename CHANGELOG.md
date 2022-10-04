@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+
+---
+### 3.2.2 - 2022-10-03
+
+### Changed
+
+- result: implement freeze result instance
+- password: define protected props as MAX_LENGTH and MIN_LENGTH
+- update deps: rich-domain
+
 ---
 ### 3.2.1 - 2022-09-26
 

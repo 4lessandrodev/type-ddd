@@ -7,7 +7,7 @@ interface Prop {
 }
 export class EmailValueObject extends ValueObject<Prop> {
 	private constructor(props: Prop) {
-		super(props);
+		super(props, { disableSetters: true });
 	}
 
 	value(): string {

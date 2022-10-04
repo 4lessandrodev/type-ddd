@@ -16,7 +16,7 @@ interface Props {
 
 export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 	private constructor(props: WeightValueObjectProps) {
-		super(props);
+		super(props, { disableSetters: true });
 	}
 
 	/**

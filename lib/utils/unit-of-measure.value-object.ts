@@ -27,7 +27,7 @@ interface Prop {
 
 export class UnitOfMeasureValueObject extends ValueObject<Prop> {
 	private constructor(props: Prop) {
-		super(props);
+		super(props, { disableSetters: true });
 	}
 
 	value(): UnitOfMeasure {

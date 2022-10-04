@@ -115,7 +115,7 @@ interface OrderStatusProps {
  */
 class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 	private constructor(props: OrderStatusProps) {
-		super(props);
+		super(props, { disableSetters: true });
 	}
 
 	/**

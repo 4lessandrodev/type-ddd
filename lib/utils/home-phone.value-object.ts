@@ -13,7 +13,7 @@ interface Prop {
  */
 class HomePhoneValueObject extends ValueObject<Prop> {
 	private constructor(prop: Prop) {
-		super(prop);
+		super(prop, { disableSetters: true });
 	}
 
 	validation(value: string): boolean {
