@@ -125,7 +125,7 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 			const error =
 				beforePayload?.error() ??
 				'blocked by beforePayload hook on proxy';
-			return Result.fail<Payload, Error, any>(error as Error);
+			return Result.fail(error as Error);
 		}
 
 		const hasBeforeData = beforePayload.value();
@@ -137,7 +137,7 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		if (canExecute.isFail() || !canExecute?.value()) {
 			const error =
 				canExecute?.error() ?? 'blocked by canExecute hook on proxy';
-			return Result.fail<Payload, Error, any>(error as Error);
+			return Result.fail(error as Error);
 		}
 
 		const param = beforePayload?.value() ? beforePayload?.value() : data;
@@ -146,7 +146,7 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 
 		if (executeResult.isFail()) {
 			const error = executeResult?.error() ?? 'error on execute proxy';
-			return Result.fail<Payload, Error, any>(error as Error);
+			return Result.fail(error as Error);
 		}
 
 		const afterExecutePayload = await this.afterExecute(executeResult);
@@ -154,7 +154,7 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		if (afterExecutePayload.isFail()) {
 			const error =
 				afterExecutePayload?.error() ?? 'error on after execute proxy';
-			return Result.fail<Payload, Error, any>(error as Error);
+			return Result.fail(error as Error);
 		}
 
 		const result = afterExecutePayload.value()
