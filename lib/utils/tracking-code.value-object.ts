@@ -8,8 +8,13 @@ interface OrderIdProps {
 }
 
 class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
+	protected static readonly REGEX = regexHash;
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(props: OrderIdProps) {
-		super(props, { disableSetters: true });
+		super(props, {
+			disableSetters: TrackingCodeValueObject.DISABLE_SETTER,
+		});
 	}
 
 	/**
@@ -35,7 +40,7 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	 * XXX-A99999-9999
 	 */
 	public static isValidProps(code: string): boolean {
-		return this.validator.string(code).match(regexHash);
+		return this.validator.string(code).match(TrackingCodeValueObject.REGEX);
 	}
 
 	validation(value: string): boolean {

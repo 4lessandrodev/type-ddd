@@ -6,28 +6,26 @@ export interface ICustomNmbValidator {
 }
 
 export interface CustomNmbProps {
-	MAX?: number;
-	MIN?: number;
-	VALIDATOR?: ICustomNmbValidator;
+	MAX: number;
+	MIN: number;
+	VALIDATOR: ICustomNmbValidator;
 }
 
 interface Prop {
 	value: number;
 }
 
-const defaultCustomProps: CustomNmbProps = {
-	VALIDATOR: function (value: number) {
-		return typeof value === 'number';
-	},
-	MAX: Number.MAX_SAFE_INTEGER,
-	MIN: Number.MIN_SAFE_INTEGER,
-};
-
 export class CustomNumberValueObject extends ValueObject<Prop> {
-	private readonly customProps: CustomNmbProps;
-	private constructor(props: Prop, customProps?: CustomNmbProps) {
-		super(props, { disableSetters: true });
-		this.customProps = customProps ?? defaultCustomProps;
+	protected static readonly VALIDATOR = (value: number) =>
+		typeof value === 'number';
+	protected static readonly MAX: number = Number.MAX_SAFE_INTEGER;
+	protected static readonly MIN: number = Number.MIN_SAFE_INTEGER;
+	protected static readonly DISABLE_SETTER: boolean = true;
+
+	private constructor(props: Prop) {
+		super(props, {
+			disableSetters: CustomNumberValueObject.DISABLE_SETTER,
+		});
 	}
 
 	/**
@@ -72,23 +70,22 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 	 * MIN: Number.MIN_SAFE_INTEGER,
 	 */
 	get customValidation(): CustomNmbProps {
-		return this.customProps;
+		return {
+			MAX: CustomNumberValueObject.MAX,
+			MIN: CustomNumberValueObject.MIN,
+			VALIDATOR: CustomNumberValueObject.VALIDATOR,
+		};
 	}
 
 	/**
 	 *
 	 * @param value number
-	 * @param customProps @see CustomNmbProps
 	 * @returns boolean
 	 */
-	public static isValidValue(
-		value: number,
-		customProps?: CustomNmbProps
-	): boolean {
-		const MAX = customProps?.MAX ?? defaultCustomProps.MAX;
-		const MIN = customProps?.MIN ?? defaultCustomProps.MIN;
-		const VALIDATOR =
-			customProps?.VALIDATOR ?? defaultCustomProps.VALIDATOR;
+	public static isValidValue(value: number): boolean {
+		const MAX = CustomNumberValueObject.MAX;
+		const MIN = CustomNumberValueObject.MIN;
+		const VALIDATOR = CustomNumberValueObject.VALIDATOR;
 
 		if (VALIDATOR && MAX && MIN) {
 			return VALIDATOR(value) && value >= MIN && value <= MAX;
@@ -98,20 +95,14 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 		);
 	}
 
-	public static create(
-		value: number,
-		customProps?: CustomNmbProps
-	): Result<CustomNumberValueObject> {
-		const isValidValue = CustomNumberValueObject.isValidValue(
-			value,
-			customProps
-		);
+	public static create(value: number): Result<CustomNumberValueObject> {
+		const isValidValue = CustomNumberValueObject.isValidValue(value);
 
 		if (!isValidValue) {
 			return Result.fail('Invalid value for a custom number');
 		}
 
-		return Result.Ok(new CustomNumberValueObject({ value }, customProps));
+		return Result.Ok(new CustomNumberValueObject({ value }));
 	}
 }
 

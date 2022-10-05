@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+---
+### 3.3.0 - 2022-10-05
+
+### Changed
+
+- value-objects: implement customization for value objects
 
 ---
 ### 3.2.2 - 2022-10-03

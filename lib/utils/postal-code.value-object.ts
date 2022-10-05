@@ -7,8 +7,11 @@ interface Prop {
 }
 
 class PostalCodeValueObject extends ValueObject<Prop> {
+	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly REGEX = regexHash;
+
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: true });
+		super(prop, { disableSetters: PostalCodeValueObject.DISABLE_SETTER });
 	}
 
 	/**
@@ -28,12 +31,12 @@ class PostalCodeValueObject extends ValueObject<Prop> {
 	 * @param value PostalCode as string
 	 * @returns true if value match with pattern and false if do not.
 	 */
-	public static isValidValue(value: string): boolean {
-		return this.validator.string(value).match(regexHash);
+	public static isValidProps(value: string): boolean {
+		return this.validator.string(value).match(PostalCodeValueObject.REGEX);
 	}
 
 	public static create(value: string): Result<PostalCodeValueObject> {
-		if (!PostalCodeValueObject.isValidValue(value)) {
+		if (!PostalCodeValueObject.isValidProps(value)) {
 			return Result.fail('Invalid postal code');
 		}
 		return Result.Ok(new PostalCodeValueObject({ value }));

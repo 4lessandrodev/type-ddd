@@ -9,8 +9,11 @@ interface Prop {
 }
 
 class HEXColorValueObject extends ValueObject<Prop> {
+	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly REGEX = regexHash;
+
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: true });
+		super(prop, { disableSetters: HEXColorValueObject.DISABLE_SETTER });
 	}
 
 	value(): string {
@@ -38,7 +41,7 @@ class HEXColorValueObject extends ValueObject<Prop> {
 	 */
 	public static isValidProps(value: string): boolean {
 		const lower = value.toLowerCase();
-		return this.validator.string(lower).match(regexHash);
+		return this.validator.string(lower).match(HEXColorValueObject.REGEX);
 	}
 
 	/**

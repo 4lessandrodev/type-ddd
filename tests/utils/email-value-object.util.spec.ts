@@ -179,4 +179,32 @@ describe('email-value-object.util', () => {
 		expect(vo.get('value')).toBe('my-email@domain.com');
 		expect(vo.getNick()).toBe('my-email');
 	});
+
+	it('should to be a valid domain', () => {
+		const result = EmailValueObject.create('some-name@gmail.com');
+		expect(result.isOk()).toBeTruthy();
+	});
+});
+
+describe('email-blocked-list', () => {
+	it('should fail if domain is on blocked list', () => {
+		Reflect.set(EmailValueObject, 'BLOCKED_DOMAINS', [
+			'gmail.com',
+			'hotmail.com',
+		]);
+		const result = EmailValueObject.create('some-name@gmail.com');
+		expect(result.isFail()).toBeTruthy();
+	});
+
+	it('should fail is domain is not available', () => {
+		Reflect.set(EmailValueObject, 'VALID_DOMAINS', [
+			'types.com',
+			'finance.com',
+		]);
+		const result1 = EmailValueObject.create('some-name@crypto.com');
+		const result2 = EmailValueObject.create('some-name@finance.com');
+
+		expect(result1.isFail()).toBeTruthy();
+		expect(result2.isOk()).toBeTruthy();
+	});
 });

@@ -10,8 +10,11 @@ interface Prop {
 }
 
 class RGBColorValueObject extends ValueObject<Prop> {
+	protected static readonly REGEX = regexHash;
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: true });
+		super(prop, { disableSetters: RGBColorValueObject.DISABLE_SETTER });
 	}
 
 	value(): string {
@@ -29,7 +32,7 @@ class RGBColorValueObject extends ValueObject<Prop> {
 	 * @returns true if pattern match else return false
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(regexHash);
+		return this.validator.string(value).match(RGBColorValueObject.REGEX);
 	}
 
 	/**

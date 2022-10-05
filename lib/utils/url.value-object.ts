@@ -7,8 +7,11 @@ interface Prop {
 }
 
 class UrlValueObject extends ValueObject<Prop> {
+	protected static readonly REGEX = regexHash;
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: true });
+		super(prop, { disableSetters: UrlValueObject.DISABLE_SETTER });
 	}
 
 	/**
@@ -25,7 +28,7 @@ class UrlValueObject extends ValueObject<Prop> {
 	 * @returns true if value is a valid url and false if does not
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(regexHash);
+		return this.validator.string(value).match(UrlValueObject.REGEX);
 	}
 
 	validation(value: string): boolean {

@@ -26,8 +26,12 @@ interface Prop {
 }
 
 export class UnitOfMeasureValueObject extends ValueObject<Prop> {
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(props: Prop) {
-		super(props, { disableSetters: true });
+		super(props, {
+			disableSetters: UnitOfMeasureValueObject.DISABLE_SETTER,
+		});
 	}
 
 	value(): UnitOfMeasure {

@@ -2,7 +2,6 @@ import { ValueObject } from '../core';
 import { Result } from '../core';
 import CustomNumberValueObject from './custom-number.value-object';
 import { UnitOfMeasure, UnitsOfMeasure } from './unit-of-measure.value-object';
-import { CustomNmbProps } from './custom-number.value-object';
 
 interface DimensionValueObjectProps {
 	dimension: CustomNumberValueObject;
@@ -15,8 +14,10 @@ interface Props {
 }
 
 export class DimensionValueObject extends ValueObject<DimensionValueObjectProps> {
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(props: DimensionValueObjectProps) {
-		super(props, { disableSetters: true });
+		super(props, { disableSetters: DimensionValueObject.DISABLE_SETTER });
 	}
 
 	get dimension(): CustomNumberValueObject {
@@ -229,10 +230,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 		return this;
 	}
 
-	public static create(
-		{ unit, value }: Props,
-		customValidation?: CustomNmbProps
-	): Result<DimensionValueObject> {
+	public static create({ unit, value }: Props): Result<DimensionValueObject> {
 		const isValidUnit = unit in UnitsOfMeasure;
 
 		if (!isValidUnit) {
@@ -240,8 +238,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 		}
 
 		const customNumber = CustomNumberValueObject.create(
-			parseFloat(value.toFixed(3)),
-			customValidation
+			parseFloat(value.toFixed(3))
 		);
 		if (customNumber.isFail()) {
 			return Result.fail(customNumber.error());

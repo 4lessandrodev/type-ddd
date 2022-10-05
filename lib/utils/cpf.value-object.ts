@@ -12,8 +12,11 @@ interface Prop {
 }
 
 export class CPFValueObject extends ValueObject<Prop> {
+	protected static readonly REGEX = regexCpf;
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(props: Prop) {
-		super(props, { disableSetters: true });
+		super(props, { disableSetters: CPFValueObject.DISABLE_SETTER });
 		this.removeSpecialChars();
 	}
 
@@ -67,7 +70,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example "72725477824"
 	 */
 	public static isValidProps(value: string): boolean {
-		const isValidPattern = regexCpf.test(value);
+		const isValidPattern = CPFValueObject.REGEX.test(value);
 		const isValidDigits = isValidCpfDigit(value);
 		return isValidDigits && isValidPattern;
 	}
