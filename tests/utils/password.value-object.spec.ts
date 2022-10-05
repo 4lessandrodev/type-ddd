@@ -16,17 +16,17 @@ describe('password.value-object', () => {
 			const valueObject = PasswordValueObject.create('1234');
 			expect(valueObject.isOk()).toBe(false);
 			expect(valueObject.error()).toBe(
-				'Password must has min 5 and max 21 chars'
+				'Password must has min 5 and max 22 chars'
 			);
 		});
 
-		it('should fail if try to create a password greater than 21 char', () => {
+		it('should fail if try to create a password greater than 22 char', () => {
 			const valueObject = PasswordValueObject.create(
 				'123456789101112131415161718'
 			);
 			expect(valueObject.isOk()).toBe(false);
 			expect(valueObject.error()).toBe(
-				'Password must has min 5 and max 21 chars'
+				'Password must has min 5 and max 22 chars'
 			);
 		});
 

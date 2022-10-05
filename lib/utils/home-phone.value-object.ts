@@ -12,8 +12,11 @@ interface Prop {
  * @default (XX) XXXX-XXXX
  */
 class HomePhoneValueObject extends ValueObject<Prop> {
+	protected static readonly REGEX = regexHash;
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: true });
+		super(prop, { disableSetters: HomePhoneValueObject.DISABLE_SETTER });
 	}
 
 	validation(value: string): boolean {
@@ -26,7 +29,7 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	 * @returns true if pattern match and false if not.
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(regexHash);
+		return this.validator.string(value).match(HomePhoneValueObject.REGEX);
 	}
 
 	/**

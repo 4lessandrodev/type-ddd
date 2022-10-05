@@ -56,8 +56,9 @@ interface Prop {
  */
 class CurrencyValueObject extends ValueObject<Prop> {
 	private cents: number;
+	protected static readonly DISABLE_SETTER: boolean = true;
 	private constructor(props: Prop) {
-		super(props, { disableSetters: true });
+		super(props, { disableSetters: CurrencyValueObject.DISABLE_SETTER });
 		this.cents = convertValueToCent(props.value);
 	}
 

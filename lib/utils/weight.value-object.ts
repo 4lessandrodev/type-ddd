@@ -2,7 +2,6 @@ import CustomNumberValueObject from './custom-number.value-object';
 import { Result } from '../core';
 import { ValueObject } from '../core';
 import { UnitOfWeight, UnitsOfWeight } from './weight-unit.value-object';
-import { CustomNmbProps } from './custom-number.value-object';
 
 interface WeightValueObjectProps {
 	unit: UnitOfWeight;
@@ -15,8 +14,10 @@ interface Props {
 }
 
 export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(props: WeightValueObjectProps) {
-		super(props, { disableSetters: true });
+		super(props, { disableSetters: WeightValueObject.DISABLE_SETTER });
 	}
 
 	/**
@@ -240,13 +241,9 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 		return this;
 	}
 
-	public static create(
-		{ value, unit }: Props,
-		customValidation?: CustomNmbProps
-	): Result<WeightValueObject> {
+	public static create({ value, unit }: Props): Result<WeightValueObject> {
 		const customNumber = CustomNumberValueObject.create(
-			parseFloat(value.toFixed(3)),
-			customValidation
+			parseFloat(value.toFixed(3))
 		);
 
 		const isValidUnit = unit in UnitsOfWeight;

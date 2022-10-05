@@ -1,39 +1,31 @@
 import { ValueObject } from '../core';
 import { Result } from '../core';
 
-interface ICustomStringLength {
-	MAX: number;
-	MIN: number;
-}
-
 export interface ICustomStrValidator {
 	(value: string): boolean;
 }
 
 export interface CustomStrProps {
-	LENGTH: ICustomStringLength;
-	VALIDATOR?: ICustomStrValidator;
+	MAX_LENGTH: number;
+	MIN_LENGTH: number;
+	VALIDATOR: ICustomStrValidator;
 }
 
 interface Prop {
 	value: string;
 }
 
-const defaultCustomProps: CustomStrProps = {
-	VALIDATOR: function (value: string) {
-		return typeof value === 'string';
-	},
-	LENGTH: {
-		MAX: 255,
-		MIN: 1,
-	},
-};
-
 export class CustomStringValueObject extends ValueObject<Prop> {
-	private readonly customProps: CustomStrProps;
-	private constructor(props: Prop, customProps?: CustomStrProps) {
-		super(props, { disableSetters: true });
-		this.customProps = customProps ?? defaultCustomProps;
+	protected static readonly VALIDATOR = (value: string) =>
+		typeof value === 'string';
+	protected static readonly MAX_LENGTH: number = 255;
+	protected static readonly MIN_LENGTH: number = 1;
+	protected static readonly DISABLE_SETTER: boolean = true;
+
+	private constructor(props: Prop) {
+		super(props, {
+			disableSetters: CustomStringValueObject.DISABLE_SETTER,
+		});
 	}
 
 	/**
@@ -81,40 +73,29 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 	 * MIN: 1
 	 */
 	get customValidation(): CustomStrProps {
-		return this.customProps;
+		return {
+			MIN_LENGTH: CustomStringValueObject.MIN_LENGTH,
+			MAX_LENGTH: CustomStringValueObject.MAX_LENGTH,
+			VALIDATOR: CustomStringValueObject.VALIDATOR,
+		};
 	}
 
-	public static isValidProps(
-		value: string,
-		customProps?: CustomStrProps
-	): boolean {
-		const MIN = customProps?.LENGTH.MIN ?? defaultCustomProps.LENGTH.MIN;
-		const MAX = customProps?.LENGTH.MAX ?? defaultCustomProps.LENGTH.MAX;
-		const VALIDATOR =
-			customProps?.VALIDATOR ?? defaultCustomProps.VALIDATOR;
+	public static isValidProps(value: string): boolean {
+		const MIN = CustomStringValueObject.MIN_LENGTH;
+		const MAX = CustomStringValueObject.MAX_LENGTH;
+		const VALIDATOR = CustomStringValueObject.VALIDATOR;
 
-		if (VALIDATOR) {
-			return (
-				VALIDATOR(value) && value.length >= MIN && value.length <= MAX
-			);
-		}
-		return value.length >= MIN && value.length <= MAX;
+		return VALIDATOR(value) && value.length >= MIN && value.length <= MAX;
 	}
 
-	public static create(
-		value: string,
-		customProps?: CustomStrProps
-	): Result<CustomStringValueObject> {
-		const isValidValue = CustomStringValueObject.isValidProps(
-			value,
-			customProps
-		);
+	public static create(value: string): Result<CustomStringValueObject> {
+		const isValidValue = CustomStringValueObject.isValidProps(value);
 
 		if (!isValidValue) {
 			return Result.fail('Invalid value for a custom string');
 		}
 
-		return Result.Ok(new CustomStringValueObject({ value }, customProps));
+		return Result.Ok(new CustomStringValueObject({ value }));
 	}
 }
 

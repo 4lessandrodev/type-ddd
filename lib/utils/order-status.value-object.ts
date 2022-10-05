@@ -114,8 +114,10 @@ interface OrderStatusProps {
  * Seller has partially refunded the order.
  */
 class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(props: OrderStatusProps) {
-		super(props, { disableSetters: true });
+		super(props, { disableSetters: OrderStatusValueObject.DISABLE_SETTER });
 	}
 
 	/**

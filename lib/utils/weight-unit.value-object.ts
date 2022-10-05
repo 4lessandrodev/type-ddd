@@ -26,8 +26,10 @@ interface Prop {
 }
 
 export class WeightUnitValueObject extends ValueObject<Prop> {
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(props: Prop) {
-		super(props, { disableSetters: true });
+		super(props, { disableSetters: WeightUnitValueObject.DISABLE_SETTER });
 	}
 
 	value(): UnitOfWeight {

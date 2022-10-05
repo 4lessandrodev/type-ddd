@@ -11,9 +11,12 @@ interface Prop {
 class PasswordValueObject extends ValueObject<Prop> {
 	protected static readonly MAX_LENGTH = 22;
 	protected static readonly MIN_LENGTH = 5;
+	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly REGEX = regexHash;
+
 	private constructor(props: Prop) {
 		super(props, {
-			disableSetters: true,
+			disableSetters: PasswordValueObject.DISABLE_SETTER,
 		});
 	}
 
@@ -42,7 +45,9 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 * @returns true if instance value is encrypted else false
 	 */
 	public isEncrypted(): boolean {
-		return this.validator.string(this.props.value).match(regexHash);
+		return this.validator
+			.string(this.props.value)
+			.match(PasswordValueObject.REGEX);
 	}
 
 	/**
@@ -50,7 +55,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 * @returns true if provided value is encrypted else false
 	 */
 	public static isEncrypted(value: string): boolean {
-		return this.validator.string(value).match(regexHash);
+		return this.validator.string(value).match(PasswordValueObject.REGEX);
 	}
 
 	/**
@@ -107,7 +112,11 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 */
 	static create(value: string): Result<PasswordValueObject> {
 		if (!PasswordValueObject.isValidProps(value)) {
-			return Result.fail('Password must has min 5 and max 21 chars');
+			const max = PasswordValueObject.MAX_LENGTH;
+			const min = PasswordValueObject.MIN_LENGTH;
+			return Result.fail(
+				`Password must has min ${min} and max ${max} chars`
+			);
 		}
 		return Result.Ok(new PasswordValueObject({ value }));
 	}

@@ -1450,6 +1450,15 @@ console.log(PasswordValueObject.random(12).value());
 
 ```
 
+you can define a custom range for password length
+
+```ts
+
+Reflect.set(PasswordValueObject, "MIN_LENGTH", 10);
+Reflect.set(PasswordValueObject, "MAX_LENGTH", 20);
+
+```
+
 #### Date
 
 Just import and use
@@ -1588,6 +1597,17 @@ console.log(email.getDomain());
 
 > "mailer.com"
 
+
+```
+
+you can block same domain or define only specific domains
+
+```ts
+
+Reflect.set(EmailValueObject, "BLOCKED_DOMAINS", ["microsoft.com", "leak.com"]);
+Reflect.set(EmailValueObject, "VALID_DOMAINS", ["gmail.com", "hotmail.com"]);
+
+// now only two domains are accepted gmail and hotmail
 
 ```
 

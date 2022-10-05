@@ -1,16 +1,5 @@
-import {
-	CustomNumberValueObject,
-	CustomNmbProps,
-} from '../../lib/utils/custom-number.value-object';
+import { CustomNumberValueObject } from '../../lib/utils/custom-number.value-object';
 describe('custom-number.value-object', () => {
-	const customValidation: CustomNmbProps = {
-		MAX: 1000,
-		MIN: -1000,
-		VALIDATOR: function (value: number): boolean {
-			return value % 2 === 0;
-		},
-	};
-
 	it('should be defined', () => {
 		const valueObject = CustomNumberValueObject.create;
 		expect(valueObject).toBeDefined();
@@ -58,45 +47,18 @@ describe('custom-number.value-object', () => {
 		expect(valueObject.isFail()).toBeTruthy();
 	});
 
-	it('should fail if custom validation fails', () => {
-		const valueObject = CustomNumberValueObject.create(
-			-1200,
-			customValidation
-		);
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should fail if custom validation fails', () => {
-		const valueObject = CustomNumberValueObject.create(3, customValidation);
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should fail if custom validation fails', () => {
-		const valueObject = CustomNumberValueObject.create(3, customValidation);
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
 	it('should validate if provide a valid value', () => {
-		const valueObject = CustomNumberValueObject.create(
-			40,
-			customValidation
-		);
+		const valueObject = CustomNumberValueObject.create(40);
 		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
-		const valueObject = CustomNumberValueObject.create(
-			80,
-			customValidation
-		);
+		const valueObject = CustomNumberValueObject.create(80);
 		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should get custom validation from instance', () => {
-		const valueObject = CustomNumberValueObject.create(
-			2,
-			customValidation
-		).value();
+		const valueObject = CustomNumberValueObject.create(2).value();
 		const validation = valueObject.customValidation;
 		expect(validation.VALIDATOR).toBeDefined();
 		expect(validation.MAX).toBeDefined();
@@ -109,5 +71,48 @@ describe('custom-number.value-object', () => {
 		expect(validation.VALIDATOR).toBeDefined();
 		expect(validation.MAX).toBeDefined();
 		expect(validation.MIN).toBeDefined();
+	});
+});
+
+describe('custom validator', () => {
+	it('should fail if custom validation fails', () => {
+		Reflect.set(
+			CustomNumberValueObject,
+			'VALIDATOR',
+			(value: number) => value > 24 && value < 48
+		);
+		const valueObject = CustomNumberValueObject.create(23);
+		expect(valueObject.isFail()).toBeTruthy();
+	});
+
+	it('should fail if custom validation fails', () => {
+		Reflect.set(
+			CustomNumberValueObject,
+			'VALIDATOR',
+			(value: number) => value > 24 && value < 48
+		);
+		const valueObject = CustomNumberValueObject.create(49);
+		expect(valueObject.isFail()).toBeTruthy();
+	});
+
+	it('should validate with success', () => {
+		Reflect.set(
+			CustomNumberValueObject,
+			'VALIDATOR',
+			(value: number) => value > 24 && value < 48
+		);
+		const valueObject = CustomNumberValueObject.create(32);
+		expect(valueObject.isOk()).toBeTruthy();
+	});
+
+	it('should fail if custom validation fails', () => {
+		Reflect.set(
+			CustomNumberValueObject,
+			'VALIDATOR',
+			(value: number) => value > 24 && value < 48
+		);
+
+		const valueObject = CustomNumberValueObject.create(-1200);
+		expect(valueObject.isFail()).toBeTruthy();
 	});
 });

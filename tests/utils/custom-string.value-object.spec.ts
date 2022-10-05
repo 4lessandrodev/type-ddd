@@ -1,20 +1,5 @@
-import {
-	CustomStringValueObject,
-	CustomStrProps,
-} from '../../lib/utils/custom-string.value-object';
+import { CustomStringValueObject } from '../../lib/utils/custom-string.value-object';
 describe('custom-string.value-object', () => {
-	const customValidation: CustomStrProps = {
-		LENGTH: {
-			MAX: 8,
-			MIN: 8,
-		},
-		VALIDATOR: function (value: string): boolean {
-			// pattern: 123-abcd
-			const regex = /([0-9]{3}[-][a-z]{4})/;
-			return regex.test(value);
-		},
-	};
-
 	it('should be defined', () => {
 		const valueObject = CustomStringValueObject.create;
 		expect(valueObject).toBeDefined();
@@ -61,62 +46,55 @@ describe('custom-string.value-object', () => {
 		expect(valueObject.isFail()).toBeTruthy();
 	});
 
-	it('should fail if custom validation fails', () => {
-		const valueObject = CustomStringValueObject.create(
-			'invalid',
-			customValidation
-		);
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should fail if custom validation fails', () => {
-		const valueObject = CustomStringValueObject.create(
-			'000-abcde',
-			customValidation
-		);
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should fail if custom validation fails', () => {
-		const valueObject = CustomStringValueObject.create(
-			'1234-abcd',
-			customValidation
-		);
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
 	it('should validate if provide a valid value', () => {
-		const valueObject = CustomStringValueObject.create(
-			'123-abcd',
-			customValidation
-		);
+		const valueObject = CustomStringValueObject.create('123-abcd');
 		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should validate if provide a valid value', () => {
-		const valueObject = CustomStringValueObject.create(
-			'123-abcd',
-			customValidation
-		);
+		const valueObject = CustomStringValueObject.create('123-abcd');
 		expect(valueObject.isOk()).toBeTruthy();
 	});
 
 	it('should get custom validation from instance', () => {
-		const valueObject = CustomStringValueObject.create(
-			'123-abcd',
-			customValidation
-		).value();
-		const validation = valueObject.customValidation;
-		expect(validation.VALIDATOR).toBeDefined();
-		expect(validation.LENGTH.MAX).toBeDefined();
-		expect(validation.LENGTH.MIN).toBeDefined();
-	});
-
-	it('should get default custom validation from instance', () => {
 		const valueObject = CustomStringValueObject.create('123-abcd').value();
 		const validation = valueObject.customValidation;
 		expect(validation.VALIDATOR).toBeDefined();
-		expect(validation.LENGTH.MAX).toBeDefined();
-		expect(validation.LENGTH.MIN).toBeDefined();
+		expect(validation.MAX_LENGTH).toBeDefined();
+		expect(validation.MIN_LENGTH).toBeDefined();
+	});
+});
+
+describe('custom validation', () => {
+	it('should fail if custom validation fails', () => {
+		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
+			value.includes('0')
+		);
+		const valueObject = CustomStringValueObject.create('invalid');
+		expect(valueObject.isFail()).toBeTruthy();
+	});
+
+	it('should fail if custom validation fails', () => {
+		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
+			value.includes('0')
+		);
+		const valueObject = CustomStringValueObject.create('111-abcde');
+		expect(valueObject.isFail()).toBeTruthy();
+	});
+
+	it('should fail if custom validation fails', () => {
+		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
+			value.includes('0')
+		);
+		const valueObject = CustomStringValueObject.create('333-abcd');
+		expect(valueObject.isFail()).toBeTruthy();
+	});
+
+	it('should success if custom validation not fails', () => {
+		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
+			value.includes('0')
+		);
+		const valueObject = CustomStringValueObject.create('012-abcd');
+		expect(valueObject.isOk()).toBeTruthy();
 	});
 });

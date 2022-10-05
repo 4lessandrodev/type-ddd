@@ -12,8 +12,11 @@ interface Prop {
 }
 
 export class CNPJValueObject extends ValueObject<Prop> {
+	protected static readonly REGEX = regexCnpj;
+	protected static readonly DISABLE_SETTER: boolean = true;
+
 	private constructor(props: Prop) {
-		super(props, { disableSetters: true });
+		super(props, { disableSetters: CNPJValueObject.DISABLE_SETTER });
 		this.removeSpecialChars();
 	}
 
@@ -67,7 +70,7 @@ export class CNPJValueObject extends ValueObject<Prop> {
 	 * @example "22398345000188"
 	 */
 	public static isValidProps(value: string): boolean {
-		const isValidPattern = regexCnpj.test(value);
+		const isValidPattern = CNPJValueObject.REGEX.test(value);
 		const isValidDigits = isValidCnpjDigit(value);
 		return isValidDigits && isValidPattern;
 	}
