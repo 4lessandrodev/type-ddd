@@ -56,14 +56,14 @@
 	"dependencies": {
 		"bcrypt": "^5.0.1",
 		"pino": "^8.6.1",
-		"pino-pretty": "^9.0.0",
+		"pino-pretty": "^9.1.1",
 		"rich-domain": "^1.14.1"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.14.1",
 		"@types/bcrypt": "^5.0.0",
 		"@types/jest": "^27.0.1",
-		"@types/node": "^18.8.1",
+		"@types/node": "^18.8.2",
 		"@types/pino": "^7.0.5",
 		"husky": "^8.0.1",
 		"jest": "^27.5.1",
