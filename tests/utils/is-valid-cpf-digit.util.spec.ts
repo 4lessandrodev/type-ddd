@@ -78,4 +78,9 @@ describe('is-valid-cpf-digits', () => {
 		const isValidCpfDigitFn = formatValueToCpfPattern('valcpfstrd0');
 		expect(isValidCpfDigitFn).toBe('val.cpf.str-d0');
 	});
+
+	it('should to be valid cpf', () => {
+		const isValid = isValidCpfDigit('15173713097');
+		expect(isValid).toBeTruthy();
+	});
 });

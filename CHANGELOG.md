@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
+
+### 3.3.1 - 2022-11-03
+
+### Fixed
+
+- value-objects: calc validation
+
+---
 ### 3.3.0 - 2022-10-05
 
 ### Changed
