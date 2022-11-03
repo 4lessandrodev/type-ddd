@@ -64,7 +64,7 @@ export const calculateCpfDigits = (cpfNumbers: number[]): CpfDigits => {
 
 	const calcPDigit = totalForDigit % factor;
 	const resultPDigit = factor - calcPDigit;
-	const zeroIfPGreaterThanNine = resultPDigit >= 9 ? 0 : resultPDigit;
+	const zeroIfPGreaterThanNine = resultPDigit > 9 ? 0 : resultPDigit;
 	const penultimateDigit = zeroIfPGreaterThanNine;
 
 	index = 0;

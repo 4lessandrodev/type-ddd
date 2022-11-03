@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 2.12.4 - 2022-11-03
+
+### Fixed
+
+- cpf-validation: fix cpf validation
+
+---
 ### 2.12.3 - 2022-09-26
 
 ### Update
