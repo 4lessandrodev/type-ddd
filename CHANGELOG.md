@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 3.3.2 - 2022-11-07
+
+### Changed
+
+- chore: deps - update deps
+
+---
+
 ### 3.3.1 - 2022-11-03
 
 ### Fixed
