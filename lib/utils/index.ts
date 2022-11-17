@@ -26,3 +26,4 @@ export * from './hex-color.value-object';
 export * from './color-generator.util';
 export * from './color-converter.util';
 export * from './order-status.value-object';
+export * from 'rich-domain/utils';

@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 3.3.3 - 2022-11-17
+
+### Changed
+
+- Ok and Fail: ensure export from lib
+
+---
+
 ### 3.3.2 - 2022-11-07
 
 ### Changed
