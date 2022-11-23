@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "3.3.4",
+	"version": "3.3.5",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -57,7 +57,7 @@
 		"bcrypt": "^5.0.1",
 		"pino": "^8.6.1",
 		"pino-pretty": "^9.1.1",
-		"rich-domain": "^1.14.3"
+		"rich-domain": "^1.14.4"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.14.1",
