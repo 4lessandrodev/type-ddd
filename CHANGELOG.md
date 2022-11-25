@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### 3.3.6 - 2022-11-25
+
+### Update
+
+- rich-domain: update lib core to 1.14.5
+
+---
+
 ### 3.3.5 - 2022-11-22
 
 ### Update
