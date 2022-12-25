@@ -97,4 +97,18 @@ describe('custom validation', () => {
 		const valueObject = CustomStringValueObject.create('012-abcd');
 		expect(valueObject.isOk()).toBeTruthy();
 	});
+
+	it('should customize message on error', () => {
+		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
+			value.includes('0')
+		);
+		Reflect.set(
+			CustomStringValueObject,
+			'MESSAGE',
+			'Oops my custom message'
+		);
+		const valueObject = CustomStringValueObject.create('AAAAAA');
+		expect(valueObject.isOk()).toBeFalsy();
+		expect(valueObject.error()).toBe('Oops my custom message');
+	});
 });

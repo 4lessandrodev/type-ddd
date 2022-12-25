@@ -1695,3 +1695,38 @@ console.log(birthDay.getAgeAsYearsOld());
 
 
 ```
+
+
+#### Custom string
+
+```ts
+// my-custom-string.ts
+
+import { CustomStringValueObject } from 'types-ddd';
+
+
+Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) => typeof value === 'string');
+Reflect.set(CustomStringValueObject, 'MESSAGE', "my custom error message");
+
+const MyCustomString = CustomStringValueObject;
+export MyCustomString;
+export default MyCustomString;
+
+```
+
+#### Custom number
+
+```ts
+// my-custom-number.ts
+
+import { CustomNumberValueObject } from 'types-ddd';
+
+
+Reflect.set(CustomNumberValueObject, 'VALIDATOR', (value: string) => typeof value === 'number');
+Reflect.set(CustomNumberValueObject, 'MESSAGE', "my custom error message");
+
+const MyCustomNumber = CustomNumberValueObject;
+export MyCustomNumber;
+export default MyCustomNumber;
+
+```
