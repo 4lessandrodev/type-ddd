@@ -16,11 +16,14 @@ interface Prop {
 }
 
 export class CustomNumberValueObject extends ValueObject<Prop> {
-	protected static readonly VALIDATOR = (value: number) =>
-		typeof value === 'number';
+	protected static readonly VALIDATOR = (value: number) => {
+		return typeof value === 'number';
+	};
 	protected static readonly MAX: number = Number.MAX_SAFE_INTEGER;
 	protected static readonly MIN: number = Number.MIN_SAFE_INTEGER;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string =
+		'Invalid value for a custom number';
 
 	private constructor(props: Prop) {
 		super(props, {
@@ -99,7 +102,7 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 		const isValidValue = CustomNumberValueObject.isValidValue(value);
 
 		if (!isValidValue) {
-			return Result.fail('Invalid value for a custom number');
+			return Result.fail(CustomNumberValueObject.MESSAGE);
 		}
 
 		return Result.Ok(new CustomNumberValueObject({ value }));

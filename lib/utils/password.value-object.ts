@@ -13,6 +13,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 	protected static readonly MIN_LENGTH = 5;
 	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly REGEX = regexHash;
+	protected static readonly MESSAGE: string = `Password must has min ${PasswordValueObject.MIN_LENGTH} and max ${PasswordValueObject.MAX_LENGTH} chars`;
 
 	private constructor(props: Prop) {
 		super(props, {
@@ -96,7 +97,9 @@ class PasswordValueObject extends ValueObject<Prop> {
 	public static isValidProps(value: string): boolean {
 		const { string } = this.validator;
 		if (!PasswordValueObject.isEncrypted(value)) {
-			const passwordHasRequiredLength = string(value).hasLengthBetween(
+			const passwordHasRequiredLength = string(
+				value
+			).hasLengthBetweenOrEqual(
 				PasswordValueObject.MIN_LENGTH,
 				PasswordValueObject.MAX_LENGTH
 			);
@@ -112,11 +115,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 */
 	static create(value: string): Result<PasswordValueObject> {
 		if (!PasswordValueObject.isValidProps(value)) {
-			const max = PasswordValueObject.MAX_LENGTH;
-			const min = PasswordValueObject.MIN_LENGTH;
-			return Result.fail(
-				`Password must has min ${min} and max ${max} chars`
-			);
+			return Result.fail(PasswordValueObject.MESSAGE);
 		}
 		return Result.Ok(new PasswordValueObject({ value }));
 	}

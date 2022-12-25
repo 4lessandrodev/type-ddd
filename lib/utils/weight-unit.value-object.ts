@@ -27,6 +27,7 @@ interface Prop {
 
 export class WeightUnitValueObject extends ValueObject<Prop> {
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = 'Invalid weight unit value';
 
 	private constructor(props: Prop) {
 		super(props, { disableSetters: WeightUnitValueObject.DISABLE_SETTER });
@@ -52,7 +53,7 @@ export class WeightUnitValueObject extends ValueObject<Prop> {
 		const isValid = WeightUnitValueObject.isValidProps(value);
 
 		if (!isValid) {
-			return Result.fail('Invalid weight unit value');
+			return Result.fail(WeightUnitValueObject.MESSAGE);
 		}
 
 		return Result.Ok(new WeightUnitValueObject({ value }));

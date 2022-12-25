@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 3.4.0 - 2022-12-25
+
+### Update
+
+- rich-domain: update lib core to 1.15.0
+- value-objects: added MESSAGE attribute to instance
+
+Now its possible to customize error message
+
+Example:
+
+```ts
+
+// custom-user-name.ts
+
+import { UserNameValueObject } from 'types-ddd';
+
+Reflect.set(UserNameValueObject, "MIN_LENGTH", 3);
+Reflect.set(UserNameValueObject, "MAX_LENGTH", 20);
+Reflect.set(UserNameValueObject, "MESSAGE", "Username must be a maximum of 3 and a minimum of 20 characters");
+
+const CustomName = UserNameValueObject;
+
+export CustomName; // > import this to create your user name
+export default CustomName;
+
+```
+
+---
+
 ### 3.3.7 - 2022-11-27
 
 ### Update

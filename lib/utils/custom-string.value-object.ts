@@ -16,11 +16,14 @@ interface Prop {
 }
 
 export class CustomStringValueObject extends ValueObject<Prop> {
-	protected static readonly VALIDATOR = (value: string) =>
-		typeof value === 'string';
+	protected static readonly VALIDATOR = (value: string) => {
+		return typeof value === 'string';
+	};
 	protected static readonly MAX_LENGTH: number = 255;
 	protected static readonly MIN_LENGTH: number = 1;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string =
+		'Invalid value for a custom string';
 
 	private constructor(props: Prop) {
 		super(props, {
@@ -92,7 +95,7 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 		const isValidValue = CustomStringValueObject.isValidProps(value);
 
 		if (!isValidValue) {
-			return Result.fail('Invalid value for a custom string');
+			return Result.fail(CustomStringValueObject.MESSAGE);
 		}
 
 		return Result.Ok(new CustomStringValueObject({ value }));

@@ -130,7 +130,7 @@ So let's implement that on a simple function.
 
 ```ts
 
-const isPair = (value: number):IResult<IData, IError, IMeta> => {
+const isEven = (value: number): Result<IData, IError, IMeta> => {
 
 	const isPairValue = value % 2 === 0;
 	const metaData: IMeta = { arg: value };
@@ -138,17 +138,17 @@ const isPair = (value: number):IResult<IData, IError, IMeta> => {
 	if (isPairValue) {
 		
 		// success payload 
-		const payload: IData = { data: `${value} is pair` };
+		const payload: IData = { data: `${value} is even` };
 
 		// return success
-		return Result.Ok(payload, metaData);
+		return Ok(payload, metaData);
 	}
 
 	// failure payload 
-	const error: IError = { message: `${value} is not pair` };
+	const error: IError = { message: `${value} is not even` };
 
 	// return failure
-	return Result.fail(error, metaData);
+	return Fail(error, metaData);
 };
 
 
@@ -159,7 +159,7 @@ Success Case
 
 ```ts
 
-const result = isPair(42);
+const result = isEven(42);
 
 console.log(result.isOk());
 
@@ -167,7 +167,7 @@ console.log(result.isOk());
 
 console.log(result.value());
 
-> 'Object { data: "42 is pair" }'
+> 'Object { data: "42 is even" }'
 
 console.log(result.metaData());
 
@@ -182,7 +182,7 @@ Failure Case
 
 ```ts
 
-const result = isPair(43);
+const result = isEven(43);
 
 console.log(result.isFail());
 
@@ -190,7 +190,7 @@ console.log(result.isFail());
 
 console.log(result.error());
 
-> 'Object { message: "43 is not pair" }'
+> 'Object { message: "43 is not even" }'
 
 console.log(result.metaData());
 
@@ -209,15 +209,15 @@ Let's see the same example using void.
 
 ```ts
 
-const checkPair = (value: number): Result<void> => {
+const checkEven = (value: number): Result<void> => {
 
 	const isPair = value % 2 === 0;
 
 	// success case
-	if(isPair) return Result.Ok(); 
+	if(isPair) return Ok(); 
 	
 	// failure case
-	return Result.fail('not pair');
+	return Fail('not enven');
 }
 
 ```
@@ -225,7 +225,7 @@ Using the function as success example
 
 ```ts
 
-const result: IResult<void> = checkPair(42);
+const result: Result<void> = checkEven(42);
 
 console.log(result.isOk());
 
@@ -253,7 +253,7 @@ Fail example
 
 ```ts
 
-const result: IResult<void> = checkPair(43);
+const result: Result<void> = checkEven(43);
 
 console.log(result.isFail());
 
@@ -265,7 +265,7 @@ console.log(result.isOk());
 
 console.log(result.error());
 
-> "not pair"
+> "not even"
 
 console.log(result.value());
 
@@ -287,7 +287,7 @@ console.log(result.toObject());
 > Object
 `{
 	"data": null, 
-	"error": "not pair", 
+	"error": "not even", 
 	"isFail": true, 
 	"isOk": false, 
 	"metaData": Object {}
@@ -366,6 +366,10 @@ const resultC = Result.Ok();
 
 const result = Result.combine([resultA, resultB, resultC]);
 
+// OR you can use Combine function
+
+const result = Combine([resultA, resultB, resultC]);
+
 console.log(result.isOk());
 
 > false
@@ -390,7 +394,17 @@ Create a new uuid.
 
 ```ts
 
+// ID main
+
 const id = ID.create();
+
+// OR Id as function
+
+const id = Id();
+
+// OR id instance
+
+const id = id.create();
 
 console.log(id.value());
 
@@ -511,8 +525,8 @@ export class Name extends ValueObject<NameProps>{
 		super(props);
 	}
 
-	public static create(props: NameProps): IResult<Name> {
-		return Result.Ok(new Name(props));
+	public static create(value: string): IResult<Name> {
+		return Ok(new Name({ value }));
 	}
 }
 
@@ -525,7 +539,7 @@ The `create` method returns an instance of Name encapsulated by the `Result`, so
 
 ```ts
 
-const result = Name.create({ value: 'Jane' });
+const result = Name.create('Jane');
 
 console.log(result.isOk());
 
@@ -544,6 +558,8 @@ Once we have an instance of a value object, we can use some methods that the lib
 By default setters are enabled
 
 ```ts
+
+// Prefer to create new instance instead of changing value to value object. Do not use set to value object.
 
 name.set('value').to('John');
 
@@ -570,7 +586,7 @@ console.log(name.get('value'));
 
 ```
 
-> **I don't advise you to use state change of a value object. Create a new one instead of changing its state. However the library will leave that up to you to decide.**
+> **We don't advise you to use state change of a value object. Create a new one instead of changing its state. However the library will leave that up to you to decide.**
 
 To disable the setters of a value object use the parameters below in the super.<br>
 This property disables the set function of the value object.
@@ -606,7 +622,7 @@ A validator instance is available in the "Value Object" domain class.
 
 ```ts
 
-import { IResult, Result, ValueObject } from "types-ddd";
+import { Ok, Fail, Result, ValueObject } from "types-ddd";
 
 export interface NameProps {
 	value: string;
@@ -619,15 +635,15 @@ export class Name extends ValueObject<NameProps>{
 
 	public static isValidProps({ value }: NameProps): boolean {
 		const { string } = this.validator;
-		return string(value).hasLengthBetween(3, 30);
+		return string(value).hasLengthBetweenOrEqual(3, 30);
 	}
 
-	public static create(props: NameProps): IResult<Name> {
+	public static create(value: string): Result<Name> {
 		const message = 'name must have length min 3 and max 30 char';
 
-		if (!this.isValidProps(props)) return Result.fail(message);
+		if (!this.isValidProps({ value })) return Fail(message);
 
-		return Result.Ok(new Name(props));
+		return Ok(new Name({ value }));
 	}
 }
 
@@ -641,7 +657,7 @@ Now when you try to instantiate a name, the value will be checked and if it does
 
 const empty = '';
 
-const result = Name.create({ value: empty });
+const result = Name.create(empty);
 
 console.log(result.isFail());
 
@@ -687,7 +703,7 @@ Let's see a complete example as below
 
 ```ts
 
-import { IResult, Result, ValueObject } from "types-ddd";
+import { Result, Result, ValueObject } from "types-ddd";
 
 export interface NameProps {
 	value: string;
@@ -707,12 +723,12 @@ export class Name extends ValueObject<NameProps>{
 		return string(value).hasLengthBetween(3, 30);
 	}
 
-	public static create(props: NameProps): IResult<Name> {
+	public static create(value: string): IResult<Name> {
 		const message = 'name must have length min 3 and max 30 char';
 
-		if (!this.isValidProps(props)) return Result.fail(message);
+		if (!this.isValidProps({ value })) return Fail(message);
 
-		return Result.Ok(new Name(props));
+		return Ok(new Name({ value }));
 	}
 }
 
@@ -725,7 +741,7 @@ Value is not modified if it does not pass validation.
 
 ```ts
 
-const result = Name.create({ value: 'Jane' });
+const result = Name.create('Jane');
 
 console.log(result.isOk());
 
@@ -759,9 +775,9 @@ This method is useful for cases where you have value objects inside other value 
 
 ```ts
 
-const street = Street.create({ value: 'Dom Juan' }).value();
+const street = Street.create('Dom Juan').value();
 
-const number = Number.create({ value: 42 }).value();
+const number = Number.create(42).value();
 
 const result = Address.create({ street, number });
 
@@ -782,7 +798,7 @@ This method creates a new instance with the same properties as the current value
 
 ```ts
 
-const result = Name.create({ value: 'Sammy' });
+const result = Name.create('Sammy');
 
 const originalName = result.value();
 
@@ -891,11 +907,11 @@ All attributes for an entity must be value object except id.
 
 ```ts
 
-const nameAttr = Name.create({ value: 'James' });
-const ageAttr = Name.create({ value: 21 });
+const nameAttr = Name.create('James');
+const ageAttr = Age.create(21);
 
 // always check if value objects are success
-const voResult = Result.combine([nameAttr, ageAttr])
+const voResult = Combine([ nameAttr, ageAttr ])
 
 console.log(voResult.isOk());
 
@@ -944,7 +960,7 @@ you can create an instance by entering an id
 
 const name = nameAttr.value();
 
-const id = ID.create('my-id-value-01');
+const id = ID.create('a3a5ea9d-7c57-4743-8a9b-5315fad365d0');
 
 const result = User.create({ id, age, name });
 
@@ -960,9 +976,9 @@ console.log(user.toObject());
 `{
 	age: 21,
 	name: "James",
-	id: "my-id-value-01",
 	createdAt: "2022-08-13T03:51:25.738Z",
 	updatedAt: "2022-08-13T03:51:25.738Z"
+	id: "a3a5ea9d-7c57-4743-8a9b-5315fad365d0",
  }`
 
 ```
@@ -1048,7 +1064,7 @@ in entities you can easily change an attribute with `change` or `set` method
 
 ```ts
 
-const result = Name.create({ value: 'Larry' });
+const result = Name.create('Larry');
 
 const newName = result.value();
 
@@ -1154,7 +1170,7 @@ const user = result.value();
 
  const newUser = clonedUser.value();
 
- const newNameResult = Name.create({ value: 'Luke' });
+ const newNameResult = Name.create('Luke');
 
  const newName = newNameResult.value();
 
@@ -1450,12 +1466,13 @@ console.log(PasswordValueObject.random(12).value());
 
 ```
 
-you can define a custom range for password length
+you can define a custom range for password length and error message
 
 ```ts
 
 Reflect.set(PasswordValueObject, "MIN_LENGTH", 10);
 Reflect.set(PasswordValueObject, "MAX_LENGTH", 20);
+Reflect.set(PasswordValueObject, "MESSAGE", "Password must be between 10 and 20 characters");
 
 ```
 

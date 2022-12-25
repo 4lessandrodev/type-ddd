@@ -115,6 +115,8 @@ interface OrderStatusProps {
  */
 class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string =
+		'Invalid status value for an order';
 
 	private constructor(props: OrderStatusProps) {
 		super(props, { disableSetters: OrderStatusValueObject.DISABLE_SETTER });
@@ -147,7 +149,7 @@ class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 		value: AvailableOrderStatusType
 	): Result<OrderStatusValueObject> {
 		if (!OrderStatusValueObject.isValidProps(value)) {
-			return Result.fail('Invalid status value for an order');
+			return Result.fail(OrderStatusValueObject.MESSAGE);
 		}
 
 		return Result.Ok(new OrderStatusValueObject({ value }));

@@ -14,6 +14,7 @@ interface Prop {
  */
 export class PinValueObject extends ValueObject<Prop> {
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = 'Invalid value for a pin';
 
 	private constructor(prop: Prop) {
 		super(prop, { disableSetters: PinValueObject.DISABLE_SETTER });
@@ -80,7 +81,7 @@ export class PinValueObject extends ValueObject<Prop> {
 
 		const isValidValue = PinValueObject.isValidProps(value);
 		if (!isValidValue) {
-			return Result.fail('Invalid value for a pin');
+			return Result.fail(PinValueObject.MESSAGE);
 		}
 
 		return Result.Ok(new PinValueObject({ value }));

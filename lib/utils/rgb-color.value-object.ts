@@ -12,6 +12,8 @@ interface Prop {
 class RGBColorValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexHash;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string =
+		'Invalid rgb value. It must match with pattern rgb(255, 255, 255)';
 
 	private constructor(prop: Prop) {
 		super(prop, { disableSetters: RGBColorValueObject.DISABLE_SETTER });
@@ -61,9 +63,7 @@ class RGBColorValueObject extends ValueObject<Prop> {
 	 */
 	public static create(value: string): Result<RGBColorValueObject> {
 		if (!RGBColorValueObject.isValidProps(value)) {
-			return Result.fail(
-				'Invalid rgb value. It must match with pattern rgb(255, 255, 255)'
-			);
+			return Result.fail(RGBColorValueObject.MESSAGE);
 		}
 		return Result.Ok(new RGBColorValueObject({ value }));
 	}

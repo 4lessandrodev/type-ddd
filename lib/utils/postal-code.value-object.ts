@@ -9,6 +9,7 @@ interface Prop {
 class PostalCodeValueObject extends ValueObject<Prop> {
 	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly REGEX = regexHash;
+	protected static readonly MESSAGE: string = 'Invalid postal code';
 
 	private constructor(prop: Prop) {
 		super(prop, { disableSetters: PostalCodeValueObject.DISABLE_SETTER });
@@ -19,7 +20,7 @@ class PostalCodeValueObject extends ValueObject<Prop> {
 	 * @example 75520140
 	 */
 	value(): string {
-		return this.props.value.replace(/-/g, '');
+		return this.props.value.replace(/-|\./g, '');
 	}
 
 	validation(value: string): boolean {
@@ -37,7 +38,7 @@ class PostalCodeValueObject extends ValueObject<Prop> {
 
 	public static create(value: string): Result<PostalCodeValueObject> {
 		if (!PostalCodeValueObject.isValidProps(value)) {
-			return Result.fail('Invalid postal code');
+			return Result.fail(PostalCodeValueObject.MESSAGE);
 		}
 		return Result.Ok(new PostalCodeValueObject({ value }));
 	}
