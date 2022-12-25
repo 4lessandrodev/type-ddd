@@ -10,6 +10,8 @@ interface OrderIdProps {
 class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	protected static readonly REGEX = regexHash;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string =
+		'Invalid value for Tracking code';
 
 	private constructor(props: OrderIdProps) {
 		super(props, {
@@ -59,7 +61,7 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 		const value = code ?? TrackingCodeValueObject.generate();
 		if (code) {
 			if (!TrackingCodeValueObject.isValidProps(code)) {
-				return Result.fail('Invalid value for Tracking code');
+				return Result.fail(TrackingCodeValueObject.MESSAGE);
 			}
 		}
 		return Result.Ok(new TrackingCodeValueObject({ value }));

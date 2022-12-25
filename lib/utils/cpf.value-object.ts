@@ -14,6 +14,7 @@ interface Prop {
 export class CPFValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexCpf;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = 'Invalid value for cpf';
 
 	private constructor(props: Prop) {
 		super(props, { disableSetters: CPFValueObject.DISABLE_SETTER });
@@ -98,7 +99,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 		const isValidValue = CPFValueObject.isValidProps(value);
 
 		if (!isValidValue) {
-			return Result.fail('Invalid value for cpf');
+			return Result.fail(CPFValueObject.MESSAGE);
 		}
 
 		return Result.Ok(new CPFValueObject({ value }));

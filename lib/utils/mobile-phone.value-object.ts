@@ -15,6 +15,7 @@ interface Prop {
 class MobilePhoneValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexHash;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = 'Invalid Mobile Phone Number';
 
 	private constructor(prop: Prop) {
 		super(prop, { disableSetters: MobilePhoneValueObject.DISABLE_SETTER });
@@ -70,7 +71,7 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	 */
 	public static create(value: string): Result<MobilePhoneValueObject> {
 		if (!MobilePhoneValueObject.isValidProps(value)) {
-			return Result.fail('Invalid Mobile Phone Number');
+			return Result.fail(MobilePhoneValueObject.MESSAGE);
 		}
 		return Result.Ok(new MobilePhoneValueObject({ value }));
 	}

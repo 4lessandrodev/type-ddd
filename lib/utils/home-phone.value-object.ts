@@ -14,6 +14,7 @@ interface Prop {
 class HomePhoneValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexHash;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = 'Invalid Home Phone Number';
 
 	private constructor(prop: Prop) {
 		super(prop, { disableSetters: HomePhoneValueObject.DISABLE_SETTER });
@@ -69,7 +70,7 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	 */
 	public static create(value: string): Result<HomePhoneValueObject> {
 		if (!HomePhoneValueObject.isValidProps(value)) {
-			return Result.fail('Invalid Home Phone Number');
+			return Result.fail(HomePhoneValueObject.MESSAGE);
 		}
 		return Result.Ok(new HomePhoneValueObject({ value }));
 	}

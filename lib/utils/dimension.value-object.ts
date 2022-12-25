@@ -15,6 +15,7 @@ interface Props {
 
 export class DimensionValueObject extends ValueObject<DimensionValueObjectProps> {
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = 'Invalid unit for Dimension';
 
 	private constructor(props: DimensionValueObjectProps) {
 		super(props, { disableSetters: DimensionValueObject.DISABLE_SETTER });
@@ -234,7 +235,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 		const isValidUnit = unit in UnitsOfMeasure;
 
 		if (!isValidUnit) {
-			return Result.fail('Invalid unit for Dimension');
+			return Result.fail(DimensionValueObject.MESSAGE);
 		}
 
 		const customNumber = CustomNumberValueObject.create(

@@ -115,4 +115,22 @@ describe('custom validator', () => {
 		const valueObject = CustomNumberValueObject.create(-1200);
 		expect(valueObject.isFail()).toBeTruthy();
 	});
+
+	it('should customize message', () => {
+		Reflect.set(
+			CustomNumberValueObject,
+			'VALIDATOR',
+			(value: number) => value > 24 && value < 48
+		);
+
+		Reflect.set(
+			CustomNumberValueObject,
+			'MESSAGE',
+			'My custom message on error'
+		);
+
+		const valueObject = CustomNumberValueObject.create(-1200);
+		expect(valueObject.isFail()).toBeTruthy();
+		expect(valueObject.error()).toBe('My custom message on error');
+	});
 });
