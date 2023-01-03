@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 3.4.1 - 2023-01-03
+
+### Fix
+
+- user-name.value-object: remove empty spaces. By: [VinnyLima](https://github.com/VinnyLima)
+
+---
 ### 3.4.0 - 2022-12-25
 
 ### Update
