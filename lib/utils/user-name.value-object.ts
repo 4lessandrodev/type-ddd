@@ -28,7 +28,10 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns instance
 	 */
 	private capitalize(): UserNameValueObject {
-		const names = this.props.value.split(' ');
+		const names = this.props.value.split(' ').filter((name) => {
+			return name.length > 1;
+		});
+
 		const capitalized: string[] = [];
 		for (const name of names) {
 			const lowerCaseName =
