@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 3.4.2 - 2023-01-03
+
+### Fix
+
+- node version: update requirements. node version required >=16 and < 19
+
+---
+
 ### 3.4.1 - 2023-01-03
 
 ### Fix
