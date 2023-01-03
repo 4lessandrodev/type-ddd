@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "3.4.0",
+	"version": "3.4.1",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -10,6 +10,10 @@
 		{
 			"name": "Marko Zlatar",
 			"url": "https://github.com/mark01zlatar"
+		},
+		{
+			"name": "Paulo Vinicius",
+			"url": "https://github.com/VinnyLima"
 		}
 	],
 	"engines": {
