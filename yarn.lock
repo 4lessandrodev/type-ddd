@@ -683,7 +683,7 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
-"@types/node@*", "@types/node@^18.11.17":
+"@types/node@^18.11.17":
   version "18.11.18"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.18.tgz#8dfb97f0da23c2293e554c5a50d61ef134d7697f"
   integrity sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==
@@ -1424,9 +1424,9 @@ detective-postcss@^4.0.0:
     postcss-values-parser "^2.0.1"
 
 detective-postcss@^5.0.0:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/detective-postcss/-/detective-postcss-5.1.1.tgz#ec23ac3818f8be95ac3a38a8b9f3b6d43103ef87"
-  integrity sha512-YJMsvA0Y6/ST9abMNcQytl9iFQ2bfu4I7B74IUiAvyThfaI9Y666yipL+SrqfReoIekeIEwmGH72oeqX63mwUw==
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/detective-postcss/-/detective-postcss-5.1.3.tgz#773314cd017621b7d382be81331eb0c7abbe8cc3"
+  integrity sha512-Wo7PUpF6wqeT1aRgajdyIdDRjFFJVxlXPRAlT1aankH/RVOgrJuEZFZ4ABxYXdzaRPO5Lkg8rHxsxpLnxdJIYA==
   dependencies:
     is-url "^1.2.4"
     postcss "^8.4.6"
