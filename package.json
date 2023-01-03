@@ -13,7 +13,7 @@
 		}
 	],
 	"engines": {
-		"node": ">=14"
+		"node": ">=18.x"
 	},
 	"keywords": [
 		"Complexity",
@@ -63,7 +63,7 @@
 		"@microsoft/tsdoc": "^0.14.1",
 		"@types/bcrypt": "^5.0.0",
 		"@types/jest": "^27.0.1",
-		"@types/node": "^18.11.17",
+		"@types/node": "^18.11.18",
 		"@types/pino": "^7.0.5",
 		"husky": "^8.0.1",
 		"jest": "^27.5.1",
