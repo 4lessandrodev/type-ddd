@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 3.4.3 - 2023-01-05
+
+### Updated
+
+- rich-domain: update lib core to 1.15.2
+
+---
+
 ### 3.4.2 - 2023-01-03
 
 ### Fix
