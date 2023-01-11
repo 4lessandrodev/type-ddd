@@ -109,7 +109,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 */
 	public static isValidProps(value: string): boolean {
 		const { string } = this.validator;
-		return string(value).hasLengthBetweenOrEqual(
+		return string(value).hasLengthBetween(
 			UserNameValueObject.MIN_LENGTH,
 			UserNameValueObject.MAX_LENGTH
 		);

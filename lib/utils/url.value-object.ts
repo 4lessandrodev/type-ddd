@@ -1,7 +1,7 @@
 import { ValueObject } from '../core';
 import { Result } from '../core';
 const regexHash =
-	/^(https?:\/\/)?(([\da-z\.-]+))?\.?([a-z\.]{2,6})([\/\w \.-]*)*\/?(:\d{2,4})?(\/\w+)?$/;
+	/^(https?:\/\/)(([\da-z\.-]+))?\.?([a-z\.]{2,6})([\/\w \.-]*)*\/?(:\d{2,4})?(\/\w+)?$/;
 
 interface Prop {
 	value: string;
