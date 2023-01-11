@@ -63,6 +63,19 @@ describe('custom-string.value-object', () => {
 		expect(validation.MAX_LENGTH).toBeDefined();
 		expect(validation.MIN_LENGTH).toBeDefined();
 	});
+
+	it('should be get string only numbers', () => {
+		const valueObject =
+			CustomStringValueObject.create('B2D05E00').value().onlyNumbers;
+		expect(valueObject).toBe('20500');
+	});
+
+	it('should be get string without chars especial', () => {
+		const valueObject = CustomStringValueObject.create(
+			'===[brazil(*-*)free]==='
+		);
+		expect(valueObject.value().removeSpecialChars).toBe('brazilfree');
+	});
 });
 
 describe('custom validation', () => {
