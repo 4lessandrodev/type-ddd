@@ -63,6 +63,20 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 	}
 
 	/**
+	 * @returns value without special chars as string
+	 */
+	get removeSpecialChars(): string {
+		return this.props.value.replace(/[^a-zA-Z0-9]/g, '');
+	}
+
+	/**
+	 * @returns value only numbers as string
+	 */
+	get onlyNumbers(): string {
+		return this.props.value.replace(/\D/g, '');
+	}
+
+	/**
 	 * @returns validation
 	 * @method VALIDATOR: function (value: string): boolean;
 	 * @property
