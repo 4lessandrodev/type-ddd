@@ -10,6 +10,7 @@ interface Prop {
 class UrlValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexHash;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = 'Invalid url value';
 
 	private constructor(prop: Prop) {
 		super(prop, { disableSetters: UrlValueObject.DISABLE_SETTER });
@@ -43,7 +44,7 @@ class UrlValueObject extends ValueObject<Prop> {
 	 */
 	public static create(value: string): Result<UrlValueObject> {
 		if (!UrlValueObject.isValidProps(value)) {
-			return Result.fail('Invalid url value');
+			return Result.fail(UrlValueObject.MESSAGE);
 		}
 		return Result.Ok(new UrlValueObject({ value }));
 	}

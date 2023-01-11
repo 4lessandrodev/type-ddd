@@ -121,4 +121,32 @@ describe('user-name.value-object', () => {
 		const username = UserNameValueObject.create('FIRSt').value();
 		expect(username.getInitials()).toBe('F');
 	});
+
+	it('should name with duple spaces', () => {
+		const username = UserNameValueObject.create(
+			'José caleb  dos Santos'
+		).value();
+		expect(username.value()).toBe('José Caleb Dos Santos');
+	});
+
+	it('should name with duple spaces and two caracter "de" ', () => {
+		const username = UserNameValueObject.create(
+			'José caleb  de Oliveira'
+		).value();
+		expect(username.value()).toBe('José Caleb De Oliveira');
+	});
+
+	it('should name with duple spaces and two caracter specials ', () => {
+		const username = UserNameValueObject.create(
+			'José caleb , de Oliveira'
+		).value();
+		expect(username.value()).toBe('José Caleb De Oliveira');
+	});
+
+	it('should name with three spaces in name', () => {
+		const username = UserNameValueObject.create(
+			'José caleb   de Oliveira'
+		).value();
+		expect(username.value()).toBe('José Caleb De Oliveira');
+	});
 });

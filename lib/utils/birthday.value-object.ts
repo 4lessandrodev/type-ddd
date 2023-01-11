@@ -9,6 +9,7 @@ export class BirthdayValueObject extends ValueObject<Prop> {
 	private readonly ONE_YEAR: number = 31536000902;
 	protected static readonly MAX_HUMAN_AGE: number = 121;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = `Invalid age for a human. Must has less than ${BirthdayValueObject.MAX_HUMAN_AGE} years old and birth not in future`;
 
 	private constructor(prop: Prop) {
 		super(prop, { disableSetters: BirthdayValueObject.DISABLE_SETTER });
@@ -68,10 +69,7 @@ export class BirthdayValueObject extends ValueObject<Prop> {
 
 	public static create(value: Date): Result<BirthdayValueObject> {
 		if (!BirthdayValueObject.isValidValue(value)) {
-			const maxAge = BirthdayValueObject.MAX_HUMAN_AGE;
-			return Result.fail(
-				`Invalid age for a human. Must has less than ${maxAge} years old and birth not in future`
-			);
+			return Result.fail(BirthdayValueObject.MESSAGE);
 		}
 		return Result.Ok(new BirthdayValueObject({ value }));
 	}

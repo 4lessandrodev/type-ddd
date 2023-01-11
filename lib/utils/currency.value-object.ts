@@ -57,6 +57,8 @@ interface Prop {
 class CurrencyValueObject extends ValueObject<Prop> {
 	private cents: number;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = `Value is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`;
+
 	private constructor(props: Prop) {
 		super(props, { disableSetters: CurrencyValueObject.DISABLE_SETTER });
 		this.cents = convertValueToCent(props.value);
@@ -236,9 +238,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 			return Result.fail(`${props.value} is not a number`);
 		}
 		if (!CurrencyValueObject.isSafeValue(props.value)) {
-			return Result.fail(
-				`${props.value} is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`
-			);
+			return Result.fail(CurrencyValueObject.MESSAGE);
 		}
 		return Result.Ok(new CurrencyValueObject(props));
 	}

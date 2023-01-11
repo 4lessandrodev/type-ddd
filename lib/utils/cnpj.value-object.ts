@@ -14,6 +14,7 @@ interface Prop {
 export class CNPJValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexCnpj;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = 'Invalid value for cnpj';
 
 	private constructor(props: Prop) {
 		super(props, { disableSetters: CNPJValueObject.DISABLE_SETTER });
@@ -97,7 +98,7 @@ export class CNPJValueObject extends ValueObject<Prop> {
 		const isValidValue = CNPJValueObject.isValidProps(value);
 
 		if (!isValidValue) {
-			return Result.fail('Invalid value for cnpj');
+			return Result.fail(CNPJValueObject.MESSAGE);
 		}
 
 		return Result.Ok(new CNPJValueObject({ value }));

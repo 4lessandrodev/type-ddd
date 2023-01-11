@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "3.3.7",
+	"version": "3.4.3",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -10,10 +10,14 @@
 		{
 			"name": "Marko Zlatar",
 			"url": "https://github.com/mark01zlatar"
+		},
+		{
+			"name": "Paulo Vinicius",
+			"url": "https://github.com/VinnyLima"
 		}
 	],
 	"engines": {
-		"node": ">=14"
+		"node": ">=16.x <19"
 	},
 	"keywords": [
 		"Complexity",
@@ -55,25 +59,25 @@
 	"homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs",
 	"dependencies": {
 		"bcrypt": "^5.0.1",
-		"pino": "^8.6.1",
+		"pino": "^8.8.0",
 		"pino-pretty": "^9.1.1",
-		"rich-domain": "^1.14.6"
+		"rich-domain": "^1.15.2"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.14.1",
 		"@types/bcrypt": "^5.0.0",
 		"@types/jest": "^27.0.1",
-		"@types/node": "^18.8.2",
+		"@types/node": "^18.11.18",
 		"@types/pino": "^7.0.5",
 		"husky": "^8.0.1",
 		"jest": "^27.5.1",
 		"lint-staged": "^13.0.4",
 		"madge": "^5.0.1",
-		"prettier": "^2.6.2",
+		"prettier": "^2.8.1",
 		"rimraf": "^3.0.2",
 		"ts-jest": "^27.1.4",
 		"ts-node": "^10.7.0",
-		"typescript": "^4.9.3"
+		"typescript": "^4.9.4"
 	},
 	"files": [
 		"dist/*",

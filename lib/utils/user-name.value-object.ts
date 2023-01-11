@@ -9,6 +9,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	protected static readonly MAX_LENGTH: number = 41;
 	protected static readonly MIN_LENGTH: number = 2;
 	protected static readonly DISABLE_SETTER: boolean = true;
+	protected static readonly MESSAGE: string = `Invalid name length. Must has min ${UserNameValueObject.MIN_LENGTH} and max ${UserNameValueObject.MAX_LENGTH} chars`;
 
 	private constructor(props: Prop) {
 		super(props, { disableSetters: UserNameValueObject.DISABLE_SETTER });
@@ -27,7 +28,10 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns instance
 	 */
 	private capitalize(): UserNameValueObject {
-		const names = this.props.value.split(' ');
+		const names = this.props.value.split(' ').filter((name) => {
+			return name.length > 1;
+		});
+
 		const capitalized: string[] = [];
 		for (const name of names) {
 			const lowerCaseName =
@@ -105,7 +109,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 */
 	public static isValidProps(value: string): boolean {
 		const { string } = this.validator;
-		return string(value).hasLengthBetween(
+		return string(value).hasLengthBetweenOrEqual(
 			UserNameValueObject.MIN_LENGTH,
 			UserNameValueObject.MAX_LENGTH
 		);
@@ -114,11 +118,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	public static create(value: string): Result<UserNameValueObject> {
 		const isValidValue = UserNameValueObject.isValidProps(value);
 		if (!isValidValue) {
-			const max = UserNameValueObject.MAX_LENGTH;
-			const min = UserNameValueObject.MIN_LENGTH;
-			return Result.fail(
-				`Invalid name length. Must has min ${min} and max ${max} chars`
-			);
+			return Result.fail(UserNameValueObject.MESSAGE);
 		}
 		return Result.Ok(new UserNameValueObject({ value }));
 	}
