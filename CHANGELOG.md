@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 3.4.4 - 2023-01-12
+
+### Added
+
+- custom-string.value-object: By: [VinnyLima](https://github.com/VinnyLima)
+- removeSpecialChars and onlyNumbers: [Issue 223](https://github.com/4lessandrodev/types-ddd/issues/223)
+- email.value-object: added MESSAGE as customizable value
+
+---
+
 ### 3.4.3 - 2023-01-05
 
 ### Updated
