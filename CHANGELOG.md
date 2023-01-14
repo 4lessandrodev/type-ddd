@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### 3.4.5 - 2023-01-14
+
+### Changed
+
+- date.value-object: rename method from `isEqual` to `isEqualDate`
+
+### Update
+
+- rich-domain: update lib core to 1.16.0
+- Entity: added method isEqual to compare current instance with another one.
+- ValueObject: added method isEqual to compare current instance with another one. [Issue 27](https://github.com/4lessandrodev/rich-domain/issues/27)
+
+---
+
 ### 3.4.4 - 2023-01-12
 
 ### Added

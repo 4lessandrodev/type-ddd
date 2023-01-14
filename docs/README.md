@@ -1194,17 +1194,12 @@ You can compare two entities.
 
 ```ts
 
-const isEqual = user1.equal(user2);
+const isEqual = user1.isEqual(user2);
 
 console.log(isEqual);
 
 > false
 
-const isDeepEqual = user1.deepEqual(user2);
-
-console.log(isDeepEqual);
-
-> false
 
 ```
 
