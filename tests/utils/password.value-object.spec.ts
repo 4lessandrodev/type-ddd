@@ -67,6 +67,20 @@ describe('password.value-object', () => {
 			expect(isEncrypted).toBe(false);
 		});
 
+		it('should not generate equal password', () => {
+			const passA = PasswordValueObject.random(12);
+			const passB = PasswordValueObject.random(12);
+			const isEqual = passA.isEqual(passB);
+			expect(isEqual).toBe(false);
+		});
+
+		it('should password to be equal', () => {
+			const passA = PasswordValueObject.random(12);
+			const passB = passA.clone().value();
+			const isEqual = passA.isEqual(passB);
+			expect(isEqual).toBe(true);
+		});
+
 		it('should generate a valid random password not encrypted default 12 chars', () => {
 			const result = PasswordValueObject.random();
 			const isEncrypted = result.isEncrypted();

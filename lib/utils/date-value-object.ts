@@ -438,7 +438,7 @@ export class DateValueObject extends ValueObject<Prop> {
 	 * @param date as Date
 	 * @returns true or false. True if instance date is equal to provided value
 	 */
-	isEqual(date: Date): boolean {
+	isEqualDate(date: Date): boolean {
 		const time = date.getTime();
 		const instanceTime = this.props.value.getTime();
 		return instanceTime === time;

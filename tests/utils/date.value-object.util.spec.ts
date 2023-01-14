@@ -300,6 +300,6 @@ describe('date.value-object', () => {
 		const date = DateValueObject.create(
 			new Date('2022-01-02 00:00:00')
 		).value();
-		expect(date.isEqual(new Date('2021-01-01 00:00:00'))).toBe(false);
+		expect(date.isEqualDate(new Date('2021-01-01 00:00:00'))).toBe(false);
 	});
 });
