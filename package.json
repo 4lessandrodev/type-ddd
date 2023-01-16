@@ -74,7 +74,7 @@
 		"lint-staged": "^13.0.4",
 		"madge": "^5.0.1",
 		"prettier": "^2.8.1",
-		"rimraf": "^3.0.2",
+		"rimraf": "^4.0.7",
 		"ts-jest": "^27.1.4",
 		"ts-node": "^10.7.0",
 		"typescript": "^4.9.4"
