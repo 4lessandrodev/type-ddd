@@ -3,11 +3,17 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+---
+### 3.4.7 - 2023-01-19
+
+### Update
+
+- rich-domain: update lib core to 1.16.2
 
 ---
 ### 3.4.6 - 2023-01-18
 
-### Added
+### Update
 
 - rich-domain: update lib core to 1.16.1
 
