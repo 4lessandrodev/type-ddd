@@ -207,4 +207,12 @@ describe('email-blocked-list', () => {
 		expect(result1.isFail()).toBeTruthy();
 		expect(result2.isOk()).toBeTruthy();
 	});
+
+	it('should fail with custom message', () => {
+		Reflect.set(EmailValueObject, 'MESSAGE', 'Valor inválido para email');
+		const result = EmailValueObject.create('invalid');
+
+		expect(result.isFail()).toBeTruthy();
+		expect(result.error()).toBe('Valor inválido para email');
+	});
 });

@@ -10,6 +10,7 @@ export class EmailValueObject extends ValueObject<Prop> {
 	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly BLOCKED_DOMAINS: Array<string> = [];
 	protected static readonly VALID_DOMAINS: Array<string> = [];
+	protected static readonly MESSAGE: string = 'Invalid email';
 
 	private constructor(props: Prop) {
 		super(props, { disableSetters: EmailValueObject.DISABLE_SETTER });
@@ -67,7 +68,7 @@ export class EmailValueObject extends ValueObject<Prop> {
 
 	public static create(value: string): Result<EmailValueObject> {
 		if (!EmailValueObject.isValidProps(value)) {
-			return Result.fail('Invalid email');
+			return Result.fail(EmailValueObject.MESSAGE);
 		}
 		return Result.Ok(new EmailValueObject({ value }));
 	}

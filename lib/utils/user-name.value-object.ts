@@ -38,7 +38,11 @@ export class UserNameValueObject extends ValueObject<Prop> {
 				name[0].toUpperCase() + name.slice(1).toLowerCase();
 			capitalized.push(lowerCaseName);
 		}
-		this.props.value = capitalized.toString().replace(/,/g, ' ');
+		const value = this.util
+			.string(capitalized.toString())
+			.replace(',')
+			.to(' ');
+		this.props.value = value;
 		return this;
 	}
 
@@ -94,7 +98,10 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	getInitials(): string {
 		const names = this.props.value.split(' ');
 		const letters = names.map((name) => name[0]);
-		const initials = letters.toString().replace(/,/g, '.');
+		const initials = this.util
+			.string(letters.toString())
+			.replace(',')
+			.to('.');
 		return initials;
 	}
 

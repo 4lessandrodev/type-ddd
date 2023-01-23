@@ -209,7 +209,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	 * @returns boolean true if instance value is positive else false
 	 */
 	isPositive(): boolean {
-		return this.cents >= 0;
+		return this.validator.number(this.cents).isPositive();
 	}
 
 	validation(_value: any, _key: any): boolean {
