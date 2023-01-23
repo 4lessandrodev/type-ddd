@@ -30,7 +30,12 @@ class UrlValueObject extends ValueObject<Prop> {
 	 * @returns true if value is a valid url and false if does not
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(UrlValueObject.REGEX);
+		try {
+			new URL(value);
+			return true;
+		} catch (error) {
+			return false;
+		}
 	}
 
 	validation(value: string): boolean {
