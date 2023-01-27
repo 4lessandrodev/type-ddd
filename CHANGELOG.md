@@ -5,29 +5,63 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
-### 3.5.0 - 2023-01-21
+### [3.5.1] - 2023-01-27
 
 ### Update
 
-- rich-domain: update lib core to 1.17.0
-
+- Update core
+- rich-domain: update lib core to 1.17.1
 
 ---
-### 3.4.7 - 2023-01-19
+### [3.5.0] - 2023-01-21
+
+### Update
+
+- Update core
+
+### Breaking Change
+- rich-domain: update lib core to 1.17.0 check on [pull request 33](https://github.com/4lessandrodev/rich-domain/pull/33)
+
+```ts
+
+// Example using set now
+
+const changed = user.set("name").to(age);
+
+console.log(changed);
+
+> true
+
+```
+
+```ts
+
+// Example using clone now
+
+const copy = user.clone();
+
+console.log(copy.get("name").get("value"))
+
+> "Jane Doe"
+
+```
+
+---
+### [3.4.7] - 2023-01-19
 
 ### Update
 
 - rich-domain: update lib core to 1.16.2
 
 ---
-### 3.4.6 - 2023-01-18
+### [3.4.6] - 2023-01-18
 
 ### Update
 
 - rich-domain: update lib core to 1.16.1
 
 ---
-### 3.4.5 - 2023-01-14
+### [3.4.5] - 2023-01-14
 
 ### Changed
 
@@ -41,7 +75,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-### 3.4.4 - 2023-01-12
+### [3.4.4] - 2023-01-12
 
 ### Added
 
@@ -51,7 +85,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-### 3.4.3 - 2023-01-05
+### [3.4.3] - 2023-01-05
 
 ### Updated
 
@@ -59,7 +93,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-### 3.4.2 - 2023-01-03
+### [3.4.2] - 2023-01-03
 
 ### Fix
 
@@ -67,14 +101,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-### 3.4.1 - 2023-01-03
+### [3.4.1] - 2023-01-03
 
 ### Fix
 
 - user-name.value-object: remove empty spaces. By: [VinnyLima](https://github.com/VinnyLima)
 
 ---
-### 3.4.0 - 2022-12-25
+### [3.4.0] - 2022-12-25
 
 ### Update
 
@@ -104,7 +138,7 @@ export default CustomName;
 
 ---
 
-### 3.3.7 - 2022-11-27
+### [3.3.7] - 2022-11-27
 
 ### Update
 
@@ -112,7 +146,7 @@ export default CustomName;
 
 ---
 
-### 3.3.6 - 2022-11-25
+### [3.3.6] - 2022-11-25
 
 ### Update
 
@@ -120,7 +154,7 @@ export default CustomName;
 
 ---
 
-### 3.3.5 - 2022-11-22
+### [3.3.5] - 2022-11-22
 
 ### Update
 
@@ -128,7 +162,7 @@ export default CustomName;
 
 ---
 
-### 3.3.4 - 2022-11-22
+### [3.3.4] - 2022-11-22
 
 ### Update
 
@@ -136,7 +170,7 @@ export default CustomName;
 
 ---
 
-### 3.3.3 - 2022-11-17
+### [3.3.3] - 2022-11-17
 
 ### Changed
 
@@ -144,7 +178,7 @@ export default CustomName;
 
 ---
 
-### 3.3.2 - 2022-11-07
+### [3.3.2] - 2022-11-07
 
 ### Changed
 
@@ -152,21 +186,21 @@ export default CustomName;
 
 ---
 
-### 3.3.1 - 2022-11-03
+### [3.3.1] - 2022-11-03
 
 ### Fixed
 
 - value-objects: calc validation
 
 ---
-### 3.3.0 - 2022-10-05
+### [3.3.0] - 2022-10-05
 
 ### Changed
 
 - value-objects: implement customization for value objects
 
 ---
-### 3.2.2 - 2022-10-03
+### [3.2.2] - 2022-10-03
 
 ### Changed
 
@@ -175,7 +209,7 @@ export default CustomName;
 - update deps: rich-domain
 
 ---
-### 3.2.1 - 2022-09-26
+### [3.2.1] - 2022-09-26
 
 ### Changed
 
@@ -259,7 +293,7 @@ return Fail<string, MetaData>('payload', { arg: 'sample' });
 ```
 
 ---
-### 3.2.0 - 2022-09-26
+### [3.2.0] - 2022-09-26
 
 ### Added
 
@@ -268,14 +302,14 @@ return Fail<string, MetaData>('payload', { arg: 'sample' });
 - feat: implement function Ok
 
 ---
-### 3.1.5 - 2022-09-26
+### [3.1.5] - 2022-09-26
 
 ### Fixed
 
 - EmailValueObject: remove regex and added function validation
 
 ---
-### 3.1.4 - 2022-09-20
+### [3.1.4] - 2022-09-20
 
 ### Update
 
@@ -284,7 +318,7 @@ deps: update dependencies
 - rich-domain to v1.12.0
 
 ---
-### 3.1.3 - 2022-09-03
+### [3.1.3] - 2022-09-03
 
 ### Update
 
@@ -294,7 +328,7 @@ deps: update dependencies
 - typescript to 4.8.2
 
 ---
-### 3.1.2 - 2022-08-14
+### [3.1.2] - 2022-08-14
 
 ### Update
 
@@ -306,14 +340,14 @@ deps: update dependencies
 ci: install dependabot to check deps
 
 ---
-### 3.1.1 - 2022-08-14
+### [3.1.1] - 2022-08-14
 
 ### Update
 
 docs: update readme and documentation
 
 ---
-### 3.1.0 - 2022-08-10
+### [3.1.0] - 2022-08-10
 
 ### Changed
 
@@ -333,7 +367,7 @@ Change order validation args in value objects
 
 ---
 
-### 3.0.2 - 2022-08-07
+### [3.0.2] - 2022-08-07
 
 ### Update
 
@@ -341,7 +375,7 @@ Change order validation args in value objects
 
 ---
 
-### 3.0.1-beta.0 - 2022-08-05
+### [3.0.1-beta.0] - 2022-08-05
 
 ### Update
 
@@ -350,7 +384,7 @@ Change order validation args in value objects
 
 ---
 
-### 3.0.0-beta.0 - 2022-08-05
+### [3.0.0-beta.0] - 2022-08-05
 
 ### Update
 
@@ -359,7 +393,7 @@ Change order validation args in value objects
 
 ---
 
-### 3.0.0-beta - 2022-08-04
+### [3.0.0-beta] - 2022-08-04
 
 ### Change
 
@@ -368,7 +402,7 @@ Change order validation args in value objects
 
 ---
 
-### 2.12.1 - 2022-07-18
+### [2.12.1] - 2022-07-18
 
 ### Update
 
@@ -376,7 +410,7 @@ Change order validation args in value objects
 
 ---
 
-### 2.12.0 - 2022-04-18
+### [2.12.0] - 2022-04-18
 
 ### Changes
 
@@ -385,7 +419,7 @@ Change order validation args in value objects
 
 ---
 
-### 2.11.0 - 2022-04-02
+### [2.11.0] - 2022-04-02
 
 ### Added
 
@@ -393,7 +427,7 @@ Change order validation args in value objects
 
 ---
 
-### 2.10.3 - 2022-03-28
+### [2.10.3] - 2022-03-28
 
 ### Changes
 
@@ -401,7 +435,7 @@ Change order validation args in value objects
 
 ---
 
-### 2.10.2 - 2022-03-28
+### [2.10.2] - 2022-03-28
 
 ### Changes
 
@@ -412,21 +446,21 @@ Change order validation args in value objects
 
 ---
 
-### 2.10.1 - 2022-03-23
+### [2.10.1] - 2022-03-23
 
 ### Update
 
 - deps: update dependencies
 
 ---
-### 2.10.0 - 2022-02-27
+### [2.10.0] - 2022-02-27
 
 ### Fixed
 
 - toObject: return string when there is a domainId as value-object attribute
 
 ---
-### 2.9.13 - 2022-02-14
+### [2.9.13] - 2022-02-14
 
 ### Fixed
 
@@ -434,7 +468,7 @@ Change order validation args in value objects
 
 ---
 
-### 2.9.11 ~ 2.9.12 - 2022-02-13
+### [2.9.11] ~ [2.9.12] - 2022-02-13
 
 ### Changed
 
@@ -442,7 +476,7 @@ Change order validation args in value objects
 
 ---
 
-### 2.9.9 ~2.9.10 - 2022-02-13
+### [2.9.9] ~ [2.9.10] - 2022-02-13
 
 ### Changed
 
@@ -450,7 +484,7 @@ Change order validation args in value objects
 - update documentation
 
 ---
-### 2.9.8 - 2022-02-09
+### [2.9.8] - 2022-02-09
 
 ### Fixed
 
@@ -462,7 +496,7 @@ Change order validation args in value objects
 - clone: added method to clone a domain entity
 
 ---
-### 2.9.7 - 2022-01-31
+### [2.9.7] - 2022-01-31
 
 ### Added
 
@@ -475,7 +509,7 @@ TYPES_DDD_LOGS=info # show only info log
 TYPES_DDD_LOGS=warn # show only warn log
 ```
 ---
-### 2.9.6 - 2022-01-30
+### [2.9.6] - 2022-01-30
 
 ### Fixed
 
@@ -483,7 +517,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.5 - 2022-01-30
+### [2.9.5] - 2022-01-30
 
 ### Added 
 
@@ -496,7 +530,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.4 - 2022-01-29
+### [2.9.4] - 2022-01-29
 
 ### Added 
 
@@ -504,7 +538,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.3 - 2022-01-21
+### [2.9.3] - 2022-01-21
 
 ### Fixed 
 
@@ -512,7 +546,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.1 ~ 2.9.2 - 2022-01-21
+### [2.9.1] ~ [2.9.2] - 2022-01-21
 
 ### Changed 
 
@@ -525,7 +559,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.9.0 - 2022-01-21
+### [2.9.0] - 2022-01-21
 
 ### Changed 
 
@@ -538,7 +572,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 ---
 
-### 2.8.8 - 2021-12-29
+### [2.8.8] - 2021-12-29
 
 ---
 ### Added
@@ -551,7 +585,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - Entity: isAll method > new accepted type: 'null'
 
 
-### 2.8.7 - 2021-12-28
+### [2.8.7] - 2021-12-28
 
 ---
 
@@ -561,7 +595,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - State: getStateByKeys<T, E> method get many results by keys
 
 
-### 2.8.6 - 2021-12-26
+### [2.8.6]- 2021-12-26
 
 ---
 
@@ -570,7 +604,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - Entity: toObject<T, E> method transform instance in persistence object
 
 
-### 2.8.5  - 2021-12-25
+### [2.8.5]  - 2021-12-25
 
 ---
 
@@ -578,7 +612,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Entity: added method checkProps to entity instance
 
-### 2.8.4  - 2021-12-24
+### [2.8.4]  - 2021-12-24
 
 ---
 
@@ -590,7 +624,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - State: added callback on state
 
-### 2.8.3  - 2021-12-23
+### [2.8.3]  - 2021-12-23
 
 ---
 
@@ -598,7 +632,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - State: define exists method as protected
 
-### 2.8.2  - 2021-12-22
+### [2.8.2]  - 2021-12-22
 
 ---
 
@@ -607,7 +641,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - Mapper: rename to State
 - Mapper: added exists method
 
-### 2.8.1  - 2021-12-22
+### [2.8.1]  - 2021-12-22
 
 ---
 
@@ -615,7 +649,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Mapper: added logger if state key does not exits
 
-### 2.8.0  - 2021-12-22
+### [2.8.0]  - 2021-12-22
 
 ---
 
@@ -627,7 +661,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - buildToModel > change to build
 - IMapper2 > change to TMapper
 
-### 2.7.15  - 2021-12-21
+### [2.7.15]  - 2021-12-21
 
 ---
 
@@ -638,7 +672,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - buildFromModel
 - buildToModel
 
-### 2.7.14  - 2021-12-21
+### [2.7.14]  - 2021-12-21
 
 ---
 
@@ -647,7 +681,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - abstract class Mapper with state management methods
 - IMappers interface with new methods
 
-### 2.7.12 - 2.7.13  - 2021-12-14
+### [2.7.12] - [2.7.13]  - 2021-12-14
 
 ---
 
@@ -655,7 +689,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - DomainId and ShortDomainId: make both compatible
 
-### 2.7.11 - 2021-12-14
+### [2.7.11] - 2021-12-14
 
 ---
 
@@ -667,21 +701,21 @@ TYPES_DDD_LOGS=warn # show only warn log
 - toShort()
 - shortUid
 
-### 2.7.10 - 2021-12-14
+### [2.7.10] - 2021-12-14
 
 ---
 ### Fix 
 
 - ShortDomainId: export resource
 
-### 2.7.9 - 2021-12-14
+### [2.7.9] - 2021-12-14
 
 ---
 ### Added 
 
 - ShortDomainId: default short domain id - 16 bit
 
-### 2.7.8 - 2021-11-22
+### [2.7.8] - 2021-11-22
 
 ---
 
@@ -690,7 +724,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - PasswordValueObject: validate if instance value already is encrypted.
 
 
-### 2.7.7 - 2021-11-22
+### [2.7.7] - 2021-11-22
 
 ---
 
@@ -701,14 +735,14 @@ TYPES_DDD_LOGS=warn # show only warn log
 - UserNameValueObject: now capitalize method returns updated instance.
 - WeightValueObject: now update methods returns updated instance.
 
-### 2.7.6 - 2021-11-21
+### [2.7.6] - 2021-11-21
 
 ---
 ### Fixed
 
 - util: change regex to validate email (includes dot as valid char).
 
-### 2.7.5 - 2021-10-11
+### [2.7.5] - 2021-10-11
 
 ---
 ### Changed
@@ -719,42 +753,42 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - lib: publish only dist to keep lib small
 
-### 2.7.4 - 2021-10-09
+### [2.7.4] - 2021-10-09
 
 ---
 ### Fixed
 
 - removeUndefinedKeysFromObject: do not remove dates
 
-### 2.7.3 - 2021-10-08
+### [2.7.3] - 2021-10-08
 
 ---
 ### Changed
 
 - DateValueObject: added comparators methods
 
-### 2.7.2 - 2021-10-08
+### [2.7.2] - 2021-10-08
 
 ---
 ### Changed
 
 - DateValueObject: added validation on create a new instance
 
-### 2.7.1 - 2021-10-08
+### [2.7.1] - 2021-10-08
 
 ---
 ### Added 
 
 - DateValueObject
 
-### 2.7.0 - 2021-10-06
+### [2.7.0] - 2021-10-06
 
 ---
 ### Changed
 
 - DomainId > change getters method
 
-### 2.6.2 ~ 2.6.4 - 2021-10-06
+### [2.6.2] ~ [2.6.4] - 2021-10-06
 
 ---
 ### Changed
@@ -762,14 +796,14 @@ TYPES_DDD_LOGS=warn # show only warn log
 - DomainId > added toShort method
 - DomainId > toShort method. Now you can choose length
 
-### 2.6.1 - 2021-09-30
+### [2.6.1] - 2021-09-30
 
 ---
 ### Changed
 
 - getUndefinedKeysAsObject > added new option to return as value
 
-### 2.6.0 - 2021-09-29
+### [2.6.0] - 2021-09-29
 
 ---
 ### Changed
@@ -777,7 +811,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - CurrencyValueObject > added functions to compare values
 - getUndefinedKeysAsObject > added option to get path as string
 
-### 2.5.7 ~ 2.5.10 - 2021-09-25
+### [2.5.7] ~ 2.5.10 - 2021-09-25
 
 ---
 
@@ -785,21 +819,21 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - removeUndefinedKeysFromObject
 
-### 2.5.6 - 2021-09-23
+### [2.5.6] - 2021-09-23
 
 ---
 ### Changed
 
 - dist > update build
 
-### 2.5.5 - 2021-09-24
+### [2.5.5] - 2021-09-24
 
 ---
 ### Changed
 
 - getUndefinedKeysAsObject > define value to be applied
 
-### 2.5.4 - 2021-09-24
+### [2.5.4] - 2021-09-24
 
 ---
 ### Changed
@@ -807,7 +841,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - DimensionValueObject > validate unit before create value object
 - WeightValueObject > validate unit before create value object
 
-### 2.5.3 - 2021-09-22
+### [2.5.3] - 2021-09-22
 
 ---
 ### Changed
@@ -815,14 +849,14 @@ TYPES_DDD_LOGS=warn # show only warn log
 - DimensionEntity > changed to value object: DimensionValueObject
 - WeightEntity > changed to value object: WeightValueObject
 
-### 2.5.2 - 2021-09-21
+### [2.5.2] - 2021-09-21
 
 ---
 ### Changed
 
 - dist: remove unused files on dist
 
-### 2.5.1 - 2021-09-20
+### [2.5.1] - 2021-09-20
 
 ---
 ### Changed
@@ -836,7 +870,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - DimensionEntity
 - WeightEntity
 
-### 2.5.0 - 2021-09-18
+### [2.5.0] - 2021-09-18
 
 ---
 ### Changed
@@ -853,35 +887,35 @@ TYPES_DDD_LOGS=warn # show only warn log
 - HEXColorValueObject: Ensure don't generate light color like white
 - RGBColorValueObject: Ensure don't generate light color like white
 
-### 2.4.2 ~ 2.4.10 - 2021-09-09
+### [2.4.2] ~ [2.4.10] - 2021-09-09
 
 ---
 ### Fixed
 
 - Update dependencies
 
-### 2.4.1 - 2021-09-09
+### [2.4.1] - 2021-09-09
 
 ---
 ### Fixed
 
 - UrlValueObject: export value object
 
-### 2.4.0 - 2021-09-07
+### [2.4.0] - 2021-09-07
 
 ---
 ### Changed
 
 - PinValueObject: util value object
 
-### 2.3.6 - 2021-08-29
+### [2.3.6] - 2021-08-29
 
 ---
 ### Changed
 
 - CurrencyValueObject: docs - identify max safe number
 
-### 2.3.5 - 2021-08-29
+### [2.3.5] - 2021-08-29
 
 ---
 
@@ -890,7 +924,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - Result - Change default generic type on `combine` method to `unknown` instead `any`
 
 
-### 2.3.4 - 2021-08-29
+### [2.3.4] - 2021-08-29
 
 ---
 
@@ -898,7 +932,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - ChangesObserver - Fix added possibility to get all added results `getAllAddedResults`
 
-### 2.3.3 - 2021-08-28
+### [2.3.3] - 2021-08-28
 
 ---
 
@@ -906,7 +940,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Result - Fix possibility to return a void instance. Create a specific method `Result.success`
 
-### 2.3.2 - 2021-08-28
+### [2.3.2] - 2021-08-28
 
 ---
 
@@ -914,7 +948,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Result - Fix possibility to return a void instance
 
-### 2.3.1 - 2021-08-28
+### [2.3.1]- 2021-08-28
 
 ---
 
@@ -922,7 +956,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Result - added an internationalization error message
 
-### 2.3.0 - 2021-08-27
+### [2.3.0] - 2021-08-27
 
 ---
 
@@ -934,7 +968,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Result - provide an enum as string declaration instead number
 
-### 2.2.3 - 2021-08-24
+### [2.2.3] - 2021-08-24
 
 ---
 
@@ -946,7 +980,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - IBaseRepository - rename params and doc comments
 
-### 2.2.2 - 2021-08-19
+### [2.2.2] - 2021-08-19
 
 ---
 
@@ -954,7 +988,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - colorGenerator
 
-### 2.2.1 - 2021-08-17
+### [2.2.1] - 2021-08-17
 
 ---
 
@@ -962,7 +996,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - index (exports)
 
-### 2.2.0 - 2021-08-17
+### [2.2.0] - 2021-08-17
 
 ---
 
@@ -971,7 +1005,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - getUndefinedKeysAsArray
 - getUndefinedKeysAsObject
 
-### 2.1.0 - 2021-08-14
+### [2.1.0] - 2021-08-14
 
 ---
 
@@ -983,7 +1017,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - ChangesObserver
 
-### 2.0.4 - 2021-08-13
+### [2.0.4] - 2021-08-13
 
 ---
 
@@ -991,7 +1025,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Result
 
-### 2.0.3 - 2021-08-13
+### [2.0.3] - 2021-08-13
 
 ---
 
@@ -999,7 +1033,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Result: new approach
 
-### 2.0.2 - 2021-08-12
+### [2.0.2] - 2021-08-12
 
 ---
 
@@ -1007,11 +1041,11 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Dynamic types to Filter on IBaseRepository
 
-### 2.0.1 - 2021-08-12
+### [2.0.1] - 2021-08-12
 
 - Entity
 
-### 2.0.0 - 2021-08-12
+### [2.0.0] - 2021-08-12
 
 ---
 
@@ -1030,7 +1064,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - AggregateRoot
 
-### 1.5.1 - 2021-08-11
+### [1.5.1] - 2021-08-11
 
 ---
 
@@ -1038,7 +1072,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - BirthdayValueObject
 
-### 1.5.0 - 2021-08-11
+### [1.5.0] - 2021-08-11
 
 ---
 
@@ -1052,7 +1086,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - RGBColorValueObject
 - HEXColorValueObject
 
-### 1.4.1 - 2021-08-11
+### [1.4.1] - 2021-08-11
 
 ---
 
@@ -1067,7 +1101,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Result
 
-### 1.3.1 - 2021-08-10
+### [1.3.1] - 2021-08-10
 
 ---
 
@@ -1075,7 +1109,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - TrackingCodeValueObject
 
-### 1.3.0 - 2021-08-10
+### [1.3.0] - 2021-08-10
 
 ---
 
@@ -1091,7 +1125,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - DomainId
 - TrackingCodeValueObject
 
-### 1.2.0 - 2021-08-09
+### [1.2.0] - 2021-08-09
 
 ---
 
@@ -1104,7 +1138,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - UserNameValueObject
 - BirthdayValueObject
 
-### 1.1.0 - 2021-07-28
+### [1.1.0] - 2021-07-28
 
 ---
 
@@ -1113,7 +1147,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 - Dynamic types to Filter
 - Types validation to IBaseRepository
 
-### 1.0.3 - 2021-07-16
+### [1.0.3] - 2021-07-16
 
 ---
 
@@ -1121,7 +1155,7 @@ TYPES_DDD_LOGS=warn # show only warn log
 
 - Define Node crash version on package.json
 
-### 1.0.2 - 2021-07-09
+### [1.0.2] - 2021-07-09
 
 ---
 
