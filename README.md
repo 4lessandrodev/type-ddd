@@ -60,32 +60,15 @@ $ yarn add types-ddd
 ```
 ---
 
-## Lib Documentation
+## Lib Full Documentation
 
 Check lib documentation on link [Here](https://github.com/4lessandrodev/types-ddd/tree/main/docs)
 
 ---
 
-<img src="./readme/ddd.jpg" alt="image" width="100%">
+<img src="./readme/cover.png" alt="image" width="100%">
 
-## DDD (Domain Driven Design)
-
-- [ 1. Ubiquitous language](#1-ubiquitous-language)
-- [ 2. Rich domain model](#2-rich-domain-model)
-- [ 3. Thin domain service working on rich domain models](#3-thin-domain-service-working-on-rich-domain-models)
-- [ 4. Layers in a DDD application](#4-layers-in-a-ddd-application)
-- [ 5. Entities](#5-entities)
-- [ 6. Value objects](#6-value-objects)
-- [ 7. Factories](#7-factories)
-- [ 8. Aggregates](#8-aggregates)
-- [ 9. Repositories](#9-repositories)
-- [10. Shared kernel](#10-shared-kernel)
-- [11. Domain events](#11-domain-events)
-- [12. Anti-corruption layer](#12-anti-corruption-layer)
-- [13. Folders structure](#13-folders-structure)
-- [14. Available resources](#14-avaliable-resourses)
-
-> This package provide utils file and interfaces to assistant build a complex application with domain driving design and typescript
+---
 
 ## 1. Ubiquitous language:
 
@@ -185,3 +168,190 @@ Check lib documentation on link [Here](https://github.com/4lessandrodev/types-dd
 - Used to translate models from outside systems or legacy apps to models inside the bounded context and vice versa, and also to ease the communication with legacy services
 - Can use service facades and model adapters
 
+
+
+---
+
+## 13 - Summary - Basic Usage
+
+Check full documentation on link [Here](https://github.com/4lessandrodev/types-ddd/tree/main/docs)
+
+### Value Object
+
+> A value object is a small, simple object that represents a single value or characteristic, such as a monetary amount or a date. It is characterized by having no identity of its own, meaning it is equal to another value object if its values are equal, regardless of its reference. Value objects are often used in domain-driven design to represent simple entities in the system.
+
+#### Create a value object with business rules.
+
+```ts
+
+import { ValueObject, Ok, Fail, Result } from 'types-ddd';
+
+interface Props {
+    amount: number;
+}
+
+export default class Money extends ValueObject<Props> {
+    
+    // private constructor
+    private constructor(props: Props) {
+        super(props);
+    }
+
+    // any business rule behavior
+    sum(x: Money): Money {
+        const { number: Calc } = this.util;
+        const value = fee.get('amount');
+        const current = this.props.total.get('amount');
+        const amount = Calc(current).sum(value);
+        return new Money({ amount });
+    }
+
+    // any business rule behavior
+    subtract(x: Money): Money {
+        const { number: Calc } = this.util;
+        const value = fee.get('amount');
+        const current = this.props.total.get('amount');
+        const amount = Calc(current).subtract(value);
+        return new Money({ amount });
+    }
+
+    // any business rule
+    public static isValidProps({ amount }: Props): boolean {
+        return this.validator.number(amount).isPositive();
+    }
+
+    // shortcut to create a zero value
+    public static zero(): Money {
+        return new Money({ amount: 0 });
+    }
+
+    // factory method to create a instance
+    public static create(amount: number): Result<Money> {
+
+        const isValid = this.isValidProps({ amount });
+        if(!isValid) return Fail("Invalid amount for money");
+
+        return Ok(new Money({ amount }));
+    }
+}
+
+```
+
+How to use value object instance
+
+```ts
+
+// operation result
+const result = Money.create(500);
+
+// check if provided a valid value
+console.log(result.isOk());
+
+> true
+
+// money instance
+const money = result.value();
+
+money.get("amount"); // 500
+
+```
+
+---
+
+### Entity
+
+> An entity in domain-driven design is an object that represents a concept in the real world and has a unique identity and attributes. It is a fundamental building block used to model complex business domains.
+
+#### Create an entity with business rules.
+
+```ts
+
+import { Entity, Ok, Fail, Result, UID } from 'types-ddd';
+
+interface Props {
+    id?: UID;
+    total: Money;
+    discount: Money;
+    fees: Money;
+}
+
+export default class Payment extends Entity<Props> {
+
+    // private constructor
+    private constructor(props: Props){
+        super(props);
+    }
+
+    // any business rule behavior
+    checkDiscount(value: Money): Money {
+        const { number: Check } = this.validator;
+        const total = this.props.total.get('amount');
+        const discount = value.get('amount');
+        const isGt = Check(discount).isGreaterThan(total);
+        if(isGt) return this.props.total;
+        return value;
+    }
+
+    // any business rule behavior
+    applyFees(value: Money): Payment {
+        const props = this.props;
+        const fees = props.fees.sum(value);
+        const total = props.total.sum(fees);
+        return new Payment({ ...props, total, fees });
+    }
+
+    // any business rule behavior
+    applyDiscount(value: Money): Payment {
+        const props = this.props;
+        const result = this.checkDiscount(value);
+        const discount = props.discount.subtract(result);
+        const total = props.total.subtract(discount);
+        return new Payment({ ...props, total, discount });
+    }
+
+    // factory method to create a instance
+    public static create(props: Props): Result<Payment> {
+        return Ok(new Payment(props));
+    }
+}
+
+```
+
+How to use entity instance
+
+```ts
+
+// operation result
+const total = Money.create(500).value();
+const discount = Money.zero();
+const fees = Money.zero();
+
+// create a payment
+const payment = Payment.create({ total, discount, fees }).value();
+
+// create fee and discount
+const fee = Money.create(17.50).value();
+const discount = Money.create(170.50).value();
+
+// apply fee and discount
+const result = payment.applyFees(fee).applyDiscount(discount);
+
+// get object from domain entity
+console.log(result.toObject());
+
+{
+    "id": "d7fc98f5-9711-4ad8-aa16-70cb8a52244a",
+    "total": 347,
+    "discount": 170.50,
+    "fees": 17.50,
+    "createdAt":"2023-01-30T23:11:17.815Z",
+    "updatedAt":"2023-01-30T23:11:17.815Z"
+}
+
+```
+
+---
+
+## Lib Full Documentation
+
+Check lib documentation on link [Here](https://github.com/4lessandrodev/types-ddd/tree/main/docs)
