@@ -190,6 +190,7 @@ interface Props {
     amount: number;
 }
 
+// simple example as monetary value object business behavior
 export default class Money extends ValueObject<Props> {
     
     // private constructor. Avoid public new.
@@ -295,7 +296,7 @@ interface Props {
     fees: Money;
 }
 
-// simple example as monetary value object business behavior
+// simple example as payment entity using money value object
 export default class Payment extends Entity<Props> {
 
     // private constructor
@@ -303,28 +304,16 @@ export default class Payment extends Entity<Props> {
         super(props);
     }
 
-    // any business rule behavior. Discount must be less or equal total.
-    public checkDiscount(value: Money): Money {
-        const total = this.props.total;
-        const isGt = value.isGt(total);
-        if(isGt) return total;
-        return value;
-    }
-
     // any business rule behavior. Update total.
-    public applyFees(value: Money): Payment {
+    public applyFees(fees: Money): Payment {
         const props = this.props;
-        const currentFee = this.props.fee;
-        const fees = currentFee.sum(value);
         const total = props.total.sum(fees);
         return new Payment({ ...props, total, fees });
     }
 
     // any business rule behavior. Discount must be less or equal total.
-    public applyDiscount(value: Money): Payment {
+    public applyDiscount(discount: Money): Payment {
         const props = this.props;
-        const result = this.checkDiscount(value);
-        const discount = props.discount.subtract(result);
         const total = props.total.subtract(discount);
         return new Payment({ ...props, total, discount });
     }
