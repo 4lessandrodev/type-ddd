@@ -192,32 +192,41 @@ interface Props {
 
 export default class Money extends ValueObject<Props> {
     
-    // private constructor
+    // private constructor. Avoid public new.
     private constructor(props: Props) {
         super(props);
     }
 
-    // any business rule behavior
-    sum(x: Money): Money {
+    // any business rule behavior. Check.
+    public isGt(x: Money): boolean {
+        const { number: Check } = this.validator;
+        const xValue = x.get('amount');
+        const currentValue = this.get('amount');
+        return Check(x).isGreatThan(currentValue);
+    }
+
+    // any business rule behavior. Calc.
+    public sum(x: Money): Money {
         const { number: Calc } = this.util;
         const value = fee.get('amount');
-        const current = this.props.total.get('amount');
+        const current = this.get('amount');
         const amount = Calc(current).sum(value);
         return new Money({ amount });
     }
 
-    // any business rule behavior
-    subtract(x: Money): Money {
+    // any business rule behavior. Calc.
+    public subtract(x: Money): Money {
         const { number: Calc } = this.util;
         const value = fee.get('amount');
-        const current = this.props.total.get('amount');
+        const current = this.get('amount');
         const amount = Calc(current).subtract(value);
         return new Money({ amount });
     }
 
-    // any business rule
+    // any business rule to validate state.
     public static isValidProps({ amount }: Props): boolean {
-        return this.validator.number(amount).isPositive();
+        const { number: Check } = this.validator;
+        return Check(amount).isPositive();
     }
 
     // shortcut to create a zero value
@@ -225,7 +234,7 @@ export default class Money extends ValueObject<Props> {
         return new Money({ amount: 0 });
     }
 
-    // factory method to create a instance
+    // factory method to create an instance and validate value.
     public static create(amount: number): Result<Money> {
 
         const isValid = this.isValidProps({ amount });
@@ -254,6 +263,17 @@ const money = result.value();
 
 money.get("amount"); // 500
 
+// using methods 
+money.isGt(Money.zero());
+
+> true
+
+const other = Money.create(100).value();
+
+const result = money.sum(other);
+
+result.get('amount'); // 600
+
 ```
 
 ---
@@ -275,6 +295,7 @@ interface Props {
     fees: Money;
 }
 
+// simple example as monetary value object business behavior
 export default class Payment extends Entity<Props> {
 
     // private constructor
@@ -282,26 +303,25 @@ export default class Payment extends Entity<Props> {
         super(props);
     }
 
-    // any business rule behavior
-    checkDiscount(value: Money): Money {
-        const { number: Check } = this.validator;
-        const total = this.props.total.get('amount');
-        const discount = value.get('amount');
-        const isGt = Check(discount).isGreaterThan(total);
-        if(isGt) return this.props.total;
+    // any business rule behavior. Discount must be less or equal total.
+    public checkDiscount(value: Money): Money {
+        const total = this.props.total;
+        const isGt = value.isGt(total);
+        if(isGt) return total;
         return value;
     }
 
-    // any business rule behavior
-    applyFees(value: Money): Payment {
+    // any business rule behavior. Update total.
+    public applyFees(value: Money): Payment {
         const props = this.props;
-        const fees = props.fees.sum(value);
+        const currentFee = this.props.fee;
+        const fees = currentFee.sum(value);
         const total = props.total.sum(fees);
         return new Payment({ ...props, total, fees });
     }
 
-    // any business rule behavior
-    applyDiscount(value: Money): Payment {
+    // any business rule behavior. Discount must be less or equal total.
+    public applyDiscount(value: Money): Payment {
         const props = this.props;
         const result = this.checkDiscount(value);
         const discount = props.discount.subtract(result);
@@ -309,7 +329,7 @@ export default class Payment extends Entity<Props> {
         return new Payment({ ...props, total, discount });
     }
 
-    // factory method to create a instance
+    // factory method to create a instance. Value must be positive.
     public static create(props: Props): Result<Payment> {
         return Ok(new Payment(props));
     }
@@ -351,6 +371,8 @@ console.log(result.toObject());
 ```
 
 ---
+
+### See also how to use Aggregate.
 
 ## Lib Full Documentation
 
