@@ -263,7 +263,9 @@ console.log(resA.isOk());
 // money instance
 const moneyA = resA.value();
 
-moneyA.get("amount"); // 500
+moneyA.get("amount"); 
+
+// 500
 
 // using methods 
 moneyA.isGt(Money.zero());
