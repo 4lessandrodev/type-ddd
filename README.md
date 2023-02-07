@@ -209,7 +209,7 @@ export default class Money extends ValueObject<Props> {
     // any business rule behavior. Calc.
     public sum(x: Money): Money {
         const { number: Calc } = this.util;
-        const value = fee.get('amount');
+        const value = x.get('amount');
         const current = this.get('amount');
         const amount = Calc(current).sum(value);
         return new Money({ amount });
@@ -218,7 +218,7 @@ export default class Money extends ValueObject<Props> {
     // any business rule behavior. Calc.
     public subtract(x: Money): Money {
         const { number: Calc } = this.util;
-        const value = fee.get('amount');
+        const value = x.get('amount');
         const current = this.get('amount');
         const amount = Calc(current).subtract(value);
         return new Money({ amount });
