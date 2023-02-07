@@ -203,7 +203,7 @@ export default class Money extends ValueObject<Props> {
         const { number: Check } = this.validator;
         const xValue = x.get('amount');
         const currentValue = this.get('amount');
-        return Check(x).isGreatThan(currentValue);
+        return Check(xValue).isGreaterThan(currentValue);
     }
 
     // any business rule behavior. Calc.
@@ -252,28 +252,34 @@ How to use value object instance
 ```ts
 
 // operation result
-const result = Money.create(500);
+const resA = Money.create(500);
 
 // check if provided a valid value
-console.log(result.isOk());
+console.log(resA.isOk());
 
-> true
+// > true
+
 
 // money instance
-const money = result.value();
+const moneyA = resA.value();
 
-money.get("amount"); // 500
+moneyA.get("amount"); // 500
 
 // using methods 
-money.isGt(Money.zero());
+moneyA.isGt(Money.zero());
 
-> true
+// > true
 
-const other = Money.create(100).value();
+const moneyB = Money.create(100).value();
 
-const result = money.sum(other);
+const moneyC = moneyA.sum(moneyB);
 
-result.get('amount'); // 600
+const value = moneyC.get('amount');
+
+console.log(value); 
+
+// > 600
+
 
 ```
 
@@ -340,10 +346,10 @@ const payment = Payment.create({ total, discount, fees }).value();
 
 // create fee and discount
 const fee = Money.create(17.50).value();
-const discount = Money.create(170.50).value();
+const disc = Money.create(170.50).value();
 
 // apply fee and discount
-const result = payment.applyFees(fee).applyDiscount(discount);
+const result = payment.applyFees(fee).applyDiscount(disc);
 
 // get object from domain entity
 console.log(result.toObject());
