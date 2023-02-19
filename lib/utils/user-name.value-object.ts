@@ -38,10 +38,14 @@ export class UserNameValueObject extends ValueObject<Prop> {
 				name[0].toUpperCase() + name.slice(1).toLowerCase();
 			capitalized.push(lowerCaseName);
 		}
-		const value = this.util
-			.string(capitalized.toString())
-			.replace(',')
-			.to(' ');
+
+		// const value = this.util
+		// 	.string(capitalized.toString())
+		// 	.replace(',')
+		// 	.to(' ');
+
+		const value = capitalized.toString().replace(/,/g, ' ');
+
 		this.props.value = value;
 		return this;
 	}
@@ -98,10 +102,14 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	getInitials(): string {
 		const names = this.props.value.split(' ');
 		const letters = names.map((name) => name[0]);
-		const initials = this.util
-			.string(letters.toString())
-			.replace(',')
-			.to('.');
+
+		// const initials = this.
+		// 	.string(letters.toString())
+		// 	.replace(',')
+		// 	.to('.');
+
+		const initials = letters.toString().replace(/,/g, '.');
+
 		return initials;
 	}
 
@@ -116,7 +124,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 */
 	public static isValidProps(value: string): boolean {
 		const { string } = this.validator;
-		return string(value).hasLengthBetweenOrEqual(
+		return string(value).hasLengthBetween(
 			UserNameValueObject.MIN_LENGTH,
 			UserNameValueObject.MAX_LENGTH
 		);
