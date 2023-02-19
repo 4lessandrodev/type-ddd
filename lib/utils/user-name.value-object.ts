@@ -28,7 +28,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns instance
 	 */
 	private capitalize(): UserNameValueObject {
-		const names = this.props.value.split(' ').filter((name) => {
+		const names = this.props.value.split(' ').filter((name): boolean => {
 			return name.length > 1;
 		});
 
@@ -39,12 +39,10 @@ export class UserNameValueObject extends ValueObject<Prop> {
 			capitalized.push(lowerCaseName);
 		}
 
-		// const value = this.util
-		// 	.string(capitalized.toString())
-		// 	.replace(',')
-		// 	.to(' ');
-
-		const value = capitalized.toString().replace(/,/g, ' ');
+		const value = this.util
+			.string(capitalized.toString())
+			.replace(',')
+			.to(' ');
 
 		this.props.value = value;
 		return this;
@@ -96,19 +94,17 @@ export class UserNameValueObject extends ValueObject<Prop> {
 
 	/**
 	 * @returns initials as string
+	 * @param separator as string char to separate letters
+	 * @default separator . (dot)
 	 * @example
 	 * for a name "Thomas A. Anderson" = "T.A.A"
 	 */
-	getInitials(): string {
+	getInitials(separator = '.'): string {
 		const names = this.props.value.split(' ');
 		const letters = names.map((name) => name[0]);
+		const value = this.util.string(letters.toString());
 
-		// const initials = this.
-		// 	.string(letters.toString())
-		// 	.replace(',')
-		// 	.to('.');
-
-		const initials = letters.toString().replace(/,/g, '.');
+		const initials = value.replace(',').to(separator);
 
 		return initials;
 	}

@@ -60,7 +60,7 @@
 	"dependencies": {
 		"bcrypt": "^5.0.1",
 		"pino": "^8.8.0",
-		"pino-pretty": "^9.1.1",
+		"pino-pretty": "^9.3.0",
 		"rich-domain": "^1.17.1"
 	},
 	"devDependencies": {

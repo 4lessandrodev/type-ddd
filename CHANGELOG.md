@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+
+---
+
+### [3.5.2] - 2023-02-18
+
+### Changed
+
+- validation to `url.value-object` use URL default validation and remove regex. by @ArturHamannRonconi
+
+### Added 
+
+- added separator as optional param to `getInitials`method from `user-name.value-object`
+
 ---
 ### [3.5.1] - 2023-01-27
 

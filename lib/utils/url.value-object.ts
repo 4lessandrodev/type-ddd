@@ -1,14 +1,11 @@
 import { ValueObject } from '../core';
 import { Result } from '../core';
-const regexHash =
-	/^(https?:\/\/)(([\da-z\.-]+))?\.?([a-z\.]{2,6})([\/\w \.-]*)*\/?(:\d{2,4})?(\/\w+)?$/;
 
 interface Prop {
 	value: string;
 }
 
 class UrlValueObject extends ValueObject<Prop> {
-	protected static readonly REGEX = regexHash;
 	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid url value';
 
@@ -36,6 +33,10 @@ class UrlValueObject extends ValueObject<Prop> {
 		} catch (error) {
 			return false;
 		}
+	}
+
+	public URL(): URL {
+		return new URL(this.props.value);
 	}
 
 	validation(value: string): boolean {

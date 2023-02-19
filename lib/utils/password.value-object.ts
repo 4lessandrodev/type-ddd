@@ -97,7 +97,9 @@ class PasswordValueObject extends ValueObject<Prop> {
 	public static isValidProps(value: string): boolean {
 		const { string } = this.validator;
 		if (!PasswordValueObject.isEncrypted(value)) {
-			const passwordHasRequiredLength = string(value).hasLengthBetween(
+			const passwordHasRequiredLength = string(
+				value
+			).hasLengthBetweenOrEqual(
 				PasswordValueObject.MIN_LENGTH,
 				PasswordValueObject.MAX_LENGTH
 			);
@@ -106,7 +108,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 		return true;
 	}
 
-	isEqual(password: PasswordValueObject) {
+	isEqual(password: PasswordValueObject): boolean {
 		return this.compare(password.value());
 	}
 

@@ -117,6 +117,20 @@ describe('user-name.value-object', () => {
 		expect(username.getInitials()).toBe('F.M.L');
 	});
 
+	it('should get initials with custom separator', () => {
+		const separator = '-';
+		const username =
+			UserNameValueObject.create('FIRST MIDDLE LAST').value();
+		expect(username.getInitials(separator)).toBe('F-M-L');
+	});
+
+	it('should get initials with none separator', () => {
+		const separator = '';
+		const username =
+			UserNameValueObject.create('FIRST MIDDLE LAST').value();
+		expect(username.getInitials(separator)).toBe('FML');
+	});
+
 	it('should get initials', () => {
 		const username = UserNameValueObject.create('FIRSt').value();
 		expect(username.getInitials()).toBe('F');

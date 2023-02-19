@@ -1,9 +1,7 @@
 import { ValueObject } from '../core';
 import { Result } from '../core';
-import isValidCpfDigit, {
-	formatValueToCpfPattern,
-	removeSpecialCharsFromCpf,
-} from './check-cpf-digit.util';
+import isValidCpfDigit from './check-cpf-digit.util';
+import { formatValueToCpfPattern } from './check-cpf-digit.util';
 const regexCpf =
 	/^([0-9]{3})[\.]((?!\1)[0-9]{3})[\.]([0-9]{3})[-]([0-9]{2})$|^[0-9]{11}$/;
 
@@ -36,11 +34,9 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example after "52734865211"
 	 */
 	removeSpecialChars(): CPFValueObject {
-		this.props.value = removeSpecialCharsFromCpf(this.props.value);
-
-		// this.props.value = this.util
-		// 	.string(this.props.value)
-		// 	.removeSpecialChars();
+		this.props.value = this.util
+			.string(this.props.value)
+			.removeSpecialChars();
 		return this;
 	}
 
@@ -62,13 +58,10 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example param "527.348.652-11"
 	 */
 	compare(cpf: string): boolean {
-		// const formattedCpf = this.util.string(cpf).removeSpecialChars();
-		// const instanceValue = this.util
-		// 	.string(this.props.value)
-		// 	.removeSpecialChars();
-
-		const formattedCpf = removeSpecialCharsFromCpf(cpf);
-		const instanceValue = removeSpecialCharsFromCpf(this.props.value);
+		const formattedCpf = this.util.string(cpf).removeSpecialChars();
+		const instanceValue = this.util
+			.string(this.props.value)
+			.removeSpecialChars();
 		return instanceValue === formattedCpf;
 	}
 
