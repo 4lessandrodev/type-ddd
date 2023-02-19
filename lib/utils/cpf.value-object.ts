@@ -1,8 +1,7 @@
 import { ValueObject } from '../core';
 import { Result } from '../core';
-import isValidCpfDigit, {
-	formatValueToCpfPattern,
-} from './check-cpf-digit.util';
+import isValidCpfDigit from './check-cpf-digit.util';
+import { formatValueToCpfPattern } from './check-cpf-digit.util';
 const regexCpf =
 	/^([0-9]{3})[\.]((?!\1)[0-9]{3})[\.]([0-9]{3})[-]([0-9]{2})$|^[0-9]{11}$/;
 

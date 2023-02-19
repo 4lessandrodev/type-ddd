@@ -28,7 +28,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns instance
 	 */
 	private capitalize(): UserNameValueObject {
-		const names = this.props.value.split(' ').filter((name) => {
+		const names = this.props.value.split(' ').filter((name): boolean => {
 			return name.length > 1;
 		});
 
@@ -38,10 +38,12 @@ export class UserNameValueObject extends ValueObject<Prop> {
 				name[0].toUpperCase() + name.slice(1).toLowerCase();
 			capitalized.push(lowerCaseName);
 		}
+
 		const value = this.util
 			.string(capitalized.toString())
 			.replace(',')
 			.to(' ');
+
 		this.props.value = value;
 		return this;
 	}
@@ -92,16 +94,18 @@ export class UserNameValueObject extends ValueObject<Prop> {
 
 	/**
 	 * @returns initials as string
+	 * @param separator as string char to separate letters
+	 * @default separator . (dot)
 	 * @example
 	 * for a name "Thomas A. Anderson" = "T.A.A"
 	 */
-	getInitials(): string {
+	getInitials(separator = '.'): string {
 		const names = this.props.value.split(' ');
 		const letters = names.map((name) => name[0]);
-		const initials = this.util
-			.string(letters.toString())
-			.replace(',')
-			.to('.');
+		const value = this.util.string(letters.toString());
+
+		const initials = value.replace(',').to(separator);
+
 		return initials;
 	}
 
@@ -116,7 +120,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 */
 	public static isValidProps(value: string): boolean {
 		const { string } = this.validator;
-		return string(value).hasLengthBetweenOrEqual(
+		return string(value).hasLengthBetween(
 			UserNameValueObject.MIN_LENGTH,
 			UserNameValueObject.MAX_LENGTH
 		);

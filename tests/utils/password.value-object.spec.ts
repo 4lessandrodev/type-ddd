@@ -75,8 +75,9 @@ describe('password.value-object', () => {
 		});
 
 		it('should password to be equal', () => {
-			const passA = PasswordValueObject.random(12);
-			const passB = passA.clone();
+			const passA = PasswordValueObject.create('123456abc!').value();
+			/**  @todo: fix inference type on clone to get instance type */
+			const passB = passA.clone() as PasswordValueObject;
 			const isEqual = passA.isEqual(passB);
 			expect(isEqual).toBe(true);
 		});

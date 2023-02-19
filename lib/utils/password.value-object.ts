@@ -108,6 +108,10 @@ class PasswordValueObject extends ValueObject<Prop> {
 		return true;
 	}
 
+	isEqual(password: PasswordValueObject): boolean {
+		return this.compare(password.value());
+	}
+
 	/**
 	 *
 	 * @param value password to create

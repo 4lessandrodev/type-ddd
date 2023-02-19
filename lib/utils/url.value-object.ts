@@ -1,13 +1,11 @@
 import { ValueObject } from '../core';
 import { Result } from '../core';
-const regexHash = /^\w{3,5}:\/{1,}\w{1,}\.\w*\.?\w{2,}/;
 
 interface Prop {
 	value: string;
 }
 
 class UrlValueObject extends ValueObject<Prop> {
-	protected static readonly REGEX = regexHash;
 	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid url value';
 
@@ -29,7 +27,16 @@ class UrlValueObject extends ValueObject<Prop> {
 	 * @returns true if value is a valid url and false if does not
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(UrlValueObject.REGEX);
+		try {
+			new URL(value);
+			return true;
+		} catch (error) {
+			return false;
+		}
+	}
+
+	public URL(): URL {
+		return new URL(this.props.value);
 	}
 
 	validation(value: string): boolean {
