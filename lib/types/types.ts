@@ -6,6 +6,8 @@ import {
 	IAggregate,
 	IAutoMapper,
 	IPropsValidation,
+	EventHandler,
+	IDomainEvent,
 } from 'rich-domain/types';
 import { Result } from '../core';
 import {
@@ -171,4 +173,6 @@ export {
 	IParentName,
 	IUseCase,
 	IPropsValidation,
+	EventHandler,
+	IDomainEvent,
 };

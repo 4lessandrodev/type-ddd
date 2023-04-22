@@ -32,3 +32,4 @@ export * from './patterns/index';
 export * from './core/index';
 export * from 'rich-domain/core';
 export * from 'rich-domain/utils';
+export * from 'rich-domain/types';
