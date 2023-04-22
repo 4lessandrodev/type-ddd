@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 
 ---
+### [3.6.0] - 2023-04-21
+
+### Update
+
+- Update core
+- rich-domain: update lib core to 1.18.0 [More](https://github.com/4lessandrodev/rich-domain/blob/main/CHANGELOG.md)
+
+
+---
 ### [3.5.3] - 2023-02-18
 
 ### Update
