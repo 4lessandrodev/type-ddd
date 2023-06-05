@@ -2883,9 +2883,9 @@ lru-cache@^9.1.1:
   integrity sha512-65/Jky17UwSb0BuB9V+MyDpsOtXKmYwzhyl+cOa9XUiI4uV2Ouy/2voFP3+al0BjZbJgMBD8FojMpAf+Z+qn4A==
 
 madge@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/madge/-/madge-6.0.0.tgz#d17d68d1023376318cae89abd16629d329f4ed0a"
-  integrity sha512-dddxP62sj5pL+l9MJnq9C34VFqmRj+2+uSOdn/7lOTSliLRH0WyQ8uCEF3VxkPRNOBvMKK2xumnIE15HRSAL9A==
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/madge/-/madge-6.1.0.tgz#9835bb53f2e00d184914c2b007b50736a964d297"
+  integrity sha512-irWhT5RpFOc6lkzGHKLihonCVgM0YtfNUh4IrFeW3EqHpnt/JHUG3z26j8PeJEktCGB4tmGOOOJi1Rl/ACWucQ==
   dependencies:
     chalk "^4.1.1"
     commander "^7.2.0"
@@ -2908,7 +2908,6 @@ madge@^6.0.0:
     rc "^1.2.7"
     stream-to-array "^2.3.0"
     ts-graphviz "^1.5.0"
-    typescript "^3.9.5"
     walkdir "^0.4.1"
 
 make-dir@^3.0.0, make-dir@^3.1.0:
@@ -4149,7 +4148,7 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^3.9.10, typescript@^3.9.5, typescript@^3.9.7:
+typescript@^3.9.10, typescript@^3.9.7:
   version "3.9.10"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
   integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
