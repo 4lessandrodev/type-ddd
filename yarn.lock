@@ -3310,9 +3310,9 @@ pino-abstract-transport@^1.0.0, pino-abstract-transport@v1.0.0:
     split2 "^4.0.0"
 
 pino-pretty@^10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-10.0.1.tgz#54a11182068949ff3069f1f7857f297a14926e58"
-  integrity sha512-yrn00+jNpkvZX/NrPVCPIVHAfTDy3ahF0PND9tKqZk4j9s+loK8dpzrJj4dGb7i+WLuR50ussuTAiWoMWU+qeA==
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-10.1.0.tgz#d6917ca014338e56b4e6442fcf7dea8d83a4b081"
+  integrity sha512-9gAgVHCVTEq0ThcjoXkOICYQgdqh1h90WSuVAnNeCrRrefJInUvMbpDfy6PlsI29Nbu9UW9CGkUHztrR1A9N+A==
   dependencies:
     colorette "^2.0.7"
     dateformat "^4.6.3"
@@ -3538,16 +3538,7 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-readable-stream@^3.4.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
-  integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
-  dependencies:
-    inherits "^2.0.3"
-    string_decoder "^1.1.1"
-    util-deprecate "^1.0.1"
-
-readable-stream@^3.6.0:
+readable-stream@^3.4.0, readable-stream@^3.6.0:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.2.tgz#56a9b36ea965c00c5a93ef31eb111a0f11056967"
   integrity sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==
@@ -3791,17 +3782,10 @@ slice-ansi@^5.0.0:
     ansi-styles "^6.0.0"
     is-fullwidth-code-point "^4.0.0"
 
-sonic-boom@^3.0.0:
+sonic-boom@^3.0.0, sonic-boom@^3.1.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-3.3.0.tgz#cffab6dafee3b2bcb88d08d589394198bee1838c"
   integrity sha512-LYxp34KlZ1a2Jb8ZQgFCK3niIHzibdwtwNUWKg0qQRzsDoJ3Gfgkf8KdBTFU3SkejDEIlWwnSnpVdOZIhFMl/g==
-  dependencies:
-    atomic-sleep "^1.0.0"
-
-sonic-boom@^3.1.0:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-3.2.1.tgz#972ceab831b5840a08a002fa95a672008bda1c38"
-  integrity sha512-iITeTHxy3B9FGu8aVdiDXUVAcHMF9Ss0cCsAOo2HfCrmVGT3/DT5oYaeu0M/YKZDlKTvChEyPq0zI9Hf33EX6A==
   dependencies:
     atomic-sleep "^1.0.0"
 
