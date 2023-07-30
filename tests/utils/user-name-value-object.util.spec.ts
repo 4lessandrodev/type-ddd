@@ -18,7 +18,7 @@ describe('user-name.value-object', () => {
 
 	it('should fail if provide a long name (41) chars', () => {
 		const username = UserNameValueObject.create(
-			'invalid_username'.repeat(3)
+			'invalid_username'.repeat(3),
 		);
 		expect(username.isFail()).toBe(true);
 	});
@@ -138,28 +138,28 @@ describe('user-name.value-object', () => {
 
 	it('should name with duple spaces', () => {
 		const username = UserNameValueObject.create(
-			'José caleb  dos Santos'
+			'José caleb  dos Santos',
 		).value();
 		expect(username.value()).toBe('José Caleb Dos Santos');
 	});
 
 	it('should name with duple spaces and two caracter "de" ', () => {
 		const username = UserNameValueObject.create(
-			'José caleb  de Oliveira'
+			'José caleb  de Oliveira',
 		).value();
 		expect(username.value()).toBe('José Caleb De Oliveira');
 	});
 
 	it('should name with duple spaces and two caracter specials ', () => {
 		const username = UserNameValueObject.create(
-			'José caleb , de Oliveira'
+			'José caleb , de Oliveira',
 		).value();
 		expect(username.value()).toBe('José Caleb De Oliveira');
 	});
 
 	it('should name with three spaces in name', () => {
 		const username = UserNameValueObject.create(
-			'José caleb   de Oliveira'
+			'José caleb   de Oliveira',
 		).value();
 		expect(username.value()).toBe('José Caleb De Oliveira');
 	});

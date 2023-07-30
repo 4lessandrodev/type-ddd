@@ -55,7 +55,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 
 	private updateInstanceValues(
 		value: number,
-		unit: UnitOfMeasure
+		unit: UnitOfMeasure,
 	): DimensionValueObject {
 		const float = (value = parseFloat(value.toFixed(3)));
 		this.props.dimension = CustomNumberValueObject.create(float).value();
@@ -239,7 +239,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 		}
 
 		const customNumber = CustomNumberValueObject.create(
-			parseFloat(value.toFixed(3))
+			parseFloat(value.toFixed(3)),
 		);
 		if (customNumber.isFail()) {
 			return Result.fail(customNumber.error());
@@ -249,7 +249,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 			new DimensionValueObject({
 				unit,
 				dimension: customNumber.value(),
-			})
+			}),
 		);
 	}
 }

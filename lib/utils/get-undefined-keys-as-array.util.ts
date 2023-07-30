@@ -73,7 +73,7 @@ const getUndefinedKeysAsArray = (params: Params): string[] => {
 					object: params.object[objKey],
 				});
 				subUndefinedKeys.map((undefinedKey) =>
-					undefinedKeys.push(`${key}.${undefinedKey}`)
+					undefinedKeys.push(`${key}.${undefinedKey}`),
 				);
 			}
 		}

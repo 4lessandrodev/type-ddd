@@ -41,7 +41,7 @@ describe('custom-string.value-object', () => {
 
 	it('should fail if string is greater than 255 chars', () => {
 		const valueObject = CustomStringValueObject.create(
-			'invalid_string_length'.repeat(25)
+			'invalid_string_length'.repeat(25),
 		);
 		expect(valueObject.isFail()).toBeTruthy();
 	});
@@ -72,7 +72,7 @@ describe('custom-string.value-object', () => {
 
 	it('should be get string without chars especial', () => {
 		const valueObject = CustomStringValueObject.create(
-			'===[brazil(*-*)free]==='
+			'===[brazil(*-*)free]===',
 		);
 		expect(valueObject.value().removeSpecialChars).toBe('brazilfree');
 	});
@@ -81,7 +81,7 @@ describe('custom-string.value-object', () => {
 describe('custom validation', () => {
 	it('should fail if custom validation fails', () => {
 		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
-			value.includes('0')
+			value.includes('0'),
 		);
 		const valueObject = CustomStringValueObject.create('invalid');
 		expect(valueObject.isFail()).toBeTruthy();
@@ -89,7 +89,7 @@ describe('custom validation', () => {
 
 	it('should fail if custom validation fails', () => {
 		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
-			value.includes('0')
+			value.includes('0'),
 		);
 		const valueObject = CustomStringValueObject.create('111-abcde');
 		expect(valueObject.isFail()).toBeTruthy();
@@ -97,7 +97,7 @@ describe('custom validation', () => {
 
 	it('should fail if custom validation fails', () => {
 		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
-			value.includes('0')
+			value.includes('0'),
 		);
 		const valueObject = CustomStringValueObject.create('333-abcd');
 		expect(valueObject.isFail()).toBeTruthy();
@@ -105,7 +105,7 @@ describe('custom validation', () => {
 
 	it('should success if custom validation not fails', () => {
 		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
-			value.includes('0')
+			value.includes('0'),
 		);
 		const valueObject = CustomStringValueObject.create('012-abcd');
 		expect(valueObject.isOk()).toBeTruthy();
@@ -113,12 +113,12 @@ describe('custom validation', () => {
 
 	it('should customize message on error', () => {
 		Reflect.set(CustomStringValueObject, 'VALIDATOR', (value: string) =>
-			value.includes('0')
+			value.includes('0'),
 		);
 		Reflect.set(
 			CustomStringValueObject,
 			'MESSAGE',
-			'Oops my custom message'
+			'Oops my custom message',
 		);
 		const valueObject = CustomStringValueObject.create('AAAAAA');
 		expect(valueObject.isOk()).toBeFalsy();

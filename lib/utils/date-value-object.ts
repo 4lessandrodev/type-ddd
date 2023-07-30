@@ -297,7 +297,7 @@ export class DateValueObject extends ValueObject<Prop> {
 			return `${date}-${month}-${fullYear.slice(2)}`;
 		} else if (format === 'DD-MM-YY HH:MM:SS') {
 			return `${date}-${month}-${fullYear.slice(
-				2
+				2,
 			)} ${hours}:${minutes}:${sec}`;
 		} else if (format === 'DD-MM-YYYY') {
 			return `${date}-${month}-${fullYear}`;
@@ -307,13 +307,13 @@ export class DateValueObject extends ValueObject<Prop> {
 			return `${fullYear.slice(2)}-${date}-${month}`;
 		} else if (format === 'YY-DD-MM HH:MM:SS') {
 			return `${fullYear.slice(
-				2
+				2,
 			)}-${date}-${month} ${hours}:${minutes}:${sec}`;
 		} else if (format === 'YY-MM-DD') {
 			return `${fullYear.slice(2)}-${date}-${month}`;
 		} else if (format === 'YY-MM-DD HH:MM:SS') {
 			return `${fullYear.slice(
-				2
+				2,
 			)}-${date}-${month} ${hours}:${minutes}:${sec}`;
 		} else if (format === 'YYYY-DD-MM HH:MM:SS') {
 			return `${fullYear}-${date}-${month} ${hours}:${minutes}:${sec}`;
@@ -325,7 +325,7 @@ export class DateValueObject extends ValueObject<Prop> {
 			return `${date}/${month}/${fullYear.slice(2)}`;
 		} else if (format === 'DD/MM/YY HH:MM:SS') {
 			return `${date}/${month}/${fullYear.slice(
-				2
+				2,
 			)} ${hours}:${minutes}:${sec}`;
 		} else if (format === 'DD/MM/YYYY') {
 			return `${date}/${month}/${fullYear}`;
@@ -335,13 +335,13 @@ export class DateValueObject extends ValueObject<Prop> {
 			return `${fullYear.slice(2)}/${date}/${month}`;
 		} else if (format === 'YY/DD/MM HH:MM:SS') {
 			return `${fullYear.slice(
-				2
+				2,
 			)}/${date}/${month} ${hours}:${minutes}:${sec}`;
 		} else if (format === 'YY/MM/DD') {
 			return `${fullYear.slice(2)}/${date}/${month}`;
 		} else if (format === 'YY/MM/DD HH:MM:SS') {
 			return `${fullYear.slice(
-				2
+				2,
 			)}/${date}/${month} ${hours}:${minutes}:${sec}`;
 		} else if (format === 'YYYY/DD/MM HH:MM:SS') {
 			return `${fullYear}/${date}/${month} ${hours}:${minutes}:${sec}`;

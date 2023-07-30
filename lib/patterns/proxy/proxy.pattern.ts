@@ -91,7 +91,7 @@ import { IProxyContext } from '../../types/types';
  */
 export abstract class TSProxy<Data, Payload, Error = string> {
 	constructor(
-		private readonly context: IProxyContext<Data, Payload, Error>
+		private readonly context: IProxyContext<Data, Payload, Error>,
 	) {}
 
 	private async canExecute(data: Data): Promise<Result<boolean, Error>> {
@@ -109,7 +109,7 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 	}
 
 	private async afterExecute(
-		data: Result<Payload, Error>
+		data: Result<Payload, Error>,
 	): Promise<Result<Payload, Error>> {
 		if (!this.context.afterExecute) {
 			return Result.Ok(data.value());

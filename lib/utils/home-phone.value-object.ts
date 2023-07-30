@@ -48,7 +48,7 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	getOnlyNumbers(): number {
 		const onlyNumbersAsString = this.props.value.replace(
 			regexHashSpecialChars,
-			''
+			'',
 		);
 		return parseInt(onlyNumbersAsString);
 	}

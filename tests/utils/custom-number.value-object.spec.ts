@@ -42,7 +42,7 @@ describe('custom-number.value-object', () => {
 
 	it('should fail if number max safe', () => {
 		const valueObject = CustomNumberValueObject.create(
-			Number.MAX_SAFE_INTEGER + 2
+			Number.MAX_SAFE_INTEGER + 2,
 		);
 		expect(valueObject.isFail()).toBeTruthy();
 	});
@@ -79,7 +79,7 @@ describe('custom validator', () => {
 		Reflect.set(
 			CustomNumberValueObject,
 			'VALIDATOR',
-			(value: number) => value > 24 && value < 48
+			(value: number) => value > 24 && value < 48,
 		);
 		const valueObject = CustomNumberValueObject.create(23);
 		expect(valueObject.isFail()).toBeTruthy();
@@ -89,7 +89,7 @@ describe('custom validator', () => {
 		Reflect.set(
 			CustomNumberValueObject,
 			'VALIDATOR',
-			(value: number) => value > 24 && value < 48
+			(value: number) => value > 24 && value < 48,
 		);
 		const valueObject = CustomNumberValueObject.create(49);
 		expect(valueObject.isFail()).toBeTruthy();
@@ -99,7 +99,7 @@ describe('custom validator', () => {
 		Reflect.set(
 			CustomNumberValueObject,
 			'VALIDATOR',
-			(value: number) => value > 24 && value < 48
+			(value: number) => value > 24 && value < 48,
 		);
 		const valueObject = CustomNumberValueObject.create(32);
 		expect(valueObject.isOk()).toBeTruthy();
@@ -109,7 +109,7 @@ describe('custom validator', () => {
 		Reflect.set(
 			CustomNumberValueObject,
 			'VALIDATOR',
-			(value: number) => value > 24 && value < 48
+			(value: number) => value > 24 && value < 48,
 		);
 
 		const valueObject = CustomNumberValueObject.create(-1200);
@@ -120,13 +120,13 @@ describe('custom validator', () => {
 		Reflect.set(
 			CustomNumberValueObject,
 			'VALIDATOR',
-			(value: number) => value > 24 && value < 48
+			(value: number) => value > 24 && value < 48,
 		);
 
 		Reflect.set(
 			CustomNumberValueObject,
 			'MESSAGE',
-			'My custom message on error'
+			'My custom message on error',
 		);
 
 		const valueObject = CustomNumberValueObject.create(-1200);

@@ -98,10 +98,10 @@ class PasswordValueObject extends ValueObject<Prop> {
 		const { string } = this.validator;
 		if (!PasswordValueObject.isEncrypted(value)) {
 			const passwordHasRequiredLength = string(
-				value
+				value,
 			).hasLengthBetweenOrEqual(
 				PasswordValueObject.MIN_LENGTH,
-				PasswordValueObject.MAX_LENGTH
+				PasswordValueObject.MAX_LENGTH,
 			);
 			return passwordHasRequiredLength;
 		}
