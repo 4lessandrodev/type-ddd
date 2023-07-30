@@ -122,7 +122,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 		const { string } = this.validator;
 		return string(value).hasLengthBetween(
 			UserNameValueObject.MIN_LENGTH,
-			UserNameValueObject.MAX_LENGTH
+			UserNameValueObject.MAX_LENGTH,
 		);
 	}
 

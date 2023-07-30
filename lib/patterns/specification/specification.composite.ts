@@ -27,7 +27,7 @@ export abstract class SpecificationComposite<T> implements ISpecification<T> {
 export class AndSpecification<T> extends SpecificationComposite<T> {
 	constructor(
 		private readonly one: ISpecification<T>,
-		private readonly other: ISpecification<T>
+		private readonly other: ISpecification<T>,
 	) {
 		super();
 	}
@@ -42,7 +42,7 @@ export class AndSpecification<T> extends SpecificationComposite<T> {
 export class OrSpecification<T> extends SpecificationComposite<T> {
 	constructor(
 		private readonly one: ISpecification<T>,
-		private readonly other: ISpecification<T>
+		private readonly other: ISpecification<T>,
 	) {
 		super();
 	}
@@ -57,7 +57,7 @@ export class OrSpecification<T> extends SpecificationComposite<T> {
 export class OrNotSpecification<T> extends SpecificationComposite<T> {
 	constructor(
 		private readonly one: ISpecification<T>,
-		private readonly other: ISpecification<T>
+		private readonly other: ISpecification<T>,
 	) {
 		super();
 	}
@@ -73,7 +73,7 @@ export class OrNotSpecification<T> extends SpecificationComposite<T> {
 export class AndNotSpecification<T> extends SpecificationComposite<T> {
 	constructor(
 		private readonly one: ISpecification<T>,
-		private readonly other: ISpecification<T>
+		private readonly other: ISpecification<T>,
 	) {
 		super();
 	}

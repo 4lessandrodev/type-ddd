@@ -79,7 +79,7 @@ interface Params<T> {
  * ...
  */
 const getUndefinedKeysAsObject = <T extends {} = {}>(
-	params: Params<T>
+	params: Params<T>,
 ): Partial<T> => {
 	let objResult = {};
 	const keys: string[] = getUndefinedKeysAsArray(params);
@@ -88,7 +88,7 @@ const getUndefinedKeysAsObject = <T extends {} = {}>(
 	}
 
 	const valueToApply: ApplyValue = Object.keys(IApplyValue).includes(
-		params.applyKeyValue as string
+		params.applyKeyValue as string,
 	)
 		? (params.applyKeyValue as ApplyValue)
 		: 'empty';
@@ -107,7 +107,7 @@ const getUndefinedKeysAsObject = <T extends {} = {}>(
 				objResult = Object.assign(
 					{},
 					{ ...objResult },
-					{ ...undefinedKey }
+					{ ...undefinedKey },
 				);
 			} else {
 				const subKeys = key.split('.');
@@ -127,7 +127,7 @@ const getUndefinedKeysAsObject = <T extends {} = {}>(
 			objResult = Object.assign(
 				{},
 				{ ...objResult },
-				{ [key]: ValuesKey[valueToApply] }
+				{ [key]: ValuesKey[valueToApply] },
 			);
 		}
 	}

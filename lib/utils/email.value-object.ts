@@ -53,14 +53,14 @@ export class EmailValueObject extends ValueObject<Prop> {
 		const domain = email.slice(email.indexOf('@') + 1).toLowerCase();
 
 		const isBlockedDomain = EmailValueObject.BLOCKED_DOMAINS.map(
-			(blockedDomain) => blockedDomain.toLowerCase().includes(domain)
+			(blockedDomain) => blockedDomain.toLowerCase().includes(domain),
 		).includes(true);
 
 		if (EmailValueObject.VALID_DOMAINS.length === 0)
 			return !isBlockedDomain;
 
 		const isAvailable = EmailValueObject.VALID_DOMAINS.map((freeDomain) =>
-			freeDomain.toLowerCase().includes(domain)
+			freeDomain.toLowerCase().includes(domain),
 		).includes(true);
 
 		return isAvailable && !isBlockedDomain;

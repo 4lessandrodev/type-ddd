@@ -146,7 +146,7 @@ class OrderStatusValueObject extends ValueObject<OrderStatusProps> {
 		status in AvailableOrderStatus;
 
 	public static create(
-		value: AvailableOrderStatusType
+		value: AvailableOrderStatusType,
 	): Result<OrderStatusValueObject> {
 		if (!OrderStatusValueObject.isValidProps(value)) {
 			return Result.fail(OrderStatusValueObject.MESSAGE);

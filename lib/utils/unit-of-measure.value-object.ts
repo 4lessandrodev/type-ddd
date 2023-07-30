@@ -52,7 +52,7 @@ export class UnitOfMeasureValueObject extends ValueObject<Prop> {
 	}
 
 	public static create(
-		value: UnitOfMeasure
+		value: UnitOfMeasure,
 	): Result<UnitOfMeasureValueObject> {
 		const isValid = UnitOfMeasureValueObject.isValidProps(value);
 

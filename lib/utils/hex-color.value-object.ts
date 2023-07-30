@@ -62,7 +62,7 @@ class HEXColorValueObject extends ValueObject<Prop> {
 	public static create(value: string): Result<HEXColorValueObject> {
 		if (!HEXColorValueObject.isValidProps(value)) {
 			return Result.fail(
-				'Invalid hex value. It must match with pattern #ffffff'
+				'Invalid hex value. It must match with pattern #ffffff',
 			);
 		}
 		return Result.Ok(new HEXColorValueObject({ value }));
