@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [3.6.4] - 2023-08-24
+
+### Update
+
+- Update core
+- update deps
+- rich-domain: update lib core to 1.18.4
+
+---
+
 ### [3.6.3] - 2023-07-30
 
 ### Update
