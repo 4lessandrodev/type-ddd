@@ -6,6 +6,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [3.7.0] - 2023-09-30
+
+### Update
+
+- Update core
+- update deps
+- rich-domain: update lib core to 1.19.0
+- remove support for deprecated history method
+- improve performance and save memory usage
+
+---
+
 ### [3.6.4] - 2023-08-24
 
 ### Update
