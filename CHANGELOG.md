@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [3.7.1] - 2023-12-15
+
+### Update
+
+- update deps
+
+---
+
 ### [3.7.0] - 2023-09-30
 
 ### Update
