@@ -6,6 +6,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [3.7.2] - 2024-03-15
+
+### Update
+
+- update deps
+- added support to nodejs v21
+
+---
+
 ### [3.7.1] - 2023-12-15
 
 ### Update
