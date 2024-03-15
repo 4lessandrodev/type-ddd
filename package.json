@@ -17,7 +17,7 @@
 		}
 	],
 	"engines": {
-		"node": ">=16.x <20"
+		"node": ">=16.x <=21"
 	},
 	"keywords": [
 		"Complexity",
@@ -61,7 +61,7 @@
 		"bcrypt": "^5.0.1",
 		"pino": "^8.17.1",
 		"pino-pretty": "^10.3.0",
-		"rich-domain": "^1.19.1"
+		"rich-domain": "^1.19.2"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.14.1",
