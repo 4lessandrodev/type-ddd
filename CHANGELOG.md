@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [3.8.0] - 2024-03-18
+
+### Update
+
+- update deps core to v1.20.0 see [changes](https://github.com/4lessandrodev/rich-domain/blob/main/CHANGELOG.md)
+
+---
+
 ### [3.7.2] - 2024-03-15
 
 ### Update
