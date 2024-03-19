@@ -444,7 +444,7 @@ export default class Order extends Aggregate<Props> {
         this.props.payment = payment;
         // Add an event to indicate that the order has been paid.
         // Assuming OrderPaidEvent is a class representing 
-		// the event of order payment.
+        // the event of order payment.
         this.addEvent(new OrderPaidEventHandler());
         return this; 
     }
@@ -452,7 +452,7 @@ export default class Order extends Aggregate<Props> {
     // Static method to create an instance of Order.
     // Returns a Result, which can be Ok (success) or Fail (failure).
     // The value of the Result is an instance of Order, 
-	// if creation is successful.
+    // if creation is successful.
     public static create(props: Props): Result<Order> {
         return Ok(new Order(props));
     }
@@ -465,7 +465,7 @@ How to use events
 ```ts
 
 order.addEvent('OTHER_EVENT', (...args) => {
-	console.log(args);
+    console.log(args);
 });
 
 // Or add an EventHandler instance
