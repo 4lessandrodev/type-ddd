@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [3.8.1] - 2024-03-18
+
+### Update
+
+- Update core
+
+---
+
 ### [3.8.0] - 2024-03-18
 
 ### Update
