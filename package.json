@@ -60,8 +60,8 @@
 	"dependencies": {
 		"bcrypt": "^5.0.1",
 		"pino": "^8.17.1",
-		"pino-pretty": "^10.3.0",
 		"rich-domain": "^1.20.3"
+		"pino-pretty": "^11.0.0"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.14.1",
