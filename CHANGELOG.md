@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### [3.8.2] - 2024-04-12
+
+### Update
+
+- Update core
+- Added support to global events [ChangeLog](https://github.com/4lessandrodev/rich-domain/pull/139)
+
 ---
 
 ### [3.8.1] - 2024-03-18
