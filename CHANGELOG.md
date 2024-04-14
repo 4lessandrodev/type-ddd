@@ -4,6 +4,46 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+---
+
+## Released
+
+### [3.8.3] - 2024-04-13
+
+### Update
+
+- Update core
+- Added support to multi context name
+- Details [Commit](https://github.com/4lessandrodev/rich-domain/commit/00db292f0604469c8bf2f2fddf6460901a084cc6)
+
+```ts
+
+// Example Usage
+const context = Context.events();
+
+const handler = (event) => console.log(event);
+
+// Subscribing to events under different contexts
+context.subscribe('Context-A:SIGNUP', handler);
+context.subscribe('Context-B:SIGNUP', handler);
+context.subscribe('Context-C:SIGNUP', handler);
+context.subscribe('Context-B:NOTIFY', handler);
+context.subscribe('Context-B:SEND-EMAIL', handler);
+
+// Dispatching events to specific contexts
+// Dispatches the SIGNUP event to Context-B
+context.dispatchEvent('Context-B:SIGNUP');
+// Dispatches the SIGNUP event to all contexts
+context.dispatchEvent('*:SIGNUP');
+// Dispatches all events to all contexts. Not recommended
+context.dispatchEvent('*:*');
+// Dispatches all events under Context-B
+context.dispatchEvent('Context-B:*');
+
+```
+
+---
+
 ### [3.8.2] - 2024-04-12
 
 ### Update
