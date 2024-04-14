@@ -460,21 +460,45 @@ export default class Order extends Aggregate<Props> {
 
 ```
 
-How to use events
+#### How to use events
+
+Event Handler
 
 ```ts
 
-order.addEvent('OTHER_EVENT', (...args) => {
+import { Context, EventHandler } from 'rich-domain';
+
+
+class OrderCreatedEvent extends EventHandler<Order> {
+
+    constructor() {
+        super({ eventName: 'OrderCreated' });
+    }
+
+    dispatch(order: Order): void {
+        // dispatch event to another context
+        order.context().dispatchEvent('Context:Event', order.toObject());
+    };
+}
+
+```
+
+Aggregates domain events
+
+
+```ts
+
+order.addEvent('Event', (...args) => {
     console.log(args);
 });
 
 // Or add an EventHandler instance
-order.addEvent(new GenerateInvoiceEvent());
+order.addEvent(new OrderCreatedEvent());
 
-order.dispatchEvent('ORDER_HAS_BEGUN');
+order.dispatchEvent('OrderBegun');
 
 // dispatch with args
-order.dispatchEvent('OTHER_EVENT', { info: 'custom_args' });
+order.dispatchEvent('Event', { info: 'custom_args' });
 
 // OR call all added events
 await order.dispatchAll();
@@ -482,7 +506,36 @@ await order.dispatchAll();
 
 ```
 
----
+#### How to subscribe to a global event
+
+```ts
+
+import { Context } from 'rich-domain';
+
+const context = Context.events();
+
+context.subscribe('Context:Event', (event) => {
+   const [model] = event.detail;
+   console.log(model);
+});
+
+// dispatch an event to a context with args
+context.dispatchEvent('Context:Event', { name: 'Jane' });
+
+// Dispatching events to specific contexts
+// Dispatches the SIGNUP event to Context-X
+context.dispatchEvent('Context-X:Signup'); 
+
+// Dispatches the SIGNUP event to all contexts
+context.dispatchEvent('*:Signup'); 
+
+// Dispatches all events to all contexts. Not recommended
+context.dispatchEvent('*:*'); 
+
+// Dispatches all events under Context-Y
+context.dispatchEvent('Context-Y:*'); 
+
+``` 
 
 ## Lib Full Documentation
 
