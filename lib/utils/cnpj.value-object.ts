@@ -13,11 +13,10 @@ interface Prop {
 
 export class CNPJValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexCnpj;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid value for cnpj';
 
 	private constructor(props: Prop) {
-		super(props, { disableSetters: CNPJValueObject.DISABLE_SETTER });
+		super(props);
 		this.removeSpecialChars();
 	}
 

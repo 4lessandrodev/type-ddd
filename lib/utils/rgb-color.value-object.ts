@@ -11,12 +11,11 @@ interface Prop {
 
 class RGBColorValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexHash;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string =
 		'Invalid rgb value. It must match with pattern rgb(255, 255, 255)';
 
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: RGBColorValueObject.DISABLE_SETTER });
+		super(prop);
 	}
 
 	value(): string {

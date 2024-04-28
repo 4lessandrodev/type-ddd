@@ -9,14 +9,11 @@ interface OrderIdProps {
 
 class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	protected static readonly REGEX = regexHash;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string =
 		'Invalid value for Tracking code';
 
 	private constructor(props: OrderIdProps) {
-		super(props, {
-			disableSetters: TrackingCodeValueObject.DISABLE_SETTER,
-		});
+		super(props);
 	}
 
 	/**

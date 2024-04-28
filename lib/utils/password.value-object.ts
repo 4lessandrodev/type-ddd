@@ -11,14 +11,11 @@ interface Prop {
 class PasswordValueObject extends ValueObject<Prop> {
 	protected static readonly MAX_LENGTH = 22;
 	protected static readonly MIN_LENGTH = 5;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly REGEX = regexHash;
 	protected static readonly MESSAGE: string = `Password must has min ${PasswordValueObject.MIN_LENGTH} and max ${PasswordValueObject.MAX_LENGTH} chars`;
 
 	private constructor(props: Prop) {
-		super(props, {
-			disableSetters: PasswordValueObject.DISABLE_SETTER,
-		});
+		super(props);
 	}
 
 	/**

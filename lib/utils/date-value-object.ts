@@ -41,10 +41,9 @@ export class DateValueObject extends ValueObject<Prop> {
 	private readonly ONE_MONTH: number = 2678400000;
 	private readonly ONE_WEEK: number = 604800000;
 	private readonly ONE_YEAR: number = 31622400000;
-	protected static readonly DISABLE_SETTER: boolean = true;
 
 	private constructor(props: Prop) {
-		super(props, { disableSetters: DateValueObject.DISABLE_SETTER });
+		super(props);
 	}
 
 	/**
