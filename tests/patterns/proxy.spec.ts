@@ -114,7 +114,7 @@ describe('proxy.pattern', () => {
 		const validateSpy = jest.spyOn(canExecuteProxy, 'execute');
 
 		jest.spyOn(canExecuteProxy, 'execute').mockImplementationOnce(
-			async () => Result.Ok(false)
+			async () => Result.Ok(false),
 		);
 
 		const proxy = new OnlyExecute({
@@ -168,7 +168,7 @@ describe('proxy.pattern', () => {
 		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
 
 		expect(validateSpy).toHaveBeenCalledWith(
-			Result.Ok('valid_email@domain.com')
+			Result.Ok('valid_email@domain.com'),
 		);
 
 		expect(result.isOk()).toBeTruthy();
@@ -195,7 +195,7 @@ describe('proxy.pattern', () => {
 		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
 
 		expect(validateSpy).toHaveBeenCalledWith(
-			Result.Ok('valid_email@domain.com')
+			Result.Ok('valid_email@domain.com'),
 		);
 
 		expect(result.isOk()).toBeTruthy();
@@ -222,7 +222,7 @@ describe('proxy.pattern', () => {
 		const result = await proxy.execute({ email: 'VALID_EMAIL@DOMAIN.COM' });
 
 		expect(validateSpy).toHaveBeenCalledWith(
-			Result.Ok('valid_email@domain.com')
+			Result.Ok('valid_email@domain.com'),
 		);
 
 		expect(result.isFail()).toBeTruthy();
@@ -241,7 +241,7 @@ describe('proxy.pattern', () => {
 		const beforeExecuteSpy = jest
 			.spyOn(hooks.beforeExecute, 'execute')
 			.mockImplementationOnce(async () =>
-				Result.fail('@hook:before:fails')
+				Result.fail('@hook:before:fails'),
 			);
 
 		const canExecuteSpy = jest.spyOn(hooks.canExecute, 'execute');
@@ -279,7 +279,7 @@ describe('proxy.pattern', () => {
 		const canExecuteSpy = jest
 			.spyOn(hooks.canExecute, 'execute')
 			.mockImplementationOnce(async () =>
-				Result.fail('@hook:canExecute:fails')
+				Result.fail('@hook:canExecute:fails'),
 			);
 
 		const useCaseSpy = jest.spyOn(useCase, 'execute');
@@ -321,7 +321,7 @@ describe('proxy.pattern', () => {
 		const useCaseSpy = jest
 			.spyOn(useCase, 'execute')
 			.mockImplementationOnce(async () =>
-				Result.fail('@hook:execute:fails')
+				Result.fail('@hook:execute:fails'),
 			);
 
 		const canExecuteSpy = jest.spyOn(hooks.canExecute, 'execute');
@@ -361,7 +361,7 @@ describe('proxy.pattern', () => {
 		};
 
 		jest.spyOn(hooks.afterExecute, 'execute').mockImplementationOnce(
-			async () => Result.fail('@hook:after:fails')
+			async () => Result.fail('@hook:after:fails'),
 		);
 
 		const useCaseSpy = jest.spyOn(useCase, 'execute');

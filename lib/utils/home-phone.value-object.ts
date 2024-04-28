@@ -13,11 +13,10 @@ interface Prop {
  */
 class HomePhoneValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexHash;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid Home Phone Number';
 
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: HomePhoneValueObject.DISABLE_SETTER });
+		super(prop);
 	}
 
 	validation(value: string): boolean {
@@ -48,7 +47,7 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	getOnlyNumbers(): number {
 		const onlyNumbersAsString = this.props.value.replace(
 			regexHashSpecialChars,
-			''
+			'',
 		);
 		return parseInt(onlyNumbersAsString);
 	}

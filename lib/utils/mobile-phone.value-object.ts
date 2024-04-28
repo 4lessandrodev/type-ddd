@@ -14,11 +14,10 @@ interface Prop {
  */
 class MobilePhoneValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexHash;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid Mobile Phone Number';
 
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: MobilePhoneValueObject.DISABLE_SETTER });
+		super(prop);
 	}
 
 	/**
@@ -49,7 +48,7 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	getOnlyNumbers(): number {
 		const onlyNumbersAsString = this.props.value.replace(
 			regexHashSpecialChars,
-			''
+			'',
 		);
 		return parseInt(onlyNumbersAsString);
 	}

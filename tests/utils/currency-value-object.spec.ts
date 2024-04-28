@@ -41,28 +41,28 @@ describe('currency.value-object', () => {
 
 	it('should not be a safe value to calculate', () => {
 		const isSafeNumber = CurrencyValueObject.isSafeValue(
-			Number.MAX_SAFE_INTEGER
+			Number.MAX_SAFE_INTEGER,
 		);
 		expect(isSafeNumber).toBeFalsy();
 	});
 
 	it('should not be a safe value to calculate', () => {
 		const isSafeNumber = CurrencyValueObject.isSafeValue(
-			Number.MIN_SAFE_INTEGER
+			Number.MIN_SAFE_INTEGER,
 		);
 		expect(isSafeNumber).toBeFalsy();
 	});
 
 	it('should be a safe value to calculate', () => {
 		const isSafeNumber = CurrencyValueObject.isSafeValue(
-			Number.MIN_SAFE_INTEGER / 202
+			Number.MIN_SAFE_INTEGER / 202,
 		);
 		expect(isSafeNumber).toBeTruthy();
 	});
 
 	it('should be a safe value to calculate', () => {
 		const isSafeNumber = CurrencyValueObject.isSafeValue(
-			Number.MAX_SAFE_INTEGER / 202
+			Number.MAX_SAFE_INTEGER / 202,
 		);
 		expect(isSafeNumber).toBeTruthy();
 	});

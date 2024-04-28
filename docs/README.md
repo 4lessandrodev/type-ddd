@@ -1351,7 +1351,7 @@ Now we can dispatch the event whenever we want.
 
 ```ts
 
-DomainEvents.dispatch({ id: product.id, eventName: "ProductCreated" });
+product.dispatch("ProductCreated");
 
 > "EVENT DISPATCH: [Aggregate@Product]:6039756f-d3bc-452e-932a-ec89ff536dda"
 

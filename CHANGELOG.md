@@ -4,6 +4,164 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+---
+
+## Released
+
+### [3.9.0] - 2024-04-28
+
+### Update (Break Change)
+
+- Update core to v1.23.0
+- check [Core Changelog](https://github.com/4lessandrodev/rich-domain/blob/main/CHANGELOG.md)
+
+---
+
+## Released
+
+### [3.8.3] - 2024-04-13
+
+### Update
+
+- Update core
+- Added support to multi context name
+- Details [Commit](https://github.com/4lessandrodev/rich-domain/commit/00db292f0604469c8bf2f2fddf6460901a084cc6)
+
+```ts
+
+// Example Usage
+const context = Context.events();
+
+const handler = (event) => console.log(event);
+
+// Subscribing to events under different contexts
+context.subscribe('Context-A:SIGNUP', handler);
+context.subscribe('Context-B:SIGNUP', handler);
+context.subscribe('Context-C:SIGNUP', handler);
+context.subscribe('Context-B:NOTIFY', handler);
+context.subscribe('Context-B:SEND-EMAIL', handler);
+
+// Dispatching events to specific contexts
+// Dispatches the SIGNUP event to Context-B
+context.dispatchEvent('Context-B:SIGNUP');
+// Dispatches the SIGNUP event to all contexts
+context.dispatchEvent('*:SIGNUP');
+// Dispatches all events to all contexts. Not recommended
+context.dispatchEvent('*:*');
+// Dispatches all events under Context-B
+context.dispatchEvent('Context-B:*');
+
+```
+
+---
+
+### [3.8.2] - 2024-04-12
+
+### Update
+
+- Update core
+- Added support to global events [ChangeLog](https://github.com/4lessandrodev/rich-domain/pull/139)
+
+---
+
+### [3.8.1] - 2024-03-18
+
+### Update
+
+- Update core
+- Fix logger messages
+
+---
+
+### [3.8.0] - 2024-03-18
+
+### Update
+
+- update deps core to v1.20.0 see [changes](https://github.com/4lessandrodev/rich-domain/blob/main/CHANGELOG.md)
+
+---
+
+### [3.7.2] - 2024-03-15
+
+### Update
+
+- update deps
+- added support to nodejs v21
+
+---
+
+### [3.7.1] - 2023-12-15
+
+### Update
+
+- update deps
+
+---
+
+### [3.7.0] - 2023-09-30
+
+### Update
+
+- Update core
+- update deps
+- rich-domain: update lib core to 1.19.0
+- remove support for deprecated history method
+- improve performance and save memory usage
+
+---
+
+### [3.6.4] - 2023-08-24
+
+### Update
+
+- Update core
+- update deps
+- rich-domain: update lib core to 1.18.4
+
+---
+
+### [3.6.3] - 2023-07-30
+
+### Update
+
+- Update core
+- rich-domain: update lib core to 1.18.3 #272 #282
+
+---
+
+### [3.6.2] - 2023-07-09
+
+### Update
+
+- Update core
+- rich-domain: update lib core to 1.18.2 #272
+
+---
+
+---
+### [3.6.1] - 2023-06-30
+
+### Update
+
+- Update core
+- rich-domain: update lib core to 1.18.1
+
+---
+### [3.6.0] - 2023-04-21
+
+### Update
+
+- Update core
+- rich-domain: update lib core to 1.18.0 [More](https://github.com/4lessandrodev/rich-domain/blob/main/CHANGELOG.md)
+
+
+---
+### [3.5.3] - 2023-02-18
+
+### Update
+
+- Update core
+- rich-domain: update lib core to 1.17.3
 
 ---
 

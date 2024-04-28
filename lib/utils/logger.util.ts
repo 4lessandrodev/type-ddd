@@ -1,14 +1,13 @@
-import pino from 'pino';
+import pino, { BaseLogger } from 'pino';
 import { LoggerOptions } from 'pino';
 
 class DefaultLogger {
-	protected static pino: any;
+	protected static pino: BaseLogger = null as unknown as BaseLogger;
 	protected static config: LoggerOptions = {
 		transport: {
 			target: 'pino-pretty',
 			options: {
 				translateTime: 'HH:MM:ss',
-				messageFormat: '{levelLabel} {pid} {msg}',
 				ignore: 'pid,hostname',
 				prettyPrint: {
 					colorize: true,
@@ -18,7 +17,7 @@ class DefaultLogger {
 		},
 	};
 
-	public static init() {
+	public static instance() {
 		if (!DefaultLogger.pino) {
 			this.pino = pino(DefaultLogger.config);
 		}
@@ -38,17 +37,19 @@ export const checkEnv = (callback: Function, type?: LogsType): void => {
 	}
 };
 
+const loggerInstance = DefaultLogger.instance();
+
 const Logger = {
 	info: (message: string) => {
-		const callback = () => DefaultLogger.init().info({}, message);
+		const callback = () => loggerInstance.info(message);
 		checkEnv(callback, 'info');
 	},
 	error: (message: string) => {
-		const callback = () => DefaultLogger.init().error({}, message);
+		const callback = () => loggerInstance.error(message);
 		checkEnv(callback, 'error');
 	},
 	warn: (message: string) => {
-		const callback = () => DefaultLogger.init().warn({}, message);
+		const callback = () => loggerInstance.warn(message);
 		checkEnv(callback, 'warn');
 	},
 };

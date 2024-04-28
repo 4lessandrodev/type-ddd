@@ -11,11 +11,10 @@ interface Prop {
 
 export class CPFValueObject extends ValueObject<Prop> {
 	protected static readonly REGEX = regexCpf;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid value for cpf';
 
 	private constructor(props: Prop) {
-		super(props, { disableSetters: CPFValueObject.DISABLE_SETTER });
+		super(props);
 		this.removeSpecialChars();
 	}
 

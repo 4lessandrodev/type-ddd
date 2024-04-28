@@ -367,9 +367,175 @@ console.log(result.toObject());
 
 ```
 
----
 
-### See also how to use Aggregate.
+### Aggregate
+
+Encapsulate and are composed of entity classes and value objects that change together in a business transaction
+
+#### Create an aggregate to compose your context.
+
+In my example, let's use the context of payment. All payment transactions are encapsulated by an order (payment order) that represents a user's purchasing context.
+
+```ts
+
+import { Aggregate, Ok, Fail, Result, UID, EventHandler } from 'types-ddd';
+
+// Entities and VO that encapsulate context.
+interface Props {
+    id?: UID;
+    payment: Payment;
+    items: List<Item>;
+    status: OrderStatus;
+    customer: Customer;
+}
+
+// Simple example of an order aggregate encapsulating entities and 
+// value objects for context.
+export default class Order extends Aggregate<Props> {
+
+    // Private constructor to ensure instances creation through static methods.
+    private constructor(props: Props){
+        super(props);
+    }
+
+    // Static method to begin a new order. 
+    // Takes a customer as parameter and returns an instance of Order.
+    public static begin(customer: Customer): Order {
+        // Initialize the status of the order as "begin".
+        const status = OrderStatus.begin();
+        // Initialize the list of items as empty.
+        const items: List<Item> = List.empty();
+        // Initialize the payment as zero, since the order hasn't been paid yet.
+        const payment = Payment.none();
+        // Create a new instance of Order with the provided parameters.
+        const order = new Order({ status, payment, items, customer });
+
+        // Add an event to indicate that the order has begun.
+        order.addEvent('ORDER_HAS_BEGUN', (order) => {
+        // Perform some important operation when the order begins.
+            console.log('Do something important...');
+        });
+
+        // Alternatively, add an event by creating an
+        // instance of a class that extends EventHandler.
+        order.addEvent(new OrderBeganEventHandler());
+
+        // Return the created order instance.
+        return order;
+    }
+
+    // Method to add an item to the order. 
+    // Takes an item as parameter and returns the Order instance.
+    addItem(item: Item): Order {
+        // Add the item to the order's items list.
+        this.props.items.add(item);
+        // Sum item price to payment amount
+        this.props.payment.sum(item.price);
+        // Return the Order instance itself to allow chained calls.
+        return this;
+    }
+
+    // Method to perform the payment of the order. 
+    // Takes a payment object as parameter.
+    pay(payment: Payment): Order {
+        // Set the status of the order to "paid".
+        this.props.status = OrderStatus.paid();
+        // Set the provided payment object.
+        this.props.payment = payment;
+        // Add an event to indicate that the order has been paid.
+        // Assuming OrderPaidEvent is a class representing 
+        // the event of order payment.
+        this.addEvent(new OrderPaidEventHandler());
+        return this; 
+    }
+
+    // Static method to create an instance of Order.
+    // Returns a Result, which can be Ok (success) or Fail (failure).
+    // The value of the Result is an instance of Order, 
+    // if creation is successful.
+    public static create(props: Props): Result<Order> {
+        return Ok(new Order(props));
+    }
+}
+
+```
+
+#### How to use events
+
+Event Handler
+
+```ts
+
+import { Context, EventHandler } from 'rich-domain';
+
+
+class OrderCreatedEvent extends EventHandler<Order> {
+
+    constructor() {
+        super({ eventName: 'OrderCreated' });
+    }
+
+    dispatch(order: Order): void {
+        // dispatch event to another context
+        order.context().dispatchEvent('Context:Event', order.toObject());
+    };
+}
+
+```
+
+Aggregates domain events
+
+
+```ts
+
+order.addEvent('Event', (...args) => {
+    console.log(args);
+});
+
+// Or add an EventHandler instance
+order.addEvent(new OrderCreatedEvent());
+
+order.dispatchEvent('OrderBegun');
+
+// dispatch with args
+order.dispatchEvent('Event', { info: 'custom_args' });
+
+// OR call all added events
+await order.dispatchAll();
+
+
+```
+
+#### How to subscribe to a global event
+
+```ts
+
+import { Context } from 'rich-domain';
+
+const context = Context.events();
+
+context.subscribe('Context:Event', (event) => {
+   const [model] = event.detail;
+   console.log(model);
+});
+
+// dispatch an event to a context with args
+context.dispatchEvent('Context:Event', { name: 'Jane' });
+
+// Dispatching events to specific contexts
+// Dispatches the SIGNUP event to Context-X
+context.dispatchEvent('Context-X:Signup'); 
+
+// Dispatches the SIGNUP event to all contexts
+context.dispatchEvent('*:Signup'); 
+
+// Dispatches all events to all contexts. Not recommended
+context.dispatchEvent('*:*'); 
+
+// Dispatches all events under Context-Y
+context.dispatchEvent('Context-Y:*'); 
+
+``` 
 
 ## Lib Full Documentation
 

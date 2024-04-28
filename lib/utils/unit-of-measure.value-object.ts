@@ -26,13 +26,10 @@ interface Prop {
 }
 
 export class UnitOfMeasureValueObject extends ValueObject<Prop> {
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid unit of measure value';
 
 	private constructor(props: Prop) {
-		super(props, {
-			disableSetters: UnitOfMeasureValueObject.DISABLE_SETTER,
-		});
+		super(props);
 	}
 
 	value(): UnitOfMeasure {
@@ -52,7 +49,7 @@ export class UnitOfMeasureValueObject extends ValueObject<Prop> {
 	}
 
 	public static create(
-		value: UnitOfMeasure
+		value: UnitOfMeasure,
 	): Result<UnitOfMeasureValueObject> {
 		const isValid = UnitOfMeasureValueObject.isValidProps(value);
 

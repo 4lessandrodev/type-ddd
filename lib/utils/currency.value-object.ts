@@ -56,11 +56,10 @@ interface Prop {
  */
 class CurrencyValueObject extends ValueObject<Prop> {
 	private cents: number;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = `Value is not a safe number, must be between ${minSafeValue} and ${maxSafeValue}`;
 
 	private constructor(props: Prop) {
-		super(props, { disableSetters: CurrencyValueObject.DISABLE_SETTER });
+		super(props);
 		this.cents = convertValueToCent(props.value);
 	}
 

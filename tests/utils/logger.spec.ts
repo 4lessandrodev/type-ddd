@@ -1,4 +1,4 @@
-import { checkEnv } from '@types-ddd';
+import { Logger, checkEnv } from '@types-ddd';
 
 describe('Logger', () => {
 	it('should log if is not production and log is not off', () => {
@@ -87,5 +87,11 @@ describe('Logger', () => {
 		checkEnv(callback);
 
 		expect(callback).not.toHaveBeenCalled();
+	});
+
+	it('logger must print message', () => {
+		process.env.NODE_ENV = undefined;
+		process.env.TYPES_DDD_LOGS = undefined;
+		Logger.info('some success message');
 	});
 });

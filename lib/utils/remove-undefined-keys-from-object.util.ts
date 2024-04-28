@@ -57,7 +57,7 @@ const canAdd = (param: CanAddParam): boolean => {
  * ...
  */
 export const removeUndefinedKeysFromObject = <T = {}>(
-	param: Params<T>
+	param: Params<T>,
 ): Partial<T> => {
 	//
 	let result: Partial<T> = {};

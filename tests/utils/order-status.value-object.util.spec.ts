@@ -23,14 +23,14 @@ describe('order-status.value-object', () => {
 
 	it('should fail if try create an invalid status', () => {
 		const status = OrderStatusValueObject.create(
-			'INVALID' as AvailableOrderStatusType
+			'INVALID' as AvailableOrderStatusType,
 		);
 		expect(status.isOk()).toBe(false);
 	});
 
 	it('should validate an status', () => {
 		const isValid = OrderStatusValueObject.isValidProps(
-			'INVALID' as AvailableOrderStatusType
+			'INVALID' as AvailableOrderStatusType,
 		);
 		expect(isValid).toBe(false);
 	});

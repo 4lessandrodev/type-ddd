@@ -9,11 +9,10 @@ interface Prop {
 }
 
 class HEXColorValueObject extends ValueObject<Prop> {
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly REGEX = regexHash;
 
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: HEXColorValueObject.DISABLE_SETTER });
+		super(prop);
 	}
 
 	value(): string {
@@ -62,7 +61,7 @@ class HEXColorValueObject extends ValueObject<Prop> {
 	public static create(value: string): Result<HEXColorValueObject> {
 		if (!HEXColorValueObject.isValidProps(value)) {
 			return Result.fail(
-				'Invalid hex value. It must match with pattern #ffffff'
+				'Invalid hex value. It must match with pattern #ffffff',
 			);
 		}
 		return Result.Ok(new HEXColorValueObject({ value }));

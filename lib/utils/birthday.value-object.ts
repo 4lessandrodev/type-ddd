@@ -8,11 +8,10 @@ interface Prop {
 export class BirthdayValueObject extends ValueObject<Prop> {
 	private readonly ONE_YEAR: number = 31536000902;
 	protected static readonly MAX_HUMAN_AGE: number = 121;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = `Invalid age for a human. Must has less than ${BirthdayValueObject.MAX_HUMAN_AGE} years old and birth not in future`;
 
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: BirthdayValueObject.DISABLE_SETTER });
+		super(prop);
 	}
 
 	/**
