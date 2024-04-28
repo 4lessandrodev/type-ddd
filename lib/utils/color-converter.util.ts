@@ -6,8 +6,8 @@ const colorConverter = {
 	 * @example #ffffff
 	 * @returns rgb(255, 255, 255)
 	 */
-	HEXToRGB(color: string, validate: (color: string) => boolean) {
-		const isValid = validate(color);
+	HEXToRGB(color: string, validate?: (color: string) => boolean) {
+		const isValid = validate?.(color) ?? true;
 
 		if (!isValid) {
 			return color;
@@ -30,8 +30,8 @@ const colorConverter = {
 	 * @example rgb(255, 255, 255)
 	 * @returns hex color #ffffff
 	 */
-	RGBToHEX(color: string, validate: (color: string) => boolean) {
-		const isValid = validate(color);
+	RGBToHEX(color: string, validate?: (color: string) => boolean) {
+		const isValid = validate?.(color) ?? true;
 
 		if (!isValid) {
 			return color;

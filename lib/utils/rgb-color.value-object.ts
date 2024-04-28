@@ -51,10 +51,7 @@ class RGBColorValueObject extends ValueObject<Prop> {
 	 * @example #ffffff
 	 */
 	getAsHex(): string {
-		return colorConverter.RGBToHEX(
-			this.props.value,
-			RGBColorValueObject.isValidProps,
-		);
+		return colorConverter.RGBToHEX(this.props.value);
 	}
 
 	/**

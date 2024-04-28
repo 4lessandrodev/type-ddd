@@ -49,10 +49,7 @@ class HEXColorValueObject extends ValueObject<Prop> {
 	 * @example rgb(255, 255, 255)
 	 */
 	getAsRGB(): string {
-		return colorConverter.HEXToRGB(
-			this.props.value,
-			HEXColorValueObject.isValidProps,
-		);
+		return colorConverter.HEXToRGB(this.props.value);
 	}
 
 	/**
