@@ -41,7 +41,8 @@ describe('entity', () => {
 
 			const object = orange.toObject();
 			expect(object.additionalInfo).toEqual(['from brazil']);
-			expect(object.name).toBe('orange');
+			expect(object.name.value).toBe('orange');
+			expect(orange.get('name').get('value')).toBe('orange');
 			expect(object.price).toBe(10);
 		});
 	});
