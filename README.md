@@ -358,9 +358,15 @@ console.log(result.toObject());
 
 {
     "id": "d7fc98f5-9711-4ad8-aa16-70cb8a52244a",
-    "total": 347,
-    "discount": 170.50,
-    "fees": 17.50,
+    "total": { 
+        "amount": 347 
+    },
+    "discount": {
+         "amount": 170.50
+    },
+    "fees": { 
+        "amount": 17.50
+    },
     "createdAt":"2023-01-30T23:11:17.815Z",
     "updatedAt":"2023-01-30T23:11:17.815Z"
 }
