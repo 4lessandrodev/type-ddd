@@ -29,6 +29,7 @@ const colorGenerator = {
 		const color = randomRGBColor();
 		let hexColor = colorConverter.RGBToHEX(
 			`rgb(${color.R}, ${color.G}, ${color.B})`,
+			() => true,
 		);
 		hexColor += '000';
 		return hexColor.slice(0, 7);
