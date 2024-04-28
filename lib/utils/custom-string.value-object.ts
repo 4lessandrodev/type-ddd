@@ -21,14 +21,11 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 	};
 	protected static readonly MAX_LENGTH: number = 255;
 	protected static readonly MIN_LENGTH: number = 1;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string =
 		'Invalid value for a custom string';
 
 	private constructor(props: Prop) {
-		super(props, {
-			disableSetters: CustomStringValueObject.DISABLE_SETTER,
-		});
+		super(props);
 	}
 
 	/**

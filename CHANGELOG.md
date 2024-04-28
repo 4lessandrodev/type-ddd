@@ -10,9 +10,9 @@ All notable changes to this project will be documented in this file.
 
 ### [3.9.0] - 2024-04-28
 
-### Update
+### Update (Break Change)
 
-- Update core
+- Update core to v1.23.0
 - check [Core Changelog](https://github.com/4lessandrodev/rich-domain/blob/main/CHANGELOG.md)
 
 ---

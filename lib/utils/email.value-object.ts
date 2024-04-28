@@ -7,13 +7,12 @@ interface Prop {
 }
 
 export class EmailValueObject extends ValueObject<Prop> {
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly BLOCKED_DOMAINS: Array<string> = [];
 	protected static readonly VALID_DOMAINS: Array<string> = [];
 	protected static readonly MESSAGE: string = 'Invalid email';
 
 	private constructor(props: Prop) {
-		super(props, { disableSetters: EmailValueObject.DISABLE_SETTER });
+		super(props);
 	}
 
 	value(): string {

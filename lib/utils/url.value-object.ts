@@ -6,11 +6,10 @@ interface Prop {
 }
 
 class UrlValueObject extends ValueObject<Prop> {
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid url value';
 
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: UrlValueObject.DISABLE_SETTER });
+		super(prop);
 	}
 
 	/**

@@ -14,11 +14,10 @@ interface Props {
 }
 
 export class DimensionValueObject extends ValueObject<DimensionValueObjectProps> {
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid unit for Dimension';
 
 	private constructor(props: DimensionValueObjectProps) {
-		super(props, { disableSetters: DimensionValueObject.DISABLE_SETTER });
+		super(props);
 	}
 
 	get dimension(): CustomNumberValueObject {

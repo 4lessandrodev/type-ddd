@@ -14,11 +14,10 @@ interface Props {
 }
 
 export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid unit for weight';
 
 	private constructor(props: WeightValueObjectProps) {
-		super(props, { disableSetters: WeightValueObject.DISABLE_SETTER });
+		super(props);
 	}
 
 	/**

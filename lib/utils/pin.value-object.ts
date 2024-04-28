@@ -13,11 +13,10 @@ interface Prop {
  * @example ABCDEF-123456
  */
 export class PinValueObject extends ValueObject<Prop> {
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string = 'Invalid value for a pin';
 
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: PinValueObject.DISABLE_SETTER });
+		super(prop);
 	}
 
 	/**
