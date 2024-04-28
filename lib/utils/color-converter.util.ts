@@ -1,5 +1,3 @@
-import { HEXColorValueObject, RGBColorValueObject } from '..';
-
 const colorConverter = {
 	/**
 	 *
@@ -8,8 +6,8 @@ const colorConverter = {
 	 * @example #ffffff
 	 * @returns rgb(255, 255, 255)
 	 */
-	HEXToRGB(color: string) {
-		const isValid = HEXColorValueObject.isValidProps(color);
+	HEXToRGB(color: string, validate?: (color: string) => boolean) {
+		const isValid = validate?.(color) ?? true;
 
 		if (!isValid) {
 			return color;
@@ -32,8 +30,8 @@ const colorConverter = {
 	 * @example rgb(255, 255, 255)
 	 * @returns hex color #ffffff
 	 */
-	RGBToHEX(color: string) {
-		const isValid = RGBColorValueObject.isValidProps(color);
+	RGBToHEX(color: string, validate?: (color: string) => boolean) {
+		const isValid = validate?.(color) ?? true;
 
 		if (!isValid) {
 			return color;

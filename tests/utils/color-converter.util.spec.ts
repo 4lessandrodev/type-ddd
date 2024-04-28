@@ -17,22 +17,28 @@ describe('color-converter', () => {
 	});
 
 	it('should convert from rgb to hex', () => {
-		const converter = colorConverter.RGBToHEX('rgb(20, 250, 30)');
+		const converter = colorConverter.RGBToHEX(
+			'rgb(20, 250, 30)',
+			() => true,
+		);
 		expect(converter).toBe('#14fa1e');
 	});
 
 	it('should convert from hex to rgb', () => {
-		const converter = colorConverter.HEXToRGB('#ffffff');
+		const converter = colorConverter.HEXToRGB('#ffffff', () => true);
 		expect(converter).toBe('rgb(255, 255, 255)');
 	});
 
 	it('should return the same value if provide an invalid rgb color', () => {
-		const converter = colorConverter.RGBToHEX('rgb(300, 255, 255)');
+		const converter = colorConverter.RGBToHEX(
+			'rgb(300, 255, 255)',
+			() => false,
+		);
 		expect(converter).toBe('rgb(300, 255, 255)');
 	});
 
 	it('should return the same value if provide an invalid hex color', () => {
-		const converter = colorConverter.HEXToRGB('#invalid');
+		const converter = colorConverter.HEXToRGB('#invalid', () => false);
 		expect(converter).toBe('#invalid');
 	});
 });
