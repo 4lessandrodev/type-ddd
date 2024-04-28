@@ -8,6 +8,17 @@ All notable changes to this project will be documented in this file.
 
 ## Released
 
+### [3.9.0] - 2024-04-28
+
+### Update
+
+- Update core
+- check [Core Changelog](https://github.com/4lessandrodev/rich-domain/blob/main/CHANGELOG.md)
+
+---
+
+## Released
+
 ### [3.8.3] - 2024-04-13
 
 ### Update

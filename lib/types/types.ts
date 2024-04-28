@@ -25,7 +25,7 @@ import {
 	ICommand,
 } from 'rich-domain/types';
 import { IProxy, IIterator, IHistory, IEntityHistory } from 'rich-domain/types';
-import { IGettersAndSetters, IParentName } from 'rich-domain/types';
+import { IParentName } from 'rich-domain/types';
 
 export interface CloneProps {
 	isNew: boolean;
@@ -155,7 +155,6 @@ export {
 	IIterator,
 	IHistory,
 	IEntityHistory,
-	IGettersAndSetters,
 	IParentName,
 	IUseCase,
 	IPropsValidation,
