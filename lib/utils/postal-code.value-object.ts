@@ -7,12 +7,11 @@ interface Prop {
 }
 
 class PostalCodeValueObject extends ValueObject<Prop> {
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly REGEX = regexHash;
 	protected static readonly MESSAGE: string = 'Invalid postal code';
 
 	private constructor(prop: Prop) {
-		super(prop, { disableSetters: PostalCodeValueObject.DISABLE_SETTER });
+		super(prop);
 	}
 
 	/**

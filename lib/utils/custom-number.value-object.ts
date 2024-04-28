@@ -21,14 +21,11 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 	};
 	protected static readonly MAX: number = Number.MAX_SAFE_INTEGER;
 	protected static readonly MIN: number = Number.MIN_SAFE_INTEGER;
-	protected static readonly DISABLE_SETTER: boolean = true;
 	protected static readonly MESSAGE: string =
 		'Invalid value for a custom number';
 
 	private constructor(props: Prop) {
-		super(props, {
-			disableSetters: CustomNumberValueObject.DISABLE_SETTER,
-		});
+		super(props);
 	}
 
 	/**
