@@ -18,9 +18,18 @@
 		"outDir": "./dist",
 		"esModuleInterop": true,
 		"baseUrl": "./",
+		"composite": true,
 		"paths": {
 			"@types-ddd": ["lib/index"]
 		}
 	},
-	"include": ["lib/*", "lib/**/*", "example", "tests", "types"]
+	"include": ["lib/*", "lib/**/*", "example", "tests", "types", "packages/*"],
+	"references": [
+		{
+			"path": "./packages/cpf"
+		},
+		{
+			"path": "./packages/logger"
+		}
+	]
 }

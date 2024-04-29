@@ -1,0 +1,15 @@
+{
+  "name": "logger",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Alessandro Dev",
+  "license": "MIT",
+  "peerDependencies": {
+		"pino": "^9.0.0",
+		"pino-pretty": "^11.0.0"
+  },
+  "devDependencies": {
+    "pino": "^9.0.0",
+		"pino-pretty": "^11.0.0"
+  }
+}

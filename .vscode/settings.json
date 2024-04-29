@@ -10,5 +10,10 @@
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
 	"typescript.format.insertSpaceAfterConstructor": true,
 	"typescript.format.insertSpaceBeforeFunctionParenthesis": true,
-	"cSpell.words": ["cnpj"]
+	"cSpell.words": [
+		"cnpj"
+	],
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	}
 }

@@ -1,4 +1,5 @@
-import { CPFValueObject } from '../../lib/utils/cpf.value-object';
+import CPFValueObject from "../index";
+
 
 describe('cpf.value-object', () => {
 	it('should be defined', () => {

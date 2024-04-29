@@ -13,20 +13,18 @@
 		"skipLibCheck": true,
 		"target": "ES2017",
 		"strict": true,
-		"lib": ["ES2017"],
+		"lib": [
+			"ES2017"
+		],
 		"sourceMap": false,
 		"outDir": "./dist",
 		"esModuleInterop": true,
 		"composite": true
 	},
-	"include": ["lib/*", "lib/**/*", "packages/*"],
-	"exclude": ["/**/*.spec.ts", "/*.spec.ts", "tests", "*/tests"],
-	"references": [
-		{
-			"path": "./packages/cpf"
-		},
-		{
-			"path": "./packages/logger"
-		}
+	"exclude": [
+		"/**/*.spec.ts",
+		"/*.spec.ts",
+		"tests",
+		"*/tests"
 	]
 }

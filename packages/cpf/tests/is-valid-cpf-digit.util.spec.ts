@@ -1,8 +1,5 @@
-import isValidCpfDigit from '../../lib/utils/check-cpf-digit.util';
-import {
-	formatValueToCpfPattern,
-	removeSpecialCharsFromCpf,
-} from '../../lib/utils/check-cpf-digit.util';
+import isValidCpfDigit, { formatValueToCpfPattern, removeSpecialCharsFromCpf } from "../util";
+
 describe('is-valid-cpf-digits', () => {
 	it('should be defined', () => {
 		const isValidCpfDigitFn = isValidCpfDigit;

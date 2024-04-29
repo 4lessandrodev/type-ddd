@@ -1,0 +1,10 @@
+{
+  "name": "cpf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Alessandro Dev",
+  "license": "MIT",
+  "peerDependencies": {
+    "rich-domain":"^1.23.0"
+  }
+}

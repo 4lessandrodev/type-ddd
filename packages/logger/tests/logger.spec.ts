@@ -1,4 +1,4 @@
-import { Logger, checkEnv } from '@types-ddd';
+import Logger, { checkEnv } from '../index';
 
 describe('Logger', () => {
 	it('should log if is not production and log is not off', () => {
