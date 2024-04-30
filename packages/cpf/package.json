@@ -1,15 +1,15 @@
 {
   "name": "cpf",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf ./dist",
-		"build": "tsc"
+    "build": "tsc"
   },
   "peerDependencies": {
-    "rich-domain":"^1.23.0"
+    "rich-domain": "^1.23.0"
   }
 }

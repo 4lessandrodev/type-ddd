@@ -1,20 +1,20 @@
 {
   "name": "logger",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf ./dist",
-		"build": "tsc"
+    "build": "tsc"
   },
   "peerDependencies": {
-		"pino": "^9.0.0",
-		"pino-pretty": "^11.0.0"
+    "pino": "^9.0.0",
+    "pino-pretty": "^11.0.0"
   },
   "devDependencies": {
     "pino": "^9.0.0",
-		"pino-pretty": "^11.0.0"
+    "pino-pretty": "^11.0.0"
   }
 }
