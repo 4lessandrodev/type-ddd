@@ -1,0 +1,15 @@
+{
+    "extends": "../tsconfig.build.json",
+    "compilerOptions": {
+        "outDir": ".",
+        "rootDir": ".",
+        "paths": {}
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "tests/**/*",
+        "*.spec.ts"
+    ],
+    "references": []
+}

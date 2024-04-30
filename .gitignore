@@ -106,3 +106,9 @@ dist
 build
 
 .vscode/
+
+packages/*/*.js
+packages/*/*.d.ts
+packages/*/tsconfig.build.tsbuildinfo
+
+.npmrc

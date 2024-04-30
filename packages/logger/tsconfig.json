@@ -21,10 +21,12 @@
 		"esModuleInterop": true,
 		"composite": true
 	},
+	"include": [
+		"*.ts"
+	],
 	"exclude": [
-		"/**/*.spec.ts",
-		"/*.spec.ts",
-		"tests",
-		"*/tests"
+		"node_modules",
+		"**/*.spec.ts",
+		"tests"
 	]
 }

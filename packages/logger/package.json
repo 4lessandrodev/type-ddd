@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Alessandro Dev",
   "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+		"build": "tsc"
+  },
   "peerDependencies": {
 		"pino": "^9.0.0",
 		"pino-pretty": "^11.0.0"

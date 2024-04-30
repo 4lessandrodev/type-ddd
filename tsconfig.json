@@ -1,35 +1,23 @@
 {
 	"compilerOptions": {
-		"module": "CommonJS",
-		"declaration": true,
+		"module": "commonjs",
 		"noImplicitAny": false,
-		"removeComments": false,
+		"noUnusedLocals": false,
+		"removeComments": true,
+		"noLib": false,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"allowSyntheticDefaultImports": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"skipDefaultLibCheck": true,
-		"skipLibCheck": true,
-		"target": "ES2017",
-		"strict": true,
-		"lib": ["ES2017"],
+		"useUnknownInCatchVariables": false,
+		"target": "ES2021",
 		"sourceMap": true,
-		"outDir": "./dist",
-		"esModuleInterop": true,
-		"baseUrl": "./",
-		"composite": true,
+		"allowJs": false,
+		"outDir": "dist",
+		"baseUrl": ".",
 		"paths": {
-			"@types-ddd": ["lib/index"]
+			"@types-ddd/cpf": ["./packages/cpf"],
+			"@types-ddd/logger": ["./packages/logger"]
 		}
 	},
-	"include": ["lib/*", "lib/**/*", "example", "tests", "types", "packages/*"],
-	"references": [
-		{
-			"path": "./packages/cpf"
-		},
-		{
-			"path": "./packages/logger"
-		}
-	]
+	"include": ["packages/**/*"],
+	"exclude": ["node_modules", "**/*.spec.ts"]
 }

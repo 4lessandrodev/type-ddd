@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Alessandro Dev",
   "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+		"build": "tsc"
+  },
   "peerDependencies": {
     "rich-domain":"^1.23.0"
   }

@@ -41,18 +41,18 @@
 	],
 	"scripts": {
 		"prebuild": "rimraf ./dist && npm run check:circular-deps",
-		"build": "tsc -p tsconfig.lib.json",
+		"build": "tsc -b -v packages",
 		"test:prod": "NODE_ENV=production jest --silent --runInBand",
 		"test:dev": "jest --silent --runInBand",
 		"test:cov": "TYPES_DDD_LOGS=off jest --silent --runInBand --coverage",
 		"test": "TYPES_DDD_LOGS=off jest --silent --runInBand",
 		"test:verbose": "jest --runInBand",
-		"check:circular-deps": "madge --circular --extensions ts ./lib",
+		"check:circular-deps": "madge --circular --extensions ts ./packages",
 		"prepublish:lib": "rimraf ./dist && npm run check:circular-deps",
 		"publish:lib": "npm publish",
 		"format:all": "npx prettier --write .",
 		"prepare": "husky install",
-		"check:types": "tsc -p ./tsconfig.lib.json --noEmit"
+		"check:types": "tsc -b -v packages --noEmit"
 	},
 	"repository": {
 		"type": "git",
@@ -87,7 +87,9 @@
 	},
 	"files": [
 		"dist/*",
-		"package.json"
+		"package.json",
+		"packages/*/*.js",
+		"packages/*/*.d.ts"
 	],
 	"lint-staged": {
 		"*": [

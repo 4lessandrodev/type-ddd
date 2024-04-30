@@ -1,0 +1,11 @@
+{
+    "files": [],
+    "references": [
+        {
+            "path": "./cpf/tsconfig.build.json"
+        },
+        {
+            "path": "./logger/tsconfig.build.json"
+        }
+    ]
+}
