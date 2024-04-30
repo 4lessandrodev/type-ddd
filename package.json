@@ -1,6 +1,6 @@
 {
 	"name": "types-ddd",
-	"version": "3.9.0",
+	"version": "3.9.2",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -42,6 +42,7 @@
 	"scripts": {
 		"prebuild": "rimraf ./dist && npm run check:circular-deps",
 		"build": "tsc -b -v packages",
+		"build:lerna": "lerna run build",
 		"test:prod": "NODE_ENV=production jest --silent --runInBand",
 		"test:dev": "jest --silent --runInBand",
 		"test:cov": "TYPES_DDD_LOGS=off jest --silent --runInBand --coverage",
@@ -76,20 +77,22 @@
 		"@types/pino": "^7.0.5",
 		"husky": "^9.0.6",
 		"jest": "^27.5.1",
+		"lerna": "^8.1.2",
 		"lint-staged": "^15.0.1",
 		"madge": "^7.0.0",
 		"prettier": "^3.0.0",
+		"rich-domain": "^1.23.0",
 		"rimraf": "^5.0.5",
 		"ts-jest": "^27.1.4",
 		"ts-node": "^10.7.0",
-		"typescript": "^5.1.6",
-		"rich-domain": "^1.23.0"
+		"typescript": "^5.1.6"
 	},
 	"files": [
 		"dist/*",
 		"package.json",
 		"packages/*/*.js",
-		"packages/*/*.d.ts"
+		"packages/*/*.d.ts",
+		"README.md"
 	],
 	"lint-staged": {
 		"*": [

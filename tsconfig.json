@@ -14,8 +14,8 @@
 		"outDir": "dist",
 		"baseUrl": ".",
 		"paths": {
-			"@types-ddd/cpf": ["./packages/cpf"],
-			"@types-ddd/logger": ["./packages/logger"]
+			"types-ddd/cpf": ["./packages/cpf"],
+			"types-ddd/logger": ["./packages/logger"]
 		}
 	},
 	"include": ["packages/**/*"],
