@@ -1,7 +1,6 @@
-import { ValueObject } from '../core';
-import { Result } from '../core';
 import { genSaltSync, hashSync, compareSync } from 'bcrypt';
 import passwordGenerator, { ILength } from './password-generator.util';
+import { Result, ValueObject } from 'rich-domain';
 const regexHash = /^\$2b\$10\$.{53}$/;
 
 interface Prop {

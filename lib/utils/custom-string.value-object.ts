@@ -1,5 +1,4 @@
-import { ValueObject } from '../core';
-import { Result } from '../core';
+import { Result, ValueObject } from 'rich-domain';
 
 export interface ICustomStrValidator {
 	(value: string): boolean;

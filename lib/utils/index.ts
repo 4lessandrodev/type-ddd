@@ -1,7 +1,6 @@
 export * from './get-undefined-keys-as-object.util';
 export * from './pin.value-object';
 export * from './url.value-object';
-export * from './cpf.value-object';
 export * from './cnpj.value-object';
 export * from './custom-string.value-object';
 export * from './custom-number.value-object';
@@ -18,7 +17,6 @@ export * from './currency.value-object';
 export * from './email.value-object';
 export * from './user-name.value-object';
 export * from './birthday.value-object';
-export * from './logger.util';
 export * from './home-phone.value-object';
 export * from './mobile-phone.value-object';
 export * from './rgb-color.value-object';

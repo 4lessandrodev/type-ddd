@@ -1,5 +1,4 @@
-import { ValueObject } from '../core';
-import { Result } from '../core';
+import { Result, ValueObject } from 'rich-domain';
 import { IsValidEmail } from './email.validator.util';
 
 interface Prop {

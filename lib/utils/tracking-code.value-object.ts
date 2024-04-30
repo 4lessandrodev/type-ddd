@@ -1,5 +1,4 @@
-import { ValueObject } from '../core';
-import { Result } from '../core';
+import { Result, ValueObject } from 'rich-domain';
 import generateRandomTracking from './generate-random-tracking-code.util';
 const regexHash = /^[0-9|A-Z]{3}-[\w]{1}[0-9]{5}-[0-9]{4}$/;
 

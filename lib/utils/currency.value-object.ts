@@ -1,8 +1,7 @@
-import { ValueObject } from '../core';
-import { Result } from '../core';
 import calculatePercent from './calculate-percentage.util';
 import convertValueToCent from './convert-value-to-cent.util';
 import convertCentToFloat from './convert-cent-to-float.util';
+import { Result, ValueObject } from 'rich-domain';
 const minSafeValue = Math.floor(Number.MIN_SAFE_INTEGER / 100);
 const maxSafeValue = Math.floor(Number.MAX_SAFE_INTEGER / 100);
 

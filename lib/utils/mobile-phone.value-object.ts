@@ -1,5 +1,5 @@
-import { ValueObject } from '../core';
-import { Result } from '../core';
+import { Result, ValueObject } from 'rich-domain';
+
 const regexHash =
 	/^\([1-9]{2}\)\s[9](?!\d(?:(\d)\1{2})-(\d)\1{3})[5-9][0-9]{3}\-[0-9]{4}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;

@@ -4,7 +4,7 @@ import {
 	IAfterHookProxy,
 	ICanExecuteProxy,
 	TSProxy,
-} from '@types-ddd';
+} from '@types-ddd/core';
 import { IUseCase } from 'rich-domain';
 
 describe('proxy.pattern', () => {

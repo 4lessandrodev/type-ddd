@@ -1,5 +1,4 @@
-import { Result } from '../core';
-import { ValueObject } from '../core';
+import { Result, ValueObject } from 'rich-domain';
 
 enum DateFormats {
 	'DD-MM-YYYY' = 'DD-MM-YYYY',

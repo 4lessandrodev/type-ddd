@@ -1,6 +1,5 @@
+import { Result, ValueObject } from 'rich-domain';
 import CustomNumberValueObject from './custom-number.value-object';
-import { Result } from '../core';
-import { ValueObject } from '../core';
 import { UnitOfWeight, UnitsOfWeight } from './weight-unit.value-object';
 
 interface WeightValueObjectProps {

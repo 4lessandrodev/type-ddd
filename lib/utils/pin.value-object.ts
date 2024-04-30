@@ -1,6 +1,5 @@
-import { ValueObject } from '../core';
+import { Result, ValueObject } from 'rich-domain';
 import pinGenerator, { PinProps } from './pin-generator.util';
-import { Result } from '../core';
 
 interface Prop {
 	value: string;

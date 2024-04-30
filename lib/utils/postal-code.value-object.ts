@@ -1,5 +1,5 @@
-import { ValueObject } from '../core';
-import { Result } from '../core';
+import { Result, ValueObject } from 'rich-domain';
+
 const regexHash = /^[0-9]{5}-[0-9]{3}$|^[0-9]{8}$/;
 
 interface Prop {

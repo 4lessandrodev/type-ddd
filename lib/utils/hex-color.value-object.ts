@@ -1,5 +1,4 @@
-import { ValueObject } from '../core';
-import { Result } from '../core';
+import { Result, ValueObject } from 'rich-domain';
 import colorConverter from './color-converter.util';
 import colorGenerator from './color-generator.util';
 const regexHash = /^([#])([0-9|a-f]{2})([0-9|a-f]{1,2})([0-9|a-f]{1,2})/;
