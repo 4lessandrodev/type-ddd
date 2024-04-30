@@ -5,7 +5,7 @@ interface Prop {
 }
 
 export class UserNameValueObject extends ValueObject<Prop> {
-	protected static readonly MAX_LENGTH: number = 41;
+	protected static readonly MAX_LENGTH: number = 82;
 	protected static readonly MIN_LENGTH: number = 2;
 	protected static readonly MESSAGE: string = `Invalid name length. Must has min ${UserNameValueObject.MIN_LENGTH} and max ${UserNameValueObject.MAX_LENGTH} chars`;
 

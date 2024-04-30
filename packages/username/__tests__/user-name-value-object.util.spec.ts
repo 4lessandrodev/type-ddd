@@ -1,4 +1,4 @@
-import { UserNameValueObject } from '../../lib/utils/user-name.value-object';
+import UserNameValueObject from '../index'
 
 describe('user-name.value-object', () => {
 	it('should be defined', () => {
