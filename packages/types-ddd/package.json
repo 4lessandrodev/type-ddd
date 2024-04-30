@@ -1,7 +1,7 @@
 {
-  "name": "@types-ddd/logger",
+  "name": "@types-ddd/core",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
@@ -11,8 +11,11 @@
     "build": "tsc"
   },
   "dependencies": {
+    "rich-domain": "^1.23.0",
     "pino": "^9.0.0",
-    "pino-pretty": "^11.0.0"
+    "pino-pretty": "^11.0.0",
+    "@types-ddd/cpf": "./packages/cpf",
+    "@types-ddd/logger": "./packages/logger"
   },
   "files": [
     "index.js",

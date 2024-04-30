@@ -20,5 +20,5 @@ build:
 	npm run build
 
 publishVerdaccio:
-	make build
-	npm publish --registry http://localhost:4873/
+	yarn build:lerna
+	yarn lerna exec "npm publish --registry http://localhost:4873"

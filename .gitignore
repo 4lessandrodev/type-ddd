@@ -112,3 +112,4 @@ packages/*/*.d.ts
 packages/*/tsconfig.build.tsbuildinfo
 
 .npmrc
+.nx/
