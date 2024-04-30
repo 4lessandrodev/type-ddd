@@ -52,7 +52,7 @@
 		"publish:lib": "npm publish",
 		"format:all": "npx prettier --write .",
 		"prepare": "husky install",
-		"check:types": "tsc -b -v packages --noEmit"
+		"check:types": "tsc -v packages --noEmit"
 	},
 	"repository": {
 		"type": "git",
