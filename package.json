@@ -65,9 +65,6 @@
 	"peerDependencies": {
 		"rich-domain": "^1.23.0"
 	},
-	"dependencies": {
-		"bcrypt": "^5.0.1"
-	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.14.1",
 		"@types/bcrypt": "^5.0.0",

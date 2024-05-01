@@ -1,16 +1,12 @@
 import { Result, ValueObject } from "rich-domain";
 import isValidCpfDigit, { formatValueToCpfPattern } from "./util";
 
-interface Prop {
-	value: string;
-}
-
-export class CPFValueObject extends ValueObject<Prop> {
+export class CPFValueObject extends ValueObject<string> {
 	protected static readonly REGEX = /^([0-9]{3})[\.]((?!\1)[0-9]{3})[\.]([0-9]{3})[-]([0-9]{2})$|^[0-9]{11}$/;
 	protected static readonly MESSAGE: string = 'Invalid value for cpf';
 
-	private constructor(props: Prop) {
-		super(props);
+	private constructor(value: string) {
+		super(value);
 		this.removeSpecialChars();
 	}
 
@@ -20,7 +16,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @summary If you want cpf as pattern use `formatToCpfPattern` before get value.
 	 */
 	value(): string {
-		return this.props.value;
+		return this.props;
 	}
 
 	/**
@@ -29,8 +25,8 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example after "52734865211"
 	 */
 	removeSpecialChars(): CPFValueObject {
-		this.props.value = this.util
-			.string(this.props.value)
+		this.props = this.util
+			.string(this.props)
 			.removeSpecialChars();
 		return this;
 	}
@@ -41,7 +37,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example after "527.348.652-11"
 	 */
 	formatToCpfPattern(): CPFValueObject {
-		this.props.value = formatValueToCpfPattern(this.props.value);
+		this.props = formatValueToCpfPattern(this.props);
 		return this;
 	}
 
@@ -55,7 +51,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 	compare(cpf: string): boolean {
 		const formattedCpf = this.util.string(cpf).removeSpecialChars();
 		const instanceValue = this.util
-			.string(this.props.value)
+			.string(this.props)
 			.removeSpecialChars();
 		return instanceValue === formattedCpf;
 	}
@@ -99,7 +95,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 			return Result.fail(CPFValueObject.MESSAGE);
 		}
 
-		return Result.Ok(new CPFValueObject({ value }));
+		return Result.Ok(new CPFValueObject(value));
 	}
 }
 

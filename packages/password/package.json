@@ -1,0 +1,52 @@
+{
+  "name": "@types-ddd/password",
+	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "author": "Alessandro Dev",
+  "license": "MIT",
+  "keywords": [
+    "Complexity",
+    "Business Logic",
+    "DDD",
+    "Domain Driving Design",
+    "DDD-Utils",
+    "Base Value Object",
+    "Domain Events",
+    "Clean Architecture",
+    "User Name",
+    "Validation",
+    "Formatting",
+    "Value Object",
+    "Utility",
+    "Security",
+    "Standards"
+  ],
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "rich-domain": "^1.23.0",
+		"bcrypt": "^5.0.1"
+  },
+  "peerDependencies": {
+    "rich-domain": "^1.23.0",
+		"bcrypt": "^5.0.1"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "util.d.ts",
+    "util.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4lessandrodev/types-ddd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/4lessandrodev/types-ddd/issues"
+  },
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs"
+}

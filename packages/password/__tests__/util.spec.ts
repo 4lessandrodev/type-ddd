@@ -1,4 +1,4 @@
-import passwordGenerator from '../../lib/utils/password-generator.util';
+import { passwordGenerator } from '../utils';
 
 describe('password-generator.util', () => {
 	it('should be defined', () => {

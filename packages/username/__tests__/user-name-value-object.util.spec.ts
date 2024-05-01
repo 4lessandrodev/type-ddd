@@ -18,7 +18,7 @@ describe('user-name.value-object', () => {
 
 	it('should fail if provide a long name (41) chars', () => {
 		const username = UserNameValueObject.create(
-			'invalid_username'.repeat(3),
+			'invalid_username'.repeat(10),
 		);
 		expect(username.isFail()).toBe(true);
 	});

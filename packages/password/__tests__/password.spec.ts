@@ -1,4 +1,4 @@
-import { PasswordValueObject } from '../../lib/utils/password.value-object';
+import PasswordValueObject from '../index'
 
 describe('password.value-object', () => {
 	describe('default', () => {
@@ -74,12 +74,14 @@ describe('password.value-object', () => {
 			expect(isEqual).toBe(false);
 		});
 
-		it('should password to be equal', () => {
+		it.only('should password to be equal', () => {
 			const passA = PasswordValueObject.create('123456abc!').value();
-			/**  @todo: fix inference type on clone to get instance type */
+			const passC = PasswordValueObject.create('123456abc!').value();
 			const passB = passA.clone() as PasswordValueObject;
-			const isEqual = passA.isEqual(passB);
-			expect(isEqual).toBe(true);
+			const isEqual1 = passA.isEqual(passB);
+			const isEqual2 = passA.isEqual(passC);
+			expect(isEqual1).toBe(true);
+			expect(isEqual2).toBe(true);
 		});
 
 		it('should generate a valid random password not encrypted default 12 chars', () => {

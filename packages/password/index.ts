@@ -1,19 +1,15 @@
 import { genSaltSync, hashSync, compareSync } from 'bcrypt';
-import passwordGenerator, { ILength } from './password-generator.util';
 import { Result, ValueObject } from 'rich-domain';
+import passwordGenerator, { ILength } from './utils';
 const regexHash = /^\$2b\$10\$.{53}$/;
 
-interface Prop {
-	value: string;
-}
-
-class PasswordValueObject extends ValueObject<Prop> {
+class PasswordValueObject extends ValueObject<string> {
 	protected static readonly MAX_LENGTH = 22;
 	protected static readonly MIN_LENGTH = 5;
 	protected static readonly REGEX = regexHash;
 	protected static readonly MESSAGE: string = `Password must has min ${PasswordValueObject.MIN_LENGTH} and max ${PasswordValueObject.MAX_LENGTH} chars`;
 
-	private constructor(props: Prop) {
+	private constructor(props: string) {
 		super(props);
 	}
 
@@ -21,7 +17,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 * @returns value as string
 	 */
 	value(): string {
-		return this.props.value;
+		return this.props;
 	}
 
 	/**
@@ -32,9 +28,9 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 */
 	public compare(plainText: string): boolean {
 		if (this.isEncrypted()) {
-			return compareSync(plainText, this.props.value);
+			return compareSync(plainText, this.props);
 		}
-		return plainText === this.props.value;
+		return plainText === this.props;
 	}
 
 	/**
@@ -42,9 +38,10 @@ class PasswordValueObject extends ValueObject<Prop> {
 	 * @returns true if instance value is encrypted else false
 	 */
 	public isEncrypted(): boolean {
-		return this.validator
-			.string(this.props.value)
+		const isEncrypted = this.validator
+			.string(this.props)
 			.match(PasswordValueObject.REGEX);
+		return isEncrypted;
 	}
 
 	/**
@@ -77,7 +74,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 			return this;
 		}
 		const salt = genSaltSync();
-		this.props.value = hashSync(this.props.value, salt);
+		this.props = hashSync(this.props, salt);
 		return this;
 	}
 
@@ -117,7 +114,7 @@ class PasswordValueObject extends ValueObject<Prop> {
 		if (!PasswordValueObject.isValidProps(value)) {
 			return Result.fail(PasswordValueObject.MESSAGE);
 		}
-		return Result.Ok(new PasswordValueObject({ value }));
+		return Result.Ok(new PasswordValueObject(value));
 	}
 }
 

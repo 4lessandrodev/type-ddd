@@ -1,15 +1,11 @@
 import { Result, ValueObject } from 'rich-domain';
 
-interface Prop {
-	value: string;
-}
-
-export class UserNameValueObject extends ValueObject<Prop> {
+export class UserNameValueObject extends ValueObject<string> {
 	protected static readonly MAX_LENGTH: number = 82;
 	protected static readonly MIN_LENGTH: number = 2;
 	protected static readonly MESSAGE: string = `Invalid name length. Must has min ${UserNameValueObject.MIN_LENGTH} and max ${UserNameValueObject.MAX_LENGTH} chars`;
 
-	private constructor(props: Prop) {
+	private constructor(props: string) {
 		super(props);
 		this.capitalize();
 	}
@@ -18,7 +14,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns capitalized full name
 	 */
 	value(): string {
-		return this.props.value;
+		return this.props;
 	}
 
 	/**
@@ -26,7 +22,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns instance
 	 */
 	private capitalize(): UserNameValueObject {
-		const names = this.props.value.split(' ').filter((name): boolean => {
+		const names = this.props.split(' ').filter((name): boolean => {
 			return name.length > 1;
 		});
 
@@ -42,7 +38,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 			.replace(',')
 			.to(' ');
 
-		this.props.value = value;
+		this.props = value;
 		return this;
 	}
 
@@ -51,7 +47,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns check if has a second name
 	 */
 	hasMiddleName(): boolean {
-		return this.props.value.split(' ').length > 2;
+		return this.props.split(' ').length > 2;
 	}
 
 	/**
@@ -59,7 +55,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns check if has last name `first middle last`
 	 */
 	hasLastName(): boolean {
-		return this.props.value.split(' ').length >= 2;
+		return this.props.split(' ').length >= 2;
 	}
 
 	/**
@@ -67,7 +63,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns first name
 	 */
 	getFirstName(): string {
-		return this.props.value.split(' ')[0];
+		return this.props.split(' ')[0];
 	}
 
 	/**
@@ -78,7 +74,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 		if (!this.hasMiddleName()) {
 			return '';
 		}
-		return this.props.value.split(' ')[1];
+		return this.props.split(' ')[1];
 	}
 
 	/**
@@ -86,7 +82,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * @returns last name if exists else return the name
 	 */
 	getLastName(): string {
-		const names = this.props.value.split(' ');
+		const names = this.props.split(' ');
 		return names[names.length - 1];
 	}
 
@@ -98,7 +94,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 	 * for a name "Thomas A. Anderson" = "T.A.A"
 	 */
 	getInitials(separator = '.'): string {
-		const names = this.props.value.split(' ');
+		const names = this.props.split(' ');
 		const letters = names.map((name) => name[0]);
 		const value = this.util.string(letters.toString());
 
@@ -129,7 +125,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 		if (!isValidValue) {
 			return Result.fail(UserNameValueObject.MESSAGE);
 		}
-		return Result.Ok(new UserNameValueObject({ value }));
+		return Result.Ok(new UserNameValueObject(value));
 	}
 }
 
