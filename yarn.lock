@@ -1107,10 +1107,13 @@
     minimatch "^9.0.3"
 
 "@types-ddd/cpf@./packages/cpf":
-  version "0.0.1"
+  version "1.0.0"
 
 "@types-ddd/logger@./packages/logger":
-  version "0.0.1"
+  version "1.0.0"
+  dependencies:
+    pino "^9.0.0"
+    pino-pretty "^11.0.0"
 
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14":
   version "7.20.5"
@@ -5837,6 +5840,11 @@ rich-domain@^1.23.0:
   version "1.23.0"
   resolved "https://registry.yarnpkg.com/rich-domain/-/rich-domain-1.23.0.tgz#50f527fc2a8dd660de3d08c97e990f695f70703d"
   integrity sha512-Tfo18xWIdYNH1z8/gZA6PEj/WGucchCwfQpwdkk2QHNeYTTy4CWLWeh6ENB3b/wQFevMgRkiVpZAuPwHZWGfNg==
+
+rich-domain@^1.23.1:
+  version "1.23.1"
+  resolved "https://registry.yarnpkg.com/rich-domain/-/rich-domain-1.23.1.tgz#80dfc93aada0178a109fac65e311007d422ce0f2"
+  integrity sha512-Uzx16bXRH954j8WPnfEj40v6qdXLKzoIdikIa9Fa6VCQVEcUMchfZfqmDj56ZI5BtAwbrRKE57eA41sbRo6lIQ==
 
 rimraf@^3.0.0, rimraf@^3.0.2:
   version "3.0.2"

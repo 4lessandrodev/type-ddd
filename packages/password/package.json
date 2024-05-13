@@ -28,11 +28,11 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "rich-domain": "^1.23.0",
+    "rich-domain": "^1.23.1",
 		"bcrypt": "^5.0.1"
   },
   "peerDependencies": {
-    "rich-domain": "^1.23.0",
+    "rich-domain": "^1.23.1",
 		"bcrypt": "^5.0.1"
   },
   "files": [

@@ -143,14 +143,14 @@ describe('user-name.value-object', () => {
 		expect(username.value()).toBe('José Caleb Dos Santos');
 	});
 
-	it('should name with duple spaces and two caracter "de" ', () => {
+	it('should name with duple spaces and two character "de" ', () => {
 		const username = UserNameValueObject.create(
 			'José caleb  de Oliveira',
 		).value();
 		expect(username.value()).toBe('José Caleb De Oliveira');
 	});
 
-	it('should name with duple spaces and two caracter specials ', () => {
+	it('should name with duple spaces and two character specials ', () => {
 		const username = UserNameValueObject.create(
 			'José caleb , de Oliveira',
 		).value();

@@ -1,6 +1,5 @@
 import CPFValueObject from "../index";
 
-
 describe('cpf.value-object', () => {
 	it('should be defined', () => {
 		const valueObject = CPFValueObject.create;

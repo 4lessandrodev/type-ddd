@@ -63,7 +63,7 @@
 	},
 	"homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs",
 	"peerDependencies": {
-		"rich-domain": "^1.23.0"
+		"rich-domain": "^1.23.1"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.14.1",

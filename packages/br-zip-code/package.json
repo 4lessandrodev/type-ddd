@@ -1,5 +1,5 @@
 {
-  "name": "@types-ddd/username",
+  "name": "@types-ddd/br-zipcode",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
   "version": "1.0.0",
   "main": "index.js",
@@ -15,13 +15,14 @@
     "Base Value Object",
     "Domain Events",
     "Clean Architecture",
-    "User Name",
+    "CPF",
     "Validation",
     "Formatting",
     "Value Object",
     "Utility",
     "Security",
-    "Standards"
+    "Standards",
+    "Brazil"
   ],
   "scripts": {
     "prebuild": "rimraf ./dist",
@@ -32,9 +33,7 @@
   },
   "files": [
     "index.js",
-    "index.d.ts",
-    "util.d.ts",
-    "util.js"
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",

@@ -74,7 +74,7 @@ describe('password.value-object', () => {
 			expect(isEqual).toBe(false);
 		});
 
-		it.only('should password to be equal', () => {
+		it('should password to be equal', () => {
 			const passA = PasswordValueObject.create('123456abc!').value();
 			const passC = PasswordValueObject.create('123456abc!').value();
 			const passB = passA.clone() as PasswordValueObject;
