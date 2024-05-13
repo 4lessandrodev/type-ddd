@@ -3,24 +3,21 @@ import { Result, ValueObject } from 'rich-domain';
 const regexHash = /^\([1-9]{2}\)\s[2-5][0-9]{3}\-[0-9]{4}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;
 
-interface Prop {
-	value: string;
-}
 
 /**
  * @description Brazilian Home Phone Number
  * @default (XX) XXXX-XXXX
  */
-class HomePhoneValueObject extends ValueObject<Prop> {
+class HomePhone extends ValueObject<string> {
 	protected static readonly REGEX = regexHash;
 	protected static readonly MESSAGE: string = 'Invalid Home Phone Number';
 
-	private constructor(prop: Prop) {
+	private constructor(prop: string) {
 		super(prop);
 	}
 
 	validation(value: string): boolean {
-		return HomePhoneValueObject.isValidProps(value);
+		return HomePhone.isValidProps(value);
 	}
 
 	/**
@@ -29,14 +26,14 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	 * @returns true if pattern match and false if not.
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(HomePhoneValueObject.REGEX);
+		return this.validator.string(value).match(HomePhone.REGEX);
 	}
 
 	/**
 	 * @returns value (XX) XXXX-XXXX as string
 	 */
 	value(): string {
-		return this.props.value;
+		return this.props;
 	}
 
 	/**
@@ -45,7 +42,7 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	 * @example 1122502301
 	 */
 	getOnlyNumbers(): number {
-		const onlyNumbersAsString = this.props.value.replace(
+		const onlyNumbersAsString = this.props.replace(
 			regexHashSpecialChars,
 			'',
 		);
@@ -58,7 +55,7 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	 * @example 11
 	 */
 	getDDD(): number {
-		return parseInt(this.props.value.slice(1, 3));
+		return parseInt(this.props.slice(1, 3));
 	}
 
 	/**
@@ -67,13 +64,13 @@ class HomePhoneValueObject extends ValueObject<Prop> {
 	 * @example (XX) XXXX-XXXX
 	 * @returns Result of HomePhoneValueObject
 	 */
-	public static create(value: string): Result<HomePhoneValueObject> {
-		if (!HomePhoneValueObject.isValidProps(value)) {
-			return Result.fail(HomePhoneValueObject.MESSAGE);
+	public static create(value: string): Result<HomePhone> {
+		if (!HomePhone.isValidProps(value)) {
+			return Result.fail(HomePhone.MESSAGE);
 		}
-		return Result.Ok(new HomePhoneValueObject({ value }));
+		return Result.Ok(new HomePhone(value));
 	}
 }
 
-export { HomePhoneValueObject };
-export default HomePhoneValueObject;
+export { HomePhone };
+export default HomePhone;

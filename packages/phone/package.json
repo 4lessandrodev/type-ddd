@@ -1,5 +1,5 @@
 {
-  "name": "@types-ddd/br-zipcode",
+  "name": "@types-ddd/phone",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
   "version": "1.0.0",
   "main": "index.js",

@@ -4,19 +4,15 @@ const regexHash =
 	/^\([1-9]{2}\)\s[9](?!\d(?:(\d)\1{2})-(\d)\1{3})[5-9][0-9]{3}\-[0-9]{4}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;
 
-interface Prop {
-	value: string;
-}
-
 /**
  * @description Brazilian Mobile Phone Number
  * @default (XX) 9XXXX-XXXX
  */
-class MobilePhoneValueObject extends ValueObject<Prop> {
+class MobilePhone extends ValueObject<string> {
 	protected static readonly REGEX = regexHash;
 	protected static readonly MESSAGE: string = 'Invalid Mobile Phone Number';
 
-	private constructor(prop: Prop) {
+	private constructor(prop: string) {
 		super(prop);
 	}
 
@@ -26,18 +22,18 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	 * @returns true if pattern match and false if not.
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(MobilePhoneValueObject.REGEX);
+		return this.validator.string(value).match(MobilePhone.REGEX);
 	}
 
 	validation(value: string): boolean {
-		return MobilePhoneValueObject.isValidProps(value);
+		return MobilePhone.isValidProps(value);
 	}
 
 	/**
 	 * @returns value (XX) 9XXXX-XXXX as string
 	 */
 	value(): string {
-		return this.props.value;
+		return this.props;
 	}
 
 	/**
@@ -46,7 +42,7 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	 * @example 11992502301
 	 */
 	getOnlyNumbers(): number {
-		const onlyNumbersAsString = this.props.value.replace(
+		const onlyNumbersAsString = this.props.replace(
 			regexHashSpecialChars,
 			'',
 		);
@@ -59,7 +55,7 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	 * @example 11
 	 */
 	getDDD(): number {
-		return parseInt(this.props.value.slice(1, 3));
+		return parseInt(this.props.slice(1, 3));
 	}
 
 	/**
@@ -68,13 +64,13 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	 * @example (XX) 9XXXX-XXXX
 	 * @returns Result of MobilePhoneValueObject
 	 */
-	public static create(value: string): Result<MobilePhoneValueObject> {
-		if (!MobilePhoneValueObject.isValidProps(value)) {
-			return Result.fail(MobilePhoneValueObject.MESSAGE);
+	public static create(value: string): Result<MobilePhone> {
+		if (!MobilePhone.isValidProps(value)) {
+			return Result.fail(MobilePhone.MESSAGE);
 		}
-		return Result.Ok(new MobilePhoneValueObject({ value }));
+		return Result.Ok(new MobilePhone(value));
 	}
 }
 
-export { MobilePhoneValueObject };
-export default MobilePhoneValueObject;
+export { MobilePhone };
+export default MobilePhone;

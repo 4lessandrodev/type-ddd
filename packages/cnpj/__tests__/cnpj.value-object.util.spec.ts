@@ -1,4 +1,4 @@
-import { CNPJValueObject } from '../index';
+import CNPJValueObject from '../index';
 
 describe('cnpj.value-object', () => {
 	it('should be defined', () => {

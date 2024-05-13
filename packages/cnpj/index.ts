@@ -5,7 +5,7 @@ const regexCnpj =
 	/^([0-9]{2})[\.]([0-9]{3})[\.]((?!\2)[0-9]{3})[\/]([0-9]{4})[-]([0-9]{2})$|^[0-9]{14}$/;
 
 
-export class CNPJValueObject extends ValueObject<string> {
+export class CNPJ extends ValueObject<string> {
 	protected static readonly REGEX = regexCnpj;
 	protected static readonly MESSAGE: string = 'Invalid value for cnpj';
 
@@ -28,7 +28,7 @@ export class CNPJValueObject extends ValueObject<string> {
 	 * @example before "22.398.345/0001-88"
 	 * @example after "22398345000188"
 	 */
-	removeSpecialChars(): CNPJValueObject {
+	removeSpecialChars(): CNPJ {
 		this.props = removeSpecialCharsFromCnpj(this.props);
 		return this;
 	}
@@ -38,7 +38,7 @@ export class CNPJValueObject extends ValueObject<string> {
 	 * @example before "22398345000188"
 	 * @example after "22.398.345/0001-88"
 	 */
-	formatToCnpjPattern(): CNPJValueObject {
+	formatToCnpjPattern(): CNPJ {
 		this.props = formatValueToCnpjPattern(this.props);
 		return this;
 	}
@@ -64,7 +64,7 @@ export class CNPJValueObject extends ValueObject<string> {
 	 * @example "22398345000188"
 	 */
 	public static isValidProps(value: string): boolean {
-		const isValidPattern = CNPJValueObject.REGEX.test(value);
+		const isValidPattern = CNPJ.REGEX.test(value);
 		const isValidDigits = isValidCnpjDigit(value);
 		return isValidDigits && isValidPattern;
 	}
@@ -77,7 +77,7 @@ export class CNPJValueObject extends ValueObject<string> {
 	 * @example "22398345000188"
 	 */
 	validation(value: string): boolean {
-		return CNPJValueObject.isValidProps(value);
+		return CNPJ.isValidProps(value);
 	}
 	/**
 	 * @description create a cnpj value object
@@ -87,15 +87,15 @@ export class CNPJValueObject extends ValueObject<string> {
 	 * @example "22398345000188"
 	 * @summary fails if provide an invalid pattern or a cnpj with invalid digit sum
 	 */
-	public static create(value: string): Result<CNPJValueObject> {
-		const isValidValue = CNPJValueObject.isValidProps(value);
+	public static create(value: string): Result<CNPJ> {
+		const isValidValue = CNPJ.isValidProps(value);
 
 		if (!isValidValue) {
-			return Result.fail(CNPJValueObject.MESSAGE);
+			return Result.fail(CNPJ.MESSAGE);
 		}
 
-		return Result.Ok(new CNPJValueObject(value));
+		return Result.Ok(new CNPJ(value));
 	}
 }
 
-export default CNPJValueObject;
+export default CNPJ;

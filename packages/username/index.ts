@@ -1,9 +1,9 @@
 import { Result, ValueObject } from 'rich-domain';
 
-export class UserNameValueObject extends ValueObject<string> {
+export class UserName extends ValueObject<string> {
 	protected static readonly MAX_LENGTH: number = 82;
 	protected static readonly MIN_LENGTH: number = 2;
-	protected static readonly MESSAGE: string = `Invalid name length. Must has min ${UserNameValueObject.MIN_LENGTH} and max ${UserNameValueObject.MAX_LENGTH} chars`;
+	protected static readonly MESSAGE: string = `Invalid name length. Must has min ${UserName.MIN_LENGTH} and max ${UserName.MAX_LENGTH} chars`;
 
 	private constructor(props: string) {
 		super(props);
@@ -21,7 +21,7 @@ export class UserNameValueObject extends ValueObject<string> {
 	 *
 	 * @returns instance
 	 */
-	private capitalize(): UserNameValueObject {
+	private capitalize(): UserName {
 		const names = this.props.split(' ').filter((name): boolean => {
 			return name.length > 1;
 		});
@@ -104,7 +104,7 @@ export class UserNameValueObject extends ValueObject<string> {
 	}
 
 	validation(value: string): boolean {
-		return UserNameValueObject.isValidProps(value);
+		return UserName.isValidProps(value);
 	}
 
 	/**
@@ -115,18 +115,18 @@ export class UserNameValueObject extends ValueObject<string> {
 	public static isValidProps(value: string): boolean {
 		const { string } = this.validator;
 		return string(value).hasLengthBetween(
-			UserNameValueObject.MIN_LENGTH,
-			UserNameValueObject.MAX_LENGTH,
+			UserName.MIN_LENGTH,
+			UserName.MAX_LENGTH,
 		);
 	}
 
-	public static create(value: string): Result<UserNameValueObject> {
-		const isValidValue = UserNameValueObject.isValidProps(value);
+	public static create(value: string): Result<UserName> {
+		const isValidValue = UserName.isValidProps(value);
 		if (!isValidValue) {
-			return Result.fail(UserNameValueObject.MESSAGE);
+			return Result.fail(UserName.MESSAGE);
 		}
-		return Result.Ok(new UserNameValueObject(value));
+		return Result.Ok(new UserName(value));
 	}
 }
 
-export default UserNameValueObject;
+export default UserName;

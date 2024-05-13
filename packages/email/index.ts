@@ -1,7 +1,7 @@
 import { Result, ValueObject } from 'rich-domain';
 import IsValidEmail from './email.validator.util';
 
-export class EmailValueObject extends ValueObject<string> {
+export class Email extends ValueObject<string> {
 	protected static readonly BLOCKED_DOMAINS: Array<string> = [];
 	protected static readonly VALID_DOMAINS: Array<string> = [];
 	protected static readonly MESSAGE: string = 'Invalid email';
@@ -25,7 +25,7 @@ export class EmailValueObject extends ValueObject<string> {
 	}
 
 	validation(value: string): boolean {
-		return EmailValueObject.isValidProps(value);
+		return Email.isValidProps(value);
 	}
 
 	/**
@@ -46,26 +46,26 @@ export class EmailValueObject extends ValueObject<string> {
 
 		const domain = email.slice(email.indexOf('@') + 1).toLowerCase();
 
-		const isBlockedDomain = EmailValueObject.BLOCKED_DOMAINS.map(
+		const isBlockedDomain = Email.BLOCKED_DOMAINS.map(
 			(blockedDomain) => blockedDomain.toLowerCase().includes(domain),
 		).includes(true);
 
-		if (EmailValueObject.VALID_DOMAINS.length === 0)
+		if (Email.VALID_DOMAINS.length === 0)
 			return !isBlockedDomain;
 
-		const isAvailable = EmailValueObject.VALID_DOMAINS.map((freeDomain) =>
+		const isAvailable = Email.VALID_DOMAINS.map((freeDomain) =>
 			freeDomain.toLowerCase().includes(domain),
 		).includes(true);
 
 		return isAvailable && !isBlockedDomain;
 	}
 
-	public static create(value: string): Result<EmailValueObject> {
-		if (!EmailValueObject.isValidProps(value)) {
-			return Result.fail(EmailValueObject.MESSAGE);
+	public static create(value: string): Result<Email> {
+		if (!Email.isValidProps(value)) {
+			return Result.fail(Email.MESSAGE);
 		}
-		return Result.Ok(new EmailValueObject(value));
+		return Result.Ok(new Email(value));
 	}
 }
 
-export default EmailValueObject;
+export default Email;

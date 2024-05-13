@@ -10,18 +10,8 @@
 		"packages/*"
 	],
 	"private": true,
-	"contributors": [
-		{
-			"name": "Marko Zlatar",
-			"url": "https://github.com/mark01zlatar"
-		},
-		{
-			"name": "Paulo Vinicius",
-			"url": "https://github.com/VinnyLima"
-		}
-	],
 	"engines": {
-		"node": ">=16.x <=21"
+		"node": ">=16.x <=22"
 	},
 	"keywords": [
 		"Complexity",

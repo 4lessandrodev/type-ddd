@@ -2,7 +2,7 @@ import { Result, ValueObject } from 'rich-domain';
 
 const regexHash = /^[0-9]{5}-[0-9]{3}$|^[0-9]{8}$/;
 
-class ZipCodeValueObject extends ValueObject<string> {
+class ZipCode extends ValueObject<string> {
 	protected static readonly REGEX = regexHash;
 	protected static readonly MESSAGE: string = 'Invalid postal code';
 
@@ -19,7 +19,7 @@ class ZipCodeValueObject extends ValueObject<string> {
 	}
 
 	validation(value: string): boolean {
-		return ZipCodeValueObject.isValidProps(value);
+		return ZipCode.isValidProps(value);
 	}
 
 	/**
@@ -28,16 +28,16 @@ class ZipCodeValueObject extends ValueObject<string> {
 	 * @returns true if value match with pattern and false if do not.
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(ZipCodeValueObject.REGEX);
+		return this.validator.string(value).match(ZipCode.REGEX);
 	}
 
-	public static create(value: string): Result<ZipCodeValueObject> {
-		if (!ZipCodeValueObject.isValidProps(value)) {
-			return Result.fail(ZipCodeValueObject.MESSAGE);
+	public static create(value: string): Result<ZipCode> {
+		if (!ZipCode.isValidProps(value)) {
+			return Result.fail(ZipCode.MESSAGE);
 		}
-		return Result.Ok(new ZipCodeValueObject(value));
+		return Result.Ok(new ZipCode(value));
 	}
 }
 
-export { ZipCodeValueObject };
-export default ZipCodeValueObject;
+export { ZipCode };
+export default ZipCode;

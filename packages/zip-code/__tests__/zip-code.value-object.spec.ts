@@ -1,4 +1,4 @@
-import { ZipCodeValueObject } from '../index'
+import { ZipCode as ZipCodeValueObject } from '../index'
 
 
 describe('postal-code.value-object', () => {

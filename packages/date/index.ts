@@ -29,7 +29,7 @@ enum DateFormats {
 
 type DateFormat = keyof typeof DateFormats;
 
-export class DateValueObject extends ValueObject<Date> {
+export class Dates extends ValueObject<Date> {
 	private readonly ONE_DAY: number = 86400000;
 	private readonly ONE_HOUR: number = 3600000;
 	private readonly ONE_MINUTE: number = 60000;
@@ -53,7 +53,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param days to be added
 	 * @returns instance DateValueObject with updated value
 	 */
-	addDays(days: number): DateValueObject {
+	addDays(days: number): Dates {
 		const daysInTime = days * this.ONE_DAY;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime + daysInTime);
@@ -65,7 +65,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param months to be added
 	 * @returns instance DateValueObject with updated value
 	 */
-	addMonths(months: number): DateValueObject {
+	addMonths(months: number): Dates {
 		const monthsInTime = months * this.ONE_MONTH;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime + monthsInTime);
@@ -77,7 +77,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param hours to be added
 	 * @returns instance DateValueObject with updated value
 	 */
-	addHours(hours: number): DateValueObject {
+	addHours(hours: number): Dates {
 		const hoursInTime = hours * this.ONE_HOUR;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime + hoursInTime);
@@ -89,7 +89,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param minutes to be added
 	 * @returns instance DateValueObject with updated value
 	 */
-	addMinutes(minutes: number): DateValueObject {
+	addMinutes(minutes: number): Dates {
 		const minutesInTime = minutes * this.ONE_MINUTE;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime + minutesInTime);
@@ -101,7 +101,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param weeks to be added
 	 * @returns instance DateValueObject with updated value
 	 */
-	addWeeks(weeks: number): DateValueObject {
+	addWeeks(weeks: number): Dates {
 		const weeksInTime = weeks * this.ONE_WEEK;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime + weeksInTime);
@@ -113,7 +113,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param years to be added
 	 * @returns instance DateValueObject with updated value
 	 */
-	addYears(years: number): DateValueObject {
+	addYears(years: number): Dates {
 		const yearsInTime = years * this.ONE_YEAR;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime + yearsInTime);
@@ -125,7 +125,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param days to be subtracted
 	 * @returns instance DateValueObject with updated value
 	 */
-	subtractDays(days: number): DateValueObject {
+	subtractDays(days: number): Dates {
 		const daysInTime = days * this.ONE_DAY;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime - daysInTime);
@@ -137,7 +137,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param months to be subtracted
 	 * @returns instance DateValueObject with updated value
 	 */
-	subtractMonths(months: number): DateValueObject {
+	subtractMonths(months: number): Dates {
 		const monthsInTime = months * this.ONE_MONTH;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime - monthsInTime);
@@ -149,7 +149,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param hours to be subtracted
 	 * @returns instance DateValueObject with updated value
 	 */
-	subtractHours(hours: number): DateValueObject {
+	subtractHours(hours: number): Dates {
 		const hoursInTime = hours * this.ONE_HOUR;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime - hoursInTime);
@@ -161,7 +161,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param minutes to be subtracted
 	 * @returns instance DateValueObject with updated value
 	 */
-	subtractMinutes(minutes: number): DateValueObject {
+	subtractMinutes(minutes: number): Dates {
 		const minutesInTime = minutes * this.ONE_MINUTE;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime - minutesInTime);
@@ -173,7 +173,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param weeks to be subtracted
 	 * @returns instance DateValueObject with updated value
 	 */
-	subtractWeeks(weeks: number): DateValueObject {
+	subtractWeeks(weeks: number): Dates {
 		const weeksInTime = weeks * this.ONE_WEEK;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime - weeksInTime);
@@ -185,7 +185,7 @@ export class DateValueObject extends ValueObject<Date> {
 	 * @param years to be subtracted
 	 * @returns instance DateValueObject with updated value
 	 */
-	subtractYears(years: number): DateValueObject {
+	subtractYears(years: number): Dates {
 		const yearsInTime = years * this.ONE_YEAR;
 		const currentTime = this.props.getTime();
 		this.props.setTime(currentTime - yearsInTime);
@@ -438,13 +438,13 @@ export class DateValueObject extends ValueObject<Date> {
 		return instanceTime === time;
 	}
 
-	public static create(date?: Date): Result<DateValueObject> {
+	public static create(date?: Date): Result<Dates> {
 		const value = date ?? new Date();
-		const isValid = DateValueObject.isValidProps(value);
+		const isValid = Dates.isValidProps(value);
 		if (!isValid) return Result.fail('Invalid Date Value');
 
-		return Result.Ok(new DateValueObject(value));
+		return Result.Ok(new Dates(value));
 	}
 }
 
-export default DateValueObject;
+export default Dates;

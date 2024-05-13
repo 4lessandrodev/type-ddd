@@ -1,4 +1,4 @@
-.PHONY: startVerdaccio stopVerdaccio publishVerdaccio addUser login build
+.PHONY: startVerdaccio stopVerdaccio publishVerdaccio addUser login build graph
 
 startVerdaccio:
 	sudo apt-get update && sudo apt-get install expect
@@ -22,3 +22,6 @@ build:
 publishVerdaccio:
 	yarn build:lerna
 	yarn lerna exec "npm publish --registry http://localhost:4873"
+
+graph:
+	yarn nx graph

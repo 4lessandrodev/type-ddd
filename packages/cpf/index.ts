@@ -1,7 +1,7 @@
 import { Result, ValueObject } from "rich-domain";
 import isValidCpfDigit, { formatValueToCpfPattern } from "./util";
 
-export class CPFValueObject extends ValueObject<string> {
+export class CPF extends ValueObject<string> {
 	protected static readonly REGEX = /^([0-9]{3})[\.]((?!\1)[0-9]{3})[\.]([0-9]{3})[-]([0-9]{2})$|^[0-9]{11}$/;
 	protected static readonly MESSAGE: string = 'Invalid value for cpf';
 
@@ -24,7 +24,7 @@ export class CPFValueObject extends ValueObject<string> {
 	 * @example before "527.348.652-11"
 	 * @example after "52734865211"
 	 */
-	removeSpecialChars(): CPFValueObject {
+	removeSpecialChars(): CPF {
 		this.props = this.util
 			.string(this.props)
 			.removeSpecialChars();
@@ -36,7 +36,7 @@ export class CPFValueObject extends ValueObject<string> {
 	 * @example before "52734865211"
 	 * @example after "527.348.652-11"
 	 */
-	formatToCpfPattern(): CPFValueObject {
+	formatToCpfPattern(): CPF {
 		this.props = formatValueToCpfPattern(this.props);
 		return this;
 	}
@@ -64,7 +64,7 @@ export class CPFValueObject extends ValueObject<string> {
 	 * @example "72725477824"
 	 */
 	public static isValidProps(value: string): boolean {
-		const isValidPattern = CPFValueObject.REGEX.test(value);
+		const isValidPattern = CPF.REGEX.test(value);
 		const isValidDigits = isValidCpfDigit(value);
 		return isValidDigits && isValidPattern;
 	}
@@ -77,7 +77,7 @@ export class CPFValueObject extends ValueObject<string> {
 	 * @example "72725477824"
 	 */
 	validation(value: string): boolean {
-		return CPFValueObject.isValidProps(value);
+		return CPF.isValidProps(value);
 	}
 
 	/**
@@ -88,15 +88,15 @@ export class CPFValueObject extends ValueObject<string> {
 	 * @example "72725477824"
 	 * @summary fails if provide an invalid pattern or a cpf with invalid digit sum
 	 */
-	public static create(value: string): Result<CPFValueObject> {
-		const isValidValue = CPFValueObject.isValidProps(value);
+	public static create(value: string): Result<CPF> {
+		const isValidValue = CPF.isValidProps(value);
 
 		if (!isValidValue) {
-			return Result.fail(CPFValueObject.MESSAGE);
+			return Result.fail(CPF.MESSAGE);
 		}
 
-		return Result.Ok(new CPFValueObject(value));
+		return Result.Ok(new CPF(value));
 	}
 }
 
-export default CPFValueObject;
+export default CPF;

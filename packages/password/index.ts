@@ -3,11 +3,11 @@ import { Result, ValueObject } from 'rich-domain';
 import passwordGenerator, { ILength } from './utils';
 const regexHash = /^\$2b\$10\$.{53}$/;
 
-class PasswordValueObject extends ValueObject<string> {
+class Password extends ValueObject<string> {
 	protected static readonly MAX_LENGTH = 22;
 	protected static readonly MIN_LENGTH = 5;
 	protected static readonly REGEX = regexHash;
-	protected static readonly MESSAGE: string = `Password must has min ${PasswordValueObject.MIN_LENGTH} and max ${PasswordValueObject.MAX_LENGTH} chars`;
+	protected static readonly MESSAGE: string = `Password must has min ${Password.MIN_LENGTH} and max ${Password.MAX_LENGTH} chars`;
 
 	private constructor(props: string) {
 		super(props);
@@ -40,7 +40,7 @@ class PasswordValueObject extends ValueObject<string> {
 	public isEncrypted(): boolean {
 		const isEncrypted = this.validator
 			.string(this.props)
-			.match(PasswordValueObject.REGEX);
+			.match(Password.REGEX);
 		return isEncrypted;
 	}
 
@@ -49,7 +49,7 @@ class PasswordValueObject extends ValueObject<string> {
 	 * @returns true if provided value is encrypted else false
 	 */
 	public static isEncrypted(value: string): boolean {
-		return this.validator.string(value).match(PasswordValueObject.REGEX);
+		return this.validator.string(value).match(Password.REGEX);
 	}
 
 	/**
@@ -58,9 +58,9 @@ class PasswordValueObject extends ValueObject<string> {
 	 * @returns PasswordValueObject
 	 * @default 12 chars or greater is recommended for strongest password
 	 */
-	public static random(length?: ILength): PasswordValueObject {
+	public static random(length?: ILength): Password {
 		const pass = passwordGenerator(length ?? 12);
-		return PasswordValueObject.create(pass).value();
+		return Password.create(pass).value();
 	}
 
 	/**
@@ -68,7 +68,7 @@ class PasswordValueObject extends ValueObject<string> {
 	 * @description encrypt instance value
 	 * @returns instance
 	 */
-	public encrypt(): PasswordValueObject {
+	public encrypt(): Password {
 		const isEncrypted = this.isEncrypted();
 		if (isEncrypted) {
 			return this;
@@ -79,7 +79,7 @@ class PasswordValueObject extends ValueObject<string> {
 	}
 
 	validation(value: string): boolean {
-		return PasswordValueObject.isValidProps(value);
+		return Password.isValidProps(value);
 	}
 
 	/**
@@ -89,19 +89,19 @@ class PasswordValueObject extends ValueObject<string> {
 	 */
 	public static isValidProps(value: string): boolean {
 		const { string } = this.validator;
-		if (!PasswordValueObject.isEncrypted(value)) {
+		if (!Password.isEncrypted(value)) {
 			const passwordHasRequiredLength = string(
 				value,
 			).hasLengthBetweenOrEqual(
-				PasswordValueObject.MIN_LENGTH,
-				PasswordValueObject.MAX_LENGTH,
+				Password.MIN_LENGTH,
+				Password.MAX_LENGTH,
 			);
 			return passwordHasRequiredLength;
 		}
 		return true;
 	}
 
-	isEqual(password: PasswordValueObject): boolean {
+	isEqual(password: Password): boolean {
 		return this.compare(password.value());
 	}
 
@@ -110,13 +110,13 @@ class PasswordValueObject extends ValueObject<string> {
 	 * @param value password to create
 	 * @returns Result of PasswordValueObject
 	 */
-	static create(value: string): Result<PasswordValueObject> {
-		if (!PasswordValueObject.isValidProps(value)) {
-			return Result.fail(PasswordValueObject.MESSAGE);
+	static create(value: string): Result<Password> {
+		if (!Password.isValidProps(value)) {
+			return Result.fail(Password.MESSAGE);
 		}
-		return Result.Ok(new PasswordValueObject(value));
+		return Result.Ok(new Password(value));
 	}
 }
 
-export { PasswordValueObject };
-export default PasswordValueObject;
+export { Password };
+export default Password;
