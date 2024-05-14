@@ -32,6 +32,15 @@ export class CNPJ extends ValueObject<string> {
 	}
 
 	/**
+	 * @description add hyphen and dot to cnpj value.
+	 * @example before "22398345000188"
+	 * @example after "22.398.345/0001-88"
+	 */
+	public static addMask(cnpj: string): string {
+		return formatValueToCnpjPattern(cnpj);
+	}
+
+	/**
 	 * @description remove hyphen and dot from cnpj value.
 	 * @example before "22.398.345/0001-88"
 	 * @example after "22398345000188"

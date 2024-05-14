@@ -4,6 +4,8 @@
 
 ## Installation
 
+Install `rich-domain` and `@types-ddd/cnpj` with your favorite package manager
+
 ```sh
 
 npm i rich-domain @types-ddd/cnpj
@@ -76,6 +78,17 @@ If you need the value with the mask, you can use the `toPattern` method:
 ```ts
 
 cnpj.toPattern();
+
+// Output: 54.097.792/0001-93
+
+```
+
+Or if you need to apply mask from a string value you may use `addMask` method
+
+
+```ts
+
+CNPJ.addMask('54097792000193');
 
 // Output: 54.097.792/0001-93
 

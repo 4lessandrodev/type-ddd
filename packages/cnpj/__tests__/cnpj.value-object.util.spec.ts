@@ -129,8 +129,13 @@ describe('CNPJ Value Object', () => {
 
 	describe('Special Character Removal', () => {
 		it('should remove special characters from a string', () => {
-			const value = CNPJValueObject.removeSpecialChars('93.118.559/0001-100');
-			expect(value).toBe('931185590001100');
+			const value = CNPJValueObject.removeSpecialChars('93.118.559/0001-10');
+			expect(value).toBe('93118559000110');
+		});
+
+		it('should remove special characters from a string', () => {
+			const value = CNPJValueObject.addMask('93118559000110');
+			expect(value).toBe('93.118.559/0001-10');
 		});
 	});
 });
