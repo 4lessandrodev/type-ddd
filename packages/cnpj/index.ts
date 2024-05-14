@@ -11,7 +11,6 @@ export class CNPJ extends ValueObject<string> {
 
 	private constructor(props: string) {
 		super(props);
-		this.removeSpecialChars();
 	}
 
 	/**
@@ -24,22 +23,21 @@ export class CNPJ extends ValueObject<string> {
 	}
 
 	/**
-	 * @description remove hyphen and dot from cnpj value.
-	 * @example before "22.398.345/0001-88"
-	 * @example after "22398345000188"
-	 */
-	private removeSpecialChars(): CNPJ {
-		this.props = removeSpecialCharsFromCnpj(this.props);
-		return this;
-	}
-
-	/**
 	 * @description add hyphen and dot to cnpj value.
 	 * @example before "22398345000188"
 	 * @example after "22.398.345/0001-88"
 	 */
-	asPattern(): string {
+	toPattern(): string {
 		return formatValueToCnpjPattern(this.props);
+	}
+
+	/**
+	 * @description remove hyphen and dot from cnpj value.
+	 * @example before "22.398.345/0001-88"
+	 * @example after "22398345000188"
+	 */
+	public static removeSpecialChars(cnpj: string): string {
+		return removeSpecialCharsFromCnpj(cnpj);
 	}
 
 	/**
@@ -49,10 +47,16 @@ export class CNPJ extends ValueObject<string> {
 	 * @example param "22398345000188"
 	 * @example param "22.398.345/0001-88"
 	 */
-	compare(cnpj: string): boolean {
-		const formattedCnpj = removeSpecialCharsFromCnpj(cnpj);
-		const instanceValue = removeSpecialCharsFromCnpj(this.props);
-		return instanceValue === formattedCnpj;
+	compare(cnpj: string | CNPJ): boolean {
+		if (typeof cnpj === 'string') {
+			const formattedCnpj = removeSpecialCharsFromCnpj(cnpj);
+			const instanceValue = this.props;
+			return instanceValue === formattedCnpj;
+		}
+		if (cnpj instanceof CNPJ) {
+			return cnpj.isEqual(this);
+		}
+		return false;
 	}
 
 	/**
@@ -75,8 +79,8 @@ export class CNPJ extends ValueObject<string> {
 	 * @example "22.398.345/0001-88"
 	 * @example "22398345000188"
 	 */
-	validation(value: string): boolean {
-		return CNPJ.isValidProps(value);
+	public static isValid(value: string): boolean {
+		return this.isValidProps(value);
 	}
 
 	/**
@@ -105,7 +109,7 @@ export class CNPJ extends ValueObject<string> {
 			return Result.fail(CNPJ.MESSAGE);
 		}
 
-		return Result.Ok(new CNPJ(value));
+		return Result.Ok(new CNPJ(removeSpecialCharsFromCnpj(value)));
 	}
 }
 

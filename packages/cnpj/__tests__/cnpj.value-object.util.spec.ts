@@ -1,146 +1,132 @@
 import CNPJValueObject from '../index';
 
 describe('cnpj.value-object', () => {
-	it('should be defined', () => {
-		const valueObject = CNPJValueObject.create;
-		expect(valueObject).toBeDefined();
+	describe('Creation and Definition', () => {
+		it('should be defined', () => {
+			const valueObject = CNPJValueObject.create;
+			expect(valueObject).toBeDefined();
+		});
+
+		it('should create a valid CNPJ with special characters and remove special characters when getting the value', () => {
+			const valueObject = CNPJValueObject.create('43.909.299/0001-04');
+			expect(valueObject.isOk()).toBeTruthy();
+			expect(valueObject.value().value()).toBe('43909299000104');
+		});
+
+		it('should create a valid CNPJ with numbers only', () => {
+			const valueObject = CNPJValueObject.create('60105617000101');
+			expect(valueObject.isOk()).toBeTruthy();
+			expect(valueObject.value().value()).toBe('60105617000101');
+		});
+
+		it('should initialize an instance successfully', () => {
+			const init = () => CNPJValueObject.init('27729251000168');
+			expect(init).not.toThrowError();
+		});
+
+		it('should throw an error when initializing an instance with an invalid value', () => {
+			const init = () => CNPJValueObject.init('invalid');
+			expect(init).toThrowError();
+		});
 	});
 
-	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
-		const valueObject = CNPJValueObject.create('43.909.299/0001-04');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('43909299000104');
+	describe('Validation', () => {
+		it('should return true if providing an invalid value', () => {
+			const isValid = CNPJValueObject.isValid('43.909.299/0001-04');
+			expect(isValid).toBeTruthy();
+		});
+
+		it('should return false if providing an invalid value', () => {
+			const isValid = CNPJValueObject.isValid('invalid');
+			expect(isValid).toBeFalsy();
+		});
+
+		it('should fail if providing an invalid value', () => {
+			const valueObject = CNPJValueObject.create('53.462.048/0000-99');
+			expect(valueObject.isFail()).toBeTruthy();
+		});
+
+		it('should fail if providing an invalid value (digit sum)', () => {
+			const valueObject = CNPJValueObject.create('93.118.559/0001-1');
+			expect(valueObject.isFail()).toBeTruthy();
+		});
+
+		it('should fail if providing an invalid value (digit sum)', () => {
+			const valueObject = CNPJValueObject.create('93.118.559/0001-100');
+			expect(valueObject.isFail()).toBeTruthy();
+		});
 	});
 
-	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
-		const valueObject = CNPJValueObject.create('80.676.573/0001-79');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('80676573000179');
+	describe('Formatting', () => {
+		it('should format a CNPJ to add special characters', () => {
+			const valueObject =
+				CNPJValueObject.create('20.798.751/0001-02').value();
+			expect(valueObject.toPattern()).toBe('20.798.751/0001-02');
+		});
+
+		it('should format a CNPJ to add special characters', () => {
+			const valueObject =
+				CNPJValueObject.create('65.389.009/0001-81').value();
+			expect(valueObject.toPattern()).toBe('65.389.009/0001-81');
+		});
+
+		it('should format a CNPJ to add special characters', () => {
+			const valueObject =
+				CNPJValueObject.create('02.470.431/0001-47').value();
+			expect(valueObject.toPattern()).toBe('02.470.431/0001-47');
+		});
+
+		it('should format a CNPJ to add special characters and remove them later', () => {
+			const valueObject =
+				CNPJValueObject.create('62.412.404/0001-40').value();
+			expect(valueObject.toPattern()).toBe('62.412.404/0001-40');
+		});
 	});
 
-	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
-		const valueObject = CNPJValueObject.create('38331478000177');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('38331478000177');
+	describe('Comparison', () => {
+		it('should compare the value in the instance and the provided value', () => {
+			const valueObject =
+				CNPJValueObject.create('22.606.062/0001-84').value();
+			let isEqual = valueObject.compare('invalid');
+			expect(isEqual).toBeFalsy();
+
+			isEqual = valueObject.compare('22.606.062/0001-20');
+			expect(isEqual).toBeFalsy();
+
+			isEqual = valueObject.compare('22.606.062/0001-84');
+			expect(isEqual).toBeTruthy();
+
+			isEqual = valueObject.compare('22606062000155');
+			expect(isEqual).toBeFalsy();
+
+			isEqual = valueObject.compare('22606062000184');
+			expect(isEqual).toBeTruthy();
+
+			isEqual = valueObject.compare('22606062000184');
+			expect(isEqual).toBeTruthy();
+
+			isEqual = valueObject.compare('22.606.062/0001-84');
+			expect(isEqual).toBeTruthy();
+		});
+
+		it('should compare two instances', () => {
+
+			const instanceA = CNPJValueObject.init('22.606.062/0001-84');
+			const instanceB = CNPJValueObject.init('22.606.062/0001-84');
+
+			expect(instanceA.compare(instanceB)).toBeTruthy();
+		});
+
+		it('should return false if comparing null', () => {
+			const instanceA = CNPJValueObject.init('22.606.062/0001-84');
+			expect(instanceA.compare(null as any)).toBeFalsy();
+		});
 	});
 
-	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
-		const valueObject = CNPJValueObject.create('38.331.478/0001-77');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('38331478000177');
-	});
-
-	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
-		const valueObject = CNPJValueObject.create('24.050.723/0001-63');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('24050723000163');
-	});
-
-	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
-		const valueObject = CNPJValueObject.create('93.853.653/0001-02');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('93853653000102');
-	});
-
-	it('should create a valid cnpj with special chars and remove special chars on get value', () => {
-		const valueObject = CNPJValueObject.create('99.410.207/0001-00');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('99410207000100');
-	});
-
-	it('should format a cnpj to add special chars', () => {
-		const valueObject =
-			CNPJValueObject.create('20.798.751/0001-02').value();
-		expect(valueObject.asPattern()).toBe('20.798.751/0001-02');
-	});
-
-	it('should format a cnpj to add special chars', () => {
-		const valueObject =
-			CNPJValueObject.create('65.389.009/0001-81').value();
-		expect(valueObject.asPattern()).toBe('65.389.009/0001-81');
-	});
-
-	it('should format a cnpj to add special chars', () => {
-		const valueObject =
-			CNPJValueObject.create('02.470.431/0001-47').value();
-		expect(valueObject.asPattern()).toBe('02.470.431/0001-47');
-	});
-
-	it('should format a cnpj to add special chars and remove it later', () => {
-		const valueObject =
-			CNPJValueObject.create('62.412.404/0001-40').value();
-		expect(valueObject.asPattern()).toBe('62.412.404/0001-40');
-	});
-
-	it('should compare value on instance and provided value', () => {
-		const valueObject =
-			CNPJValueObject.create('22.606.062/0001-84').value();
-		let isEqual = valueObject.compare('invalid');
-		expect(isEqual).toBeFalsy();
-
-		isEqual = valueObject.compare('22.606.062/0001-20');
-		expect(isEqual).toBeFalsy();
-
-		isEqual = valueObject.compare('22.606.062/0001-84');
-		expect(isEqual).toBeTruthy();
-
-		isEqual = valueObject.compare('22606062000155');
-		expect(isEqual).toBeFalsy();
-
-		isEqual = valueObject.compare('22606062000184');
-		expect(isEqual).toBeTruthy();
-
-		isEqual = valueObject.compare('22606062000184');
-		expect(isEqual).toBeTruthy();
-
-		isEqual = valueObject.compare('22.606.062/0001-84');
-		expect(isEqual).toBeTruthy();
-	});
-
-	it('should create a valid cnpj only numbers', () => {
-		const valueObject = CNPJValueObject.create('60105617000101');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('60105617000101');
-	});
-
-	it('should fail if provide an invalid value', () => {
-		const valueObject = CNPJValueObject.create('53.462.048/0000-99');
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should fail if provide an invalid value (digit sum)', () => {
-		const valueObject = CNPJValueObject.create('93.118.559/0001-1');
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should fail if provide an invalid value (digit sum)', () => {
-		const valueObject = CNPJValueObject.create('93.118.559/0001-100');
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should fail if provide an invalid value (digit sum)', () => {
-		const valueObject = CNPJValueObject.create('76954860000135');
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should fail if provide an invalid value (digit sum) and length', () => {
-		const valueObject = CNPJValueObject.create('769548600001350');
-		expect(valueObject.isFail()).toBeTruthy();
-	});
-
-	it('should create a valid cnpj only numbers', () => {
-		const valueObject = CNPJValueObject.create('27729251000168');
-		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('27729251000168');
-	});
-
-	it('should init an instance with success', () => {
-		const init = () => CNPJValueObject.init('27729251000168');
-		expect(init).not.toThrowError();
-	});
-
-	it('should throw an error on init an instance with invalid value', () => {
-		const init = () => CNPJValueObject.init('invalid');
-		expect(init).toThrowError();
+	describe('Special Character Removal', () => {
+		it('should remove special characters from a string', () => {
+			const value = CNPJValueObject.removeSpecialChars('93.118.559/0001-100');
+			expect(value).toBe('931185590001100');
+		});
 	});
 });

@@ -35,7 +35,7 @@
 		"test:prod": "NODE_ENV=production jest --silent --runInBand",
 		"test:dev": "jest --silent --runInBand",
 		"test:cov": "TYPES_DDD_LOGS=off jest --silent --runInBand --coverage",
-		"test": "TYPES_DDD_LOGS=off jest --silent --runInBand",
+		"test": "TYPES_DDD_LOGS=off jest --silent --runInBand --coverage",
 		"test:verbose": "jest --runInBand",
 		"check:circular-deps": "madge --circular --extensions ts ./packages",
 		"prepublish:lib": "rimraf ./dist && npm run check:circular-deps",
