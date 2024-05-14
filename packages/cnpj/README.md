@@ -2,6 +2,8 @@
 
 > The @types-ddd/cnpj library provides TypeScript type definitions for handling CNPJ (Cadastro Nacional da Pessoa Jurídica) in Domain-Driven Design contexts. It facilitates the validation and manipulation of CNPJ numbers, ensuring they adhere to the Brazilian legal standards.
 
+---
+
 ## Installation
 
 Install `rich-domain` and `@types-ddd/cnpj` with your favorite package manager

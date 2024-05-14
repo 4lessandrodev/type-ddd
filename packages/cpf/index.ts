@@ -70,17 +70,6 @@ export class CPF extends ValueObject<string> {
 	}
 
 	/**
-	 * @description check if cpf value is a valid pattern and has a valid digit sum.
-	 * @param value cpf as string
-	 * @returns true if value is valid and false if not.
-	 * @example "527.348.652-11"
-	 * @example "72725477824"
-	 */
-	validation(value: string): boolean {
-		return CPF.isValidProps(value);
-	}
-
-	/**
 	 * 
 	 * @param value value as string
 	 * @returns instance of CPF or throw an error
