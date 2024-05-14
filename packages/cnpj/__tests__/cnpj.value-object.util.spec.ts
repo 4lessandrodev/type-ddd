@@ -51,31 +51,25 @@ describe('cnpj.value-object', () => {
 	it('should format a cnpj to add special chars', () => {
 		const valueObject =
 			CNPJValueObject.create('20.798.751/0001-02').value();
-		valueObject.formatToCnpjPattern();
-		expect(valueObject.value()).toBe('20.798.751/0001-02');
+		expect(valueObject.asPattern()).toBe('20.798.751/0001-02');
 	});
 
 	it('should format a cnpj to add special chars', () => {
 		const valueObject =
 			CNPJValueObject.create('65.389.009/0001-81').value();
-		valueObject.formatToCnpjPattern();
-		expect(valueObject.value()).toBe('65.389.009/0001-81');
+		expect(valueObject.asPattern()).toBe('65.389.009/0001-81');
 	});
 
 	it('should format a cnpj to add special chars', () => {
 		const valueObject =
 			CNPJValueObject.create('02.470.431/0001-47').value();
-		valueObject.formatToCnpjPattern();
-		expect(valueObject.value()).toBe('02.470.431/0001-47');
+		expect(valueObject.asPattern()).toBe('02.470.431/0001-47');
 	});
 
 	it('should format a cnpj to add special chars and remove it later', () => {
 		const valueObject =
 			CNPJValueObject.create('62.412.404/0001-40').value();
-		valueObject.formatToCnpjPattern();
-		expect(valueObject.value()).toBe('62.412.404/0001-40');
-		valueObject.removeSpecialChars();
-		expect(valueObject.value()).toBe('62412404000140');
+		expect(valueObject.asPattern()).toBe('62.412.404/0001-40');
 	});
 
 	it('should compare value on instance and provided value', () => {
@@ -96,14 +90,10 @@ describe('cnpj.value-object', () => {
 		isEqual = valueObject.compare('22606062000184');
 		expect(isEqual).toBeTruthy();
 
-		valueObject.formatToCnpjPattern();
 		isEqual = valueObject.compare('22606062000184');
 		expect(isEqual).toBeTruthy();
 
 		isEqual = valueObject.compare('22.606.062/0001-84');
-		expect(isEqual).toBeTruthy();
-
-		valueObject.removeSpecialChars();
 		expect(isEqual).toBeTruthy();
 	});
 

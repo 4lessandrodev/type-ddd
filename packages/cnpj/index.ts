@@ -28,7 +28,7 @@ export class CNPJ extends ValueObject<string> {
 	 * @example before "22.398.345/0001-88"
 	 * @example after "22398345000188"
 	 */
-	removeSpecialChars(): CNPJ {
+	private removeSpecialChars(): CNPJ {
 		this.props = removeSpecialCharsFromCnpj(this.props);
 		return this;
 	}
@@ -38,9 +38,8 @@ export class CNPJ extends ValueObject<string> {
 	 * @example before "22398345000188"
 	 * @example after "22.398.345/0001-88"
 	 */
-	formatToCnpjPattern(): CNPJ {
-		this.props = formatValueToCnpjPattern(this.props);
-		return this;
+	asPattern(): string {
+		return formatValueToCnpjPattern(this.props);
 	}
 
 	/**
