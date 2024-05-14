@@ -105,6 +105,18 @@ class Password extends ValueObject<string> {
 		return this.compare(password.value());
 	}
 
+
+	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of Password or throw an error
+	 */
+	public static init(value: string): Password {
+		const isValidValue = Password.isValidProps(value);
+		if (!isValidValue) throw new Error(Password.MESSAGE);
+		return new Password(value);
+	}
+	
 	/**
 	 *
 	 * @param value password to create

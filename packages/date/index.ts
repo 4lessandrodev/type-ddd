@@ -30,6 +30,7 @@ enum DateFormats {
 type DateFormat = keyof typeof DateFormats;
 
 export class Dates extends ValueObject<Date> {
+	protected static readonly MESSAGE: string = 'Invalid date value';
 	private readonly ONE_DAY: number = 86400000;
 	private readonly ONE_HOUR: number = 3600000;
 	private readonly ONE_MINUTE: number = 60000;
@@ -438,10 +439,21 @@ export class Dates extends ValueObject<Date> {
 		return instanceTime === time;
 	}
 
+	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of Dates or throw an error
+	 */
+	public static init(value: Date): Dates {
+		const isValidValue = Dates.isValidProps(value);
+		if (!isValidValue) throw new Error(Dates.MESSAGE);
+		return new Dates(value);
+	}
+
 	public static create(date?: Date): Result<Dates> {
 		const value = date ?? new Date();
 		const isValid = Dates.isValidProps(value);
-		if (!isValid) return Result.fail('Invalid Date Value');
+		if (!isValid) return Result.fail(Dates.MESSAGE);
 
 		return Result.Ok(new Dates(value));
 	}

@@ -58,6 +58,18 @@ class HomePhone extends ValueObject<string> {
 		return parseInt(this.props.slice(1, 3));
 	}
 
+
+	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of HomePhone or throw an error
+	 */
+	public static init(value: string): HomePhone {
+		const isValidValue = HomePhone.isValidProps(value);
+		if (!isValidValue) throw new Error(HomePhone.MESSAGE);
+		return new HomePhone(value);
+	}
+
 	/**
 	 *
 	 * @param value Brazilian home phone number

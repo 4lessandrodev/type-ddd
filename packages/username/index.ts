@@ -108,6 +108,17 @@ export class UserName extends ValueObject<string> {
 	}
 
 	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of UserName or throw an error
+	 */
+	public static init(value: string): UserName {
+		const isValidValue = UserName.isValidProps(value);
+		if (!isValidValue) throw new Error(UserName.MESSAGE);
+		return new UserName(value);
+	}
+
+	/**
 	 * @description check name length min(2) max(40)
 	 * @param value name as string
 	 * @returns true if provided value is valid and false if not

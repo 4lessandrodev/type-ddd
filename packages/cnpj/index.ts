@@ -79,6 +79,18 @@ export class CNPJ extends ValueObject<string> {
 	validation(value: string): boolean {
 		return CNPJ.isValidProps(value);
 	}
+
+	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of CNPJ or throw an error
+	 */
+	public static init(value: string): CNPJ {
+		const isValidValue = CNPJ.isValidProps(value);
+		if (!isValidValue) throw new Error(CNPJ.MESSAGE);
+		return new CNPJ(value);
+	}
+
 	/**
 	 * @description create a cnpj value object
 	 * @param value cnpj numbers as string

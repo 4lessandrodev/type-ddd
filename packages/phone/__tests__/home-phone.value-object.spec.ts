@@ -53,4 +53,14 @@ describe('home-phone.value-object', () => {
 			HomePhoneValueObject.create('(71) 2254-1211').value();
 		expect(valueObject.getDDD()).toBe(71);
 	});
+
+	it('should init an instance with success', () => {
+		const init = () => HomePhoneValueObject.init('(71) 2253-1213');
+		expect(init).not.toThrowError();
+	});
+
+	it('should throw an error on init an instance with invalid value', () => {
+		const init = () => HomePhoneValueObject.init('');
+		expect(init).toThrowError();
+	});
 });

@@ -303,4 +303,15 @@ describe('date.value-object', () => {
 		).value();
 		expect(date.isEqualDate(new Date('2021-01-01 00:00:00'))).toBe(false);
 	});
+
+
+	it('should init an instance with success', () => {
+		const init = () => DateValueObject.init(new Date());
+		expect(init).not.toThrowError();
+	});
+
+	it('should throw an error on init an instance with invalid value', () => {
+		const init = () => DateValueObject.init('invalid' as any);
+		expect(init).toThrowError();
+	});
 });

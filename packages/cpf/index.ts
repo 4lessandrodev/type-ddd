@@ -81,6 +81,17 @@ export class CPF extends ValueObject<string> {
 	}
 
 	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of CPF or throw an error
+	 */
+	public static init(value: string): CPF {
+		const isValidValue = CPF.isValidProps(value);
+		if (!isValidValue) throw new Error(CPF.MESSAGE);
+		return new CPF(value);
+	}
+
+	/**
 	 * @description create a cpf value object
 	 * @param value cpf numbers as string
 	 * @returns instance of Result with cpf value

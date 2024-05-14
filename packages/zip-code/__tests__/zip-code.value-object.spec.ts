@@ -26,4 +26,15 @@ describe('postal-code.value-object', () => {
 		const valueObject = ZipCodeValueObject.create('invalid');
 		expect(valueObject.isOk()).toBe(false);
 	});
+
+
+	it('should init an instance with success', () => {
+		const init = () => ZipCodeValueObject.init('05583-000');
+		expect(init).not.toThrowError();
+	});
+
+	it('should throw an error on init an instance with invalid value', () => {
+		const init = () => ZipCodeValueObject.init('');
+		expect(init).toThrowError();
+	});
 });

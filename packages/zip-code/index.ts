@@ -31,6 +31,19 @@ class ZipCode extends ValueObject<string> {
 		return this.validator.string(value).match(ZipCode.REGEX);
 	}
 
+
+	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of ZipCode or throw an error
+	 */
+	public static init(value: string): ZipCode {
+		const isValidValue = ZipCode.isValidProps(value);
+		if (!isValidValue) throw new Error(ZipCode.MESSAGE);
+		return new ZipCode(value);
+	}
+
+
 	public static create(value: string): Result<ZipCode> {
 		if (!ZipCode.isValidProps(value)) {
 			return Result.fail(ZipCode.MESSAGE);

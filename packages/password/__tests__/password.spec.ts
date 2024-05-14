@@ -141,4 +141,15 @@ describe('password.value-object', () => {
 			expect(Reflect.get(PasswordValueObject, 'MIN_LENGTH')).toBe(10);
 		});
 	});
+
+
+	it('should init an instance with success', () => {
+		const init = () => PasswordValueObject.init('sample1234');
+		expect(init).not.toThrowError();
+	});
+
+	it('should throw an error on init an instance with invalid value', () => {
+		const init = () => PasswordValueObject.init('');
+		expect(init).toThrowError();
+	});
 });

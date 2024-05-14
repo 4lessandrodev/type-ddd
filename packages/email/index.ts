@@ -60,6 +60,18 @@ export class Email extends ValueObject<string> {
 		return isAvailable && !isBlockedDomain;
 	}
 
+
+	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of Email or throw an error
+	 */
+	public static init(value: string): Email {
+		const isValidValue = Email.isValidProps(value);
+		if (!isValidValue) throw new Error(Email.MESSAGE);
+		return new Email(value);
+	}
+
 	public static create(value: string): Result<Email> {
 		if (!Email.isValidProps(value)) {
 			return Result.fail(Email.MESSAGE);

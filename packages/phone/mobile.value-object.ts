@@ -59,6 +59,17 @@ class MobilePhone extends ValueObject<string> {
 	}
 
 	/**
+	 * 
+	 * @param value value as string
+	 * @returns instance of MobilePhone or throw an error
+	 */
+	public static init(value: string): MobilePhone {
+		const isValidValue = MobilePhone.isValidProps(value);
+		if (!isValidValue) throw new Error(MobilePhone.MESSAGE);
+		return new MobilePhone(value);
+	}
+
+	/**
 	 *
 	 * @param value Brazilian Mobile phone number
 	 * @example (XX) 9XXXX-XXXX

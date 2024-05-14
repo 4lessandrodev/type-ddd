@@ -1,6 +1,16 @@
 import EmailValueObject from '../index';
 
 describe('email-value-object.util', () => {
+	it('should init an instance with success', () => {
+		const init = () => EmailValueObject.init('sample@live.com');
+		expect(init).not.toThrowError();
+	});
+
+	it('should throw an error on init an instance with invalid value', () => {
+		const init = () => EmailValueObject.init('invalid');
+		expect(init).toThrowError();
+	});
+	
 	it('should be defined', () => {
 		const valueObject = EmailValueObject.create;
 		expect(valueObject).toBeDefined();

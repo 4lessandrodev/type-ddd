@@ -143,4 +143,14 @@ describe('cnpj.value-object', () => {
 		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('27729251000168');
 	});
+
+	it('should init an instance with success', () => {
+		const init = () => CNPJValueObject.init('27729251000168');
+		expect(init).not.toThrowError();
+	});
+
+	it('should throw an error on init an instance with invalid value', () => {
+		const init = () => CNPJValueObject.init('invalid');
+		expect(init).toThrowError();
+	});
 });
