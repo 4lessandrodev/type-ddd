@@ -7,7 +7,6 @@ export class CPF extends ValueObject<string> {
 
 	private constructor(value: string) {
 		super(value);
-		this.removeSpecialChars();
 	}
 
 	/**
@@ -20,15 +19,12 @@ export class CPF extends ValueObject<string> {
 	}
 
 	/**
-	 * @description remove hyphen and dot from cpf value.
-	 * @example before "527.348.652-11"
-	 * @example after "52734865211"
+	 * @description add hyphen and dot to cpf value.
+	 * @example before "52734865211"
+	 * @example after "527.348.652-11"
 	 */
-	removeSpecialChars(): CPF {
-		this.props = this.util
-			.string(this.props)
-			.removeSpecialChars();
-		return this;
+	toPattern(): string {
+		return formatValueToCpfPattern(this.props);
 	}
 
 	/**
@@ -36,24 +32,36 @@ export class CPF extends ValueObject<string> {
 	 * @example before "52734865211"
 	 * @example after "527.348.652-11"
 	 */
-	formatToCpfPattern(): CPF {
-		this.props = formatValueToCpfPattern(this.props);
-		return this;
+	public static addMask(cpf: string): string {
+		return formatValueToCpfPattern(cpf);
+	}
+
+	/**
+	 * @description remove hyphen and dot from cpf value.
+	 * @example before "527.348.652-11"
+	 * @example after "52734865211"
+	 */
+	public static removeSpecialChars(cpf: string): string {
+		return this.util.string(cpf).removeSpecialChars();
 	}
 
 	/**
 	 *
-	 * @param cpf value as string only number or pattern.
+	 * @param cpf value as string only number or pattern Or instance of CPF.
 	 * @returns true if cpf match with instance value and false if not.
 	 * @example param "52734865211"
 	 * @example param "527.348.652-11"
 	 */
-	compare(cpf: string): boolean {
-		const formattedCpf = this.util.string(cpf).removeSpecialChars();
-		const instanceValue = this.util
-			.string(this.props)
-			.removeSpecialChars();
-		return instanceValue === formattedCpf;
+	compare(cpf: string | CPF): boolean {
+		if (typeof cpf === 'string') {
+			const formattedCpf = this.util.string(cpf).removeSpecialChars();
+			const instanceValue = this.util
+				.string(this.props)
+				.removeSpecialChars();
+			return instanceValue === formattedCpf;
+		}
+		if (cpf instanceof CPF) return cpf.isEqual(this);
+		return false;
 	}
 
 	/**
@@ -67,6 +75,17 @@ export class CPF extends ValueObject<string> {
 		const isValidPattern = CPF.REGEX.test(value);
 		const isValidDigits = isValidCpfDigit(value);
 		return isValidDigits && isValidPattern;
+	}
+
+	/**
+	 * @description check if cpf value is a valid pattern and has a valid digit sum.
+	 * @param value cpf as string
+	 * @returns true if value is valid and false if not.
+	 * @example "527.348.652-11"
+	 * @example "72725477824"
+	 */
+	public static isValid(value: string): boolean {
+		return this.isValidProps(value);
 	}
 
 	/**
@@ -95,7 +114,7 @@ export class CPF extends ValueObject<string> {
 			return Result.fail(CPF.MESSAGE);
 		}
 
-		return Result.Ok(new CPF(value));
+		return Result.Ok(new CPF(this.util.string(value).removeSpecialChars()));
 	}
 }
 

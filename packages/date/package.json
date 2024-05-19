@@ -33,7 +33,11 @@
   },
   "files": [
     "index.js",
-    "index.d.ts"
+    "index.d.ts",
+    "util.js",
+    "util.d.ts",
+    "types.js",
+    "types.d.ts"
   ],
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@types-ddd/cpf",
-	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
+	"description": "This package provides TypeScript type definitions for handling CPF (Cadastro de Pessoa Física) in Domain-Driven Design contexts",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
@@ -14,15 +14,14 @@
     "DDD-Utils",
     "Base Value Object",
     "Domain Events",
-    "Clean Architecture",
     "CPF",
     "Validation",
     "Formatting",
     "Value Object",
     "Utility",
-    "Security",
     "Standards",
-    "Brazil"
+    "Brazil",
+    "Cadastro de Pessoa Física"
   ],
   "scripts": {
     "prebuild": "rimraf ./dist",
