@@ -25,7 +25,7 @@ class MobilePhone extends ValueObject<string> {
 		return this.validator.string(value).match(MobilePhone.REGEX);
 	}
 
-	validation(value: string): boolean {
+	public static isValid(value: string): boolean {
 		return MobilePhone.isValidProps(value);
 	}
 
@@ -41,7 +41,7 @@ class MobilePhone extends ValueObject<string> {
 	 * @returns only numbers without special chars. Includes DDD.
 	 * @example 11992502301
 	 */
-	getOnlyNumbers(): number {
+	numbers(): number {
 		const onlyNumbersAsString = this.props.replace(
 			regexHashSpecialChars,
 			'',
@@ -54,7 +54,7 @@ class MobilePhone extends ValueObject<string> {
 	 * @returns DDD only as number
 	 * @example 11
 	 */
-	getDDD(): number {
+	ddd(): number {
 		return parseInt(this.props.slice(1, 3));
 	}
 

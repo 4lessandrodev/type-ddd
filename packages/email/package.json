@@ -13,16 +13,14 @@
     "Domain Driving Design",
     "DDD-Utils",
     "Base Value Object",
-    "Domain Events",
     "Clean Architecture",
-    "CPF",
+    "Email",
     "Validation",
     "Formatting",
     "Value Object",
     "Utility",
     "Security",
-    "Standards",
-    "Brazil"
+    "Standards"
   ],
   "scripts": {
     "prebuild": "rimraf ./dist",

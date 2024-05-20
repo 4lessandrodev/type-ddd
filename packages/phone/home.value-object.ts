@@ -16,8 +16,8 @@ class HomePhone extends ValueObject<string> {
 		super(prop);
 	}
 
-	validation(value: string): boolean {
-		return HomePhone.isValidProps(value);
+	public static isValid(value: string): boolean {
+		return this.isValidProps(value);
 	}
 
 	/**
@@ -41,7 +41,7 @@ class HomePhone extends ValueObject<string> {
 	 * @returns only numbers without special chars. Includes DDD.
 	 * @example 1122502301
 	 */
-	getOnlyNumbers(): number {
+	numbers(): number {
 		const onlyNumbersAsString = this.props.replace(
 			regexHashSpecialChars,
 			'',
@@ -54,10 +54,19 @@ class HomePhone extends ValueObject<string> {
 	 * @returns DDD only as number
 	 * @example 11
 	 */
-	getDDD(): number {
+	ddd(): number {
 		return parseInt(this.props.slice(1, 3));
 	}
 
+	public static removeSpecialChars(cell: string): string {
+		return this.util.string(cell).removeSpecialChars();
+	}
+
+	public static addMask(cell: string): string {
+		const phone = this.removeSpecialChars(cell);
+		/** @todo adicionar lógica para inserir máscara */
+		return ''
+	}
 
 	/**
 	 * 

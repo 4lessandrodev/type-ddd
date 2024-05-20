@@ -14,18 +14,18 @@ export class Email extends ValueObject<string> {
 		return this.props.toLowerCase();
 	}
 
-	getNick(): string {
+	nick(): string {
 		return this.props.slice(0, this.props.indexOf('@'));
 	}
 
-	getDomain(): string {
+	domain(): string {
 		return this.props
 			.slice(this.props.indexOf('@') + 1)
 			.toLowerCase();
 	}
 
-	validation(value: string): boolean {
-		return Email.isValidProps(value);
+	public static isValid(value: string): boolean {
+		return this.isValidProps(value);
 	}
 
 	/**
