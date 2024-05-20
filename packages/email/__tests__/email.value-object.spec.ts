@@ -111,14 +111,14 @@ describe('email-value-object.util', () => {
 		const valueObject = EmailValueObject.create(
 			'username@domain.com',
 		).value();
-		expect(valueObject.getNick()).toBe('username');
+		expect(valueObject.nick()).toBe('username');
 	});
 
 	it('should get domain', () => {
 		const valueObject = EmailValueObject.create(
 			'username@domain.com',
 		).value();
-		expect(valueObject.getDomain()).toBe('domain.com');
+		expect(valueObject.domain()).toBe('domain.com');
 	});
 
 	it('should create value object with success', () => {
@@ -181,13 +181,13 @@ describe('email-value-object.util', () => {
 
 	it('should get domain with success', () => {
 		const vo = EmailValueObject.create('my-email@domain.com').value();
-		expect(vo.getDomain()).toBe('domain.com');
+		expect(vo.domain()).toBe('domain.com');
 	});
 
 	it('should get nick with success', () => {
 		const vo = EmailValueObject.create('my-email@domain.com').value();
 		expect(vo.get('value')).toBe('my-email@domain.com');
-		expect(vo.getNick()).toBe('my-email');
+		expect(vo.nick()).toBe('my-email');
 	});
 
 	it('should to be a valid domain', () => {
