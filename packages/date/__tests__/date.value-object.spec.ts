@@ -9,12 +9,27 @@ describe('Date', () => {
 		});
 
 		it('should create an instance with success', () => {
+			const instance = Dates.create('2020-12-25');
+			expect(instance.value()).toBeInstanceOf(Dates);
+		});
+
+		it('should create an instance with success', () => {
+			const instance = Dates.create(Date.now());
+			expect(instance.value()).toBeInstanceOf(Dates);
+		});
+
+		it('should create an instance with success', () => {
 			const instance = Dates.create(new Date(2020, 1, 1, 1, 1, 1));
 			expect(instance.value().value().toISOString()).toBe('2020-02-01T01:01:01.000Z');
 		});
 
 		it('should return result fail if provide an invalid value', () => {
 			const instance = Dates.create({} as any);
+			expect(instance.isFail()).toBeTruthy();
+		});
+
+		it('should return result fail if provide an invalid date string', () => {
+			const instance = Dates.create('invalid');
 			expect(instance.isFail()).toBeTruthy();
 		});
 
@@ -31,6 +46,21 @@ describe('Date', () => {
 		it('should throw an error if provide an invalid value', () => {
 			const build = () => Dates.init({} as any);
 			expect(build).toThrowError();
+		});
+
+		it('should throw if provide an invalid date string', () => {
+			const build = () => Dates.init('invalid');
+			expect(build).toThrowError();	
+		});
+
+		it('should throw if provide an invalid date string', () => {
+			const build = () => Dates.init('2020-12-25');
+			expect(build).not.toThrowError();	
+		});
+
+		it('should throw if provide an invalid date string', () => {
+			const build = () => Dates.init(Date.now());
+			expect(build).not.toThrowError();	
 		});
 	});
 
@@ -224,6 +254,11 @@ describe('Date', () => {
 			expect(date2.value().toISOString()).toBe('2020-01-01T01:00:00.000Z');
 			expect(date1.differenceInHours(date2)).toBe(7);
 		});
+
+		it('should return 0 if provide null', () => {
+			const date = Dates.init(new Date('2020-01-01T08:00:00'));
+			expect(date.differenceInHours(null as any)).toBe(0);
+		})
 	});
 
 	describe('differenceInMinutes', () => {
@@ -239,6 +274,11 @@ describe('Date', () => {
 			const date2 = date1.subtractMinutes(7);
 			expect(date2.value().toISOString()).toBe('2020-01-01T07:53:00.000Z');
 			expect(date1.differenceInMinutes(date2)).toBe(7);
+		});
+
+		it('should return 0 if provide null value', () => {
+			const date = Dates.init(new Date('2020-01-01T08:00:00'));
+			expect(date.differenceInMinutes(null as any)).toBe(0);
 		});
 	});
 
@@ -256,6 +296,11 @@ describe('Date', () => {
 			expect(date2.value().toISOString()).toBe('2019-06-05T08:00:00.000Z');
 			expect(date1.differenceInMonths(date2)).toBe(6.77);
 		});
+
+		it('should return 0 if provide null value', () => {
+			const date = Dates.init(new Date('2020-01-01T08:00:00'));
+			expect(date.differenceInMonths(null as any)).toBe(0);
+		});
 	});
 
 	describe('differenceInYears', () => {
@@ -272,6 +317,11 @@ describe('Date', () => {
 			expect(date2.value().toISOString()).toBe('2013-01-02T08:00:00.000Z');
 			expect(date1.differenceInYears(date2)).toBe(6.98);
 		});
+
+		it('should return 0 if provide null value', () => {
+			const date = Dates.init(new Date('2020-01-01T08:00:00'));
+			expect(date.differenceInYears(null as any)).toBe(0);
+		});
 	});
 
 	describe('differenceInWeeks', () => {
@@ -287,6 +337,18 @@ describe('Date', () => {
 			const date2 = date1.subtractWeeks(7);
 			expect(date2.value().toISOString()).toBe('2019-11-13T08:00:00.000Z');
 			expect(date1.differenceInWeeks(date2)).toBe(7);
+		});
+
+		it('should return 0 if provide null value', () => {
+			const date = Dates.init(new Date('2020-01-01T08:00:00'));
+			expect(date.differenceInWeeks(null as any)).toBe(0);
+		});
+	});
+
+	describe('differenceInDays', () => {
+		it('should return 0 if provide null value', () => {
+			const date = Dates.init(new Date('2020-01-01T08:00:00'));
+			expect(date.differenceInDays(null as any)).toBe(0);
 		});
 	});
 
@@ -370,6 +432,11 @@ describe('Date', () => {
 			const date2 = date1.subtractDays(1);
 			expect(date2.isAfter(date1)).toBeFalsy();
 		});
+
+		it('should return false if provide an invalid value', () => {
+			const date = Dates.init(new Date('2024-05-18T00:00:00.000Z'));
+			expect(date.isAfter(null as any)).toBeFalsy();
+		});
 	});
 
 	describe('isBefore', () => {
@@ -384,6 +451,11 @@ describe('Date', () => {
 			const date2 = date1.subtractDays(1);
 			expect(date2.isBefore(date1)).toBeTruthy();
 		});
+
+		it('should return false if provide an invalid value', () => {
+			const date = Dates.init(new Date('2024-05-18T00:00:00.000Z'));
+			expect(date.isBefore(null as any)).toBeFalsy();
+		});
 	});
 
 	describe('isEqualDate', () => {
@@ -397,85 +469,90 @@ describe('Date', () => {
 			const date2 = date1.subtractDays(1);
 			expect(date2.isEqualDate(date1)).toBeFalsy();
 		});
+
+		it('should return false if provide an invalid value', () => {
+			const date = Dates.init(new Date('2024-05-18T00:00:00.000Z'));
+			expect(date.isEqualDate(null as any)).toBeFalsy();
+		});
 	});
 
 	describe('format', () => {
 		it('should format to DD-MM-YY', () => {
-			const date = new Date('2024-01-01T00:00:00.000Z');
+			const date = new Date('2024-12-25T00:00:00.000Z');
 			const format = Dates.init(date).format('DD-MM-YY');
-			expect(format).toBe('01-01-24');
+			expect(format).toBe('25-12-24');
 		});
 
 		it('should format to DD-MM-YY HH:mm:ss', () => {
-			const date = new Date('2024-01-01T08:10:00.000Z');
+			const date = new Date('2024-12-25T08:10:00.000Z');
 			const format = Dates.init(date).format('DD-MM-YY HH:mm:ss');
-			expect(format).toBe('01-01-24 08:10:00');
+			expect(format).toBe('25-12-24 08:10:00');
 		});
 
 		it('should format to DD-MM-YY hh:mm:ss', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD-MM-YY hh:mm:ss');
-			expect(format).toBe('01-01-24 04:10:00 PM');
+			expect(format).toBe('25-12-24 04:10:00 PM');
 		});
 
 		it('should format to DD-MM-YYYY', () => {
-			const date = new Date('2024-01-01T00:00:00.000Z');
+			const date = new Date('2024-12-25T00:00:00.000Z');
 			const format = Dates.init(date).format('DD-MM-YYYY');
-			expect(format).toBe('01-01-2024');
+			expect(format).toBe('25-12-2024');
 		});
 
 		it('should format to DD-MM-YYYY HH:mm:ss', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD-MM-YYYY HH:mm:ss');
-			expect(format).toBe('01-01-2024 16:10:00');
+			expect(format).toBe('25-12-2024 16:10:00');
 		});
 
 		it('should format to DD-MM-YYYY HH:mm:ss', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD-MM-YYYY hh:mm:ss');
-			expect(format).toBe('01-01-2024 04:10:00 PM');
+			expect(format).toBe('25-12-2024 04:10:00 PM');
 		});
 
 		it('should format to DD/MM/YY', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD/MM/YY');
-			expect(format).toBe('01/01/24');
+			expect(format).toBe('25/12/24');
 		});
 
 		it('should format to DD/MM/YY', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD/MM/YY');
-			expect(format).toBe('01/01/24');
+			expect(format).toBe('25/12/24');
 		});
 
 		it('should format to DD/MM/YY HH:mm:ss', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD/MM/YY HH:mm:ss');
-			expect(format).toBe('01/01/24 16:10:00');
+			expect(format).toBe('25/12/24 16:10:00');
 		});
 
 		it('should format to DD/MM/YY hh:mm:ss', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD/MM/YY hh:mm:ss');
-			expect(format).toBe('01/01/24 04:10:00 PM');
+			expect(format).toBe('25/12/24 04:10:00 PM');
 		});
 
 		it('should format to DD/MM/YYYY', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD/MM/YYYY');
-			expect(format).toBe('01/01/2024');
+			expect(format).toBe('25/12/2024');
 		});
 
 		it('should format to DD/MM/YYYY HH:mm:ss', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD/MM/YYYY HH:mm:ss');
-			expect(format).toBe('01/01/2024 16:10:00');
+			expect(format).toBe('25/12/2024 16:10:00');
 		});
 
 		it('should format to DD/MM/YYYY hh:mm:ss', () => {
-			const date = new Date('2024-01-01T16:10:00.000Z');
+			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('DD/MM/YYYY hh:mm:ss');
-			expect(format).toBe('01/01/2024 04:10:00 PM');
+			expect(format).toBe('25/12/2024 04:10:00 PM');
 		});
 
 		it('should format to MM-DD-YY', () => {
@@ -550,24 +627,6 @@ describe('Date', () => {
 			expect(format).toBe('12/25/2024 04:10:00 PM');
 		});
 
-		it('should format to YYYY-DD-MM', () => {
-			const date = new Date('2024-12-25T16:10:00.000Z');
-			const format = Dates.init(date).format('YYYY-DD-MM');
-			expect(format).toBe('2024-25-12');
-		});
-
-		it('should format to YYYY-DD-MM HH:mm:ss', () => {
-			const date = new Date('2024-12-25T16:10:00.000Z');
-			const format = Dates.init(date).format('YYYY-DD-MM HH:mm:ss');
-			expect(format).toBe('2024-25-12 16:10:00');
-		});
-
-		it('should format to YYYY-DD-MM hh:mm:ss', () => {
-			const date = new Date('2024-12-25T16:10:00.000Z');
-			const format = Dates.init(date).format('YYYY-DD-MM hh:mm:ss');
-			expect(format).toBe('2024-25-12 04:10:00 PM');
-		});
-
 		it('should format to YYYY-MM-DD', () => {
 			const date = new Date('2024-12-25T16:10:00.000Z');
 			const format = Dates.init(date).format('YYYY-MM-DD');
@@ -586,22 +645,101 @@ describe('Date', () => {
 			expect(format).toBe('2024-12-25 04:10:00 PM');
 		});
 
-		it('should format to YYYY/DD/MM', () => {
+		it('should format to DD.MM.YYYY', () => {
 			const date = new Date('2024-12-25T16:10:00.000Z');
-			const format = Dates.init(date).format('YYYY/DD/MM');
-			expect(format).toBe('2024/25/12');
+			const format = Dates.init(date).format('DD.MM.YY');
+			expect(format).toBe('25.12.24');
 		});
 
-		it('should format to YYYY/DD/MM HH:mm:ss', () => {
+		it('should format to MM.DD.YYYY', () => {
 			const date = new Date('2024-12-25T16:10:00.000Z');
-			const format = Dates.init(date).format('YYYY/DD/MM HH:mm:ss');
-			expect(format).toBe('2024/25/12 16:10:00');
+			const format = Dates.init(date).format('MM.DD.YYYY');
+			expect(format).toBe('12.25.2024');
 		});
 
-		it('should format to YYYY/DD/MM hh:mm:ss', () => {
+		it('should format to DD.MM.YY', () => {
 			const date = new Date('2024-12-25T16:10:00.000Z');
-			const format = Dates.init(date).format('YYYY/DD/MM hh:mm:ss');
-			expect(format).toBe('2024/25/12 04:10:00 PM');
+			const format = Dates.init(date).format('DD.MM.YY');
+			expect(format).toBe('25.12.24');
+		});
+
+		it('should format to MM.DD.YY', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('MM.DD.YY');
+			expect(format).toBe('12.25.24');
+		});
+
+		it('should format to YYYY.MM.DD', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('YYYY.MM.DD');
+			expect(format).toBe('2024.12.25');
+		});
+
+		it('should format to DD.MM.YYYY hh:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('DD.MM.YYYY hh:mm:ss');
+			expect(format).toBe('25.12.2024 04:10:00 PM');
+		});
+
+		it('should format to DD.MM.YYYY HH:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('DD.MM.YYYY HH:mm:ss');
+			expect(format).toBe('25.12.2024 16:10:00');
+		});
+
+		it('should format to DD.MM.YY hh:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('DD.MM.YY hh:mm:ss');
+			expect(format).toBe('25.12.24 04:10:00 PM');
+		});
+
+		it('should format to DD.MM.YY HH:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('DD.MM.YY HH:mm:ss');
+			expect(format).toBe('25.12.24 16:10:00');
+		});
+
+		it('should format to MM.DD.YYYY hh:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('MM.DD.YYYY hh:mm:ss');
+			expect(format).toBe('12.25.2024 04:10:00 PM');
+		});
+
+		it('should format to MM.DD.YYYY HH:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('MM.DD.YYYY HH:mm:ss');
+			expect(format).toBe('12.25.2024 16:10:00');
+		});
+
+		it('should format to MM.DD.YY hh:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('MM.DD.YY hh:mm:ss');
+			expect(format).toBe('12.25.24 04:10:00 PM');
+		});
+
+		it('should format to MM.DD.YY HH:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('MM.DD.YY HH:mm:ss');
+			expect(format).toBe('12.25.24 16:10:00');
+		});
+
+		it('should format to YYYY.MM.DD hh:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('YYYY.MM.DD hh:mm:ss');
+			expect(format).toBe('2024.12.25 04:10:00 PM');
+		});
+
+		it('should format to YYYY.MM.DD HH:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('YYYY.MM.DD HH:mm:ss');
+			expect(format).toBe('2024.12.25 16:10:00');
+		});
+
+		it('should format to YYYY-MM.DD HH:mm:ss', () => {
+			const date = new Date('2024-12-25T16:10:00.000Z');
+			const format = Dates.init(date).format('YYYY_MM_DD' as any);
+			expect(format).toBe('2024-12-25');
 		});
 	});
+
 });

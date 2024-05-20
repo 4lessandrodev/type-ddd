@@ -50,27 +50,22 @@ describe('cpf.value-object', () => {
 
 	it('should format a cpf to add special chars', () => {
 		const valueObject = CPFValueObject.create('667.324.914-58').value();
-		valueObject.formatToCpfPattern();
-		expect(valueObject.value()).toBe('667.324.914-58');
+		expect(valueObject.toPattern()).toBe('667.324.914-58');
 	});
 
 	it('should format a cpf to add special chars', () => {
 		const valueObject = CPFValueObject.create('578.363.883-87').value();
-		valueObject.formatToCpfPattern();
-		expect(valueObject.value()).toBe('578.363.883-87');
+		expect(valueObject.toPattern()).toBe('578.363.883-87');
 	});
 
 	it('should format a cpf to add special chars', () => {
 		const valueObject = CPFValueObject.create('844.676.543-80').value();
-		valueObject.formatToCpfPattern();
-		expect(valueObject.value()).toBe('844.676.543-80');
+		expect(valueObject.toPattern()).toBe('844.676.543-80');
 	});
 
 	it('should format a cpf to add special chars and remove it later', () => {
 		const valueObject = CPFValueObject.create('667.324.914-58').value();
-		valueObject.formatToCpfPattern();
-		expect(valueObject.value()).toBe('667.324.914-58');
-		valueObject.removeSpecialChars();
+		expect(valueObject.toPattern()).toBe('667.324.914-58');
 		expect(valueObject.value()).toBe('66732491458');
 	});
 
@@ -91,14 +86,10 @@ describe('cpf.value-object', () => {
 		isEqual = valueObject.compare('54977728114');
 		expect(isEqual).toBeTruthy();
 
-		valueObject.formatToCpfPattern();
 		isEqual = valueObject.compare('54977728114');
 		expect(isEqual).toBeTruthy();
 
 		isEqual = valueObject.compare('549.777.281-14');
-		expect(isEqual).toBeTruthy();
-
-		valueObject.removeSpecialChars();
 		expect(isEqual).toBeTruthy();
 	});
 

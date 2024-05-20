@@ -2,6 +2,7 @@ import { Result, ValueObject } from 'rich-domain';
 import { TimeZones } from './types';
 
 const DateFormats = {
+	// only dates
 	'DD-MM-YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
 	'MM-DD-YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
 	'DD-MM-YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
@@ -12,10 +13,28 @@ const DateFormats = {
 	'DD/MM/YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
 	'DD/MM/YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
 
-	'YYYY-DD-MM': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
 	'YYYY-MM-DD': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
 	'YYYY/MM/DD': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-	'YYYY/DD/MM': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
+
+	// separate with dote
+	'DD.MM.YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
+	'MM.DD.YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
+	'DD.MM.YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
+	'MM.DD.YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
+	'YYYY.MM.DD': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
+
+	'DD.MM.YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
+	'DD.MM.YY hh:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
+	'MM.DD.YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
+	'MM.DD.YY hh:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
+
+	'DD.MM.YYYY HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
+	'DD.MM.YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
+	'MM.DD.YYYY HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
+	'MM.DD.YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
+
+	'YYYY.MM.DD hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
+	'YYYY.MM.DD HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
 
 	// with time 12h
 	'DD/MM/YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
@@ -38,13 +57,9 @@ const DateFormats = {
 	'MM-DD-YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
 
 	// manual
-	'YYYY/DD/MM hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'YYYY-DD-MM hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
 	'YYYY/MM/DD hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
 	'YYYY-MM-DD hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
 
-	'YYYY/DD/MM HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'YYYY-DD-MM HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
 	'YYYY/MM/DD HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
 	'YYYY-MM-DD HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
 }
@@ -75,8 +90,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param days to be added
-	 * @returns Date with updated value
+	 * @param days as number to be added
+	 * @returns instance of Dates with updated value
 	 */
 	addDays(days: number): Dates {
 		return new Dates(this.util.date(this.props).add(days).days());
@@ -84,8 +99,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param months to be added
-	 * @returns Date with updated value
+	 * @param months as number to be added
+	 * @returns instance of Dates with updated value
 	 */
 	addMonths(months: number): Dates {
 		return new Dates(this.util.date(this.props).add(months).months());
@@ -93,8 +108,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param hours to be added
-	 * @returns Date with updated value
+	 * @param hours as number to be added
+	 * @returns instance of Dates with updated value
 	 */
 	addHours(hours: number): Dates {
 		return new Dates(this.util.date(this.props).add(hours).hours());
@@ -102,8 +117,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param minutes to be added
-	 * @returns Date with updated value
+	 * @param minutes as number to be added
+	 * @returns instance of Dates with updated value
 	 */
 	addMinutes(minutes: number): Dates {
 		return new Dates(this.util.date(this.props).add(minutes).minutes());
@@ -111,8 +126,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param weeks to be added
-	 * @returns Date with updated value
+	 * @param weeks as number to be added
+	 * @returns instance of Dates with updated value
 	 */
 	addWeeks(weeks: number): Dates {
 		return new Dates(this.util.date(this.props).add(weeks).weeks());
@@ -120,8 +135,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param years to be added
-	 * @returns Date with updated value
+	 * @param years as number to be added
+	 * @returns instance of Dates with updated value
 	 */
 	addYears(years: number): Dates {
 		return new Dates(this.util.date(this.props).add(years).years());
@@ -129,8 +144,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param days to be subtracted
-	 * @returns Date with updated value
+	 * @param days as number to be subtracted
+	 * @returns instance of Dates with updated value
 	 */
 	subtractDays(days: number): Dates {
 		return new Dates(this.util.date(this.props).remove(days).days());
@@ -138,8 +153,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param months to be subtracted
-	 * @returns Date with updated value
+	 * @param months as number to be subtracted
+	 * @returns instance of Dates with updated value
 	 */
 	subtractMonths(months: number): Dates {
 		return new Dates(this.util.date(this.props).remove(months).months());
@@ -147,8 +162,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param hours to be subtracted
-	 * @returns Date with updated value
+	 * @param hours as number to be subtracted
+	 * @returns instance of Dates with updated value
 	 */
 	subtractHours(hours: number): Dates {
 		return new Dates(this.util.date(this.props).remove(hours).hours());
@@ -156,8 +171,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param minutes to be subtracted
-	 * @returns Date with updated value
+	 * @param minutes as number to be subtracted
+	 * @returns instance of Dates with updated value
 	 */
 	subtractMinutes(minutes: number): Dates {
 		return new Dates(this.util.date(this.props).remove(minutes).minutes());
@@ -165,8 +180,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param weeks to be subtracted
-	 * @returns instance Date with updated value
+	 * @param weeks as number to be subtracted
+	 * @returns instance of Dates with updated value
 	 */
 	subtractWeeks(weeks: number): Dates {
 		return new Dates(this.util.date(this.props).remove(weeks).weeks());
@@ -174,8 +189,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param years to be subtracted
-	 * @returns instance DateValueObject with updated value
+	 * @param years as number to be subtracted
+	 * @returns instance of Dates with updated value
 	 */
 	subtractYears(years: number): Dates {
 		return new Dates(this.util.date(this.props).remove(years).years());
@@ -183,8 +198,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date to be compared
-	 * @returns result as number
+	 * @param date as Date to be compared or instance of Dates
+	 * @returns result as number of days
 	 * @summary returns positive result if instance value is greater than provided value
 	 */
 	differenceInDays(date: Date | Dates): number {
@@ -202,8 +217,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date to be compared
-	 * @returns result as number
+	 * @param date to be compared or instance of Dates
+	 * @returns result as number of hours
 	 * @summary returns positive result if instance value is greater than provided value
 	 */
 	differenceInHours(date: Date | Dates): number {
@@ -221,8 +236,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date to be compared
-	 * @returns result as number
+	 * @param date to be compared or instance of Dates
+	 * @returns result as number of minutes
 	 * @summary returns positive result if instance value is greater than provided value
 	 */
 	differenceInMinutes(date: Date | Dates): number {
@@ -240,8 +255,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date to be compared
-	 * @returns result as number
+	 * @param date to be compared or Dates
+	 * @returns result as number of months
 	 * @summary returns positive result if instance value is greater than provided value
 	 */
 	differenceInMonths(date: Date | Dates): number {
@@ -259,8 +274,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date to be compared
-	 * @returns result as number
+	 * @param date to be compared or Dates
+	 * @returns result as number of years
 	 * @summary returns positive result if instance value is greater than provided value
 	 */
 	differenceInYears(date: Date | Dates): number {
@@ -278,8 +293,8 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date to be compared
-	 * @returns result as number
+	 * @param date to be compared or instance of Dates
+	 * @returns result as number of weeks
 	 * @summary returns positive result if instance value is greater than provided value
 	 */
 	differenceInWeeks(date: Date | Dates): number {
@@ -298,6 +313,7 @@ export class Dates extends ValueObject<Date> {
 	/**
 	 *
 	 * @param format pattern to be applied
+	 * @param timeZone as TimeZone name as string to be considered
 	 * @returns formatted date as string
 	 */
 	format(format: DateFormat, timeZone?: TimeZones): string {
@@ -309,12 +325,14 @@ export class Dates extends ValueObject<Date> {
 			const year = (format.includes('YYYY')) ? 'numeric' : '2-digit';
 
 			const dateFn = new Intl.DateTimeFormat(locale || dateLocale, {
-				...formats.date,
+				month: '2-digit',
+				day: '2-digit',
+				...(formats?.date ?? {}),
 				year,
 				timeZone
 			}).format(date);
 
-			if (formats.time) {
+			if (formats?.time) {
 				const timeFn = new Intl.DateTimeFormat(dateLocale, {
 					...formats.time,
 					timeZone
@@ -327,25 +345,44 @@ export class Dates extends ValueObject<Date> {
 		const result = formatDate(this.props, DateFormats[format] as FormatParams);
 
 		const applySeparator = (date: string): string => {
-			if (format.includes('/')) return this.util.string(date).replace('-').to('/');
-			if (format.includes('-')) return this.util.string(date).replace('/').to('-');
+			if (format.includes('/')) return date.replace(/-/g, '/');
+			if (format.includes('-')) return date.replace(/\//g, '-');
+			if (format.includes('.')) return date.replace(/\/|\-/g, '.');
 			return date;
 		}
 		return applySeparator(`${result.dateFn} ${result.timeFn}`.trim());
 	}
 
-	public static isValidProps(value: Date): boolean {
-		return this.validator.isDate(value);
-	}
-
-	public static isValid(value: Date): boolean {
+	/**
+	 * @param value as Date or date string
+	 * @returns true if provided value is instance of date, and false if not.
+	 */
+	public static isValidProps(value: Date | string | number): boolean {
+		if(typeof value === 'number') {
+			const date = new Date(value);
+			return date instanceof Date;
+		}
+		if (typeof value === 'string') {
+			const date = new Date(value);
+			return (
+				!isNaN(date as unknown as number) &&
+				date.toISOString().slice(0, 10) === value &&
+				!isNaN(date.getFullYear())
+			);
+		}
 		return this.validator.isDate(value);
 	}
 
 	/**
+	 * @param value as Date or date string or number as timestamp
+	 * @returns true if provided value is instance of date, and false if not.
+	 */
+	public static isValid(value: Date | string): boolean {
+		return this.isValidProps(value);
+	}
+
+	/**
 	 *
-	 * @param date optional value as date.
-	 * If provide It will be checked, If It not be provided instance value will be considered
 	 * @returns true if date day is week day [Monday-Friday]
 	 */
 	isWeekday(): boolean {
@@ -354,9 +391,7 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date optional value as date.
-	 * If provide It will be checked, If It not be provided instance value will be considered
-	 * @returns true if date day is weekend day [Sat-Sunday]
+	 * @returns true if date value day is weekend day [Saturday-Sunday]
 	 */
 	isWeekend(): boolean {
 		return this.validator.date(this.props).isWeekend();
@@ -365,7 +400,6 @@ export class Dates extends ValueObject<Date> {
 	/**
 	 *
 	 * @param date value as date.
-	 * If provide It will be checked, If It not be provided instance value will be considered
 	 * @returns true if date day is week day [Monday-Friday]
 	 */
 	public static isWeekday(date: Date): boolean {
@@ -375,7 +409,6 @@ export class Dates extends ValueObject<Date> {
 	/**
 	 *
 	 * @param date value as date.
-	 * If provide It will be checked, If It not be provided instance value will be considered
 	 * @returns true if date day is weekend day [Sat-Sunday]
 	 */
 	public static isWeekend(date: Date): boolean {
@@ -384,15 +417,15 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date as Date
+	 * @param date as Date or instance of Dates
 	 * @returns true or false. True if instance date is greater than provided value
 	 * @example
 	 *
 	 * const date = new Date("1989-05-31 11:42:00");
 	 *
-	 * const valueObj = DateValueObject.create(date).value();
+	 * const vo = Dates.create(date).value();
 	 *
-	 * const isAfter = valueObj.isAfter(new Date());
+	 * const isAfter = vo.isAfter(new Date());
 	 *
 	 * console.log(isAfter);
 	 *
@@ -412,15 +445,15 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date as Date
+	 * @param date as Date or instance of Dates
 	 * @returns true or false. True if instance date is less than provided value
 	 * @example
 	 *
 	 * const date = new Date("1989-05-31 11:42:00");
 	 *
-	 * const valueObj = DateValueObject.create(date).value();
+	 * const vo = Dates.create(date).value();
 	 *
-	 * const isBefore = valueObj.isBefore(new Date());
+	 * const isBefore = vo.isBefore(new Date());
 	 *
 	 * console.log(isBefore);
 	 *
@@ -440,7 +473,7 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 *
-	 * @param date as Date
+	 * @param date as Date or instance of Dates
 	 * @returns true or false. True if instance date is equal to provided value
 	 */
 	isEqualDate(date: Date | Dates): boolean {
@@ -457,22 +490,29 @@ export class Dates extends ValueObject<Date> {
 
 	/**
 	 * 
-	 * @param value value as string
+	 * @param value value as Date or date string or number as timestamp
 	 * @returns instance of Dates or throw an error
 	 */
-	public static init(value?: Date): Dates {
+	public static init(value?: Date | string | number): Dates {
 		if (!value) return new Dates(new Date());
 		const isValidValue = Dates.isValidProps(value);
 		if (!isValidValue) throw new Error(Dates.MESSAGE);
-		return new Dates(value);
+		if (value instanceof Date) return new Dates(value);
+		return new Dates(new Date(value));
 	}
 
-	public static create(date?: Date): Result<Dates> {
+	/**
+	 * 
+	 * @param value value as Date or date string or number as timestamp
+	 * @returns Result of Dates
+	 */
+	public static create(date?: Date | string | number): Result<Dates> {
 		const value = date ?? new Date();
 		const isValid = Dates.isValidProps(value);
+		console.log(isValid);
 		if (!isValid) return Result.fail(Dates.MESSAGE);
-
-		return Result.Ok(new Dates(value));
+		if (value instanceof Date) return Result.Ok(new Dates(value));
+		return Result.Ok(new Dates(new Date(value)));
 	}
 }
 
