@@ -10,6 +10,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [3.9.2] - 2024-05-28
+
+### Fix
+
+- Fix: Email Value Object with + char as alias value
+
+---
+
 ### [3.9.1] - 2024-05-02
 
 ### Fix
