@@ -79,8 +79,13 @@ class Password extends ValueObject<string> {
 		return new Password(encrypted);
 	}
 
-	validation(value: string): boolean {
-		return Password.isValidProps(value);
+	/**
+	 *
+	 * @param value check if password has a valid value length
+	 * @returns true if is all ok or false else not
+	 */
+	public static isValid(value: string): boolean {
+		return this.isValidProps(value);
 	}
 
 	/**
