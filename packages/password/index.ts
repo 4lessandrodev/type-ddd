@@ -107,11 +107,6 @@ class Password extends ValueObject<string> {
 		return true;
 	}
 
-	isEqual(password: Password | string): boolean {
-		if (typeof password === 'string') return this.compare(password);
-		return this.compare(password.value());
-	}
-
 	/**
 	 * 
 	 * @param value value as string
