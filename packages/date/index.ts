@@ -1,68 +1,77 @@
 import { Result, ValueObject } from 'rich-domain';
 import { TimeZones } from './types';
 
-const DateFormats = {
-	// only dates
-	'DD-MM-YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-	'MM-DD-YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-	'DD-MM-YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
-	'MM-DD-YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
+const timeFormat12h = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+const timeFormat24h = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
 
-	'MM/DD/YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-	'MM/DD/YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
-	'DD/MM/YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-	'DD/MM/YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
-
-	'YYYY-MM-DD': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-	'YYYY/MM/DD': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-
-	// separate with dote
-	'DD.MM.YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-	'MM.DD.YYYY': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-	'DD.MM.YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
-	'MM.DD.YY': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: null },
-	'YYYY.MM.DD': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: null },
-
-	'DD.MM.YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'DD.MM.YY hh:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'MM.DD.YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'MM.DD.YY hh:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-
-	'DD.MM.YYYY HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'DD.MM.YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'MM.DD.YYYY HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'MM.DD.YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-
-	'YYYY.MM.DD hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'YYYY.MM.DD HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-
-	// with time 12h
-	'DD/MM/YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'DD-MM-YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'DD/MM/YY hh:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'DD-MM-YY hh:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'MM/DD/YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'MM-DD-YYYY hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'MM/DD/YY hh:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'MM-DD-YY hh:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-
-	// with time 24h
-	'DD/MM/YYYY HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'DD-MM-YYYY HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'DD/MM/YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'DD-MM-YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'MM/DD/YYYY HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'MM-DD-YYYY HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'MM/DD/YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'MM-DD-YY HH:mm:ss': { date: { year: '2-digit', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-
-	// manual
-	'YYYY/MM/DD hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-	'YYYY-MM-DD hh:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true } },
-
-	'YYYY/MM/DD HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
-	'YYYY-MM-DD HH:mm:ss': { date: { year: 'numeric', month: '2-digit', day: '2-digit' }, time: { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false } },
+function commonDateFormat(timeFormat = null) {
+  const date = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const time = timeFormat ? { ...timeFormat } : null;
+  return { date, time };
 }
+
+const DateFormats = {
+  // only dates
+  'DD-MM-YYYY': commonDateFormat(),
+  'MM-DD-YYYY': commonDateFormat(),
+  'DD-MM-YY': commonDateFormat(),
+  'MM-DD-YY': commonDateFormat(),
+
+  'MM/DD/YYYY': commonDateFormat(),
+  'MM/DD/YY': commonDateFormat(),
+  'DD/MM/YYYY': commonDateFormat(),
+  'DD/MM/YY': commonDateFormat(),
+
+  'YYYY-MM-DD': commonDateFormat(),
+  'YYYY/MM/DD': commonDateFormat(),
+
+  // separate with dot
+  'DD.MM.YYYY': commonDateFormat(),
+  'MM.DD.YYYY': commonDateFormat(),
+  'DD.MM.YY': commonDateFormat(),
+  'MM.DD.YY': commonDateFormat(),
+  'YYYY.MM.DD': commonDateFormat(),
+
+  'DD.MM.YYYY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'DD.MM.YY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'MM.DD.YYYY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'MM.DD.YY hh:mm:ss': commonDateFormat(timeFormat12h),
+
+  'DD.MM.YYYY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'DD.MM.YY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'MM.DD.YYYY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'MM.DD.YY HH:mm:ss': commonDateFormat(timeFormat24h),
+
+  'YYYY.MM.DD hh:mm:ss': commonDateFormat(timeFormat12h),
+  'YYYY.MM.DD HH:mm:ss': commonDateFormat(timeFormat24h),
+
+  // with time 12h
+  'DD/MM/YYYY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'DD-MM-YYYY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'DD/MM/YY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'DD-MM-YY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'MM/DD/YYYY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'MM-DD-YYYY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'MM/DD/YY hh:mm:ss': commonDateFormat(timeFormat12h),
+  'MM-DD-YY hh:mm:ss': commonDateFormat(timeFormat12h),
+
+  // with time 24h
+  'DD/MM/YYYY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'DD-MM-YYYY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'DD/MM/YY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'DD-MM-YY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'MM/DD/YYYY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'MM-DD-YYYY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'MM/DD/YY HH:mm:ss': commonDateFormat(timeFormat24h),
+  'MM-DD-YY HH:mm:ss': commonDateFormat(timeFormat24h),
+
+  // manual
+  'YYYY/MM/DD hh:mm:ss': commonDateFormat(timeFormat12h),
+  'YYYY-MM-DD hh:mm:ss': commonDateFormat(timeFormat12h),
+
+  'YYYY/MM/DD HH:mm:ss': commonDateFormat(timeFormat24h),
+  'YYYY-MM-DD HH:mm:ss': commonDateFormat(timeFormat24h),
+};
 
 type DateFormat = keyof typeof DateFormats;
 
@@ -509,7 +518,6 @@ export class Dates extends ValueObject<Date> {
 	public static create(date?: Date | string | number): Result<Dates> {
 		const value = date ?? new Date();
 		const isValid = Dates.isValidProps(value);
-		console.log(isValid);
 		if (!isValid) return Result.fail(Dates.MESSAGE);
 		if (value instanceof Date) return Result.Ok(new Dates(value));
 		return Result.Ok(new Dates(new Date(value)));

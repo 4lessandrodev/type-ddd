@@ -1,11 +1,46 @@
-# `types-ddd`
+# `@types-ddd/date`
 
-> TODO: description
+> The @types-ddd/date library provides a class Dates for handling date and time operations in TypeScript. It offers various methods for manipulating dates, calculating differences, formatting dates, and checking validity. This library aims to simplify date and time management in Domain-Driven Design contexts.
 
-## Usage
+---
+
+## Installation
+
+Install `rich-domain` and `@types-ddd/date` with your favorite package manager:
+
+```sh
+
+npm i rich-domain @types-ddd/date
+
+# OR
+
+yarn add rich-domain @types-ddd/date
 
 ```
-const typesDdd = require('types-ddd');
+ ## Usage
 
-// TODO: DEMONSTRATE API
-```
+ ```ts
+
+
+import { Dates } from '@types-ddd/dates';
+
+// Initialize Dates instance with current date and time
+const now = Dates.init();
+
+// OR
+
+// Create Dates instance from provided date or timestamp
+const date = Dates.create('2024-05-24');
+
+// Add days, months, hours, minutes, weeks, or years
+const newDate = date.addDays(5).addMonths(2);
+
+// Format date according to various patterns
+const formattedDate = now.format('DD/MM/YYYY hh:mm:ss');
+
+// Check if date is weekday or weekend
+const isWeekday = now.isWeekday();
+const isWeekend = now.isWeekend();
+
+
+ ```

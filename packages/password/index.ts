@@ -107,6 +107,11 @@ class Password extends ValueObject<string> {
 		return true;
 	}
 
+	isEqual(password: Password | string): boolean {
+		if (typeof password === 'string') return this.compare(password);
+		return this.compare(password.value());
+	}
+
 	/**
 	 * 
 	 * @param value value as string
@@ -117,7 +122,7 @@ class Password extends ValueObject<string> {
 		if (!isValidValue) throw new Error(Password.MESSAGE);
 		return new Password(value);
 	}
-	
+
 	/**
 	 *
 	 * @param value password to create

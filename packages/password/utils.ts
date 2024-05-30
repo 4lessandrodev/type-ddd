@@ -72,8 +72,9 @@ const availableChars = [upper, lower, numbers, special];
 
 export type ILength = 8 | 10 | 12 | 14 | 16 | 18;
 
-const getChar = (chars: string[]) =>
-	chars[Math.floor(Math.random() * chars.length)];
+const getChar = (chars: string[]) =>{
+	return chars[Math.floor(Math.random() * chars.length)];
+}
 
 /**
  *
@@ -83,11 +84,9 @@ const getChar = (chars: string[]) =>
  */
 const passwordGenerator = (length: ILength): string => {
 	let strongPassword = '';
-	let round = 0;
-	while (round < length) {
+	while (strongPassword.length < length) {
 		const random = Math.floor(Math.random() * availableChars.length);
 		strongPassword += getChar(availableChars[random]);
-		round++;
 	}
 
 	return strongPassword;
