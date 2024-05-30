@@ -64,18 +64,19 @@ class Password extends ValueObject<string> {
 	}
 
 	/**
-	 * @summary this function check if value already is encrypted. If already encrypted just returns instance.
-	 * @description encrypt instance value
-	 * @returns instance
+	 * @summary Encrypts the password.
+	 * @description This method encrypts the password using bcrypt hashing algorithm. If the password is already encrypted, it returns the encrypted password as it is. Otherwise, it generates a salt, hashes the password with the salt, and returns the encrypted password.
+	 * @returns A Password object representing the encrypted password.
 	 */
 	public encrypt(): Password {
 		const isEncrypted = this.isEncrypted();
 		if (isEncrypted) {
-			return this;
+			const encrypted = this.props;
+			return new Password(encrypted);
 		}
 		const salt = genSaltSync();
-		this.props = hashSync(this.props, salt);
-		return this;
+		const encrypted = hashSync(this.props, salt);
+		return new Password(encrypted);
 	}
 
 	validation(value: string): boolean {
@@ -100,11 +101,6 @@ class Password extends ValueObject<string> {
 		}
 		return true;
 	}
-
-	isEqual(password: Password): boolean {
-		return this.compare(password.value());
-	}
-
 
 	/**
 	 * 

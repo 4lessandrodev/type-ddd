@@ -7,7 +7,6 @@ export class UserName extends ValueObject<string> {
 
 	private constructor(props: string) {
 		super(props);
-		this.capitalize();
 	}
 
 	/**
@@ -19,27 +18,40 @@ export class UserName extends ValueObject<string> {
 
 	/**
 	 *
-	 * @returns instance
+	 * @returns capitalize full name as string
 	 */
-	private capitalize(): UserName {
-		const names = this.props.split(' ').filter((name): boolean => {
+	public static capitalize(fullName: string): string {
+		const names = fullName.split(' ').filter((name): boolean => {
 			return name.length > 1;
 		});
 
+		const capitalizedName = (name: string): string => {
+			return name[0].toUpperCase() + name.slice?.(1)?.toLowerCase();
+		};
+
 		const capitalized: string[] = [];
 		for (const name of names) {
-			const lowerCaseName =
-				name[0].toUpperCase() + name.slice(1).toLowerCase();
+			const lowerCaseName = capitalizedName(name);
 			capitalized.push(lowerCaseName);
 		}
 
-		const value = this.util
-			.string(capitalized.toString())
-			.replace(',')
-			.to(' ');
+		return capitalized.toString().replace(/,/g, ' ');
+	}
 
-		this.props = value;
-		return this;
+	/**
+	 * @description get upper case name from instance
+	 * @returns upperCase full name as string
+	 */
+	upperCase(): string {
+		return this.props.toUpperCase();
+	}
+
+	/**
+	 * @description get lower case name from instance
+	 * @returns lowerCase full name as string
+	 */
+	lowerCase(): string {
+		return this.props.toLowerCase();
 	}
 
 	/**
@@ -62,7 +74,7 @@ export class UserName extends ValueObject<string> {
 	 *
 	 * @returns first name
 	 */
-	getFirstName(): string {
+	firstName(): string {
 		return this.props.split(' ')[0];
 	}
 
@@ -70,7 +82,7 @@ export class UserName extends ValueObject<string> {
 	 *
 	 * @returns middle name if it has more than 2 names, else returns a empty string
 	 */
-	getMiddleName(): string {
+	middleName(): string {
 		if (!this.hasMiddleName()) {
 			return '';
 		}
@@ -81,30 +93,26 @@ export class UserName extends ValueObject<string> {
 	 *
 	 * @returns last name if exists else return the name
 	 */
-	getLastName(): string {
+	lastName(): string {
 		const names = this.props.split(' ');
-		return names[names.length - 1];
+		return names.at(-1);
 	}
 
 	/**
 	 * @returns initials as string
 	 * @param separator as string char to separate letters
-	 * @default separator . (dot)
+	 * @default separator (empty)
 	 * @example
-	 * for a name "Thomas A. Anderson" = "T.A.A"
+	 * for a name "Thomas A. Anderson" = "TAA"
 	 */
-	getInitials(separator = '.'): string {
+	initials(separator = ''): string {
 		const names = this.props.split(' ');
-		const letters = names.map((name) => name[0]);
+		const letters = names.map((name): string => name[0]);
 		const value = this.util.string(letters.toString());
 
 		const initials = value.replace(',').to(separator);
 
 		return initials;
-	}
-
-	validation(value: string): boolean {
-		return UserName.isValidProps(value);
 	}
 
 	/**
@@ -115,7 +123,17 @@ export class UserName extends ValueObject<string> {
 	public static init(value: string): UserName {
 		const isValidValue = UserName.isValidProps(value);
 		if (!isValidValue) throw new Error(UserName.MESSAGE);
-		return new UserName(value);
+		const capitalized = UserName.capitalize(value);
+		return new UserName(capitalized);
+	}
+
+	/**
+	 * @description check name length min(2) max(40)
+	 * @param value name as string
+	 * @returns true if provided value is valid and false if not
+	 */
+	public static isValid(value: string): boolean {
+		return this.isValidProps(value);
 	}
 
 	/**
@@ -136,7 +154,8 @@ export class UserName extends ValueObject<string> {
 		if (!isValidValue) {
 			return Result.fail(UserName.MESSAGE);
 		}
-		return Result.Ok(new UserName(value));
+		const capitalized = UserName.capitalize(value);
+		return Result.Ok(new UserName(capitalized));
 	}
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "@types-ddd/phone",
-	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
+	"description": "Library that provides TypeScript type definitions for handling Phone Numbers in Domain-Driven Design contexts. It facilitates the validation and manipulation of Brazilian phone numbers.",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
@@ -15,7 +15,7 @@
     "Base Value Object",
     "Domain Events",
     "Clean Architecture",
-    "CPF",
+    "Phone Numbers",
     "Validation",
     "Formatting",
     "Value Object",
@@ -25,7 +25,6 @@
     "Brazil"
   ],
   "scripts": {
-    "prebuild": "rimraf ./dist",
     "build": "tsc"
   },
   "peerDependencies": {
@@ -33,7 +32,13 @@
   },
   "files": [
     "index.js",
-    "index.d.ts"
+    "index.d.ts",
+    "home.value-object.js",
+    "home.value-object.d.ts",
+    "mobile.value-object.js",
+    "mobile.value-object.d.ts",
+    "util.js",
+    "util.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -42,5 +47,5 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/types-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs"
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/phone"
 }

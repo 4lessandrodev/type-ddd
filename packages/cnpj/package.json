@@ -27,7 +27,6 @@
     "Pessoa Jurídica"
   ],
   "scripts": {
-    "prebuild": "rimraf ./dist",
     "build": "tsc"
   },
   "peerDependencies": {
@@ -46,5 +45,5 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/types-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs"
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/cnpj"
 }

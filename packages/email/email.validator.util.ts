@@ -6,7 +6,7 @@
  * 64 = @
  * 46 = .
  */
-const ValidChars = { min: 97, max: 122, specials: [95, 45, 64, 46] };
+const ValidChars = { min: 97, max: 122, specials: [95, 45, 64, 46, 43] };
 
 const ValidCharsNum = { min: 48, max: 57 };
 
@@ -81,6 +81,16 @@ const IsValidCountry = (country: string): boolean => {
 	return true;
 };
 
+const IsValidNick = (email: string): boolean => {
+	const nick = email.split('@')?.[0];
+	return (
+		!nick.startsWith('+') &&
+		!nick.endsWith('+') &&
+		!nick.startsWith('-') &&
+		!nick.endsWith('-')
+	);
+};
+
 const IsValidDomain = (email: string): boolean => {
 	const domain = email.split('@');
 	const parts = domain[1].split('.');
@@ -88,6 +98,7 @@ const IsValidDomain = (email: string): boolean => {
 
 	const isInValidStartAndEnd =
 		domain[1].startsWith('-') || domain[1].endsWith('-');
+
 	if (isInValidStartAndEnd) return false;
 
 	const isLessThanMax = email.length <= 64;
@@ -117,7 +128,6 @@ const IsValidDomain = (email: string): boolean => {
  * @returns true if is a valid email and false if not
  */
 export const IsValidEmail = (email: string): boolean => {
-	const AtCode = 64;
 	const isString: boolean = typeof email === 'string';
 	if (!isString) return false;
 
@@ -125,16 +135,15 @@ export const IsValidEmail = (email: string): boolean => {
 
 	const isValidFirsChar: boolean =
 		IsAlphabet(trimEmail[0]) || IsNumber(trimEmail[0]);
+
 	if (!isValidFirsChar) return false;
 
 	const hasOnlyOneAt: boolean =
-		trimEmail.split('').reduce((total, current): number => {
-			const isAtCode = GetCharCode(current) === AtCode;
-			if (isAtCode) return (total = total + 1);
-			return total;
-		}, 0) === 1;
+		trimEmail.split('').filter((char) => char === '@').length === 1;
+	const hasOnlyOnePlus: boolean =
+		trimEmail.split('').filter((char) => char === '+').length > 1;
 
-	if (!hasOnlyOneAt) return false;
+	if (!hasOnlyOneAt || hasOnlyOnePlus) return false;
 
 	const isValidLength = HasValidLength(trimEmail);
 
@@ -143,6 +152,8 @@ export const IsValidEmail = (email: string): boolean => {
 	const isValidDomain = IsValidDomain(trimEmail);
 
 	if (!isValidDomain) return false;
+
+	if (!IsValidNick(trimEmail)) return false;
 
 	const hasInvalidChar = trimEmail
 		.split('')

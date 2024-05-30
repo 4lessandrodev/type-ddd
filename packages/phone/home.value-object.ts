@@ -64,8 +64,10 @@ class HomePhone extends ValueObject<string> {
 
 	public static addMask(cell: string): string {
 		const phone = this.removeSpecialChars(cell);
-		/** @todo adicionar lógica para inserir máscara */
-		return ''
+		const ddd = phone.slice(0,2);
+		const partA = phone.slice(2, 7);
+		const partB = phone.slice(7);
+		return `(${ddd}) ${partA}-${partB}`;
 	}
 
 	/**

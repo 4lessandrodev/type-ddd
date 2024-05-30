@@ -1,6 +1,6 @@
 {
   "name": "@types-ddd/password",
-	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
+	"description": "Library that provides TypeScript type definitions for handling Password in Domain-Driven Design contexts. It facilitates the validation and manipulation of passwords.",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
@@ -24,7 +24,6 @@
     "Standards"
   ],
   "scripts": {
-    "prebuild": "rimraf ./dist",
     "build": "tsc"
   },
   "devDependencies": {
@@ -48,5 +47,5 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/types-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs"
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/password"
 }

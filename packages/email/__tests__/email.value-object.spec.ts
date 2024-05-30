@@ -10,7 +10,32 @@ describe('email-value-object.util', () => {
 		const init = () => EmailValueObject.init('invalid');
 		expect(init).toThrowError();
 	});
-	
+
+	it('should create a valid email with success', () => {
+		const valueObject = EmailValueObject.create('john+doe@domain.com');
+		expect(valueObject.isOk()).toBe(true);
+	});
+
+	it('should to be invalid email nick ends with +', () => {
+		const valueObject = EmailValueObject.create('johndoe+@domain.com');
+		expect(valueObject.isFail()).toBe(true);
+	});
+
+	it('should to be invalid email nick starts with +', () => {
+		const valueObject = EmailValueObject.create('+johndoe@domain.com');
+		expect(valueObject.isFail()).toBe(true);
+	});
+
+	it('should to be invalid email domain starts with +', () => {
+		const valueObject = EmailValueObject.create('johndoe@+domain.com');
+		expect(valueObject.isFail()).toBe(true);
+	});
+
+	it('should to be invalid email domain ends with +', () => {
+		const valueObject = EmailValueObject.create('johndoe@domain.com+');
+		expect(valueObject.isFail()).toBe(true);
+	});
+
 	it('should be defined', () => {
 		const valueObject = EmailValueObject.create;
 		expect(valueObject).toBeDefined();

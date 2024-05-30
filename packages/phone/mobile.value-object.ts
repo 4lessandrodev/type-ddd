@@ -58,6 +58,18 @@ class MobilePhone extends ValueObject<string> {
 		return parseInt(this.props.slice(1, 3));
 	}
 
+	public static removeSpecialChars(cell: string): string {
+		return this.util.string(cell).removeSpecialChars();
+	}
+
+	public static addMask(cell: string): string {
+		const phone = this.removeSpecialChars(cell);
+		const ddd = phone.slice(0,2);
+		const partA = phone.slice(2, 7);
+		const partB = phone.slice(7);
+		return `(${ddd}) ${partA}-${partB}`;
+	}
+
 	/**
 	 * 
 	 * @param value value as string
