@@ -11,6 +11,11 @@ describe('email-value-object.util', () => {
 		expect(init).toThrowError();
 	});
 
+	it('should validate', () => {
+		expect(EmailValueObject.isValid('invalid')).toBeFalsy();
+		expect(EmailValueObject.isValid('sample@gmail.com')).toBeTruthy();
+	});
+
 	it('should create a valid email with success', () => {
 		const valueObject = EmailValueObject.create('john+doe@domain.com');
 		expect(valueObject.isOk()).toBe(true);

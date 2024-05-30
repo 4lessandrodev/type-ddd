@@ -97,6 +97,7 @@ describe('cpf.value-object', () => {
 		const valueObject = CPFValueObject.create('53534317661');
 		expect(valueObject.isOk()).toBeTruthy();
 		expect(valueObject.value().value()).toBe('53534317661');
+		expect(CPFValueObject.isValid('53534317661')).toBeTruthy();
 	});
 
 	it('should fail if provide an invalid value', () => {
@@ -134,5 +135,25 @@ describe('cpf.value-object', () => {
 	it('should throw an error on init an instance with invalid value', () => {
 		const init = () => CPFValueObject.init('invalid');
 		expect(init).toThrowError();
+	});
+
+	it('should add mask with success', () => {
+		const result = CPFValueObject.addMask('53534317661');
+		expect(result).toBe('535.343.176-61');
+	});
+
+	it('should remove mask with success', () => {
+		const result = CPFValueObject.removeSpecialChars('535.343.176-61');
+		expect(result).toBe('53534317661');
+	});
+
+	it('should compare cpf instances with success', () => {
+		const cpfA = CPFValueObject.init('535.343.176-61');
+		const cpfB = CPFValueObject.init('53534317661');
+		const cpfC = CPFValueObject.init('89926097014');
+
+		expect(cpfA.compare(cpfB)).toBeTruthy();
+		expect(cpfA.compare(cpfC)).toBeFalsy();
+		expect(cpfC.compare(123 as any)).toBeFalsy();
 	});
 });

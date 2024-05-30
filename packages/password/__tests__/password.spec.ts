@@ -152,4 +152,10 @@ describe('password.value-object', () => {
 		const init = () => PasswordValueObject.init('');
 		expect(init).toThrowError();
 	});
+
+	it('should return the same password if already is encrypted', () => {
+		const password = PasswordValueObject.random().encrypt();
+		const encrypted = password.encrypt();
+		expect(password.isEqual(encrypted)).toBeTruthy();
+	});
 });

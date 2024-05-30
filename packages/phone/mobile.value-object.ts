@@ -59,14 +59,15 @@ class MobilePhone extends ValueObject<string> {
 	}
 
 	public static removeSpecialChars(cell: string): string {
-		return this.util.string(cell).removeSpecialChars();
+		const value = this.util.string(cell).removeSpecialChars();
+		return this.util.string(value).removeSpaces();
 	}
 
 	public static addMask(cell: string): string {
 		const phone = this.removeSpecialChars(cell);
 		const ddd = phone.slice(0,2);
 		const partA = phone.slice(2, 7);
-		const partB = phone.slice(7);
+		const partB = phone.slice(7, 11);
 		return `(${ddd}) ${partA}-${partB}`;
 	}
 

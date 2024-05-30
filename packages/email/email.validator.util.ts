@@ -10,29 +10,30 @@ const ValidChars = { min: 97, max: 122, specials: [95, 45, 64, 46, 43] };
 
 const ValidCharsNum = { min: 48, max: 57 };
 
-const GetCharCode = (char: string): number =>
-	typeof char === 'string' ? char.charCodeAt(0) : 0;
+export const GetCharCode = (char: string): number => {
+	return typeof char === 'string' ? char.charCodeAt(0) : 0;
+};
 
-const IsSpecialChar = (char: string): boolean => {
+export const IsSpecialChar = (char: string): boolean => {
 	const code = GetCharCode(char);
 	return ValidChars.specials.includes(code);
 };
 
-const IsAlphabet = (char: string): boolean => {
+export const IsAlphabet = (char: string): boolean => {
 	const code = GetCharCode(char);
 	const isGreaterThanMin = code >= ValidChars.min;
 	const isLessThanMax = code <= ValidChars.max;
 	return isGreaterThanMin && isLessThanMax;
 };
 
-const IsNumber = (char: string): boolean => {
+export const IsNumber = (char: string): boolean => {
 	const charCode = GetCharCode(char);
 	const isValid =
 		charCode >= ValidCharsNum.min && charCode <= ValidCharsNum.max;
 	return isValid;
 };
 
-const IsValidChar = (char: string): boolean => {
+export const IsValidChar = (char: string): boolean => {
 	const isAlphabet = IsAlphabet(char);
 	const isSpecial = IsSpecialChar(char);
 	const isNumber = IsNumber(char);
@@ -40,10 +41,11 @@ const IsValidChar = (char: string): boolean => {
 	return isAlphabet || isSpecial || isNumber;
 };
 
-const HasValidLength = (email: string): boolean =>
-	typeof email === 'string' && email.length <= 256;
+export const HasValidLength = (email: string): boolean => {
+	return typeof email === 'string' && email.length <= 256;
+};
 
-const IsValidPart = (part: string): boolean => {
+export const IsValidPart = (part: string): boolean => {
 	const hifen = 45;
 	const isValidSpecialChar = (char: string): boolean =>
 		GetCharCode(char) === hifen;
@@ -61,11 +63,11 @@ const IsValidPart = (part: string): boolean => {
 	return true;
 };
 
-const IsValidOrganizationName = (name: string): boolean => {
+export const IsValidOrganizationName = (name: string): boolean => {
 	return name.length <= 10 && name.length >= 2;
 };
 
-const IsValidCountry = (country: string): boolean => {
+export const IsValidCountry = (country: string): boolean => {
 	const isValidLength = country.length > 0 && country.length <= 4;
 	if (!isValidLength) return false;
 
@@ -81,7 +83,7 @@ const IsValidCountry = (country: string): boolean => {
 	return true;
 };
 
-const IsValidNick = (email: string): boolean => {
+export const IsValidNick = (email: string): boolean => {
 	const nick = email.split('@')?.[0];
 	return (
 		!nick.startsWith('+') &&
@@ -91,13 +93,13 @@ const IsValidNick = (email: string): boolean => {
 	);
 };
 
-const IsValidDomain = (email: string): boolean => {
+export const IsValidDomain = (email: string): boolean => {
 	const domain = email.split('@');
 	const parts = domain[1].split('.');
 	if (parts.length === 1 || parts.length > 3) return false;
 
-	const isInValidStartAndEnd =
-		domain[1].startsWith('-') || domain[1].endsWith('-');
+	const isInValidStartAndEnd = domain[1].startsWith('-') ||
+		domain[1].endsWith('-');
 
 	if (isInValidStartAndEnd) return false;
 
@@ -133,15 +135,16 @@ export const IsValidEmail = (email: string): boolean => {
 
 	const trimEmail = email.trim().toLowerCase();
 
-	const isValidFirsChar: boolean =
-		IsAlphabet(trimEmail[0]) || IsNumber(trimEmail[0]);
+	const isValidFirsChar: boolean = IsAlphabet(trimEmail[0]) ||
+		IsNumber(trimEmail[0]);
 
 	if (!isValidFirsChar) return false;
 
-	const hasOnlyOneAt: boolean =
-		trimEmail.split('').filter((char) => char === '@').length === 1;
-	const hasOnlyOnePlus: boolean =
-		trimEmail.split('').filter((char) => char === '+').length > 1;
+	const hasOnlyOneAt: boolean = trimEmail.split('')
+		.filter((char) => char === '@').length === 1;
+
+	const hasOnlyOnePlus: boolean = trimEmail.split('')
+		.filter((char) => char === '+').length > 1;
 
 	if (!hasOnlyOneAt || hasOnlyOnePlus) return false;
 

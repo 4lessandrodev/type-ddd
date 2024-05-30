@@ -183,4 +183,9 @@ describe('user-name.value-object', () => {
 		const value = name.lowerCase();
 		expect(value).toBe('jane doe');
 	});
+
+	it('should validate user name', () => {
+		expect(UserName.isValid('jane doe')).toBeTruthy();
+		expect(UserName.isValid('')).toBeFalsy();
+	});
 });

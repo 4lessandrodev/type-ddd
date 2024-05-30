@@ -11,6 +11,21 @@ describe('home-phone.value-object', () => {
 		expect(valueObject.isOk()).toBe(true);
 	});
 
+	it('should return true', () => {
+		const isValid = HomePhoneValueObject.isValid('(11) 3404-1111');
+		expect(isValid).toBe(true);
+	});
+
+	it('should return only numbers', () => {
+		const value = HomePhoneValueObject.removeSpecialChars('(11) 3404-1111');
+		expect(value).toBe('1134041111');
+	});
+
+	it('should return numbers with mask', () => {
+		const value = HomePhoneValueObject.addMask('1134041111');
+		expect(value).toBe('(11) 3404-1111');
+	});
+
 	it('should fail if try to create an invalid home phone number', () => {
 		const valueObject = HomePhoneValueObject.create('(11) 1111-1111');
 		expect(valueObject.isOk()).toBe(false);

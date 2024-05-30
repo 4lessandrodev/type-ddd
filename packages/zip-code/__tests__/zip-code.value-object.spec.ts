@@ -12,6 +12,16 @@ describe('postal-code.value-object', () => {
 		expect(valueObject.isOk()).toBeTruthy();
 	});
 
+	it('should create a valid zip code', () => {
+		const value = ZipCodeValueObject.init('75520140');
+		expect(value.toPattern()).toBe('75520-140');
+	});
+
+	it('should create a valid zip code', () => {
+		const isValid = ZipCodeValueObject.isValid('75520140');
+		expect(isValid).toBeTruthy();
+	});
+
 	it('should get value', () => {
 		const valueObject = ZipCodeValueObject.create('75520140').value();
 		expect(valueObject.value()).toBe('75520140');
@@ -36,5 +46,30 @@ describe('postal-code.value-object', () => {
 	it('should throw an error on init an instance with invalid value', () => {
 		const init = () => ZipCodeValueObject.init('');
 		expect(init).toThrowError();
+	});
+
+	it('should add mask', () => {
+		const masked = ZipCodeValueObject.addMask('05583000');
+		expect(masked).toBe('05583-000');
+	});
+
+	it('should add mask', () => {
+		const masked = ZipCodeValueObject.addMask('05583-000');
+		expect(masked).toBe('05583-000');
+	});
+
+	it('should add mask', () => {
+		const masked = ZipCodeValueObject.addMask('05583-00000');
+		expect(masked).toBe('05583-000');
+	});
+
+	it('should add mask', () => {
+		const masked = ZipCodeValueObject.addMask('0558300000');
+		expect(masked).toBe('05583-000');
+	});
+
+	it('should add mask', () => {
+		const masked = ZipCodeValueObject.addMask(5 as any);
+		expect(masked).toBe('');
 	});
 });

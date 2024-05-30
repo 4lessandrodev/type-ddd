@@ -25,8 +25,8 @@ class ZipCode extends ValueObject<string> {
 	 */
 	public static addMask(zipCode: string): string {
 		if (typeof zipCode !== 'string') return '';
-		if (zipCode.includes('-')) return zipCode;
-		return zipCode.slice(0, 5) + '-' + zipCode.slice(5);
+		if (zipCode.includes('-')) return zipCode.slice(0, 9);
+		return zipCode.slice(0, 5) + '-' + zipCode.slice(5, 8);
 	}
 
 	/**

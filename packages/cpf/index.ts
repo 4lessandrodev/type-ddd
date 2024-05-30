@@ -54,11 +54,11 @@ export class CPF extends ValueObject<string> {
 	 */
 	compare(cpf: string | CPF): boolean {
 		if (typeof cpf === 'string') {
-			const formattedCpf = this.util.string(cpf).removeSpecialChars();
-			const instanceValue = this.util
+			const valueA = this.util.string(cpf).removeSpecialChars();
+			const valueB = this.util
 				.string(this.props)
 				.removeSpecialChars();
-			return instanceValue === formattedCpf;
+			return valueA === valueB;
 		}
 		if (cpf instanceof CPF) return cpf.isEqual(this);
 		return false;
@@ -96,7 +96,7 @@ export class CPF extends ValueObject<string> {
 	public static init(value: string): CPF {
 		const isValidValue = CPF.isValidProps(value);
 		if (!isValidValue) throw new Error(CPF.MESSAGE);
-		return new CPF(value);
+		return new CPF(this.util.string(value).removeSpecialChars());
 	}
 
 	/**
