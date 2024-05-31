@@ -2,10 +2,37 @@
     "files": [],
     "references": [
         {
+            "path": "./cnpj/tsconfig.build.json"
+        },
+        {
             "path": "./cpf/tsconfig.build.json"
         },
         {
+            "path": "./date/tsconfig.build.json"
+        },
+        {
+            "path": "./email/tsconfig.build.json"
+        },
+        {
             "path": "./logger/tsconfig.build.json"
+        },
+        {
+            "path": "./password/tsconfig.build.json"
+        },
+        {
+            "path": "./patterns/tsconfig.build.json"
+        },
+        {
+            "path": "./phone/tsconfig.build.json"
+        },
+        {
+            "path": "./types-ddd/tsconfig.build.json"
+        },
+        {
+            "path": "./username/tsconfig.build.json"
+        },
+        {
+            "path": "./zip-code/tsconfig.build.json"
         }
     ]
 }
