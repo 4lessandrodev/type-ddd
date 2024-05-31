@@ -11,7 +11,7 @@ export class Email extends ValueObject<string> {
 	}
 
 	value(): string {
-		return this.props.toLowerCase();
+		return this.props;
 	}
 
 	nick(): string {
@@ -20,8 +20,7 @@ export class Email extends ValueObject<string> {
 
 	domain(): string {
 		return this.props
-			.slice(this.props.indexOf('@') + 1)
-			.toLowerCase();
+			.slice(this.props.indexOf('@') + 1);
 	}
 
 	public static isValid(value: string): boolean {
@@ -50,8 +49,9 @@ export class Email extends ValueObject<string> {
 			(blockedDomain) => blockedDomain.toLowerCase().includes(domain),
 		).includes(true);
 
-		if (Email.VALID_DOMAINS.length === 0)
+		if (Email.VALID_DOMAINS.length === 0) {
 			return !isBlockedDomain;
+		}
 
 		const isAvailable = Email.VALID_DOMAINS.map((freeDomain) =>
 			freeDomain.toLowerCase().includes(domain),
@@ -69,14 +69,14 @@ export class Email extends ValueObject<string> {
 	public static init(value: string): Email {
 		const isValidValue = Email.isValidProps(value);
 		if (!isValidValue) throw new Error(Email.MESSAGE);
-		return new Email(value);
+		return new Email(value.toLowerCase());
 	}
 
 	public static create(value: string): Result<Email> {
 		if (!Email.isValidProps(value)) {
 			return Result.fail(Email.MESSAGE);
 		}
-		return Result.Ok(new Email(value));
+		return Result.Ok(new Email(value.toLowerCase()));
 	}
 }
 

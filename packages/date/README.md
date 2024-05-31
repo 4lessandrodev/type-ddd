@@ -24,23 +24,26 @@ yarn add rich-domain @types-ddd/date
 
 import { Dates } from '@types-ddd/dates';
 
+// Check if is valid value
+const isValid = Dates.isValid('2020-02-31');
+// false
+
 // Initialize Dates instance with current date and time
-const now = Dates.init();
+const date = Dates.init();
 
 // OR
 
 // Create Dates instance from provided date or timestamp
-const date = Dates.create('2024-05-24');
+const result = Dates.create('2024-05-24');
 
 // Add days, months, hours, minutes, weeks, or years
 const newDate = date.addDays(5).addMonths(2);
 
 // Format date according to various patterns
-const formattedDate = now.format('DD/MM/YYYY hh:mm:ss');
+const formattedDate = date.format('DD/MM/YYYY hh:mm:ss');
 
 // Check if date is weekday or weekend
-const isWeekday = now.isWeekday();
-const isWeekend = now.isWeekend();
-
+const isWeekday = date.isWeekday();
+const isWeekend = date.isWeekend();
 
  ```

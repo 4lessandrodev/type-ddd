@@ -31,7 +31,6 @@ const password = Password.init('Y8237FNB@');
 const result = Password.create('Y8237FNB@');
 
 // Or create a strong password
-
 const pass = Password.random();
 
 ```
@@ -45,17 +44,13 @@ You may compare password with plain text to check if is equal
 const password = Password.init('#$89ABC_v');
 
 // check if password is encrypted
-
 password.isEncrypted();
-
 // false
 
 const encrypted = password.encrypt();
 
 // compare
-
 encrypted.compare('#$89ABC_v');
-
 // true
 
 ```

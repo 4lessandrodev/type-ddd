@@ -6,7 +6,8 @@ import { ddd } from "./ddd.list";
 export class Phone extends ValueObject<string> {
     protected static readonly MESSAGE: string = 'Invalid Phone Number';
 
-    numbers: () => number;
+    toCall: () => string;
+    number: () => string;
     value: () => string;
     ddd: () => ddd;
     isMobile: () => boolean;

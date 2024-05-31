@@ -37,13 +37,13 @@ class HomePhone extends ValueObject<string> {
 	 * @returns true if pattern match and false if not.
 	 */
 	public static isValidProps(value: string): boolean {
-		const isValidDDD = AreaCodes.includes(this.ddd(value));
+		const isValidDDD = AreaCodes.includes(this.code(value));
 		const matchPattern = this.validator.string(value).match(HomePhone.REGEX);
 		return isValidDDD && matchPattern;
 	}
 
 	/**
-	 * @returns value (XX) XXXX-XXXX as string
+	 * @returns value XXXXXXXXXX as string
 	 */
 	value(): string {
 		return this.props;
@@ -51,33 +51,39 @@ class HomePhone extends ValueObject<string> {
 
 	/**
 	 *
-	 * @returns only numbers without special chars. Includes DDD.
-	 * @example 1122502301
+	 * @returns only numbers without special chars. Includes 0 and DDD.
+	 * @example 01122502301
 	 */
-	numbers(): number {
-		const onlyNumbersAsString = this.props.replace(
-			regexHashSpecialChars,
-			'',
-		);
-		return parseInt(onlyNumbersAsString);
+	toCall(): string {
+		const onlyNumbersAsString = this.props;
+		return `0${onlyNumbersAsString}`;
+	}
+
+	number(): string {
+		return this.props.slice(2);
 	}
 
 	/**
 	 *
-	 * @returns DDD only as number
+	 * @returns only area code (DDD) as number
 	 * @example 11
 	 */
-	ddd(): ddd {
+	code(): ddd {
 		return parseInt(this.props.slice(0, 2)) as ddd;
 	}
 
-	public static ddd(phone: string): ddd {
+	/**
+	 *
+	 * @returns only area code (DDD) as number
+	 * @example 11
+	 */
+	public static code(phone: string): ddd {
 		const value = this.util.string(phone).removeSpecialChars();
 		return parseInt(value.slice(0, 2)) as ddd;
 	}
 
 	uf() {
-		const ddd = this.ddd();
+		const ddd = this.code();
 		return UfForCode[ddd];
 	}
 
