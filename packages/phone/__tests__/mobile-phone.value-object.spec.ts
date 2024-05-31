@@ -11,6 +11,21 @@ describe('home-phone.value-object', () => {
 		expect(valueObject.isOk()).toBe(true);
 	});
 
+	it('should create mobile phone number with success', () => {
+		const valueObject = MobilePhoneValueObject.create('11996041111');
+		expect(valueObject.isOk()).toBe(true);
+	});
+
+	it('should create mobile phone number with success', () => {
+		const phone = MobilePhoneValueObject.init('11996041111');
+		expect(phone.uf()).toBe('São Paulo');
+	});
+
+	it('should create mobile phone number with success', () => {
+		const valueObject = MobilePhoneValueObject.create('(52) 99604-1111');
+		expect(valueObject.isOk()).toBe(false);
+	});
+
 	it('should remove special chars with success', () => {
 		const value = MobilePhoneValueObject.removeSpecialChars('(11) 99604-1111');
 		expect(value).toBe('11996041111');
@@ -54,7 +69,8 @@ describe('home-phone.value-object', () => {
 	it('should get value', () => {
 		const valueObject =
 			MobilePhoneValueObject.create('(71) 98254-1211').value();
-		expect(valueObject.value()).toBe('(71) 98254-1211');
+		expect(valueObject.value()).toBe('71982541211');
+		expect(valueObject.toPattern()).toBe('(71) 98254-1211');
 	});
 
 	it('should get only numbers value', () => {

@@ -1,8 +1,7 @@
 import { Result, ValueObject } from 'rich-domain';
-
-const regexHash = /^\([1-9]{2}\)\s[2-5][0-9]{3}\-[0-9]{4}$/;
+import { AreaCodes, UfForCode, ddd } from './ddd.list';
+const regexHash = /^\([1-9]{2}\)\s[2-5][0-9]{3}\-[0-9]{4}$|^[1-9]{2}[2-5]{1}[0-9]{7}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;
-
 
 /**
  * @description Brazilian Home Phone Number
@@ -16,6 +15,18 @@ class HomePhone extends ValueObject<string> {
 		super(prop);
 	}
 
+	toPattern(): string {
+		return HomePhone.addMask(this.props);
+	}
+
+	isMobile(): boolean {
+		return false;
+	};
+
+	isHome(): boolean {
+		return true;
+	};
+
 	public static isValid(value: string): boolean {
 		return this.isValidProps(value);
 	}
@@ -26,7 +37,9 @@ class HomePhone extends ValueObject<string> {
 	 * @returns true if pattern match and false if not.
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(HomePhone.REGEX);
+		const isValidDDD = AreaCodes.includes(this.ddd(value));
+		const matchPattern = this.validator.string(value).match(HomePhone.REGEX);
+		return isValidDDD && matchPattern;
 	}
 
 	/**
@@ -54,8 +67,18 @@ class HomePhone extends ValueObject<string> {
 	 * @returns DDD only as number
 	 * @example 11
 	 */
-	ddd(): number {
-		return parseInt(this.props.slice(1, 3));
+	ddd(): ddd {
+		return parseInt(this.props.slice(0, 2)) as ddd;
+	}
+
+	public static ddd(phone: string): ddd {
+		const value = this.util.string(phone).removeSpecialChars();
+		return parseInt(value.slice(0, 2)) as ddd;
+	}
+
+	uf() {
+		const ddd = this.ddd();
+		return UfForCode[ddd];
 	}
 
 	public static removeSpecialChars(cell: string): string {
@@ -65,7 +88,7 @@ class HomePhone extends ValueObject<string> {
 
 	public static addMask(cell: string): string {
 		const phone = this.removeSpecialChars(cell);
-		const ddd = phone.slice(0,2);
+		const ddd = phone.slice(0, 2);
 		const partA = phone.slice(2, 6);
 		const partB = phone.slice(6, 10);
 		return `(${ddd}) ${partA}-${partB}`;
@@ -79,7 +102,8 @@ class HomePhone extends ValueObject<string> {
 	public static init(value: string): HomePhone {
 		const isValidValue = HomePhone.isValidProps(value);
 		if (!isValidValue) throw new Error(HomePhone.MESSAGE);
-		return new HomePhone(value);
+		const phone = this.removeSpecialChars(value);
+		return new HomePhone(phone);
 	}
 
 	/**
@@ -92,7 +116,8 @@ class HomePhone extends ValueObject<string> {
 		if (!HomePhone.isValidProps(value)) {
 			return Result.fail(HomePhone.MESSAGE);
 		}
-		return Result.Ok(new HomePhone(value));
+		const phone = this.removeSpecialChars(value);
+		return Result.Ok(new HomePhone(phone));
 	}
 }
 

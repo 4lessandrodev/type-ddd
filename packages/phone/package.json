@@ -37,8 +37,12 @@
     "home.value-object.d.ts",
     "mobile.value-object.js",
     "mobile.value-object.d.ts",
+    "phone.value-object.js",
+    "phone.value-object.d.ts",
     "util.js",
-    "util.d.ts"
+    "util.d.ts",
+    "ddd.list.js",
+    "ddd.list.d.ts"
   ],
   "repository": {
     "type": "git",

@@ -1,7 +1,8 @@
 import { Result, ValueObject } from 'rich-domain';
+import { UfForCode, ddd, AreaCodes } from './ddd.list';
 
 const regexHash =
-	/^\([1-9]{2}\)\s[9](?!\d(?:(\d)\1{2})-(\d)\1{3})[5-9][0-9]{3}\-[0-9]{4}$/;
+/^\([1-9]{2}\)\s[9](?!\d(?:(\d)\1{2})-(\d)\1{3})[5-9][0-9]{3}\-[0-9]{4}$|^[1-9]{2}9[0-9]{8}$/;
 const regexHashSpecialChars = /\(|\)|-|\s/g;
 
 /**
@@ -16,18 +17,32 @@ class MobilePhone extends ValueObject<string> {
 		super(prop);
 	}
 
+	toPattern(): string {
+		return MobilePhone.addMask(this.props);
+	}
+
 	/**
 	 *
 	 * @param value Phone number (XX) 9XXXX-XXXX
 	 * @returns true if pattern match and false if not.
 	 */
 	public static isValidProps(value: string): boolean {
-		return this.validator.string(value).match(MobilePhone.REGEX);
+		const isValidDDD = AreaCodes.includes(this.ddd(value));
+		const matchPattern = this.validator.string(value).match(MobilePhone.REGEX);
+		return isValidDDD && matchPattern;
 	}
 
 	public static isValid(value: string): boolean {
 		return MobilePhone.isValidProps(value);
 	}
+
+    isMobile(): boolean {
+        return true;
+    };
+
+    isHome(): boolean {
+        return false;
+    };
 
 	/**
 	 * @returns value (XX) 9XXXX-XXXX as string
@@ -54,8 +69,23 @@ class MobilePhone extends ValueObject<string> {
 	 * @returns DDD only as number
 	 * @example 11
 	 */
-	ddd(): number {
-		return parseInt(this.props.slice(1, 3));
+	ddd(): ddd {
+		return parseInt(this.props.slice(0, 2)) as ddd;
+	}
+
+	/**
+	 *
+	 * @returns DDD only as number
+	 * @example 11
+	 */
+	public static ddd(phone: string): ddd {
+		const value = this.util.string(phone).removeSpecialChars();
+		return parseInt(value.slice(0, 2)) as ddd;
+	}
+
+	uf() {
+		const ddd = this.ddd();
+		return UfForCode[ddd];
 	}
 
 	public static removeSpecialChars(cell: string): string {
@@ -65,7 +95,7 @@ class MobilePhone extends ValueObject<string> {
 
 	public static addMask(cell: string): string {
 		const phone = this.removeSpecialChars(cell);
-		const ddd = phone.slice(0,2);
+		const ddd = phone.slice(0, 2);
 		const partA = phone.slice(2, 7);
 		const partB = phone.slice(7, 11);
 		return `(${ddd}) ${partA}-${partB}`;
@@ -79,7 +109,8 @@ class MobilePhone extends ValueObject<string> {
 	public static init(value: string): MobilePhone {
 		const isValidValue = MobilePhone.isValidProps(value);
 		if (!isValidValue) throw new Error(MobilePhone.MESSAGE);
-		return new MobilePhone(value);
+		const phone = this.removeSpecialChars(value);
+		return new MobilePhone(phone);
 	}
 
 	/**
@@ -92,7 +123,8 @@ class MobilePhone extends ValueObject<string> {
 		if (!MobilePhone.isValidProps(value)) {
 			return Result.fail(MobilePhone.MESSAGE);
 		}
-		return Result.Ok(new MobilePhone(value));
+		const phone = this.removeSpecialChars(value);
+		return Result.Ok(new MobilePhone(phone));
 	}
 }
 
