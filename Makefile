@@ -17,7 +17,7 @@ login:
 	./scripts/login.sh
 
 build:
-	npm run build
+	npm run build && npm run build:lerna
 
 publishVerdaccio:
 	yarn build:lerna
