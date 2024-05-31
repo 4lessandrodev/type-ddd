@@ -190,7 +190,11 @@ describe('user-name.value-object', () => {
 	});
 
 	it('should add title', () => {
-		const name = UserName.init('Juliana Paes');
-		expect(name.title('Sra.').firstName()).toBe('Sra. Juliana')
+		const name = UserName.init('Juliana Paes Moreira');
+		expect(name.title('Sra.').firstName()).toBe('Sra. Juliana');
+		expect(name.title('Sra.').fullName()).toBe('Sra. Juliana Paes Moreira');
+		expect(name.title('Sra.').lastName()).toBe('Sra. Moreira');
+		expect(name.title('Sra.').middleName()).toBe('Sra. Paes');
+
 	})
 });
