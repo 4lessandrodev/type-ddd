@@ -8,4 +8,3 @@ export * from "@types-ddd/patterns";
 export * from "@types-ddd/phone";
 export * from "@types-ddd/username";
 export * from "@types-ddd/zip-code";
-export * from "@types-ddd/logger";

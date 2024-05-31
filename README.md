@@ -1,6 +1,7 @@
 
-# types-ddd
-> Now version 3.x available
+# @types-ddd/core
+
+> Now with individual packages
 
 This package provide utils file and interfaces to assistant build a complex application as domain driving design and nodeJS with typescript.
 
@@ -48,21 +49,32 @@ This package provide utils file and interfaces to assistant build a complex appl
 </a>
 
 ---
-## Install
+## Install core
+
+Install full available packages 
 
 ```sh
-$ npm i types-ddd
+$ npm i @types-ddd/core
 
-#or 
+# or 
 
-$ yarn add types-ddd
+$ yarn add @types-ddd/core
 
 ```
----
 
-## Lib Full Documentation
+## Individual
 
-Check lib documentation on link [Here](https://github.com/4lessandrodev/types-ddd/tree/main/docs)
+Alternatively you can install individual packages
+
+- `@types-ddd/cpf` [Docs](./packages/cpf)
+- `@types-ddd/cnpj` [Docs](./packages/cnpj)
+- `@types-ddd/date` [Docs](./packages/date)
+- `@types-ddd/email` [Docs](./packages/email)
+- `@types-ddd/password` [Docs](./packages/password)
+- `@types-ddd/patterns` [Docs](./packages/patterns)
+- `@types-ddd/phone` [Docs](./packages/phone)
+- `@types-ddd/username` [Docs](./packages/username)
+- `@types-ddd/zip-code` [Docs](./packages/zip-code)
 
 ---
 
@@ -169,12 +181,23 @@ Check lib documentation on link [Here](https://github.com/4lessandrodev/types-dd
 - Can use service facades and model adapters
 
 
-
 ---
 
-## 13 - Summary - Basic Usage
+## Individual Packages 
 
-Check full documentation on link [Here](https://github.com/4lessandrodev/types-ddd/tree/main/docs)
+Install individual package
+
+- `@types-ddd/cpf` [Docs](./packages/cpf)
+- `@types-ddd/cnpj` [Docs](./packages/cnpj)
+- `@types-ddd/date` [Docs](./packages/date)
+- `@types-ddd/email` [Docs](./packages/email)
+- `@types-ddd/password` [Docs](./packages/password)
+- `@types-ddd/patterns` [Docs](./packages/patterns)
+- `@types-ddd/phone` [Docs](./packages/phone)
+- `@types-ddd/username` [Docs](./packages/username)
+- `@types-ddd/zip-code` [Docs](./packages/zip-code)
+
+---
 
 ### Value Object
 
@@ -184,7 +207,7 @@ Check full documentation on link [Here](https://github.com/4lessandrodev/types-d
 
 ```ts
 
-import { ValueObject, Ok, Fail, Result } from 'types-ddd';
+import { ValueObject, Ok, Fail, Result } from '@types-ddd/core';
 
 interface Props {
     amount: number;
@@ -295,7 +318,7 @@ console.log(value);
 
 ```ts
 
-import { Entity, Ok, Fail, Result, UID } from 'types-ddd';
+import { Entity, Ok, Fail, Result, UID } from '@types-ddd/core';
 
 interface Props {
     id?: UID;
@@ -384,7 +407,7 @@ In my example, let's use the context of payment. All payment transactions are en
 
 ```ts
 
-import { Aggregate, Ok, Fail, Result, UID, EventHandler } from 'types-ddd';
+import { Aggregate, Ok, Fail, Result, UID, EventHandler } from '@types-ddd/core';
 
 // Entities and VO that encapsulate context.
 interface Props {
@@ -472,7 +495,7 @@ Event Handler
 
 ```ts
 
-import { Context, EventHandler } from 'rich-domain';
+import { Context, EventHandler } from '@types-ddd/core';
 
 
 class OrderCreatedEvent extends EventHandler<Order> {
@@ -516,7 +539,7 @@ await order.dispatchAll();
 
 ```ts
 
-import { Context } from 'rich-domain';
+import { Context } from '@types-ddd/core';
 
 const context = Context.events();
 
@@ -543,6 +566,4 @@ context.dispatchEvent('Context-Y:*');
 
 ``` 
 
-## Lib Full Documentation
 
-Check lib documentation on link [Here](https://github.com/4lessandrodev/types-ddd/tree/main/docs)

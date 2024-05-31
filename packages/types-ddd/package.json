@@ -10,14 +10,10 @@
     "build": "tsc"
   },
   "dependencies": {
-    "rich-domain": "^1.23.1",
-    "pino": "^9.0.0",
-    "pino-pretty": "^11.0.0",
     "@types-ddd/cpf": "./packages/cpf",
     "@types-ddd/cnpj": "./packages/cnpj",
     "@types-ddd/date": "./packages/date",
     "@types-ddd/email": "./packages/email",
-    "@types-ddd/logger": "./packages/logger",
     "@types-ddd/password": "./packages/password",
     "@types-ddd/patterns": "./packages/patterns",
     "@types-ddd/phone": "./packages/phone",
