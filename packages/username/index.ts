@@ -13,7 +13,7 @@ export class UserName extends ValueObject<string> {
 	 * @returns capitalized full name
 	 */
 	value(): string {
-		return this.props;
+		return this.props.trim();
 	}
 
 	/**
@@ -62,6 +62,15 @@ export class UserName extends ValueObject<string> {
 		return this.props.split(' ').length > 2;
 	}
 
+	title(title: string) {
+		return {
+			firstName: (): string => title + ' ' + this.firstName(),
+			fullName: (): string => title + ' ' + this.value(),
+			lastName: (): string => title + ' ' + this.lastName(),
+			middleName: (): string => title + ' ' + this.middleName(),
+		}
+	}
+
 	/**
 	 *
 	 * @returns check if has last name `first middle last`
@@ -74,8 +83,8 @@ export class UserName extends ValueObject<string> {
 	 *
 	 * @returns first name
 	 */
-	firstName(): string {
-		return this.props.split(' ')[0];
+	firstName(title: string = ''): string {
+		return (title + ' ' + this.props.split(' ')[0])?.trim();
 	}
 
 	/**
@@ -86,7 +95,7 @@ export class UserName extends ValueObject<string> {
 		if (!this.hasMiddleName()) {
 			return '';
 		}
-		return this.props.split(' ')[1];
+		return this.props.split(' ')[1]?.trim();
 	}
 
 	/**
@@ -95,7 +104,7 @@ export class UserName extends ValueObject<string> {
 	 */
 	lastName(): string {
 		const names = this.props.split(' ');
-		return names.at(-1);
+		return names.at(-1)?.trim();
 	}
 
 	/**

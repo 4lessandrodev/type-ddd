@@ -188,4 +188,9 @@ describe('user-name.value-object', () => {
 		expect(UserName.isValid('jane doe')).toBeTruthy();
 		expect(UserName.isValid('')).toBeFalsy();
 	});
+
+	it('should add title', () => {
+		const name = UserName.init('Juliana Paes');
+		expect(name.title('Sra.').firstName()).toBe('Sra. Juliana')
+	})
 });
