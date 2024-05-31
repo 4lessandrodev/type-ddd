@@ -8,6 +8,17 @@ All notable changes to this project will be documented in this file.
 
 ## Released
 
+---
+
+
+### [4.0.0] - 2024-05-31
+
+### Refactor (Break Change)
+
+- refactor: change lib to individual packages
+
+---
+
 ### [3.9.0] - 2024-04-28
 
 ### Update (Break Change)
