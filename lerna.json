@@ -6,5 +6,5 @@
   ],
   "npmClient": "yarn",
   "access": "public",
-  "registry": ""
+  "registry": "https://registry.npmjs.org"
 }
