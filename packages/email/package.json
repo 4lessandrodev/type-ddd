@@ -1,7 +1,7 @@
 {
   "name": "@types-ddd/email",
   "description": "Library that provides TypeScript type definitions for handling Email in Domain-Driven Design contexts. It facilitates the validation and manipulation of emails.",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
