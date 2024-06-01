@@ -1,4 +1,4 @@
-.PHONY: startVerdaccio stopVerdaccio publishVerdaccio addUser login build graph
+.PHONY: startVerdaccio stopVerdaccio publishVerdaccio addUser login build graph publish
 
 startVerdaccio:
 	sudo apt-get update && sudo apt-get install expect
@@ -26,3 +26,6 @@ publishVerdaccio:
 
 graph:
 	yarn nx graph
+
+publish:
+	yarn lerna publish from-package
