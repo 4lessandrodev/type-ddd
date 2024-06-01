@@ -29,3 +29,4 @@ yarn add rich-domain @type-ddd/core
 - "@type-ddd/phone"
 - "@type-ddd/username"
 - "@type-ddd/zip-code"
+- "@type-ddd/money"
