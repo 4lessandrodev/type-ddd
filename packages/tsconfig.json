@@ -33,6 +33,9 @@
         },
         {
             "path": "./zip-code/tsconfig.build.json"
+        },
+        {
+            "path": "./money/tsconfig.build.json"
         }
     ]
 }

@@ -18,7 +18,8 @@
     "@types-ddd/patterns": "./packages/patterns",
     "@types-ddd/phone": "./packages/phone",
     "@types-ddd/username": "./packages/username",
-    "@types-ddd/zip-code": "./packages/zip-code"
+    "@types-ddd/zip-code": "./packages/zip-code",
+    "@types-ddd/money": "./packages/money"
   },
   "files": [
     "index.js",

@@ -1,0 +1,44 @@
+{
+  "name": "@types-ddd/money",
+	"description": "This package provides TypeScript type definitions for handling Money in Domain-Driven Design contexts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "author": "Alessandro Dev",
+  "license": "MIT",
+  "keywords": [
+    "Complexity",
+    "Business Logic",
+    "DDD",
+    "Domain Driving Design",
+    "DDD-Utils",
+    "Base Value Object",
+    "Domain Events",
+    "Clean Architecture",
+    "Money",
+    "Validation",
+    "Formatting",
+    "Value Object",
+    "Utility",
+    "Security",
+    "Standards"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "rich-domain": "^1.23.1"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4lessandrodev/types-ddd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/4lessandrodev/types-ddd/issues"
+  },
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/money"
+}
