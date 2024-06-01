@@ -1,20 +1,20 @@
-# `@types-ddd/date`
+# `@type-ddd/date`
 
-> The @types-ddd/date library provides a class Dates for handling date and time operations in TypeScript. It offers various methods for manipulating dates, calculating differences, formatting dates, and checking validity. This library aims to simplify date and time management in Domain-Driven Design contexts.
+> The @type-ddd/date library provides a class Dates for handling date and time operations in TypeScript. It offers various methods for manipulating dates, calculating differences, formatting dates, and checking validity. This library aims to simplify date and time management in Domain-Driven Design contexts.
 
 ---
 
 ## Installation
 
-Install `rich-domain` and `@types-ddd/date` with your favorite package manager:
+Install `rich-domain` and `@type-ddd/date` with your favorite package manager:
 
 ```sh
 
-npm i rich-domain @types-ddd/date
+npm i rich-domain @type-ddd/date
 
 # OR
 
-yarn add rich-domain @types-ddd/date
+yarn add rich-domain @type-ddd/date
 
 ```
  ## Usage
@@ -22,7 +22,7 @@ yarn add rich-domain @types-ddd/date
  ```ts
 
 
-import { Dates } from '@types-ddd/dates';
+import { Dates } from '@type-ddd/dates';
 
 // Check if is valid value
 const isValid = Dates.isValid('2020-02-31');

@@ -1,5 +1,5 @@
 {
-	"name": "types-ddd",
+	"name": "type-ddd",
 	"version": "4.0.0",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
@@ -46,12 +46,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/4lessandrodev/types-ddd.git"
+		"url": "git+https://github.com/4lessandrodev/type-ddd.git"
 	},
 	"bugs": {
-		"url": "https://github.com/4lessandrodev/types-ddd/issues"
+		"url": "https://github.com/4lessandrodev/type-ddd/issues"
 	},
-	"homepage": "https://github.com/4lessandrodev/types-ddd/tree/main",
+	"homepage": "https://github.com/4lessandrodev/type-ddd/tree/main",
 	"peerDependencies": {
 		"rich-domain": "^1.23.1"
 	},

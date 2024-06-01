@@ -1,20 +1,20 @@
-# `@types-ddd/cnpj`
+# `@type-ddd/cnpj`
 
-> The @types-ddd/cnpj library provides TypeScript type definitions for handling CNPJ (Cadastro Nacional da Pessoa Jurídica) in Domain-Driven Design contexts. It facilitates the validation and manipulation of CNPJ numbers, ensuring they adhere to the Brazilian legal standards.
+> The @type-ddd/cnpj library provides TypeScript type definitions for handling CNPJ (Cadastro Nacional da Pessoa Jurídica) in Domain-Driven Design contexts. It facilitates the validation and manipulation of CNPJ numbers, ensuring they adhere to the Brazilian legal standards.
 
 ---
 
 ## Installation
 
-Install `rich-domain` and `@types-ddd/cnpj` with your favorite package manager
+Install `rich-domain` and `@type-ddd/cnpj` with your favorite package manager
 
 ```sh
 
-npm i rich-domain @types-ddd/cnpj
+npm i rich-domain @type-ddd/cnpj
 
 # OR
 
-yarn add rich-domain @types-ddd/cnpj
+yarn add rich-domain @type-ddd/cnpj
 
 ```
 
@@ -24,7 +24,7 @@ Don't worry about removing special characters; they are automatically stripped f
 
 ```ts
 
-import { CNPJ } from '@types-ddd/cnpj'
+import { CNPJ } from '@type-ddd/cnpj'
 
 // Instance of CNPJ or throws an error if provide an invalid value
 const cnpj = CNPJ.init('54097792000193');

@@ -1,20 +1,20 @@
-# `@types-ddd/phone`
+# `@type-ddd/phone`
 
-> The @types-ddd/phone library provides TypeScript type definitions for handling phone (Brazilian) in Domain-Driven Design contexts. It facilitates the validation and manipulation of phone numbers, ensuring they adhere to the Brazilian legal standards.
+> The @type-ddd/phone library provides TypeScript type definitions for handling phone (Brazilian) in Domain-Driven Design contexts. It facilitates the validation and manipulation of phone numbers, ensuring they adhere to the Brazilian legal standards.
 
 ---
 
 ## Installation
 
-Install `rich-domain` and `@types-ddd/phone` with your favorite package manager
+Install `rich-domain` and `@type-ddd/phone` with your favorite package manager
 
 ```sh
 
-npm i rich-domain @types-ddd/phone
+npm i rich-domain @type-ddd/phone
 
 # OR
 
-yarn add rich-domain @types-ddd/phone
+yarn add rich-domain @type-ddd/phone
 
 ```
 
@@ -24,7 +24,7 @@ Don't worry about removing special characters; they are automatically stripped f
 
 ```ts
 
-import { Phone } from '@types-ddd/phone'
+import { Phone } from '@type-ddd/phone'
 
 // Instance of phone or throws an error if provide an invalid value
 const phone = Phone.init('11994882021');

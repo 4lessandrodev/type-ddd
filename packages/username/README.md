@@ -1,20 +1,20 @@
-# `@types-ddd/username`
+# `@type-ddd/username`
 
-> The @types-ddd/username library provides TypeScript type definitions for handling User Name in Domain-Driven Design contexts. It facilitates the validation and manipulation of Person Name standards.
+> The @type-ddd/username library provides TypeScript type definitions for handling User Name in Domain-Driven Design contexts. It facilitates the validation and manipulation of Person Name standards.
 
 ---
 
 ## Installation
 
-Install `rich-domain` and `@types-ddd/username` with your favorite package manager
+Install `rich-domain` and `@type-ddd/username` with your favorite package manager
 
 ```sh
 
-npm i rich-domain @types-ddd/username
+npm i rich-domain @type-ddd/username
 
 # OR
 
-yarn add rich-domain @types-ddd/username
+yarn add rich-domain @type-ddd/username
 
 ```
 
@@ -22,7 +22,7 @@ yarn add rich-domain @types-ddd/username
 
 ```ts
 
-import { UserName } from '@types-ddd/username'
+import { UserName } from '@type-ddd/username'
 
 // Instance of name or throws an error if provide an invalid value
 const name = UserName.init('jane doe');

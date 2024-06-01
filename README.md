@@ -1,5 +1,5 @@
 
-# @types-ddd/core
+# @type-ddd/core
 
 > Now with individual packages
 
@@ -54,11 +54,11 @@ This package provide utils file and interfaces to assistant build a complex appl
 Install full available packages 
 
 ```sh
-$ npm i @types-ddd/core
+$ npm i @type-ddd/core
 
 # or 
 
-$ yarn add @types-ddd/core
+$ yarn add @type-ddd/core
 
 ```
 
@@ -66,16 +66,16 @@ $ yarn add @types-ddd/core
 
 Alternatively you can install individual packages
 
-- `@types-ddd/cpf` [Docs](./packages/cpf)
-- `@types-ddd/cnpj` [Docs](./packages/cnpj)
-- `@types-ddd/date` [Docs](./packages/date)
-- `@types-ddd/email` [Docs](./packages/email)
-- `@types-ddd/password` [Docs](./packages/password)
-- `@types-ddd/patterns` [Docs](./packages/patterns)
-- `@types-ddd/phone` [Docs](./packages/phone)
-- `@types-ddd/username` [Docs](./packages/username)
-- `@types-ddd/zip-code` [Docs](./packages/zip-code)
-- `@types-ddd/money` [Docs](./packages/money)
+- `@type-ddd/cpf` [Docs](./packages/cpf)
+- `@type-ddd/cnpj` [Docs](./packages/cnpj)
+- `@type-ddd/date` [Docs](./packages/date)
+- `@type-ddd/email` [Docs](./packages/email)
+- `@type-ddd/password` [Docs](./packages/password)
+- `@type-ddd/patterns` [Docs](./packages/patterns)
+- `@type-ddd/phone` [Docs](./packages/phone)
+- `@type-ddd/username` [Docs](./packages/username)
+- `@type-ddd/zip-code` [Docs](./packages/zip-code)
+- `@type-ddd/money` [Docs](./packages/money)
 
 ---
 
@@ -188,16 +188,16 @@ Alternatively you can install individual packages
 
 Install individual package
 
-- `@types-ddd/cpf` [Docs](./packages/cpf)
-- `@types-ddd/cnpj` [Docs](./packages/cnpj)
-- `@types-ddd/date` [Docs](./packages/date)
-- `@types-ddd/email` [Docs](./packages/email)
-- `@types-ddd/password` [Docs](./packages/password)
-- `@types-ddd/patterns` [Docs](./packages/patterns)
-- `@types-ddd/phone` [Docs](./packages/phone)
-- `@types-ddd/username` [Docs](./packages/username)
-- `@types-ddd/zip-code` [Docs](./packages/zip-code)
-- `@types-ddd/money` [Docs](./packages/money)
+- `@type-ddd/cpf` [Docs](./packages/cpf)
+- `@type-ddd/cnpj` [Docs](./packages/cnpj)
+- `@type-ddd/date` [Docs](./packages/date)
+- `@type-ddd/email` [Docs](./packages/email)
+- `@type-ddd/password` [Docs](./packages/password)
+- `@type-ddd/patterns` [Docs](./packages/patterns)
+- `@type-ddd/phone` [Docs](./packages/phone)
+- `@type-ddd/username` [Docs](./packages/username)
+- `@type-ddd/zip-code` [Docs](./packages/zip-code)
+- `@type-ddd/money` [Docs](./packages/money)
 
 ---
 
@@ -209,7 +209,7 @@ Install individual package
 
 ```ts
 
-import { ValueObject, Ok, Fail, Result } from '@types-ddd/core';
+import { ValueObject, Ok, Fail, Result } from '@type-ddd/core';
 
 interface Props {
     amount: number;
@@ -320,7 +320,7 @@ console.log(value);
 
 ```ts
 
-import { Entity, Ok, Fail, Result, UID } from '@types-ddd/core';
+import { Entity, Ok, Fail, Result, UID } from '@type-ddd/core';
 
 interface Props {
     id?: UID;
@@ -409,7 +409,7 @@ In my example, let's use the context of payment. All payment transactions are en
 
 ```ts
 
-import { Aggregate, Ok, Fail, Result, UID, EventHandler } from '@types-ddd/core';
+import { Aggregate, Ok, Fail, Result, UID, EventHandler } from '@type-ddd/core';
 
 // Entities and VO that encapsulate context.
 interface Props {
@@ -497,7 +497,7 @@ Event Handler
 
 ```ts
 
-import { Context, EventHandler } from '@types-ddd/core';
+import { Context, EventHandler } from '@type-ddd/core';
 
 
 class OrderCreatedEvent extends EventHandler<Order> {
@@ -541,7 +541,7 @@ await order.dispatchAll();
 
 ```ts
 
-import { Context } from '@types-ddd/core';
+import { Context } from '@type-ddd/core';
 
 const context = Context.events();
 

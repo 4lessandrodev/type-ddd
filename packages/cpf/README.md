@@ -1,20 +1,20 @@
-# `@types-ddd/cpf`
+# `@type-ddd/cpf`
 
-> The @types-ddd/cpf library provides TypeScript type definitions for handling CPF (Cadastro de Pessoa Física) in Domain-Driven Design contexts. It facilitates the validation and manipulation of CPF numbers, ensuring they adhere to the Brazilian legal standards.
+> The @type-ddd/cpf library provides TypeScript type definitions for handling CPF (Cadastro de Pessoa Física) in Domain-Driven Design contexts. It facilitates the validation and manipulation of CPF numbers, ensuring they adhere to the Brazilian legal standards.
 
 ---
 
 ## Installation
 
-Install `rich-domain` and `@types-ddd/cpf` with your favorite package manager
+Install `rich-domain` and `@type-ddd/cpf` with your favorite package manager
 
 ```sh
 
-npm i rich-domain @types-ddd/cpf
+npm i rich-domain @type-ddd/cpf
 
 # OR
 
-yarn add rich-domain @types-ddd/cpf
+yarn add rich-domain @type-ddd/cpf
 
 ```
 
@@ -24,7 +24,7 @@ Don't worry about removing special characters; they are automatically stripped f
 
 ```ts
 
-import { CPF } from '@types-ddd/cpf'
+import { CPF } from '@type-ddd/cpf'
 
 // Instance of cpf or throws an error if provide an invalid value
 const cpf = CPF.init('54097792000193');

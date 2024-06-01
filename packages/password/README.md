@@ -1,10 +1,10 @@
-# `@types-ddd/password`
+# `@type-ddd/password`
 
-> The @types-ddd/password module provides a class Password for handling password in TypeScript. It includes methods for validating password, encrypt and compare.
+> The @type-ddd/password module provides a class Password for handling password in TypeScript. It includes methods for validating password, encrypt and compare.
 
 ## Installation
 
-Install `rich-domain`, `@types-ddd/password` and `bcrypt` with your favorite package manager:
+Install `rich-domain`, `@type-ddd/password` and `bcrypt` with your favorite package manager:
 
 ```sh
 
@@ -20,7 +20,7 @@ yarn add rich-domain types-ddd/password bcrypt
 
 ```ts
 
-import { Password } from '@types-ddd/password';
+import { Password } from '@type-ddd/password';
 
 // Initialize Password instance with a valid value
 const password = Password.init('Y8237FNB@');

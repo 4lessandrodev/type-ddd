@@ -26,7 +26,7 @@
             "path": "./phone/tsconfig.build.json"
         },
         {
-            "path": "./types-ddd/tsconfig.build.json"
+            "path": "./type-ddd/tsconfig.build.json"
         },
         {
             "path": "./username/tsconfig.build.json"

@@ -1,20 +1,20 @@
-# `@types-ddd/zip-code`
+# `@type-ddd/zip-code`
 
-> The @types-ddd/cpf library provides TypeScript type definitions for handling ZipCode in Domain-Driven Design contexts. It facilitates the validation and manipulation of ZipCode numbers, ensuring they adhere to the Brazilian legal standards.
+> The @type-ddd/cpf library provides TypeScript type definitions for handling ZipCode in Domain-Driven Design contexts. It facilitates the validation and manipulation of ZipCode numbers, ensuring they adhere to the Brazilian legal standards.
 
 ---
 
 ## Installation
 
-Install `rich-domain` and `@types-ddd/zip-code` with your favorite package manager
+Install `rich-domain` and `@type-ddd/zip-code` with your favorite package manager
 
 ```sh
 
-npm i rich-domain @types-ddd/zip-code
+npm i rich-domain @type-ddd/zip-code
 
 # OR
 
-yarn add rich-domain @types-ddd/zip-code
+yarn add rich-domain @type-ddd/zip-code
 
 ```
 
@@ -24,7 +24,7 @@ Don't worry about removing special characters; they are automatically stripped f
 
 ```ts
 
-import { ZipCode } from '@types-ddd/zip-code'
+import { ZipCode } from '@type-ddd/zip-code'
 
 // Instance of zipCode or throws an error if provide an invalid value
 const zipCode = ZipCode.init('75520140');

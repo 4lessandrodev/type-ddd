@@ -9,6 +9,6 @@ module.exports = {
 		'.+\\.ts$': 'ts-jest',
 	},
 	moduleNameMapper: {
-		'@types-ddd': '<rootDir>/lib/index',
+		'@type-ddd': '<rootDir>/lib/index',
 	},
 };

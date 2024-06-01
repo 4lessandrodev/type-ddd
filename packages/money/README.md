@@ -1,22 +1,22 @@
-# `@types-ddd/money`
+# `@type-ddd/money`
 
-> The @types-ddd/money library provides TypeScript type definitions for handling Money in Domain-Driven Design contexts. It facilitates the validation, formatting, and manipulation of monetary values, adhering to DDD principles.
+> The @type-ddd/money library provides TypeScript type definitions for handling Money in Domain-Driven Design contexts. It facilitates the validation, formatting, and manipulation of monetary values, adhering to DDD principles.
 
 ---
 
 ## Installation
 
-Install `rich-domain` and `@types-ddd/money` with your favorite package manager
+Install `rich-domain` and `@type-ddd/money` with your favorite package manager
 
 ---
 
 ```sh
 
-npm i rich-domain @types-ddd/money
+npm i rich-domain @type-ddd/money
 
 # OR
 
-yarn add rich-domain @types-ddd/money
+yarn add rich-domain @type-ddd/money
 
 ```
 
@@ -25,7 +25,7 @@ yarn add rich-domain @types-ddd/money
 ```ts
 
 
-import { Money } from '@types-ddd/money'
+import { Money } from '@type-ddd/money'
 
 // Initialize a Money object with the provided value
 const amount = Money.init(100);

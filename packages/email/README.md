@@ -1,10 +1,10 @@
-# `@types-ddd/email`
+# `@type-ddd/email`
 
-> The @types-ddd/email module provides a class Email for handling email addresses in TypeScript. It includes methods for validating email addresses, extracting parts of the email (such as nickname and domain), and creating instances of validated emails.
+> The @type-ddd/email module provides a class Email for handling email addresses in TypeScript. It includes methods for validating email addresses, extracting parts of the email (such as nickname and domain), and creating instances of validated emails.
 
 ## Installation
 
-Install `rich-domain` and `@types-ddd/email` with your favorite package manager:
+Install `rich-domain` and `@type-ddd/email` with your favorite package manager:
 
 ```sh
 
@@ -20,7 +20,7 @@ yarn add rich-domain types-ddd/email
 
 ```ts
 
-import { Email } from '@types-ddd/email';
+import { Email } from '@type-ddd/email';
 
 // Check if is valid value 
 const isValid = Email.isValid('sample@domain.com');
@@ -47,7 +47,7 @@ If you want to block some specifics domains
 
 ```ts
 
-import { Email } from '@types-ddd/email';
+import { Email } from '@type-ddd/email';
 
 const list = ['hack.com'];
 
@@ -67,7 +67,7 @@ If you want to allow only some specifics domains
 
 ```ts
 
-import { Email } from '@types-ddd/email';
+import { Email } from '@type-ddd/email';
 
 const list = ['my-company.com'];
 

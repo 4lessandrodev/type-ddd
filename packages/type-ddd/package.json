@@ -1,5 +1,5 @@
 {
-  "name": "@type-ddd/logger",
+  "name": "@type-ddd/core",
   "description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
   "version": "0.0.1",
   "main": "index.js",
@@ -13,8 +13,16 @@
     "build": "tsc"
   },
   "dependencies": {
-    "pino": "^9.0.0",
-    "pino-pretty": "^11.0.0"
+    "@type-ddd/cnpj": "./packages/cnpj",
+    "@type-ddd/cpf": "./packages/cpf",
+    "@type-ddd/date": "./packages/date",
+    "@type-ddd/email": "./packages/email",
+    "@type-ddd/money": "./packages/money",
+    "@type-ddd/password": "./packages/password",
+    "@type-ddd/patterns": "./packages/patterns",
+    "@type-ddd/phone": "./packages/phone",
+    "@type-ddd/username": "./packages/username",
+    "@type-ddd/zip-code": "./packages/zip-code"
   },
   "files": [
     "index.js",
@@ -27,6 +35,6 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/type-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/type-ddd/tree/main/logger",
+  "homepage": "https://github.com/4lessandrodev/type-ddd/tree/main",
   "gitHead": "4cb9159bde8d6fc951e9d902feed2ad25da49fa4"
 }
