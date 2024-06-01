@@ -50,6 +50,6 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/type-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/type-ddd/tree/main/password",
+  "homepage": "https://github.com/4lessandrodev/type-ddd/tree/main/packages/password",
   "gitHead": "4cb9159bde8d6fc951e9d902feed2ad25da49fa4"
 }

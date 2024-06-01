@@ -13,16 +13,17 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@type-ddd/cnpj": "./packages/cnpj",
-    "@type-ddd/cpf": "./packages/cpf",
-    "@type-ddd/date": "./packages/date",
-    "@type-ddd/email": "./packages/email",
-    "@type-ddd/money": "./packages/money",
-    "@type-ddd/password": "./packages/password",
-    "@type-ddd/patterns": "./packages/patterns",
-    "@type-ddd/phone": "./packages/phone",
-    "@type-ddd/username": "./packages/username",
-    "@type-ddd/zip-code": "./packages/zip-code"
+    "rich-domain": "^1.23.1",
+    "@type-ddd/cnpj": "^0.0.1",
+    "@type-ddd/cpf": "^0.0.1",
+    "@type-ddd/date": "^0.0.1",
+    "@type-ddd/email": "^0.0.1",
+    "@type-ddd/money": "^0.0.1",
+    "@type-ddd/password": "^0.0.1",
+    "@type-ddd/patterns": "^0.0.1",
+    "@type-ddd/phone": "^0.0.1",
+    "@type-ddd/username": "^0.0.1",
+    "@type-ddd/zip-code": "^0.0.1e"
   },
   "files": [
     "index.js",
