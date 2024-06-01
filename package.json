@@ -1,6 +1,6 @@
 {
 	"name": "type-ddd",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
