@@ -28,4 +28,4 @@ graph:
 	yarn nx graph
 
 publish:
-	yarn lerna publish from-package
+	yarn lerna publish --force-publish --access public
