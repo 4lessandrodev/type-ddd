@@ -64,7 +64,7 @@
 		"rich-domain": "^1.23.1"
 	},
 	"devDependencies": {
-		"@microsoft/tsdoc": "^0.14.1",
+		"@microsoft/tsdoc": "^0.15.0",
 		"@types/bcrypt": "^5.0.0",
 		"@types/jest": "^27.0.1",
 		"@types/node": "^20.8.0",
