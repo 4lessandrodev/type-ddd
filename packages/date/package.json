@@ -1,11 +1,12 @@
 {
   "name": "@types-ddd/date",
-	"description": "Library that provides TypeScript type definitions for handling Dates in Domain-Driven Design contexts. It facilitates the validation and manipulation of Dates.",
+  "description": "Library that provides TypeScript type definitions for handling Dates in Domain-Driven Design contexts. It facilitates the validation and manipulation of Dates.",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
   "license": "MIT",
+  "private": "false",
   "keywords": [
     "Complexity",
     "Business Logic",
@@ -43,5 +44,6 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/types-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/date"
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/date",
+  "gitHead": "ac5f1e8b7de5058f6b1a8ea2b918f5467d3e4cb0"
 }

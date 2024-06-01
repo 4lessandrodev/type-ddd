@@ -1,11 +1,12 @@
 {
   "name": "@types-ddd/patterns",
-	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
+  "description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
   "license": "MIT",
+  "private": "false",
   "keywords": [
     "Complexity",
     "Business Logic",
@@ -42,5 +43,6 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/types-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs"
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/docs",
+  "gitHead": "ac5f1e8b7de5058f6b1a8ea2b918f5467d3e4cb0"
 }

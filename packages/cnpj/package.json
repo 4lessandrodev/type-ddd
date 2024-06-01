@@ -1,11 +1,12 @@
 {
   "name": "@types-ddd/cnpj",
-	"description": "Library that provides TypeScript type definitions for handling CNPJ (Cadastro Nacional da Pessoa Jurídica) in Domain-Driven Design contexts. It facilitates the validation and manipulation of CNPJ numbers, ensuring they adhere to the Brazilian legal standards.",
+  "description": "Library that provides TypeScript type definitions for handling CNPJ (Cadastro Nacional da Pessoa Jurídica) in Domain-Driven Design contexts. It facilitates the validation and manipulation of CNPJ numbers, ensuring they adhere to the Brazilian legal standards.",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
   "license": "MIT",
+  "private": "false",
   "keywords": [
     "Complexity",
     "Business Logic",
@@ -45,5 +46,6 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/types-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/cnpj"
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/cnpj",
+  "gitHead": "ac5f1e8b7de5058f6b1a8ea2b918f5467d3e4cb0"
 }

@@ -1,11 +1,12 @@
 {
   "name": "@types-ddd/password",
-	"description": "Library that provides TypeScript type definitions for handling Password in Domain-Driven Design contexts. It facilitates the validation and manipulation of passwords.",
+  "description": "Library that provides TypeScript type definitions for handling Password in Domain-Driven Design contexts. It facilitates the validation and manipulation of passwords.",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
   "license": "MIT",
+  "private": "false",
   "keywords": [
     "Complexity",
     "Business Logic",
@@ -27,12 +28,12 @@
     "build": "tsc"
   },
   "devDependencies": {
-		"bcrypt": "^5.0.1",
-    "@types/bcrypt": "^5.0.0"
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1"
   },
   "peerDependencies": {
-    "rich-domain": "^1.23.1",
-		"bcrypt": "^5.0.1"
+    "bcrypt": "^5.0.1",
+    "rich-domain": "^1.23.1"
   },
   "files": [
     "index.js",
@@ -47,5 +48,6 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/types-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/password"
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main/password",
+  "gitHead": "ac5f1e8b7de5058f6b1a8ea2b918f5467d3e4cb0"
 }

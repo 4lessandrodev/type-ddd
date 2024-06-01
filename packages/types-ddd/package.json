@@ -1,25 +1,26 @@
 {
   "name": "@types-ddd/core",
-	"description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
+  "description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
   "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
   "license": "MIT",
+  "private": "false",
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
-    "@types-ddd/cpf": "./packages/cpf",
     "@types-ddd/cnpj": "./packages/cnpj",
+    "@types-ddd/cpf": "./packages/cpf",
     "@types-ddd/date": "./packages/date",
     "@types-ddd/email": "./packages/email",
+    "@types-ddd/money": "./packages/money",
     "@types-ddd/password": "./packages/password",
     "@types-ddd/patterns": "./packages/patterns",
     "@types-ddd/phone": "./packages/phone",
     "@types-ddd/username": "./packages/username",
-    "@types-ddd/zip-code": "./packages/zip-code",
-    "@types-ddd/money": "./packages/money"
+    "@types-ddd/zip-code": "./packages/zip-code"
   },
   "files": [
     "index.js",
@@ -32,5 +33,6 @@
   "bugs": {
     "url": "https://github.com/4lessandrodev/types-ddd/issues"
   },
-  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main"
+  "homepage": "https://github.com/4lessandrodev/types-ddd/tree/main",
+  "gitHead": "ac5f1e8b7de5058f6b1a8ea2b918f5467d3e4cb0"
 }

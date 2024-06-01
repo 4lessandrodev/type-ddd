@@ -1,0 +1,8 @@
+# registry=http://localhost:4873/
+# //localhost:4873/:_auth=YWRtaW46YWRtaW4=
+# strict-ssl=false
+# email=dev@localhost.com
+# always-auth=true
+# init-author-name=dev
+# init-author-email=dev@localhost.com
+# //http://localhost:4873/:_authToken=MzE1N2FlYTgwODY0ZTQ0MzE0MjJjNjY0N2M4NTdhNDQ6Y2YwYWJjOGIyYmMyZjFlNzE1YmNkNw==
