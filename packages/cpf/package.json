@@ -1,7 +1,7 @@
 {
   "name": "@types-ddd/cpf",
   "description": "This package provides TypeScript type definitions for handling CPF (Cadastro de Pessoa Física) in Domain-Driven Design contexts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",

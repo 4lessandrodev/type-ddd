@@ -1,7 +1,7 @@
 {
   "name": "@types-ddd/phone",
   "description": "Library that provides TypeScript type definitions for handling Phone Numbers in Domain-Driven Design contexts. It facilitates the validation and manipulation of Brazilian phone numbers.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
