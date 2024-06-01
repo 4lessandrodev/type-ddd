@@ -4,5 +4,7 @@
   "packages": [
     "packages/*"
   ],
-  "npmClient": "yarn"
+  "npmClient": "yarn",
+  "access": "public",
+  "registry": ""
 }
