@@ -75,6 +75,7 @@ Alternatively you can install individual packages
 - `@types-ddd/phone` [Docs](./packages/phone)
 - `@types-ddd/username` [Docs](./packages/username)
 - `@types-ddd/zip-code` [Docs](./packages/zip-code)
+- `@types-ddd/money` [Docs](./packages/money)
 
 ---
 
@@ -196,6 +197,7 @@ Install individual package
 - `@types-ddd/phone` [Docs](./packages/phone)
 - `@types-ddd/username` [Docs](./packages/username)
 - `@types-ddd/zip-code` [Docs](./packages/zip-code)
+- `@types-ddd/money` [Docs](./packages/money)
 
 ---
 
