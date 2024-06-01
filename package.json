@@ -9,7 +9,7 @@
 	"workspaces": [
 		"packages/*"
 	],
-	"private": false,
+	"private": true,
 	"engines": {
 		"node": ">=16.x <=22"
 	},
