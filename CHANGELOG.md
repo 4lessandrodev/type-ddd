@@ -11,6 +11,15 @@ All notable changes to this project will be documented in this file.
 ---
 
 
+### [4.0.2] - 2024-06-26
+
+### Fix
+
+- update: update rich-domain to v1.23.3
+
+---
+
+
 ### [4.0.0] - 2024-05-31
 
 ### Refactor (Break Change)
