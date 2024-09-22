@@ -31,7 +31,7 @@
     "build": "tsc"
   },
   "peerDependencies": {
-    "rich-domain": "^1.23.3"
+    "rich-domain": "^1.23.4"
   },
   "files": [
     "index.js",
