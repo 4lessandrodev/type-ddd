@@ -8,11 +8,11 @@ Install `rich-domain`, `@type-ddd/password` and `bcrypt` with your favorite pack
 
 ```sh
 
-npm i rich-domain types-ddd/password bcrypt
+npm i rich-domain @type-ddd/password bcrypt
 
 #OR 
 
-yarn add rich-domain types-ddd/password bcrypt
+yarn add rich-domain @type-ddd/password bcrypt
 
 ```
 

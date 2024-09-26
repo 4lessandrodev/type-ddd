@@ -8,11 +8,11 @@ Install `rich-domain` and `@type-ddd/email` with your favorite package manager:
 
 ```sh
 
-npm i rich-domain types-ddd/email
+npm i rich-domain @type-ddd/email
 
 #OR 
 
-yarn add rich-domain types-ddd/email
+yarn add rich-domain @type-ddd/email
 
 ```
 
