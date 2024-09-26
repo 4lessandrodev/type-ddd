@@ -40,8 +40,8 @@
   "files": [
     "index.js",
     "index.d.ts",
-    "util.d.ts",
-    "util.js"
+    "utils.d.ts",
+    "utils.js"
   ],
   "repository": {
     "type": "git",
