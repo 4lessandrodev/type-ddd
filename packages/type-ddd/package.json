@@ -1,7 +1,7 @@
 {
   "name": "@type-ddd/core",
   "description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
