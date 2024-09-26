@@ -8,6 +8,15 @@ All notable changes to this project will be documented in this file.
 
 ## Released
 
+### [0.0.3] - 2024-09-26
+
+### Fix
+
+- Corrected `"files"` in `package.json` to include `utils.js` and `utils.d.ts`, resolving module not found errors during compilation.
+
+---
+
+
 ### [0.0.2] - 2024-05-31
 
 ### Docs
