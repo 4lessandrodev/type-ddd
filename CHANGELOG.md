@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-### [4.0.5] - 2024-09-26
+### [4.0.5] - 2024-11-28
 
 ### Fix
 
