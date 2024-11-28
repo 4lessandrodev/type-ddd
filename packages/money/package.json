@@ -1,7 +1,7 @@
 {
   "name": "@type-ddd/money",
   "description": "This package provides TypeScript type definitions for handling Money in Domain-Driven Design contexts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
@@ -30,7 +30,7 @@
     "build": "tsc"
   },
   "peerDependencies": {
-    "rich-domain": "^1.23.4"
+    "rich-domain": "^1.24.0"
   },
   "files": [
     "index.js",

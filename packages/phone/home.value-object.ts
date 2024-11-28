@@ -118,7 +118,7 @@ class HomePhone extends ValueObject<string> {
 	 * @example (XX) XXXX-XXXX
 	 * @returns Result of HomePhoneValueObject
 	 */
-	public static create(value: string): Result<HomePhone> {
+	public static create(value: string): Result<HomePhone | null> {
 		if (!HomePhone.isValidProps(value)) {
 			return Result.fail(HomePhone.MESSAGE);
 		}

@@ -123,7 +123,7 @@ class Password extends ValueObject<string> {
 	 * @param value password to create
 	 * @returns Result of PasswordValueObject
 	 */
-	static create(value: string): Result<Password> {
+	static create(value: string): Result<Password | null> {
 		if (!Password.isValidProps(value)) {
 			return Result.fail(Password.MESSAGE);
 		}

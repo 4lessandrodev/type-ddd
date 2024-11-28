@@ -70,7 +70,7 @@ export class Phone extends ValueObject<string> {
      * @example (XX) 9XXXX-XXXX or (XX) 3XXX-XXXX
      * @returns Result of MobilePhone or HomePhone
      */
-    public static create(value: string): Result<MobilePhone | HomePhone> {
+    public static create(value: string): Result<MobilePhone | HomePhone | null> {
         const isValid = this.isValidProps(value);
         if (!isValid) return Result.fail(this.MESSAGE);
         const isMobile = this.isMobile(value);

@@ -77,7 +77,7 @@ class ZipCode extends ValueObject<string> {
 	}
 
 
-	public static create(value: string): Result<ZipCode> {
+	public static create(value: string): Result<ZipCode | null> {
 		if (!ZipCode.isValidProps(value)) {
 			return Result.fail(ZipCode.MESSAGE);
 		}

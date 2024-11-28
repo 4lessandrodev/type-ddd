@@ -158,7 +158,7 @@ export class UserName extends ValueObject<string> {
 		);
 	}
 
-	public static create(value: string): Result<UserName> {
+	public static create(value: string): Result<UserName | null> {
 		const isValidValue = UserName.isValidProps(value);
 		if (!isValidValue) {
 			return Result.fail(UserName.MESSAGE);

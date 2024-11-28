@@ -42,23 +42,23 @@ describe('password.value-object', () => {
 
 		it('should validate encrypted password with success', () => {
 			const result = PasswordValueObject.create('123456').value();
-			const encrypted = result.encrypt();
-			const isEncrypted = encrypted.isEncrypted();
+			const encrypted = result?.encrypt();
+			const isEncrypted = encrypted?.isEncrypted();
 			expect(isEncrypted).toBe(true);
-			expect(PasswordValueObject.isValid(encrypted.value())).toBe(true);
+			expect(PasswordValueObject.isValid(encrypted?.value() as string)).toBe(true);
 		});
 
 		it('should encrypt password with success', () => {
 			const result = PasswordValueObject.create('123456').value();
-			expect(result.isEncrypted()).toBe(false);
-			const encrypted = result.encrypt();
-			const isEncrypted = encrypted.isEncrypted();
+			expect(result?.isEncrypted()).toBe(false);
+			const encrypted = result?.encrypt();
+			const isEncrypted = encrypted?.isEncrypted();
 			expect(isEncrypted).toBe(true);
 		});
 
 		it('should get value result with success', () => {
 			const result = PasswordValueObject.create('123456').value();
-			expect(result.value()).toBe('123456');
+			expect(result?.value()).toBe('123456');
 		});
 
 		it('should generate a valid random password not encrypted', () => {
@@ -77,9 +77,9 @@ describe('password.value-object', () => {
 		it('should password to be equal', () => {
 			const passA = PasswordValueObject.create('123456abc!').value();
 			const passC = PasswordValueObject.create('123456abc!').value();
-			const passB = passA.clone();
-			const isEqual1 = passA.isEqual(passB);
-			const isEqual2 = passA.isEqual(passC);
+			const passB = passA?.clone();
+			const isEqual1 = passA?.isEqual(passB as PasswordValueObject);
+			const isEqual2 = passA?.isEqual(passC as PasswordValueObject);
 			expect(isEqual1).toBe(true);
 			expect(isEqual2).toBe(true);
 		});
@@ -93,39 +93,39 @@ describe('password.value-object', () => {
 
 		it('should compare password not encrypted', () => {
 			const result = PasswordValueObject.create('123456').value();
-			const match = result.compare('123456');
+			const match = result?.compare('123456');
 			expect(match).toBeTruthy();
 		});
 
 		it('should compare encrypted password', () => {
 			const result = PasswordValueObject.create('123456').value();
-			const encrypted = result.encrypt();
-			const match = encrypted.compare('123456');
+			const encrypted = result?.encrypt();
+			const match = encrypted?.compare('123456');
 			expect(match).toBeTruthy();
 		});
 
 		it('should compare password not encrypted', () => {
 			const result = PasswordValueObject.create('123456').value();
-			const match = result.compare('abcdef');
+			const match = result?.compare('abcdef');
 			expect(match).toBeFalsy();
 		});
 
 		it('should compare encrypted password', () => {
 			const result = PasswordValueObject.create('123456').value();
-			const encrypted = result.encrypt();
-			const match = encrypted.compare('abcdef');
+			const encrypted = result?.encrypt();
+			const match = encrypted?.compare('abcdef');
 			expect(match).toBeFalsy();
 		});
 
 		it('should encrypt many times and keep value', () => {
 			const valueObject = PasswordValueObject.create('12345').value();
-			expect(valueObject.isEncrypted()).toBeFalsy();
-			const encrypted1 = valueObject.encrypt();
-			expect(encrypted1.isEncrypted()).toBeTruthy();
-			expect(valueObject.compare('12345')).toBeTruthy();
+			expect(valueObject?.isEncrypted()).toBeFalsy();
+			const encrypted1 = valueObject?.encrypt();
+			expect(encrypted1?.isEncrypted()).toBeTruthy();
+			expect(valueObject?.compare('12345')).toBeTruthy();
 
-			expect(encrypted1.compare('12345')).toBe(true);
-			expect(encrypted1.isEncrypted()).toBeTruthy();
+			expect(encrypted1?.compare('12345')).toBe(true);
+			expect(encrypted1?.isEncrypted()).toBeTruthy();
 		});
 	});
 

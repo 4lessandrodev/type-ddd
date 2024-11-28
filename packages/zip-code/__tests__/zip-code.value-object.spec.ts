@@ -24,12 +24,12 @@ describe('postal-code.value-object', () => {
 
 	it('should get value', () => {
 		const valueObject = ZipCodeValueObject.create('75520140').value();
-		expect(valueObject.value()).toBe('75520140');
+		expect(valueObject?.value()).toBe('75520140');
 	});
 
 	it('should get value without hyphen', () => {
 		const valueObject = ZipCodeValueObject.create('75520-140').value();
-		expect(valueObject.value()).toBe('75520140');
+		expect(valueObject?.value()).toBe('75520140');
 	});
 
 	it('should fail if provide an invalid postal code', () => {

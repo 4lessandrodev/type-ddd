@@ -10,13 +10,13 @@ describe('CNPJ Value Object', () => {
 		it('should create a valid CNPJ with special characters removed', () => {
 			const valueObject = CNPJValueObject.create('43.909.299/0001-04');
 			expect(valueObject.isOk()).toBeTruthy();
-			expect(valueObject.value().value()).toBe('43909299000104');
+			expect(valueObject.value()?.value()).toBe('43909299000104');
 		});
 
 		it('should create a valid CNPJ with numbers only', () => {
 			const valueObject = CNPJValueObject.create('60105617000101');
 			expect(valueObject.isOk()).toBeTruthy();
-			expect(valueObject.value().value()).toBe('60105617000101');
+			expect(valueObject.value()?.value()).toBe('60105617000101');
 		});
 
 		it('should initialize an instance without error', () => {
@@ -61,25 +61,25 @@ describe('CNPJ Value Object', () => {
 		it('should format a CNPJ with special characters', () => {
 			const valueObject =
 				CNPJValueObject.create('20.798.751/0001-02').value();
-			expect(valueObject.toPattern()).toBe('20.798.751/0001-02');
+			expect(valueObject?.toPattern()).toBe('20.798.751/0001-02');
 		});
 
 		it('should format a CNPJ with special characters', () => {
 			const valueObject =
 				CNPJValueObject.create('65.389.009/0001-81').value();
-			expect(valueObject.toPattern()).toBe('65.389.009/0001-81');
+			expect(valueObject?.toPattern()).toBe('65.389.009/0001-81');
 		});
 
 		it('should format a CNPJ with special characters', () => {
 			const valueObject =
 				CNPJValueObject.create('02.470.431/0001-47').value();
-			expect(valueObject.toPattern()).toBe('02.470.431/0001-47');
+			expect(valueObject?.toPattern()).toBe('02.470.431/0001-47');
 		});
 
 		it('should format a CNPJ with special characters and remove them later', () => {
 			const valueObject =
 				CNPJValueObject.create('62.412.404/0001-40').value();
-			expect(valueObject.toPattern()).toBe('62.412.404/0001-40');
+			expect(valueObject?.toPattern()).toBe('62.412.404/0001-40');
 		});
 	});
 
@@ -89,27 +89,27 @@ describe('CNPJ Value Object', () => {
 			const valueObject = CNPJValueObject.create(validCNPJ).value();
 		
 			// Compare with invalid CNPJ
-			let isEqual = valueObject.compare('invalid');
+			let isEqual = valueObject?.compare('invalid');
 			expect(isEqual).toBeFalsy();
 		
 			// Compare with different valid CNPJ
-			isEqual = valueObject.compare('22.606.062/0001-20');
+			isEqual = valueObject?.compare('22.606.062/0001-20');
 			expect(isEqual).toBeFalsy();
 		
 			// Compare with the same valid CNPJ
-			isEqual = valueObject.compare(validCNPJ);
+			isEqual = valueObject?.compare(validCNPJ);
 			expect(isEqual).toBeTruthy();
 		
 			// Compare with a valid CNPJ with different format
-			isEqual = valueObject.compare('22606062000155');
+			isEqual = valueObject?.compare('22606062000155');
 			expect(isEqual).toBeFalsy();
 		
 			// Compare with a valid CNPJ with the same value but different format
-			isEqual = valueObject.compare('22606062000184');
+			isEqual = valueObject?.compare('22606062000184');
 			expect(isEqual).toBeTruthy();
 		
 			// Compare with the same valid CNPJ
-			isEqual = valueObject.compare('22.606.062/0001-84');
+			isEqual = valueObject?.compare('22.606.062/0001-84');
 			expect(isEqual).toBeTruthy();
 		});
 

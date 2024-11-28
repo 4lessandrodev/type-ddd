@@ -20,7 +20,7 @@ describe('Date', () => {
 
 		it('should create an instance with success', () => {
 			const instance = Dates.create(new Date(2020, 1, 1, 1, 1, 1));
-			expect(instance.value().value().toISOString()).toBe('2020-02-01T01:01:01.000Z');
+			expect(instance.value()?.value().toISOString()).toBe('2020-02-01T01:01:01.000Z');
 		});
 
 		it('should return result fail if provide an invalid value', () => {

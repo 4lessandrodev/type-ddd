@@ -515,7 +515,7 @@ export class Dates extends ValueObject<Date> {
 	 * @param value value as Date or date string or number as timestamp
 	 * @returns Result of Dates
 	 */
-	public static create(date?: Date | string | number): Result<Dates> {
+	public static create(date?: Date | string | number): Result<Dates | null> {
 		const value = date ?? new Date();
 		const isValid = Dates.isValidProps(value);
 		if (!isValid) return Result.fail(Dates.MESSAGE);

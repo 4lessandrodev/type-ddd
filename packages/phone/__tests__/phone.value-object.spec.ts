@@ -29,14 +29,14 @@ describe('phone', () => {
 
     it('should create a valid phone', () => {
         const phone = Phone.create('(11) 3404-2885').value();
-        expect(phone.isHome()).toBeTruthy();
-        expect(phone.isMobile()).toBeFalsy();
+        expect(phone?.isHome()).toBeTruthy();
+        expect(phone?.isMobile()).toBeFalsy();
     });
 
     it('should create a valid phone', () => {
         const phone = Phone.create('(11) 99488-2885').value();
-        expect(phone.isHome()).toBeFalsy();
-        expect(phone.isMobile()).toBeTruthy();
+        expect(phone?.isHome()).toBeFalsy();
+        expect(phone?.isMobile()).toBeTruthy();
     });
 
     it('should return fail', () => {
