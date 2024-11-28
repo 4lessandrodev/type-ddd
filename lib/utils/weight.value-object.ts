@@ -52,7 +52,7 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 	changeValue(newValue: CustomNumberValueObject): WeightValueObject {
 		this.props.weight = CustomNumberValueObject.create(
 			parseFloat(newValue.value().toFixed(3)),
-		).value();
+		).value() as CustomNumberValueObject;
 		return this;
 	}
 
@@ -61,7 +61,9 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 		unit: UnitOfWeight,
 	): WeightValueObject {
 		const float = parseFloat(value.toFixed(3));
-		this.props.weight = CustomNumberValueObject.create(float).value();
+		this.props.weight = CustomNumberValueObject.create(
+			float,
+		).value() as CustomNumberValueObject;
 		this.changeWeightUnit(unit);
 		return this;
 	}
@@ -241,7 +243,10 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 		return this;
 	}
 
-	public static create({ value, unit }: Props): Result<WeightValueObject> {
+	public static create({
+		value,
+		unit,
+	}: Props): Result<WeightValueObject | null> {
 		const customNumber = CustomNumberValueObject.create(
 			parseFloat(value.toFixed(3)),
 		);
@@ -259,7 +264,7 @@ export class WeightValueObject extends ValueObject<WeightValueObjectProps> {
 		return Result.Ok(
 			new WeightValueObject({
 				unit,
-				weight: customNumber.value(),
+				weight: customNumber.value() as CustomNumberValueObject,
 			}),
 		);
 	}

@@ -28,6 +28,6 @@ describe('tracking.value-object', () => {
 
 	it('should generate a random code', () => {
 		const track = TrackingCodeValueObject.create().value();
-		expect(track.value()).toHaveLength(15);
+		expect(track?.value()).toHaveLength(15);
 	});
 });

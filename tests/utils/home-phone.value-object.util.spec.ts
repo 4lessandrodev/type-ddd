@@ -39,18 +39,18 @@ describe('home-phone.value-object', () => {
 	it('should get value', () => {
 		const valueObject =
 			HomePhoneValueObject.create('(71) 2254-1211').value();
-		expect(valueObject.value()).toBe('(71) 2254-1211');
+		expect(valueObject?.value()).toBe('(71) 2254-1211');
 	});
 
 	it('should get only numbers value', () => {
 		const valueObject =
 			HomePhoneValueObject.create('(71) 2254-1211').value();
-		expect(valueObject.getOnlyNumbers()).toBe(7122541211);
+		expect(valueObject?.getOnlyNumbers()).toBe(7122541211);
 	});
 
 	it('should get only DDD number', () => {
 		const valueObject =
 			HomePhoneValueObject.create('(71) 2254-1211').value();
-		expect(valueObject.getDDD()).toBe(71);
+		expect(valueObject?.getDDD()).toBe(71);
 	});
 });

@@ -57,7 +57,9 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 		unit: UnitOfMeasure,
 	): DimensionValueObject {
 		const float = (value = parseFloat(value.toFixed(3)));
-		this.props.dimension = CustomNumberValueObject.create(float).value();
+		this.props.dimension = CustomNumberValueObject.create(
+			float,
+		).value() as CustomNumberValueObject;
 		this.changeDimensionUnit(unit);
 		return this;
 	}
@@ -230,7 +232,10 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 		return this;
 	}
 
-	public static create({ unit, value }: Props): Result<DimensionValueObject> {
+	public static create({
+		unit,
+		value,
+	}: Props): Result<DimensionValueObject | null> {
 		const isValidUnit = unit in UnitsOfMeasure;
 
 		if (!isValidUnit) {
@@ -247,7 +252,7 @@ export class DimensionValueObject extends ValueObject<DimensionValueObjectProps>
 		return Result.Ok(
 			new DimensionValueObject({
 				unit,
-				dimension: customNumber.value(),
+				dimension: customNumber.value() as CustomNumberValueObject,
 			}),
 		);
 	}

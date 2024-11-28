@@ -96,7 +96,7 @@ export class CPFValueObject extends ValueObject<Prop> {
 	 * @example "72725477824"
 	 * @summary fails if provide an invalid pattern or a cpf with invalid digit sum
 	 */
-	public static create(value: string): Result<CPFValueObject> {
+	public static create(value: string): Result<CPFValueObject | null> {
 		const isValidValue = CPFValueObject.isValidProps(value);
 
 		if (!isValidValue) {

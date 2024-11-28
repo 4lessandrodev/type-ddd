@@ -60,7 +60,7 @@ class RGBColorValueObject extends ValueObject<Prop> {
 	 * @example rgb(255, 255, 255)
 	 * @returns Result with instance of RGBColorValueObject
 	 */
-	public static create(value: string): Result<RGBColorValueObject> {
+	public static create(value: string): Result<RGBColorValueObject | null> {
 		if (!RGBColorValueObject.isValidProps(value)) {
 			return Result.fail(RGBColorValueObject.MESSAGE);
 		}

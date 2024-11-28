@@ -95,7 +95,9 @@ export class CustomNumberValueObject extends ValueObject<Prop> {
 		);
 	}
 
-	public static create(value: number): Result<CustomNumberValueObject> {
+	public static create(
+		value: number,
+	): Result<CustomNumberValueObject | null> {
 		const isValidValue = CustomNumberValueObject.isValidValue(value);
 
 		if (!isValidValue) {

@@ -125,7 +125,7 @@ export class UserNameValueObject extends ValueObject<Prop> {
 		);
 	}
 
-	public static create(value: string): Result<UserNameValueObject> {
+	public static create(value: string): Result<UserNameValueObject | null> {
 		const isValidValue = UserNameValueObject.isValidProps(value);
 		if (!isValidValue) {
 			return Result.fail(UserNameValueObject.MESSAGE);

@@ -17,7 +17,7 @@ describe('birthday.value-object', () => {
 		const date = new Date();
 		date.setFullYear(2000, 1, 1);
 		const valueObject = BirthdayValueObject.create(date).value();
-		expect(valueObject.value()).toBe(date);
+		expect(valueObject?.value()).toBe(date);
 	});
 
 	it('should fail if provide an invalid value', () => {
@@ -32,7 +32,7 @@ describe('birthday.value-object', () => {
 		birth.setTime(1596939967044);
 
 		const valueObject = BirthdayValueObject.create(birth).value();
-		expect(valueObject.getAgeAsYearsOld()).toBeGreaterThanOrEqual(1);
+		expect(valueObject?.getAgeAsYearsOld()).toBeGreaterThanOrEqual(1);
 	});
 
 	it('should return age', () => {
@@ -40,7 +40,7 @@ describe('birthday.value-object', () => {
 		birth.setTime(965787967044);
 
 		const valueObject = BirthdayValueObject.create(birth).value();
-		expect(valueObject.getAgeAsYearsOld()).toBeGreaterThanOrEqual(21);
+		expect(valueObject?.getAgeAsYearsOld()).toBeGreaterThanOrEqual(21);
 	});
 
 	it('should check age value', () => {
@@ -48,7 +48,7 @@ describe('birthday.value-object', () => {
 		birth.setTime(965787967044); // 2000-01-01
 
 		const age = BirthdayValueObject.create(birth).value();
-		const userHasMoreThan16YearsOld = age.isAgeGreaterThan(16);
+		const userHasMoreThan16YearsOld = age?.isAgeGreaterThan(16);
 		expect(userHasMoreThan16YearsOld).toBeTruthy();
 	});
 
@@ -57,7 +57,7 @@ describe('birthday.value-object', () => {
 		birth.setTime(965787967044); // 2000-01-01
 
 		const age = BirthdayValueObject.create(birth).value();
-		const userHas16YearsOld = age.isAgeEqualTo(16); //>21
+		const userHas16YearsOld = age?.isAgeEqualTo(16); //>21
 		expect(userHas16YearsOld).toBeFalsy();
 	});
 });

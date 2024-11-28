@@ -54,7 +54,9 @@ class TrackingCodeValueObject extends ValueObject<OrderIdProps> {
 	 * @pattern
 	 * XXX-A99999-9999
 	 */
-	public static create(code?: string): Result<TrackingCodeValueObject> {
+	public static create(
+		code?: string,
+	): Result<TrackingCodeValueObject | null> {
 		const value = code ?? TrackingCodeValueObject.generate();
 		if (code) {
 			if (!TrackingCodeValueObject.isValidProps(code)) {

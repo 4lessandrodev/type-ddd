@@ -11,9 +11,9 @@ describe('proxy.pattern', () => {
 	interface DataDto {
 		email: string;
 	}
-	let useCase: IUseCase<DataDto, Result<string>>;
+	let useCase: IUseCase<DataDto, Result<any>>;
 	let beforeExecuteHook: IBeforeHookProxy<DataDto, string>;
-	let afterExecuteHook: IAfterHookProxy<string, string>;
+	let afterExecuteHook: IAfterHookProxy<any, string>;
 	let canExecuteProxy: ICanExecuteProxy<DataDto, string>;
 
 	beforeEach(() => {
@@ -35,7 +35,7 @@ describe('proxy.pattern', () => {
 		};
 
 		canExecuteProxy = {
-			execute: async (data: DataDto): Promise<Result<boolean>> => {
+			execute: async (data: DataDto): Promise<Result<boolean | null>> => {
 				const isValidEmail = data.email === 'valid_email@domain.com';
 
 				if (isValidEmail) return Result.Ok(true);
@@ -57,7 +57,7 @@ describe('proxy.pattern', () => {
 	});
 
 	it('should fail next step if execute fails', async () => {
-		class OnlyExecute extends TSProxy<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string | null> {}
 
 		const proxy = new OnlyExecute({
 			execute: { execute: async () => Result.fail('fails') },
@@ -204,13 +204,15 @@ describe('proxy.pattern', () => {
 
 	it('should get error if after hook step fails', async () => {
 		const afterMock = {
-			execute: async (data: Result<string>): Promise<Result<string>> => {
+			execute: async (
+				data: Result<string>,
+			): Promise<Result<string | null>> => {
 				return Result.fail(data.value() + '@fail' + '@AFTER-HOOK');
 			},
 		};
 		const validateSpy = jest.spyOn(afterMock, 'execute');
 
-		class OnlyExecute extends TSProxy<DataDto, string> {}
+		class OnlyExecute extends TSProxy<DataDto, string | null> {}
 
 		const proxy = new OnlyExecute({
 			execute: useCase,

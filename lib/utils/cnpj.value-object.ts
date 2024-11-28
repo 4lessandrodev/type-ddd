@@ -93,7 +93,7 @@ export class CNPJValueObject extends ValueObject<Prop> {
 	 * @example "22398345000188"
 	 * @summary fails if provide an invalid pattern or a cnpj with invalid digit sum
 	 */
-	public static create(value: string): Result<CNPJValueObject> {
+	public static create(value: string): Result<CNPJValueObject | null> {
 		const isValidValue = CNPJValueObject.isValidProps(value);
 
 		if (!isValidValue) {

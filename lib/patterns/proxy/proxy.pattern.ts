@@ -94,14 +94,18 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		private readonly context: IProxyContext<Data, Payload, Error>,
 	) {}
 
-	private async canExecute(data: Data): Promise<Result<boolean, Error>> {
+	private async canExecute(
+		data: Data,
+	): Promise<Result<boolean | null, Error>> {
 		if (!this.context.canExecute) {
 			return Result.Ok(true);
 		}
 		return this.context.canExecute.execute(data);
 	}
 
-	private async beforeExecute(data: Data): Promise<Result<Data, Error>> {
+	private async beforeExecute(
+		data: Data,
+	): Promise<Result<Data | null, Error>> {
 		if (!this.context.beforeExecute) {
 			return Result.Ok(data);
 		}
@@ -118,7 +122,7 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 		return this.context.afterExecute.execute(Result.Ok(data.value()));
 	}
 
-	async execute(data: Data): Promise<Result<Payload, Error>> {
+	async execute(data: Data): Promise<Result<Payload | null, Error>> {
 		const beforePayload = await this.beforeExecute(data);
 
 		if (beforePayload.isFail()) {
@@ -142,7 +146,7 @@ export abstract class TSProxy<Data, Payload, Error = string> {
 
 		const param = beforePayload?.value() ? beforePayload?.value() : data;
 
-		const executeResult = await this.context.execute.execute(param);
+		const executeResult = await this.context.execute.execute(param as Data);
 
 		if (executeResult.isFail()) {
 			const error = executeResult?.error() ?? 'error on execute proxy';

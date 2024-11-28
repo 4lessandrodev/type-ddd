@@ -40,10 +40,10 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		}).value();
 
-		expect(valueObject.dimension).toBeDefined();
-		expect(valueObject.unit).toBeDefined();
-		expect(valueObject.dimension.value()).toBe(1000);
-		expect(valueObject.unit).toBe('CM');
+		expect(valueObject?.dimension).toBeDefined();
+		expect(valueObject?.unit).toBeDefined();
+		expect(valueObject?.dimension.value()).toBe(1000);
+		expect(valueObject?.unit).toBe('CM');
 	});
 
 	it('should change value', () => {
@@ -51,8 +51,12 @@ describe('dimension.value-object', () => {
 			unit: 'MT',
 			value: 100,
 		}).value();
-		dimension.changeValue(CustomNumberValueObject.create(500).value());
-		expect(dimension.dimension.value()).toBe(500);
+		dimension?.changeValue(
+			CustomNumberValueObject.create(
+				500,
+			)?.value() as CustomNumberValueObject,
+		);
+		expect(dimension?.dimension.value()).toBe(500);
 	});
 
 	it('should change unit', () => {
@@ -60,9 +64,9 @@ describe('dimension.value-object', () => {
 			unit: 'MT',
 			value: 100,
 		}).value();
-		dimension.changeDimensionUnit('YARD');
-		expect(dimension.dimension.value()).toBe(100);
-		expect(dimension.unit).toBe('YARD');
+		dimension?.changeDimensionUnit('YARD');
+		expect(dimension?.dimension.value()).toBe(100);
+		expect(dimension?.unit).toBe('YARD');
 	});
 	// ************************
 
@@ -72,9 +76,9 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		}).value();
 
-		valueObject.toFOOT();
-		expect(valueObject.dimension.value()).toBe(32.808);
-		expect(valueObject.unit).toBe('FOOT');
+		valueObject?.toFOOT();
+		expect(valueObject?.dimension.value()).toBe(32.808);
+		expect(valueObject?.unit).toBe('FOOT');
 	});
 
 	it('should convert from cm to inch', () => {
@@ -83,9 +87,9 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		}).value();
 
-		valueObject.toINCH();
-		expect(valueObject.dimension.value()).toBe(393.701);
-		expect(valueObject.unit).toBe('INCH');
+		valueObject?.toINCH();
+		expect(valueObject?.dimension.value()).toBe(393.701);
+		expect(valueObject?.unit).toBe('INCH');
 	});
 
 	it('should convert from cm to mm', () => {
@@ -94,9 +98,9 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		}).value();
 
-		valueObject.toMM();
-		expect(valueObject.dimension.value()).toBe(10000);
-		expect(valueObject.unit).toBe('MM');
+		valueObject?.toMM();
+		expect(valueObject?.dimension.value()).toBe(10000);
+		expect(valueObject?.unit).toBe('MM');
 	});
 
 	it('should convert from cm to mt', () => {
@@ -105,9 +109,9 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		}).value();
 
-		valueObject.toMT();
-		expect(valueObject.dimension.value()).toBe(10);
-		expect(valueObject.unit).toBe('MT');
+		valueObject?.toMT();
+		expect(valueObject?.dimension.value()).toBe(10);
+		expect(valueObject?.unit).toBe('MT');
 	});
 
 	it('should convert from cm to yard', () => {
@@ -116,9 +120,9 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		}).value();
 
-		valueObject.toYARD();
-		expect(valueObject.dimension.value()).toBe(10.936);
-		expect(valueObject.unit).toBe('YARD');
+		valueObject?.toYARD();
+		expect(valueObject?.dimension.value()).toBe(10.936);
+		expect(valueObject?.unit).toBe('YARD');
 	});
 
 	// ************************
@@ -129,9 +133,9 @@ describe('dimension.value-object', () => {
 			unit: 'MM',
 		}).value();
 
-		valueObject.toYARD();
-		expect(valueObject.dimension.value()).toBe(1.094);
-		expect(valueObject.unit).toBe('YARD');
+		valueObject?.toYARD();
+		expect(valueObject?.dimension.value()).toBe(1.094);
+		expect(valueObject?.unit).toBe('YARD');
 	});
 
 	it('should convert from mm to cm', () => {
@@ -140,9 +144,9 @@ describe('dimension.value-object', () => {
 			unit: 'MM',
 		}).value();
 
-		valueObject.toCM();
-		expect(valueObject.dimension.value()).toBe(100);
-		expect(valueObject.unit).toBe('CM');
+		valueObject?.toCM();
+		expect(valueObject?.dimension.value()).toBe(100);
+		expect(valueObject?.unit).toBe('CM');
 	});
 
 	it('should convert from mm to foot', () => {
@@ -151,9 +155,9 @@ describe('dimension.value-object', () => {
 			unit: 'MM',
 		}).value();
 
-		valueObject.toFOOT();
-		expect(valueObject.dimension.value()).toBe(3.279);
-		expect(valueObject.unit).toBe('FOOT');
+		valueObject?.toFOOT();
+		expect(valueObject?.dimension.value()).toBe(3.279);
+		expect(valueObject?.unit).toBe('FOOT');
 	});
 
 	it('should convert from mm to inch', () => {
@@ -162,9 +166,9 @@ describe('dimension.value-object', () => {
 			unit: 'MM',
 		}).value();
 
-		valueObject.toINCH();
-		expect(valueObject.dimension.value()).toBe(39.37);
-		expect(valueObject.unit).toBe('INCH');
+		valueObject?.toINCH();
+		expect(valueObject?.dimension.value()).toBe(39.37);
+		expect(valueObject?.unit).toBe('INCH');
 	});
 
 	it('should convert from mm to mt', () => {
@@ -173,9 +177,9 @@ describe('dimension.value-object', () => {
 			unit: 'MM',
 		}).value();
 
-		valueObject.toMT();
-		expect(valueObject.dimension.value()).toBe(1);
-		expect(valueObject.unit).toBe('MT');
+		valueObject?.toMT();
+		expect(valueObject?.dimension.value()).toBe(1);
+		expect(valueObject?.unit).toBe('MT');
 	});
 
 	// ************************
@@ -186,9 +190,9 @@ describe('dimension.value-object', () => {
 			unit: 'INCH',
 		}).value();
 
-		valueObject.toCM();
-		expect(valueObject.dimension.value()).toBe(2540);
-		expect(valueObject.unit).toBe('CM');
+		valueObject?.toCM();
+		expect(valueObject?.dimension.value()).toBe(2540);
+		expect(valueObject?.unit).toBe('CM');
 	});
 
 	it('should convert from inch to mm', () => {
@@ -197,9 +201,9 @@ describe('dimension.value-object', () => {
 			unit: 'INCH',
 		}).value();
 
-		valueObject.toMM();
-		expect(valueObject.dimension.value()).toBe(25400);
-		expect(valueObject.unit).toBe('MM');
+		valueObject?.toMM();
+		expect(valueObject?.dimension.value()).toBe(25400);
+		expect(valueObject?.unit).toBe('MM');
 	});
 
 	it('should convert from inch to foot', () => {
@@ -208,9 +212,9 @@ describe('dimension.value-object', () => {
 			unit: 'INCH',
 		}).value();
 
-		valueObject.toFOOT();
-		expect(valueObject.dimension.value()).toBe(83.333);
-		expect(valueObject.unit).toBe('FOOT');
+		valueObject?.toFOOT();
+		expect(valueObject?.dimension.value()).toBe(83.333);
+		expect(valueObject?.unit).toBe('FOOT');
 	});
 
 	it('should convert from inch to mt', () => {
@@ -219,9 +223,9 @@ describe('dimension.value-object', () => {
 			unit: 'INCH',
 		}).value();
 
-		valueObject.toMT();
-		expect(valueObject.dimension.value()).toBe(25.4);
-		expect(valueObject.unit).toBe('MT');
+		valueObject?.toMT();
+		expect(valueObject?.dimension.value()).toBe(25.4);
+		expect(valueObject?.unit).toBe('MT');
 	});
 
 	it('should convert from inch to yard', () => {
@@ -230,9 +234,9 @@ describe('dimension.value-object', () => {
 			unit: 'INCH',
 		}).value();
 
-		valueObject.toYARD();
-		expect(valueObject.dimension.value()).toBe(27.778);
-		expect(valueObject.unit).toBe('YARD');
+		valueObject?.toYARD();
+		expect(valueObject?.dimension.value()).toBe(27.778);
+		expect(valueObject?.unit).toBe('YARD');
 	});
 
 	// ************************
@@ -243,9 +247,9 @@ describe('dimension.value-object', () => {
 			unit: 'FOOT',
 		}).value();
 
-		valueObject.toYARD();
-		expect(valueObject.dimension.value()).toBe(333.333);
-		expect(valueObject.unit).toBe('YARD');
+		valueObject?.toYARD();
+		expect(valueObject?.dimension.value()).toBe(333.333);
+		expect(valueObject?.unit).toBe('YARD');
 	});
 
 	it('should convert from foot to cm', () => {
@@ -254,9 +258,9 @@ describe('dimension.value-object', () => {
 			unit: 'FOOT',
 		}).value();
 
-		valueObject.toCM();
-		expect(valueObject.dimension.value()).toBe(30480);
-		expect(valueObject.unit).toBe('CM');
+		valueObject?.toCM();
+		expect(valueObject?.dimension.value()).toBe(30480);
+		expect(valueObject?.unit).toBe('CM');
 	});
 
 	it('should convert from foot to inch', () => {
@@ -265,9 +269,9 @@ describe('dimension.value-object', () => {
 			unit: 'FOOT',
 		}).value();
 
-		valueObject.toINCH();
-		expect(valueObject.dimension.value()).toBe(12000);
-		expect(valueObject.unit).toBe('INCH');
+		valueObject?.toINCH();
+		expect(valueObject?.dimension.value()).toBe(12000);
+		expect(valueObject?.unit).toBe('INCH');
 	});
 
 	it('should convert from foot to mm', () => {
@@ -276,9 +280,9 @@ describe('dimension.value-object', () => {
 			unit: 'FOOT',
 		}).value();
 
-		valueObject.toMM();
-		expect(valueObject.dimension.value()).toBe(305000);
-		expect(valueObject.unit).toBe('MM');
+		valueObject?.toMM();
+		expect(valueObject?.dimension.value()).toBe(305000);
+		expect(valueObject?.unit).toBe('MM');
 	});
 
 	it('should convert from foot to mt', () => {
@@ -287,9 +291,9 @@ describe('dimension.value-object', () => {
 			unit: 'FOOT',
 		}).value();
 
-		valueObject.toMT();
-		expect(valueObject.dimension.value()).toBe(304.044);
-		expect(valueObject.unit).toBe('MT');
+		valueObject?.toMT();
+		expect(valueObject?.dimension.value()).toBe(304.044);
+		expect(valueObject?.unit).toBe('MT');
 	});
 
 	// ************************
@@ -300,9 +304,9 @@ describe('dimension.value-object', () => {
 			unit: 'MT',
 		}).value();
 
-		valueObject.toYARD();
-		expect(valueObject.dimension.value()).toBe(1094);
-		expect(valueObject.unit).toBe('YARD');
+		valueObject?.toYARD();
+		expect(valueObject?.dimension.value()).toBe(1094);
+		expect(valueObject?.unit).toBe('YARD');
 	});
 
 	it('should convert from mt to cm', () => {
@@ -311,9 +315,9 @@ describe('dimension.value-object', () => {
 			unit: 'MT',
 		}).value();
 
-		valueObject.toCM();
-		expect(valueObject.dimension.value()).toBe(100000);
-		expect(valueObject.unit).toBe('CM');
+		valueObject?.toCM();
+		expect(valueObject?.dimension.value()).toBe(100000);
+		expect(valueObject?.unit).toBe('CM');
 	});
 
 	it('should convert from mt to mm', () => {
@@ -322,9 +326,9 @@ describe('dimension.value-object', () => {
 			unit: 'MT',
 		}).value();
 
-		valueObject.toMM();
-		expect(valueObject.dimension.value()).toBe(1e6);
-		expect(valueObject.unit).toBe('MM');
+		valueObject?.toMM();
+		expect(valueObject?.dimension.value()).toBe(1e6);
+		expect(valueObject?.unit).toBe('MM');
 	});
 
 	it('should convert from mt to inch', () => {
@@ -333,9 +337,9 @@ describe('dimension.value-object', () => {
 			unit: 'MT',
 		}).value();
 
-		valueObject.toINCH();
-		expect(valueObject.dimension.value()).toBe(39370);
-		expect(valueObject.unit).toBe('INCH');
+		valueObject?.toINCH();
+		expect(valueObject?.dimension.value()).toBe(39370);
+		expect(valueObject?.unit).toBe('INCH');
 	});
 
 	it('should convert from mt to foot', () => {
@@ -344,9 +348,9 @@ describe('dimension.value-object', () => {
 			unit: 'MT',
 		}).value();
 
-		valueObject.toFOOT();
-		expect(valueObject.dimension.value()).toBe(3281);
-		expect(valueObject.unit).toBe('FOOT');
+		valueObject?.toFOOT();
+		expect(valueObject?.dimension.value()).toBe(3281);
+		expect(valueObject?.unit).toBe('FOOT');
 	});
 
 	// ************************
@@ -357,9 +361,9 @@ describe('dimension.value-object', () => {
 			unit: 'YARD',
 		}).value();
 
-		valueObject.toCM();
-		expect(valueObject.dimension.value()).toBe(91440);
-		expect(valueObject.unit).toBe('CM');
+		valueObject?.toCM();
+		expect(valueObject?.dimension.value()).toBe(91440);
+		expect(valueObject?.unit).toBe('CM');
 	});
 
 	it('should convert from yard to foot', () => {
@@ -368,9 +372,9 @@ describe('dimension.value-object', () => {
 			unit: 'YARD',
 		}).value();
 
-		valueObject.toFOOT();
-		expect(valueObject.dimension.value()).toBe(3000);
-		expect(valueObject.unit).toBe('FOOT');
+		valueObject?.toFOOT();
+		expect(valueObject?.dimension.value()).toBe(3000);
+		expect(valueObject?.unit).toBe('FOOT');
 	});
 
 	it('should convert from yard to mm', () => {
@@ -379,9 +383,9 @@ describe('dimension.value-object', () => {
 			unit: 'YARD',
 		}).value();
 
-		valueObject.toMM();
-		expect(valueObject.dimension.value()).toBe(914000);
-		expect(valueObject.unit).toBe('MM');
+		valueObject?.toMM();
+		expect(valueObject?.dimension.value()).toBe(914000);
+		expect(valueObject?.unit).toBe('MM');
 	});
 
 	it('should convert from yard to mt', () => {
@@ -390,9 +394,9 @@ describe('dimension.value-object', () => {
 			unit: 'YARD',
 		}).value();
 
-		valueObject.toMT();
-		expect(valueObject.dimension.value()).toBe(914.077);
-		expect(valueObject.unit).toBe('MT');
+		valueObject?.toMT();
+		expect(valueObject?.dimension.value()).toBe(914.077);
+		expect(valueObject?.unit).toBe('MT');
 	});
 
 	it('should convert from yard to inch', () => {
@@ -401,9 +405,9 @@ describe('dimension.value-object', () => {
 			unit: 'YARD',
 		}).value();
 
-		valueObject.toINCH();
-		expect(valueObject.dimension.value()).toBe(36000);
-		expect(valueObject.unit).toBe('INCH');
+		valueObject?.toINCH();
+		expect(valueObject?.dimension.value()).toBe(36000);
+		expect(valueObject?.unit).toBe('INCH');
 	});
 
 	// ****
@@ -414,9 +418,9 @@ describe('dimension.value-object', () => {
 			unit: 'YARD',
 		}).value();
 
-		valueObject.toYARD();
-		expect(valueObject.dimension.value()).toBe(1000);
-		expect(valueObject.unit).toBe('YARD');
+		valueObject?.toYARD();
+		expect(valueObject?.dimension.value()).toBe(1000);
+		expect(valueObject?.unit).toBe('YARD');
 	});
 
 	it('should keep equal value on convert for the same unit', () => {
@@ -425,9 +429,9 @@ describe('dimension.value-object', () => {
 			unit: 'CM',
 		}).value();
 
-		valueObject.toCM();
-		expect(valueObject.dimension.value()).toBe(1000);
-		expect(valueObject.unit).toBe('CM');
+		valueObject?.toCM();
+		expect(valueObject?.dimension.value()).toBe(1000);
+		expect(valueObject?.unit).toBe('CM');
 	});
 
 	it('should keep equal value on convert for the same unit', () => {
@@ -436,9 +440,9 @@ describe('dimension.value-object', () => {
 			unit: 'MM',
 		}).value();
 
-		valueObject.toMM();
-		expect(valueObject.dimension.value()).toBe(1000);
-		expect(valueObject.unit).toBe('MM');
+		valueObject?.toMM();
+		expect(valueObject?.dimension.value()).toBe(1000);
+		expect(valueObject?.unit).toBe('MM');
 	});
 
 	it('should keep equal value on convert for the same unit', () => {
@@ -447,9 +451,9 @@ describe('dimension.value-object', () => {
 			unit: 'MT',
 		}).value();
 
-		valueObject.toMT();
-		expect(valueObject.dimension.value()).toBe(1000);
-		expect(valueObject.unit).toBe('MT');
+		valueObject?.toMT();
+		expect(valueObject?.dimension.value()).toBe(1000);
+		expect(valueObject?.unit).toBe('MT');
 	});
 
 	it('should fail if provide an invalid unit', () => {

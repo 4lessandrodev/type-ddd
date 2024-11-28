@@ -35,7 +35,7 @@ class PostalCodeValueObject extends ValueObject<Prop> {
 		return this.validator.string(value).match(PostalCodeValueObject.REGEX);
 	}
 
-	public static create(value: string): Result<PostalCodeValueObject> {
+	public static create(value: string): Result<PostalCodeValueObject | null> {
 		if (!PostalCodeValueObject.isValidProps(value)) {
 			return Result.fail(PostalCodeValueObject.MESSAGE);
 		}

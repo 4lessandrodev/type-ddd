@@ -102,7 +102,9 @@ export class CustomStringValueObject extends ValueObject<Prop> {
 		return VALIDATOR(value) && value.length >= MIN && value.length <= MAX;
 	}
 
-	public static create(value: string): Result<CustomStringValueObject> {
+	public static create(
+		value: string,
+	): Result<CustomStringValueObject | null> {
 		const isValidValue = CustomStringValueObject.isValidProps(value);
 
 		if (!isValidValue) {

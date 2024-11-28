@@ -37,7 +37,7 @@ export class PinValueObject extends ValueObject<Prop> {
 	 * @default lettersLength 0
 	 * @returns Result PinValueObject as instance
 	 */
-	public static generatePin(props?: PinProps): Result<PinValueObject> {
+	public static generatePin(props?: PinProps): Result<PinValueObject | null> {
 		const pin = pinGenerator(props);
 		return PinValueObject.create(pin);
 	}
@@ -75,7 +75,7 @@ export class PinValueObject extends ValueObject<Prop> {
 	 * @default 5 digits
 	 * @example 98537
 	 */
-	public static create(pin?: string): Result<PinValueObject> {
+	public static create(pin?: string): Result<PinValueObject | null> {
 		let value: string = pin ?? pinGenerator();
 
 		const isValidValue = PinValueObject.isValidProps(value);

@@ -58,7 +58,7 @@ class HEXColorValueObject extends ValueObject<Prop> {
 	 * @example #ffffff
 	 * @returns Result with instance of HEXColorValueObject
 	 */
-	public static create(value: string): Result<HEXColorValueObject> {
+	public static create(value: string): Result<HEXColorValueObject | null> {
 		if (!HEXColorValueObject.isValidProps(value)) {
 			return Result.fail(
 				'Invalid hex value. It must match with pattern #ffffff',

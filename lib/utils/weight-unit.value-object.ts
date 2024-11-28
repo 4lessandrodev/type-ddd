@@ -48,7 +48,9 @@ export class WeightUnitValueObject extends ValueObject<Prop> {
 		return value in UnitsOfWeight;
 	}
 
-	public static create(value: UnitOfWeight): Result<WeightUnitValueObject> {
+	public static create(
+		value: UnitOfWeight,
+	): Result<WeightUnitValueObject | null> {
 		const isValid = WeightUnitValueObject.isValidProps(value);
 
 		if (!isValid) {
