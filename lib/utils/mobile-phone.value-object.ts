@@ -68,7 +68,7 @@ class MobilePhoneValueObject extends ValueObject<Prop> {
 	 * @example (XX) 9XXXX-XXXX
 	 * @returns Result of MobilePhoneValueObject
 	 */
-	public static create(value: string): Result<MobilePhoneValueObject> {
+	public static create(value: string): Result<MobilePhoneValueObject | null> {
 		if (!MobilePhoneValueObject.isValidProps(value)) {
 			return Result.fail(MobilePhoneValueObject.MESSAGE);
 		}

@@ -47,7 +47,7 @@ class UrlValueObject extends ValueObject<Prop> {
 	 * @example https://google.com
 	 * @returns Result with instance of UrlValueObject
 	 */
-	public static create(value: string): Result<UrlValueObject> {
+	public static create(value: string): Result<UrlValueObject | null> {
 		if (!UrlValueObject.isValidProps(value)) {
 			return Result.fail(UrlValueObject.MESSAGE);
 		}

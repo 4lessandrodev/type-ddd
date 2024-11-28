@@ -18,19 +18,19 @@ describe('hex-color.value-object', () => {
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#ffffff');
 		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('#ffffff');
+		expect(valueObject.value()?.value()).toBe('#ffffff');
 	});
 
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#4eb7ac');
 		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('#4eb7ac');
+		expect(valueObject.value()?.value()).toBe('#4eb7ac');
 	});
 
 	it('should create a valid hex color and get value', () => {
 		const valueObject = HEXColorValueObject.create('#a78090');
 		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('#a78090');
+		expect(valueObject.value()?.value()).toBe('#a78090');
 	});
 
 	it('should fails if try to create an invalid rgb color', () => {
@@ -50,32 +50,32 @@ describe('hex-color.value-object', () => {
 
 	it('should get rgb as hex color', () => {
 		const valueObject = HEXColorValueObject.create('#ffffff').value();
-		expect(valueObject.getAsRGB()).toBe('rgb(255, 255, 255)');
+		expect(valueObject?.getAsRGB()).toBe('rgb(255, 255, 255)');
 	});
 
 	it('should get rgb as hex color', () => {
 		const valueObject = HEXColorValueObject.create('#CD5C5C').value();
-		expect(valueObject.getAsRGB()).toBe('rgb(205, 92, 92)');
+		expect(valueObject?.getAsRGB()).toBe('rgb(205, 92, 92)');
 	});
 
 	it('should get rgb as hex color', () => {
 		const valueObject = HEXColorValueObject.create('#dc143c').value();
-		expect(valueObject.getAsRGB()).toBe('rgb(220, 20, 60)');
+		expect(valueObject?.getAsRGB()).toBe('rgb(220, 20, 60)');
 	});
 
 	it('should get rgb as hex color', () => {
 		const valueObject = HEXColorValueObject.create('#8b0000').value();
-		expect(valueObject.getAsRGB()).toBe('rgb(139, 0, 0)');
+		expect(valueObject?.getAsRGB()).toBe('rgb(139, 0, 0)');
 	});
 
 	it('should get rgb as hex color', () => {
 		const valueObject = HEXColorValueObject.create('#ff0000').value();
-		expect(valueObject.getAsRGB()).toBe('rgb(255, 0, 0)');
+		expect(valueObject?.getAsRGB()).toBe('rgb(255, 0, 0)');
 	});
 
 	it('should get rgb as hex color', () => {
 		const valueObject = HEXColorValueObject.create('#000000').value();
-		expect(valueObject.getAsRGB()).toBe('rgb(0, 0, 0)');
+		expect(valueObject?.getAsRGB()).toBe('rgb(0, 0, 0)');
 	});
 
 	it('should generate a random hex color', () => {

@@ -45,7 +45,7 @@ export interface CloneProps {
  */
 export type ICanExecuteProxy<Data, Error> = IUseCase<
 	Data,
-	Result<boolean, Error>
+	Result<boolean | null, Error>
 >;
 /**
  * @description Method responsible for do something you want after run `execute` method
@@ -84,7 +84,10 @@ export type IAfterHookProxy<Payload, Error> = IUseCase<
  * // ...
  *
  */
-export type IBeforeHookProxy<Data, Error> = IUseCase<Data, Result<Data, Error>>;
+export type IBeforeHookProxy<Data, Error> = IUseCase<
+	Data,
+	Result<Data | null, Error>
+>;
 
 /**
  * @description Context parameters for a proxy class instance.

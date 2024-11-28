@@ -228,7 +228,7 @@ class CurrencyValueObject extends ValueObject<Prop> {
 	 * @param props object currency and value
 	 * @returns Result with instance of CurrencyValueObject
 	 */
-	public static create(props: Prop): Result<CurrencyValueObject> {
+	public static create(props: Prop): Result<CurrencyValueObject | null> {
 		const isValidCurrency = Object.keys(currency).includes(props.currency);
 		if (!isValidCurrency) {
 			return Result.fail(`${props.currency} is an invalid currency`);

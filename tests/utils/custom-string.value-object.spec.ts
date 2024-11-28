@@ -13,25 +13,25 @@ describe('custom-string.value-object', () => {
 	it('should get original string', () => {
 		const valueObject =
 			CustomStringValueObject.create('valid string').value();
-		expect(valueObject.value()).toBe('valid string');
+		expect(valueObject?.value()).toBe('valid string');
 	});
 
 	it('should get uppercase value', () => {
 		const valueObject =
 			CustomStringValueObject.create('valid string').value();
-		expect(valueObject.upperCaseValue).toBe('VALID STRING');
+		expect(valueObject?.upperCaseValue).toBe('VALID STRING');
 	});
 
 	it('should get lowercase value', () => {
 		const valueObject =
 			CustomStringValueObject.create('Valid String').value();
-		expect(valueObject.lowerCaseValue).toBe('valid string');
+		expect(valueObject?.lowerCaseValue).toBe('valid string');
 	});
 
 	it('should get capitalize value', () => {
 		const valueObject =
 			CustomStringValueObject.create('valid String').value();
-		expect(valueObject.capitalizeValue).toBe('Valid string');
+		expect(valueObject?.capitalizeValue).toBe('Valid string');
 	});
 
 	it('should fail if string is empty', () => {
@@ -58,15 +58,15 @@ describe('custom-string.value-object', () => {
 
 	it('should get custom validation from instance', () => {
 		const valueObject = CustomStringValueObject.create('123-abcd').value();
-		const validation = valueObject.customValidation;
-		expect(validation.VALIDATOR).toBeDefined();
-		expect(validation.MAX_LENGTH).toBeDefined();
-		expect(validation.MIN_LENGTH).toBeDefined();
+		const validation = valueObject?.customValidation;
+		expect(validation?.VALIDATOR).toBeDefined();
+		expect(validation?.MAX_LENGTH).toBeDefined();
+		expect(validation?.MIN_LENGTH).toBeDefined();
 	});
 
 	it('should be get string only numbers', () => {
 		const valueObject =
-			CustomStringValueObject.create('B2D05E00').value().onlyNumbers;
+			CustomStringValueObject.create('B2D05E00').value()?.onlyNumbers;
 		expect(valueObject).toBe('20500');
 	});
 
@@ -74,7 +74,7 @@ describe('custom-string.value-object', () => {
 		const valueObject = CustomStringValueObject.create(
 			'===[brazil(*-*)free]===',
 		);
-		expect(valueObject.value().removeSpecialChars).toBe('brazilfree');
+		expect(valueObject.value()?.removeSpecialChars).toBe('brazilfree');
 	});
 });
 

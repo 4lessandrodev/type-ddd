@@ -50,7 +50,7 @@ export class UnitOfMeasureValueObject extends ValueObject<Prop> {
 
 	public static create(
 		value: UnitOfMeasure,
-	): Result<UnitOfMeasureValueObject> {
+	): Result<UnitOfMeasureValueObject | null> {
 		const isValid = UnitOfMeasureValueObject.isValidProps(value);
 
 		if (!isValid) {

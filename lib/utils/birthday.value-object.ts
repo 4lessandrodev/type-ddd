@@ -66,7 +66,7 @@ export class BirthdayValueObject extends ValueObject<Prop> {
 		return isBeforeToday && hasLessThan121YearsOld;
 	}
 
-	public static create(value: Date): Result<BirthdayValueObject> {
+	public static create(value: Date): Result<BirthdayValueObject | null> {
 		if (!BirthdayValueObject.isValidValue(value)) {
 			return Result.fail(BirthdayValueObject.MESSAGE);
 		}

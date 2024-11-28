@@ -443,7 +443,7 @@ export class DateValueObject extends ValueObject<Prop> {
 		return instanceTime === time;
 	}
 
-	public static create(date?: Date): Result<DateValueObject> {
+	public static create(date?: Date): Result<DateValueObject | null> {
 		const value = date ?? new Date();
 		const isValid = DateValueObject.isValidProps(value);
 		if (!isValid) return Result.fail('Invalid Date Value');

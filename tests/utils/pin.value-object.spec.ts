@@ -13,19 +13,19 @@ describe('pin.value-object', () => {
 	it('should create a valid pin if provide an valid length', () => {
 		const pin = PinValueObject.create('AB-123');
 		expect(pin.isOk()).toBeTruthy();
-		expect(pin.value().value()).toHaveLength(6);
+		expect(pin.value()?.value()).toHaveLength(6);
 	});
 
 	it('should create a valid pin if not provide value', () => {
 		const pin = PinValueObject.create();
 		expect(pin.isOk()).toBeTruthy();
-		expect(pin.value().value()).toHaveLength(5);
+		expect(pin.value()?.value()).toHaveLength(5);
 	});
 
 	it('should generate default a valid pin', () => {
 		const pin = PinValueObject.generatePin();
 		expect(pin.isOk()).toBeTruthy();
-		expect(pin.value().value()).toHaveLength(5);
+		expect(pin.value()?.value()).toHaveLength(5);
 	});
 
 	it('should create a generatePin a valid pin with 3 digits', () => {
@@ -34,7 +34,7 @@ describe('pin.value-object', () => {
 			numbersLength: 3,
 		});
 		expect(pin.isOk()).toBeTruthy();
-		expect(pin.value().value()).toHaveLength(3);
+		expect(pin.value()?.value()).toHaveLength(3);
 	});
 
 	it('should create a valid pin with 15 length', () => {
@@ -43,6 +43,6 @@ describe('pin.value-object', () => {
 			numbersLength: 7,
 		});
 		expect(pin.isOk()).toBeTruthy();
-		expect(pin.value().value()).toHaveLength(15);
+		expect(pin.value()?.value()).toHaveLength(15);
 	});
 });

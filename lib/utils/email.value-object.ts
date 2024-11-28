@@ -65,7 +65,7 @@ export class EmailValueObject extends ValueObject<Prop> {
 		return isAvailable && !isBlockedDomain;
 	}
 
-	public static create(value: string): Result<EmailValueObject> {
+	public static create(value: string): Result<EmailValueObject | null> {
 		if (!EmailValueObject.isValidProps(value)) {
 			return Result.fail(EmailValueObject.MESSAGE);
 		}

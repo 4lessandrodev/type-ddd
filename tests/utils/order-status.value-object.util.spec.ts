@@ -12,13 +12,13 @@ describe('order-status.value-object', () => {
 	it('should create a valid status', () => {
 		const status = OrderStatusValueObject.create('IN_PREPARATION');
 		expect(status.isOk()).toBe(true);
-		expect(status.value().value()).toBe('IN_PREPARATION');
+		expect(status.value()?.value()).toBe('IN_PREPARATION');
 	});
 
 	it('should check if is on status', () => {
 		const status = OrderStatusValueObject.create('IN_PREPARATION').value();
-		expect(status.isOnStatus('IN_PREPARATION')).toBe(true);
-		expect(status.isOnStatus('DECLINED')).toBe(false);
+		expect(status?.isOnStatus('IN_PREPARATION')).toBe(true);
+		expect(status?.isOnStatus('DECLINED')).toBe(false);
 	});
 
 	it('should fail if try create an invalid status', () => {
