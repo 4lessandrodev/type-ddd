@@ -503,7 +503,7 @@ class Money extends ValueObject<number> {
 	 * @param value The initial value for the Money object.
 	 * @returns A Result object containing either a Money object or an error message.
 	 */
-	public static create(value: number): Result<Money> {
+	public static create(value: number): Result<Money | null> {
 		if (!Money.isValidProps(value)) {
 			return Result.fail(Money.MESSAGE);
 		}

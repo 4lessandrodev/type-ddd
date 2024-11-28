@@ -5856,10 +5856,10 @@ rfdc@^1.4.1:
   resolved "https://registry.yarnpkg.com/rfdc/-/rfdc-1.4.1.tgz#778f76c4fb731d93414e8f925fbecf64cce7f6ca"
   integrity sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==
 
-rich-domain@^1.23.4:
-  version "1.23.4"
-  resolved "https://registry.yarnpkg.com/rich-domain/-/rich-domain-1.23.4.tgz#14341114f0df36a137419d4bad0252f324b7c85f"
-  integrity sha512-k0KdYb84a+r7wwJz0a4QGIRDYu2LrA2bPEhXq2d4wqEIsRmTK/KCm/0hq3QYCZxqxh9Z9C/A/3N/X/TToL9EBA==
+rich-domain@^1.24.0:
+  version "1.24.0"
+  resolved "https://registry.yarnpkg.com/rich-domain/-/rich-domain-1.24.0.tgz#a0eabb0357c822daf9a39143d7355073fcbb97ed"
+  integrity sha512-gMXpnTxrfJeqWfosU6gouYG+rdPQ1BuK925vCB2Q5Ov+mxxzhIehftvLs6BhL8BZusDJn6JFfzvnIVh3fZmMVg==
 
 rimraf@^3.0.0, rimraf@^3.0.2:
   version "3.0.2"

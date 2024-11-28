@@ -120,7 +120,7 @@ class MobilePhone extends ValueObject<string> {
 	 * @example (XX) 9XXXX-XXXX
 	 * @returns Result of MobilePhoneValueObject
 	 */
-	public static create(value: string): Result<MobilePhone> {
+	public static create(value: string): Result<MobilePhone | null> {
 		if (!MobilePhone.isValidProps(value)) {
 			return Result.fail(MobilePhone.MESSAGE);
 		}

@@ -55,14 +55,14 @@ describe('email-value-object.util', () => {
 		const valueObject = EmailValueObject.create(
 			'Valid_EmaiL@Domain.Com',
 		).value();
-		expect(valueObject.value()).toBe('valid_email@domain.com');
+		expect(valueObject?.value()).toBe('valid_email@domain.com');
 	});
 
 	it('should create and get value from a valid email with success', () => {
 		const valueObject = EmailValueObject.create(
 			'valid_email@domain.com',
 		).value();
-		expect(valueObject.value()).toBe('valid_email@domain.com');
+		expect(valueObject?.value()).toBe('valid_email@domain.com');
 	});
 
 	it('should to be a valid email', () => {
@@ -70,7 +70,7 @@ describe('email-value-object.util', () => {
 			'test-email-124@domain.com',
 		);
 		expect(valueObject.isOk()).toBe(true);
-		expect(valueObject.value().value()).toBe('test-email-124@domain.com');
+		expect(valueObject.value()?.value()).toBe('test-email-124@domain.com');
 	});
 
 	it('should to be a valid email', () => {
@@ -78,7 +78,7 @@ describe('email-value-object.util', () => {
 			'test-some-value-12@domain.name',
 		);
 		expect(valueObject.isOk()).toBe(true);
-		expect(valueObject.value().value()).toBe(
+		expect(valueObject.value()?.value()).toBe(
 			'test-some-value-12@domain.name',
 		);
 	});
@@ -141,14 +141,14 @@ describe('email-value-object.util', () => {
 		const valueObject = EmailValueObject.create(
 			'username@domain.com',
 		).value();
-		expect(valueObject.nick()).toBe('username');
+		expect(valueObject?.nick()).toBe('username');
 	});
 
 	it('should get domain', () => {
 		const valueObject = EmailValueObject.create(
 			'username@domain.com',
 		).value();
-		expect(valueObject.domain()).toBe('domain.com');
+		expect(valueObject?.domain()).toBe('domain.com');
 	});
 
 	it('should create value object with success', () => {
@@ -156,7 +156,7 @@ describe('email-value-object.util', () => {
 			'username.nickname@domain.com',
 		);
 		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe(
+		expect(valueObject.value()?.value()).toBe(
 			'username.nickname@domain.com',
 		);
 	});
@@ -164,25 +164,25 @@ describe('email-value-object.util', () => {
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('rocio65@gmail.com');
 		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('rocio65@gmail.com');
+		expect(valueObject.value()?.value()).toBe('rocio65@gmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('user_nick2.0@hotmail.com');
 		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('user_nick2.0@hotmail.com');
+		expect(valueObject.value()?.value()).toBe('user_nick2.0@hotmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('rocio_65@gmail.com');
 		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('rocio_65@gmail.com');
+		expect(valueObject.value()?.value()).toBe('rocio_65@gmail.com');
 	});
 
 	it('should create value object with success', () => {
 		const valueObject = EmailValueObject.create('4you@gmail.com');
 		expect(valueObject.isOk()).toBeTruthy();
-		expect(valueObject.value().value()).toBe('4you@gmail.com');
+		expect(valueObject.value()?.value()).toBe('4you@gmail.com');
 	});
 
 	it('should fails if not provide a domain', () => {
@@ -211,13 +211,13 @@ describe('email-value-object.util', () => {
 
 	it('should get domain with success', () => {
 		const vo = EmailValueObject.create('my-email@domain.com').value();
-		expect(vo.domain()).toBe('domain.com');
+		expect(vo?.domain()).toBe('domain.com');
 	});
 
 	it('should get nick with success', () => {
 		const vo = EmailValueObject.create('my-email@domain.com').value();
-		expect(vo.get('value')).toBe('my-email@domain.com');
-		expect(vo.nick()).toBe('my-email');
+		expect(vo?.get('value')).toBe('my-email@domain.com');
+		expect(vo?.nick()).toBe('my-email');
 	});
 
 	it('should to be a valid domain', () => {

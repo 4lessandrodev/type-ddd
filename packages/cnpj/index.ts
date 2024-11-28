@@ -111,7 +111,7 @@ export class CNPJ extends ValueObject<string> {
 	 * @example "22398345000188"
 	 * @summary fails if provide an invalid pattern or a cnpj with invalid digit sum
 	 */
-	public static create(value: string): Result<CNPJ> {
+	public static create(value: string): Result<CNPJ | null> {
 		const isValidValue = CNPJ.isValidProps(value);
 
 		if (!isValidValue) {

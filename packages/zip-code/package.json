@@ -1,7 +1,7 @@
 {
   "name": "@type-ddd/zip-code",
   "description": "This package provides TypeScript type definitions for handling Brazilian Zip Code in Domain-Driven Design contexts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
@@ -31,7 +31,7 @@
     "build": "tsc"
   },
   "peerDependencies": {
-    "rich-domain": "^1.23.4"
+    "rich-domain": "^1.24.0"
   },
   "files": [
     "index.js",

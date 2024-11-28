@@ -69,21 +69,21 @@ describe('home-phone.value-object', () => {
 	it('should get value', () => {
 		const valueObject =
 			MobilePhoneValueObject.create('(71) 98254-1211').value();
-		expect(valueObject.value()).toBe('71982541211');
-		expect(valueObject.toPattern()).toBe('(71) 98254-1211');
+		expect(valueObject?.value()).toBe('71982541211');
+		expect(valueObject?.toPattern()).toBe('(71) 98254-1211');
 	});
 
 	it('should get only numbers value', () => {
 		const valueObject =
 			MobilePhoneValueObject.create('(71) 96254-1211').value();
-		expect(valueObject.number()).toBe('962541211');
-		expect(valueObject.toCall()).toBe('071962541211')
+		expect(valueObject?.number()).toBe('962541211');
+		expect(valueObject?.toCall()).toBe('071962541211')
 	});
 
 	it('should get only DDD number', () => {
 		const valueObject =
 			MobilePhoneValueObject.create('(71) 97254-1211').value();
-		expect(valueObject.code()).toBe(71);
+		expect(valueObject?.code()).toBe(71);
 	});
 
 	it('should init an instance with success', () => {

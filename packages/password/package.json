@@ -1,7 +1,7 @@
 {
   "name": "@type-ddd/password",
   "description": "Library that provides TypeScript type definitions for handling Password in Domain-Driven Design contexts. It facilitates the validation and manipulation of passwords.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
@@ -35,7 +35,7 @@
   },
   "peerDependencies": {
     "bcrypt": "^5.0.1",
-    "rich-domain": "^1.23.4"
+    "rich-domain": "^1.24.0"
   },
   "files": [
     "index.js",

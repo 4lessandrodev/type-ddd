@@ -72,7 +72,7 @@ export class Email extends ValueObject<string> {
 		return new Email(value.toLowerCase());
 	}
 
-	public static create(value: string): Result<Email> {
+	public static create(value: string): Result<Email | null> {
 		if (!Email.isValidProps(value)) {
 			return Result.fail(Email.MESSAGE);
 		}

@@ -261,7 +261,7 @@ export default class Money extends ValueObject<Props> {
     }
 
     // factory method to create an instance and validate value.
-    public static create(amount: number): Result<Money> {
+    public static create(amount: number): Result<Money | null> {
 
         const isValid = this.isValidProps({ amount });
         if(!isValid) return Fail("Invalid amount for money");
@@ -286,7 +286,7 @@ console.log(resA.isOk());
 
 
 // money instance
-const moneyA = resA.value();
+const moneyA = resA.value() as Money;
 
 moneyA.get("amount"); 
 
@@ -297,7 +297,7 @@ moneyA.isGt(Money.zero());
 
 // > true
 
-const moneyB = Money.create(100).value();
+const moneyB = Money.create(100).value() as Money;
 
 const moneyC = moneyA.sum(moneyB);
 
@@ -364,12 +364,12 @@ How to use entity instance
 ```ts
 
 // operation result
-const total = Money.create(500).value();
+const total = Money.create(500).value() as Money;
 const discount = Money.zero();
 const fees = Money.zero();
 
 // create a payment
-const payment = Payment.create({ total, discount, fees }).value();
+const payment = Payment.create({ total, discount, fees }).value() as Payment;
 
 // create fee and discount
 const fee = Money.create(17.50).value();
