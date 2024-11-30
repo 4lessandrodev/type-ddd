@@ -60,7 +60,7 @@
 		"bcrypt": "^5.0.1",
 		"pino": "^9.5.0",
 		"pino-pretty": "^11.3.0",
-		"rich-domain": "^1.24.0"
+		"rich-domain": "^1.24.1"
 	},
 	"devDependencies": {
 		"@microsoft/tsdoc": "^0.14.1",
