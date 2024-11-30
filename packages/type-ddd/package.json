@@ -23,7 +23,7 @@
     "@type-ddd/phone": "^0.0.3",
     "@type-ddd/username": "^0.0.3",
     "@type-ddd/zip-code": "^0.0.3",
-    "rich-domain": "^1.24.0"
+    "rich-domain": "^1.24.1"
   },
   "files": [
     "index.js",
