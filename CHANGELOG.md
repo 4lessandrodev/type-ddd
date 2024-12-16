@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [4.1.0-beta] - 2024-12-15
+
+#### Feat
+
+- Atualizando lib core para versão beta
+- rich-domain v1.25.0-beta
+
 ## Released
 
 ---

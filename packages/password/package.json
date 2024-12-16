@@ -35,7 +35,7 @@
   },
   "peerDependencies": {
     "bcrypt": "^5.0.1",
-    "rich-domain": "^1.24.1"
+    "rich-domain": "^1.25.0-beta"
   },
   "files": [
     "index.js",

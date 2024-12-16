@@ -41,7 +41,6 @@
 		"prepublish:lib": "rimraf ./dist && npm run check:circular-deps",
 		"publish:lib": "npm publish",
 		"format:all": "npx prettier --write .",
-		"prepare": "husky install",
 		"check:types": "tsc -v packages --noEmit"
 	},
 	"repository": {
@@ -53,7 +52,7 @@
 	},
 	"homepage": "https://github.com/4lessandrodev/type-ddd/tree/main",
 	"peerDependencies": {
-		"rich-domain": "^1.24.1"
+		"rich-domain": "^1.25.0-beta"
 	},
 	"devDependencies": {
 		"@types/jest": "^27.0.1",
@@ -65,7 +64,7 @@
 		"lint-staged": "^15.0.1",
 		"madge": "^8.0.0",
 		"prettier": "^3.0.0",
-		"rich-domain": "^1.24.1",
+		"rich-domain": "1.25.0-beta",
 		"rimraf": "^5.0.5",
 		"ts-jest": "^27.1.4",
 		"ts-node": "^10.7.0",
