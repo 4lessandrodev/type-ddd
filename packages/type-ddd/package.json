@@ -1,7 +1,7 @@
 {
   "name": "@type-ddd/core",
   "description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
-  "version": "0.0.6",
+  "version": "0.0.7-alpha.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
@@ -13,16 +13,16 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@type-ddd/cnpj": "^0.0.3",
-    "@type-ddd/cpf": "^0.0.3",
-    "@type-ddd/date": "^0.0.3",
-    "@type-ddd/email": "^0.0.4",
-    "@type-ddd/money": "^0.0.3",
-    "@type-ddd/password": "^0.0.4",
-    "@type-ddd/patterns": "^0.0.3",
-    "@type-ddd/phone": "^0.0.3",
-    "@type-ddd/username": "^0.0.3",
-    "@type-ddd/zip-code": "^0.0.3",
+    "@type-ddd/cnpj": "^0.0.4-alpha.0",
+    "@type-ddd/cpf": "^0.0.4-alpha.0",
+    "@type-ddd/date": "^0.0.4-alpha.0",
+    "@type-ddd/email": "^0.0.5-alpha.0",
+    "@type-ddd/money": "^0.0.4-alpha.0",
+    "@type-ddd/password": "^0.0.5-alpha.0",
+    "@type-ddd/patterns": "^0.0.4-alpha.0",
+    "@type-ddd/phone": "^0.0.4-alpha.0",
+    "@type-ddd/username": "^0.0.4-alpha.0",
+    "@type-ddd/zip-code": "^0.0.4-alpha.0",
     "rich-domain": "^1.24.1"
   },
   "files": [
