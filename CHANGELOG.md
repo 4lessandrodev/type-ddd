@@ -6,15 +6,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-### [3.11.0-beta] - 2024-12-15
+## Released
+
+---
+
+### [3.11.0] - 2024-12-17
 
 ### Fix
 
 - Fix: update rich-domain to v1.25.0-beta
-
----
-
-## Released
 
 ---
 
