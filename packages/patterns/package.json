@@ -1,7 +1,7 @@
 {
   "name": "@type-ddd/patterns",
   "description": "This package provide utils file and interfaces to assistant build a complex application with domain driving design",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
@@ -32,7 +32,7 @@
     "build": "tsc"
   },
   "peerDependencies": {
-    "rich-domain": "^1.24.1"
+    "rich-domain": "^1.25.0"
   },
   "files": [
     "index.js",

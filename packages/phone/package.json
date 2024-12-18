@@ -1,7 +1,7 @@
 {
   "name": "@type-ddd/phone",
   "description": "Library that provides TypeScript type definitions for handling Phone Numbers in Domain-Driven Design contexts. It facilitates the validation and manipulation of Brazilian phone numbers.",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "main": "index.js",
   "types": "index.d.ts",
   "author": "Alessandro Dev",
@@ -31,7 +31,7 @@
     "build": "tsc"
   },
   "peerDependencies": {
-    "rich-domain": "^1.24.1"
+    "rich-domain": "^1.25.0"
   },
   "files": [
     "index.js",

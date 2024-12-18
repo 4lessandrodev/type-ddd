@@ -10,6 +10,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [4.1.0] - 2024-12-15
+
+#### Feat
+
+- Atualizando lib core para nova versão
+- rich-domain v1.25.0
+
+---
+
 ### [4.0.5] - 2024-11-28
 
 ### Fix
