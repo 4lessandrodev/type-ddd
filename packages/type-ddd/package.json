@@ -13,17 +13,17 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@type-ddd/cnpj": "^0.0.4-alpha.0",
-    "@type-ddd/cpf": "^0.0.4-alpha.0",
-    "@type-ddd/date": "^0.0.4-alpha.0",
-    "@type-ddd/email": "^0.0.5-alpha.0",
-    "@type-ddd/money": "^0.0.4-alpha.0",
-    "@type-ddd/password": "^0.0.5-alpha.0",
-    "@type-ddd/patterns": "^0.0.4-alpha.0",
-    "@type-ddd/phone": "^0.0.4-alpha.0",
-    "@type-ddd/username": "^0.0.4-alpha.0",
-    "@type-ddd/zip-code": "^0.0.4-alpha.0",
-    "rich-domain": "^1.25.0-beta"
+    "@type-ddd/cnpj": "^0.0.4",
+    "@type-ddd/cpf": "^0.0.4",
+    "@type-ddd/date": "^0.0.4",
+    "@type-ddd/email": "^0.0.5",
+    "@type-ddd/money": "^0.0.4",
+    "@type-ddd/password": "^0.0.5",
+    "@type-ddd/patterns": "^0.0.4",
+    "@type-ddd/phone": "^0.0.4",
+    "@type-ddd/username": "^0.0.4",
+    "@type-ddd/zip-code": "^0.0.4",
+    "rich-domain": "^1.25.0"
   },
   "files": [
     "index.js",
