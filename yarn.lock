@@ -1212,36 +1212,6 @@
   dependencies:
     tslib "^2.4.0"
 
-"@type-ddd/cnpj@^0.0.4":
-  version "0.0.4-alpha.0"
-
-"@type-ddd/cpf@^0.0.4":
-  version "0.0.4-alpha.0"
-
-"@type-ddd/date@^0.0.4":
-  version "0.0.4-alpha.0"
-
-"@type-ddd/email@^0.0.5":
-  version "0.0.5-alpha.0"
-
-"@type-ddd/money@^0.0.4":
-  version "0.0.4-alpha.0"
-
-"@type-ddd/password@^0.0.5":
-  version "0.0.5-alpha.0"
-
-"@type-ddd/patterns@^0.0.4":
-  version "0.0.4-alpha.0"
-
-"@type-ddd/phone@^0.0.4":
-  version "0.0.4-alpha.0"
-
-"@type-ddd/username@^0.0.4":
-  version "0.0.4-alpha.0"
-
-"@type-ddd/zip-code@^0.0.4":
-  version "0.0.4-alpha.0"
-
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14":
   version "7.20.5"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.5.tgz#3df15f27ba85319caa07ba08d0721889bb39c017"
