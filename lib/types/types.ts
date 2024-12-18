@@ -1,30 +1,23 @@
 import {
 	IUseCase,
-	IResultHook,
+	UseCase,
 	EntityMapperPayload,
 	IAdapter,
-	IAggregate,
-	IAutoMapper,
-	IPropsValidation,
+	PropsValidation,
 	EventHandler,
+	Command,
 } from 'rich-domain/types';
 import { Result } from '../core';
 import {
 	UID,
 	OBJ,
-	IValueObject,
+	_ValueObject,
 	ITeratorConfig,
-	ISettings,
+	Settings,
 	IResultOptions,
-	IResultObject,
+	ResultObject,
 } from 'rich-domain/types';
-import {
-	IResultExecute,
-	IResult,
-	IPublicHistory,
-	ICommand,
-} from 'rich-domain/types';
-import { IProxy, IIterator, IHistory, IEntityHistory } from 'rich-domain/types';
+import { ResultExecute, IResult, ICommand } from 'rich-domain/types';
 import { IParentName } from 'rich-domain/types';
 
 export interface CloneProps {
@@ -138,28 +131,22 @@ type Filter<T = {}> = {
 export default Filter;
 export {
 	Filter,
-	IResultHook,
+	UseCase,
 	EntityMapperPayload,
 	IAdapter,
-	IAggregate,
-	IAutoMapper,
 	UID,
 	OBJ,
-	IValueObject,
+	_ValueObject,
 	ITeratorConfig,
-	ISettings,
+	Settings,
 	IResultOptions,
-	IResultObject,
-	IResultExecute,
+	ResultObject,
+	ResultExecute,
 	IResult,
-	IPublicHistory,
 	ICommand,
-	IProxy,
-	IIterator,
-	IHistory,
-	IEntityHistory,
+	Command,
 	IParentName,
 	IUseCase,
-	IPropsValidation,
+	PropsValidation,
 	EventHandler,
 };
