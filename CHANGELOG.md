@@ -14,8 +14,8 @@ All notable changes to this project will be documented in this file.
 
 #### Feat
 
-- Atualizando lib core para versão beta
-- rich-domain v1.25.0-beta
+- Atualizando lib core para nova versão
+- rich-domain v1.25.0
 
 ---
 
