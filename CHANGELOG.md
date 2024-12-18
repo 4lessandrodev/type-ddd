@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fix
 
-- Fix: update rich-domain to v1.25.0-beta
+- Fix: update rich-domain to v1.25.0
 
 ---
 
