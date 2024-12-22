@@ -10,6 +10,13 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+### [3.11.1] - 2024-12-22
+
+### Fix
+
+- Fix: update rich-domain to v1.25.1
+---
+
 ### [3.11.0] - 2024-12-17
 
 ### Fix
